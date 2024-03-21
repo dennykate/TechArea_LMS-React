@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRoutes } from "react-router-dom";
 import publicRoutes from "./publicRoutes";
-import _privateRoutes from "./privateRoutes";
+import _rivateRoutes from "./privateRoutes";
 
 const routes = () => {
-  const isAuth = true;
+  const isAuth = false;
 
-  const privateRoutes = isAuth ? _privateRoutes : [];
+  const routes = isAuth ? _rivateRoutes : publicRoutes;
 
-  const element = useRoutes([...publicRoutes, ...privateRoutes]);
+  const element = useRoutes(routes);
 
   return <>{element}</>;
 };
