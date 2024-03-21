@@ -29,7 +29,7 @@ const TextInputComponent = ({
       className="w-full"
       placeholder={placeholder}
       classNames={{
-        label: `sm:text-[14px] text-[12px] mb-2`,
+        label: `sm:text-[14px] text-[12px] mb-[2px]`,
       }}
       value={value}
       defaultValue={defaultValue}
