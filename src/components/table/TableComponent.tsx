@@ -1,0 +1,281 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// import { useState } from "react";
+import { Dispatch, useCallback, useEffect, useMemo, useState } from "react";
+import moment, { Moment } from "moment/moment";
+import { IconType } from "react-icons/lib";
+import { useNavigate } from "react-router-dom";
+import { useDebouncedState, useMediaQuery } from "@mantine/hooks";
+import {
+  Table,
+  TextInput,
+  NumberInput,
+  ActionIcon,
+  Pagination,
+  Loader,
+} from "@mantine/core";
+import { IoSearch } from "react-icons/io5";
+import { SiMicrosoftexcel } from "react-icons/si";
+
+import DateRangePickerComponent from "./DateRangePickerComponent";
+import useQuery from "@/hooks/useQuery";
+import useDisableUI from "@/hooks/useDisableUI";
+import useExcelExport from "@/hooks/useExcelExport";
+import MyButton from "../buttons/MyButton";
+
+interface PropsType {
+  rows: JSX.Element[];
+  Icon?: IconType;
+  title?: string;
+  tableHeads: string[];
+  addNewRoute?: string;
+  addNewLabel?: string;
+  search?: boolean;
+  limit?: boolean;
+  limitOnly?: boolean;
+  dateRangePicker?: boolean;
+  checkboxCol?: boolean;
+  disableShadow?: boolean;
+  actions?: boolean;
+  titleSection?: boolean;
+  pagination?: boolean;
+  baseUrl?: string;
+  filter?: string;
+  setData?: Dispatch<any>;
+  hideRoles?: string[];
+  excelData?: any[];
+  disableTablePadding?: boolean;
+}
+
+const TableComponent = ({
+  title,
+  tableHeads,
+  rows,
+  Icon,
+  addNewRoute,
+  addNewLabel = "အသစ်ထည့်မည်",
+  search = true,
+  limit = true,
+  limitOnly = true,
+  dateRangePicker = false,
+  checkboxCol = true,
+  disableShadow,
+  actions = true,
+  titleSection = true,
+  pagination = true,
+  disableTablePadding = false,
+  baseUrl,
+  filter = "",
+  setData,
+  hideRoles = [""],
+  excelData,
+}: PropsType) => {
+  const [page, setPage] = useState<number>(1);
+  const [dataLimit, setDataLimit] = useDebouncedState<number>(20, 500);
+  const [dataSearch, setDataSearch] = useDebouncedState<string>("", 500);
+  const [dateRange, setDateRange] = useState<{ start: Moment; end: Moment }>({
+    start: moment()
+      .subtract(moment().year() - 2000, "year")
+      .startOf("year"),
+    end: moment(),
+  });
+  const check = useDisableUI();
+
+  const excelFileName = useMemo(
+    () =>
+      title +
+      `-စာမျက်နှာ-${page}-ခုရေ-${dataLimit}-${Math.floor(
+        Math.random() * 1000000
+      )}`,
+    [title, page, dataLimit]
+  );
+
+  const { excelExport } = useExcelExport(excelFileName);
+
+  const url = useMemo(
+    () =>
+      `/${baseUrl}?page=${page}&limit=${dataLimit}${
+        dataSearch ? `&search=${dataSearch}` : ""
+      }${
+        dateRangePicker
+          ? `&start_date=${dateRange.start.format(
+              "YYYY-MM-DD"
+            )}&end_date=${dateRange.end.format("YYYY-MM-DD")}`
+          : ""
+      }${filter}`,
+    [page, dataLimit, dataSearch, dateRange, filter, baseUrl]
+  );
+
+  const { isLoading, total, data } = useQuery(
+    url,
+    setData,
+    baseUrl === undefined
+  );
+
+  const resetPage = useCallback(
+    () => setPage(1),
+    [dataLimit, dataSearch, dateRange, filter]
+  );
+
+  useEffect(() => resetPage(), [resetPage]);
+
+  const matches = useMediaQuery("(min-width: 768px)");
+  const navigate = useNavigate();
+
+  const heads = useMemo(
+    () =>
+      tableHeads?.map((head, index) => (
+        <th key={index} className="m_th">
+          {head}
+        </th>
+      )),
+    [tableHeads]
+  );
+
+  return (
+    <div
+      className={` max-w-full rounded-[5px] bg-white ${
+        !disableShadow && "shadow-md border "
+      }`}
+    >
+      {titleSection && (
+        <div className="sm:p-5 p-2 py-3 border-b border-black border-opacity-20 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            {Icon && <Icon className="sm:text-[22px] text-[20px]" />}
+            <p className="font-medium sm:text-lg text-base">{title} </p>
+          </div>
+
+          {addNewRoute &&
+            check(
+              ["cashier", "manager"].filter((role) => !hideRoles.includes(role))
+            ) && (
+              <MyButton
+                onClick={() => navigate(addNewRoute)}
+                className="!w-[140px] sm:text-base text-sm"
+              >
+                {addNewLabel}
+              </MyButton>
+            )}
+        </div>
+      )}
+
+      <div className={`${!disableTablePadding && "sm:p-4 p-2"}`}>
+        {(search || limit) && (
+          <div
+            className="w-full flex lg:justify-between lg:items-center items-end lg:mb-4 mb-2 lg:flex-row 
+      flex-col-reverse gap-2"
+          >
+            {search ? (
+              <TextInput
+                placeholder={"ရှာရန်"}
+                classNames={{
+                  input: "h-[40px] w-full",
+                  root: "sm:w-[350px] w-full",
+                }}
+                defaultValue={dataSearch}
+                onChange={(e) => setDataSearch(e.target.value)}
+                icon={<IoSearch className="text-xl" />}
+              />
+            ) : (
+              <div></div>
+            )}
+
+            {limit && (
+              <div className="flex  sm:items-center items-end  gap-3 sm:flex-row flex-col-reverse sm:w-auto w-full sm:justify-center justify-between">
+                {dateRangePicker && (
+                  <DateRangePickerComponent
+                    dateRange={dateRange}
+                    setDateRange={setDateRange}
+                  />
+                )}
+                <div className="flex items-center gap-6 ">
+                  {limitOnly && (
+                    <div className="flex items-center gap-2">
+                      <p className="-translate-y-[2px] text-base">
+                        ပြသမည့်ခုရေ
+                      </p>
+
+                      <NumberInput
+                        defaultValue={dataLimit}
+                        onChange={(e) => setDataLimit(parseInt(e as string))}
+                        min={0}
+                        max={100}
+                        classNames={{
+                          wrapper: "w-[70px] h-full",
+                          input: "text-base",
+                        }}
+                      />
+                    </div>
+                  )}
+
+                  <div className="flex items-center sm:gap-4 gap-2">
+                    <ActionIcon
+                      disabled={data?.length === 0}
+                      onClick={() => excelExport(excelData || data)}
+                      className={`${data?.length === 0 && "grayscale"}`}
+                    >
+                      <SiMicrosoftexcel className="sm:text-3xl text-2xl text-green-700" />
+                    </ActionIcon>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="w-full overflow-x-auto rounded-[5px]">
+          <Table striped highlightOnHover withBorder>
+            <thead>
+              <tr className="!bg-primary-500  !h-[50px]">
+                {checkboxCol && <th className="!w-[50px]"></th>}
+
+                <th className="!w-[80px] font-[500] px-2 text-start">စဥ်</th>
+
+                {heads}
+
+                {actions && <th className="m_th">လုပ်ဆောင်ချက်များ</th>}
+              </tr>
+            </thead>
+
+            <tbody>
+              {isLoading ? (
+                <tr>
+                  <td colSpan={heads.length + 5}>
+                    <div className="w-full h-[40px] flex justify-center items-center gap-2">
+                      <Loader size="xs" /> <p>လုပ်ဆောင်နေပါသည် ...</p>
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                (rows?.length === 0 || (!isLoading && !rows)) && (
+                  <tr>
+                    <td colSpan={heads.length + 5}>
+                      <div className="w-full h-[40px] flex justify-center items-center gap-2">
+                        <p>ပြသရန်မရှိပါ</p>
+                      </div>
+                    </td>
+                  </tr>
+                )
+              )}
+
+              {!isLoading && rows}
+            </tbody>
+          </Table>
+        </div>
+
+        {pagination && (
+          <div className="w-full flex justify-end sm:mt-4 mt-2">
+            <Pagination
+              value={page}
+              onChange={(e) => setPage(e)}
+              total={total || 0}
+              siblings={1}
+              size={matches ? "md" : "sm"}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default TableComponent;

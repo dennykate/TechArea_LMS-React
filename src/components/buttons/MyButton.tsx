@@ -1,7 +1,8 @@
-import { Button, ButtonProps } from "@mantine/core";
+import { Button } from "@mantine/core";
+import { HTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface PropsType extends ButtonProps {
+interface PropsType extends HTMLAttributes<HTMLButtonElement> {
   className?: string;
   children: React.ReactNode;
 }
