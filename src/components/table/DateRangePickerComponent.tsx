@@ -7,7 +7,6 @@ interface PropsType {
   dateRange: {
     start: Moment;
     end: Moment;
-    
   };
   setDateRange: Dispatch<
     SetStateAction<{
