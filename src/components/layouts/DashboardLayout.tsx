@@ -1,13 +1,13 @@
 import { useDisclosure } from "@mantine/hooks";
 
-import NavBar from "./navBar/NavBar";
-import SideBar from "./sideBar/SideBar";
+import NavBar from "../navBar/NavBar";
+import SideBar from "../sideBar/SideBar";
 
 interface PropsType {
   children: React.ReactNode;
 }
 
-const Layout = ({ children }: PropsType) => {
+const DashboardLayout = ({ children }: PropsType) => {
   const [opened, { toggle }] = useDisclosure(true);
 
   return (
@@ -27,4 +27,4 @@ const Layout = ({ children }: PropsType) => {
   );
 };
 
-export default Layout;
+export default DashboardLayout;

@@ -1,43 +1,48 @@
 import { lazy } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
+import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Wrapper } from "@/components";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
-const ProductList = lazy(() => import("@/features/products/list/List"));
-const ProductCreate = lazy(() => import("@/features/products/create/Create"));
+const UserCreate = lazy(() => import("@/features/users/create/Create"));
+const UserList = lazy(() => import("@/features/users/list/List"));
+
+const WithDashboardLayout = () => {
+  return (
+    <DashboardLayout>
+      <Wrapper>
+        <Outlet />
+      </Wrapper>
+    </DashboardLayout>
+  );
+};
 
 const privateRoutes = [
   {
-    path: "/dashboard",
-    element: (
-      <Wrapper>
-        <Dashboard />
-      </Wrapper>
-    ),
-  },
-  {
-    path: "/products",
+    path: "",
+    element: <WithDashboardLayout />,
     children: [
       {
-        path: "list",
-        element: (
-          <Wrapper>
-            <ProductList />
-          </Wrapper>
-        ),
+        path: "/dashboard",
+        element: <Dashboard />,
       },
       {
-        path: "create",
-        element: (
-          <Wrapper>
-            <ProductCreate />
-          </Wrapper>
-        ),
-      },
-      {
-        path: "*",
-        element: <Navigate to="list" />,
+        path: "/users",
+        children: [
+          {
+            path: "list",
+            element: <UserList />,
+          },
+          {
+            path: "create",
+            element: <UserCreate />,
+          },
+          {
+            path: "*",
+            element: <Navigate to="list" />,
+          },
+        ],
       },
     ],
   },

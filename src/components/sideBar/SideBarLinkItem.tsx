@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { Text } from "@mantine/core";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface PropsType {
   link: {
@@ -15,16 +14,15 @@ const SideBarLinkItem = ({ link }: PropsType) => {
   const isActiveTab = useMemo(() => pathname === link.link, [pathname]);
 
   return (
-    <Text
-      component="a"
+    <Link
       className={`font-[400] block text-[14px] px-7 py-3 border-l border-black border-opacity-10
    ml-7 lg:text-sm text-xs ${
      isActiveTab ? "text-primary-500 " : "hover:bg-gray-100"
    }`}
-      href={link.link}
+      to={link.link}
     >
       {link.label}
-    </Text>
+    </Link>
   );
 };
 

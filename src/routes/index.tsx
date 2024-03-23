@@ -4,7 +4,7 @@ import publicRoutes from "./publicRoutes";
 import _rivateRoutes from "./privateRoutes";
 
 const routes = () => {
-  const isAuth = false;
+  const isAuth = true;
 
   const routes = isAuth ? _rivateRoutes : publicRoutes;
 

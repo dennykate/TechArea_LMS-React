@@ -5,7 +5,7 @@ interface PropsType {
 }
 
 const Wrapper = ({ children }: PropsType) => {
-  return <Suspense fallback={<></>}>{children}</Suspense>;
+  return <Suspense fallback={<>Loading...</>}>{children}</Suspense>;
 };
 
 export default Wrapper;

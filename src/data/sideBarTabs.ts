@@ -1,5 +1,4 @@
-import { MdDashboard } from "react-icons/md";
-import { IoIosConstruct } from "react-icons/io";
+import { MdDashboard, MdPeople } from "react-icons/md";
 
 const sideBarTabs = [
   {
@@ -9,13 +8,13 @@ const sideBarTabs = [
     link: "/dashboard",
   },
   {
-    label: "Products",
-    icon: IoIosConstruct,
+    label: "Users",
+    icon: MdPeople,
     initiallyOpened: false,
     link: undefined,
     links: [
-      { label: "List", link: "/products/list" },
-      { label: "Create Product", link: "/products/create" },
+      { label: "List", link: "/users/list" },
+      { label: "Create User", link: "/users/create" },
     ],
   },
 ];
