@@ -8,13 +8,13 @@ const sideBarTabs = [
     link: "/dashboard",
   },
   {
-    label: "Users",
+    label: "Students",
     icon: MdPeople,
     initiallyOpened: false,
     link: undefined,
     links: [
-      { label: "List", link: "/users/list" },
-      { label: "Create User", link: "/users/create" },
+      { icon: MdPeople, label: "List", link: "/students/list" },
+      { icon: MdPeople, label: "Create Student", link: "/students/create" },
     ],
   },
 ];

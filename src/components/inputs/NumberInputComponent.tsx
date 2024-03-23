@@ -25,7 +25,7 @@ const NumberInputComponent = ({
       defaultValue={1.0}
       min={0}
       classNames={{
-        label: `sm:text-[16px] text-[14px] mb-2`,
+        label: `sm:text-[16px] text-[14px] mb-1`,
       }}
       value={value ? parseInt(value as unknown as string) : 0}
       onChange={onChangeHandler}

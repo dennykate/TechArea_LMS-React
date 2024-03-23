@@ -27,6 +27,7 @@ const SelectComponent = ({
   name,
   defaultValue,
   defaultValueForMultiple,
+  withAsterisk,
 }: PropsType) => {
   return (
     <>
@@ -36,7 +37,7 @@ const SelectComponent = ({
           label={label}
           placeholder={placeholder}
           classNames={{
-            label: `sm:text-[16px] text-[14px] mb-2`,
+            label: `sm:text-[16px] text-[14px] mb-1`,
             searchInput: "!border-none !outline-none ",
           }}
           data={data}
@@ -44,6 +45,7 @@ const SelectComponent = ({
           value={valueForMultiple}
           onChange={onChangeHandler}
           {...form?.getInputProps(name as string)}
+          withAsterisk={withAsterisk}
         />
       ) : (
         <Select
@@ -51,13 +53,14 @@ const SelectComponent = ({
           label={label}
           placeholder={placeholder}
           classNames={{
-            label: `sm:text-[16px] text-[14px] mb-2`,
+            label: `sm:text-[16px] text-[14px] mb-1`,
           }}
           data={data}
           searchable
           value={value}
           onChange={(e) => onChangeHandler && onChangeHandler(e as string)}
           {...form?.getInputProps(name as string)}
+          withAsterisk={withAsterisk}
         />
       )}
     </>

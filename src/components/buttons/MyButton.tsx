@@ -1,15 +1,27 @@
-import { Button } from "@mantine/core";
+import { Button, ButtonProps } from "@mantine/core";
 import { HTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface PropsType extends HTMLAttributes<HTMLButtonElement> {
+interface PropsType
+  extends Omit<ButtonProps, "color">,
+    Omit<HTMLAttributes<HTMLButtonElement>, "color"> {
   className?: string;
   children: React.ReactNode;
+  color?: ButtonProps["color"] | HTMLAttributes<HTMLButtonElement>["color"];
 }
 
-const MyButton: React.FC<PropsType> = ({ className, children, ...props }) => {
+const MyButton: React.FC<PropsType> = ({
+  className,
+  children,
+  variant,
+  ...props
+}) => {
   return (
-    <Button {...props} className={twMerge("bg-blue-500 w-full", className)}>
+    <Button
+      {...props}
+      variant={variant}
+      className={twMerge("w-full", className, !variant && "bg-blue-500")}
+    >
       {children}
     </Button>
   );

@@ -2,7 +2,13 @@
 import { Textarea } from "@mantine/core";
 import { InputProps } from "./types/type";
 
-const TextAreaComponent = ({ label, placeholder, name, form }: InputProps) => {
+const TextAreaComponent = ({
+  label,
+  placeholder,
+  name,
+  form,
+  withAsterisk,
+}: InputProps) => {
   return (
     <Textarea
       label={label}
@@ -10,6 +16,7 @@ const TextAreaComponent = ({ label, placeholder, name, form }: InputProps) => {
       minRows={2}
       classNames={{ label: `sm:text-[16px] text-[14px] mb-2` }}
       {...form?.getInputProps(name as string)}
+      withAsterisk={withAsterisk}
     />
   );
 };

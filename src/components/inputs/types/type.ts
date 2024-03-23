@@ -7,4 +7,5 @@ export interface InputProps {
   name?: string;
   form?: UseFormReturnType<any>;
   defaultValue?: string;
+  withAsterisk?: boolean;
 }

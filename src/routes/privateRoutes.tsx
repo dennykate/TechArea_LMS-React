@@ -28,7 +28,7 @@ const privateRoutes = [
         element: <Dashboard />,
       },
       {
-        path: "/users",
+        path: "/students",
         children: [
           {
             path: "list",

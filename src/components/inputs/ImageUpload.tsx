@@ -7,12 +7,14 @@ interface PropsType {
   label: string;
   setFile: Dispatch<SetStateAction<File | undefined>>;
   defaultImage?: string;
+  withAsterisk?: boolean;
 }
 
 export default function ImageUpload({
   label,
   setFile,
   defaultImage,
+  withAsterisk,
 }: PropsType) {
   // const { locale } = useLanguage();
 
@@ -38,7 +40,9 @@ export default function ImageUpload({
 
   return (
     <div className="flex flex-col justify-center items-center md:justify-start md:items-start">
-      <p className="sm:text-[16px] text-[14px] font-medium mb-1">{label}</p>
+      <p className="sm:text-[16px] text-[14px] font-medium mb-1">
+        {label} {withAsterisk && <span className="text-red-400">*</span>}
+      </p>
       <ImageUploading
         value={images}
         onChange={onChange}
@@ -67,10 +71,9 @@ export default function ImageUpload({
               ))
             ) : (
               <>
-                <IoImagesOutline className="text-primary-500" size={22} />
+                <IoImagesOutline className="text-primary-500" size={32} />
                 <p className="text-center sm:text-[16px] text-[14px]">
-                  ဆွဲ၍ထည့်ပါ <br /> သို့ &nbsp;
-                  <span className=" text-primary-500">‌ရွေးချယ်ပါ</span>
+                  Click here to select or <br /> Drag here
                 </p>
               </>
             )}

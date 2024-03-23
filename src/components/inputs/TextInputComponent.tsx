@@ -21,15 +21,17 @@ const TextInputComponent = ({
   form,
   name,
   defaultValue,
+  withAsterisk,
 }: PropsType) => {
   return (
     <TextInput
       disabled={disabled}
       label={label}
+      withAsterisk={withAsterisk}
       className="w-full"
       placeholder={placeholder}
       classNames={{
-        label: `sm:text-[14px] text-[12px] mb-[2px]`,
+        label: `sm:text-[16px] text-[14px] mb-1`,
       }}
       value={value}
       defaultValue={defaultValue}
