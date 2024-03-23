@@ -1,4 +1,4 @@
-import FormLayout from "@/components/forms/FormLayout";
+import FormLayout from "@/components/layouts/FormLayout";
 import DateInputComponent from "@/components/inputs/DateInputComponent";
 import ImageUpload from "@/components/inputs/ImageUpload";
 import PasswordInputComponent from "@/components/inputs/PasswordInputComponent";

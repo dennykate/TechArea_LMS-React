@@ -3,10 +3,9 @@ import { Navigate, Outlet } from "react-router-dom";
 
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Wrapper } from "@/components";
+import { studentRoutes } from "@/features/users/students/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
-const UserCreate = lazy(() => import("@/features/users/create/Create"));
-const UserList = lazy(() => import("@/features/users/list/List"));
 
 const WithDashboardLayout = () => {
   return (
@@ -29,20 +28,7 @@ const privateRoutes = [
       },
       {
         path: "/students",
-        children: [
-          {
-            path: "list",
-            element: <UserList />,
-          },
-          {
-            path: "create",
-            element: <UserCreate />,
-          },
-          {
-            path: "*",
-            element: <Navigate to="list" />,
-          },
-        ],
+        children: studentRoutes,
       },
     ],
   },

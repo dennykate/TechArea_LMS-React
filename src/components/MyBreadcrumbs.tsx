@@ -15,7 +15,8 @@ const MyBreadcrumbs: React.FC<PropsType> = ({ items }) => {
           to={item.link}
           key={index}
           className={twMerge(
-            item.link === "" ? "text-gray-500 cursor-default" : "text-black"
+            item.link === "" ? "text-gray-500 cursor-default" : "text-black",
+            "sm:text-base text-xs"
           )}
         >
           {item.title}

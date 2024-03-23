@@ -6,7 +6,7 @@ import { TableActions, TableComponent } from "@/components/table";
 import { useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
 import useMutate from "@/hooks/useMutate";
-import TableLayout from "@/components/table/TableLayout";
+import TableLayout from "@/components/layouts/TableLayout";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -36,7 +36,7 @@ const List = () => {
           <td className="m_td">22 March 2024</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => {}}
+              detailCb={() => navigate("/students/details/1")}
               destroyCb={() => {}}
               editCb={() => {}}
             />

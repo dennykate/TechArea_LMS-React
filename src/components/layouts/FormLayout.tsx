@@ -2,7 +2,7 @@ import MyBreadcrumbs from "@/components/MyBreadcrumbs";
 import MyButton from "@/components/buttons/MyButton";
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import FormHeader from "./FormHeader";
+import FormHeader from "../forms/FormHeader";
 
 export type FormHeaderType = {
   image: string;

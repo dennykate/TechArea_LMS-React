@@ -1,5 +1,5 @@
 import { Blockquote } from "@mantine/core";
-import { FormHeaderType } from "./FormLayout";
+import { FormHeaderType } from "../layouts/FormLayout";
 
 interface PropsType {
   data: FormHeaderType;
