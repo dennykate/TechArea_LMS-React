@@ -2,7 +2,7 @@ import Swal, { SweetAlertResult } from "sweetalert2";
 
 const alertActions = (callback: () => void, text: string) => {
   Swal.fire({
-    title: "သေချာပြီလား?",
+    title: "Warning !",
     background: "#212121",
     text,
     icon: "warning",
@@ -10,11 +10,11 @@ const alertActions = (callback: () => void, text: string) => {
     showCancelButton: true,
     confirmButtonColor: "#166534",
     cancelButtonColor: "#991B1B",
-    confirmButtonText: "အတည်ပြုမည်",
-    cancelButtonText: "ငြင်းပယ်မည်",
+    confirmButtonText: "Confirm",
+    cancelButtonText: "Cancel",
   }).then((result: SweetAlertResult) => {
     if (result.isConfirmed) {
-     return callback();
+      return callback();
     }
   });
 };

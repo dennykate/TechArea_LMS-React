@@ -9,17 +9,14 @@ import {
   Table,
   TextInput,
   NumberInput,
-  ActionIcon,
   Pagination,
   Loader,
 } from "@mantine/core";
 import { IoSearch } from "react-icons/io5";
-import { SiMicrosoftexcel } from "react-icons/si";
 
 import DateRangePickerComponent from "./DateRangePickerComponent";
 import useQuery from "@/hooks/useQuery";
-import useDisableUI from "@/hooks/useDisableUI";
-import useExcelExport from "@/hooks/useExcelExport";
+// import useDisableUI from "@/hooks/useDisableUI";
 import MyButton from "../buttons/MyButton";
 
 interface PropsType {
@@ -52,7 +49,7 @@ const TableComponent = ({
   rows,
   Icon,
   addNewRoute,
-  addNewLabel = "အသစ်ထည့်မည်",
+  addNewLabel = "Create New",
   search = true,
   limit = true,
   limitOnly = true,
@@ -66,8 +63,7 @@ const TableComponent = ({
   baseUrl,
   filter = "",
   setData,
-  hideRoles = [""],
-  excelData,
+  // hideRoles = [""],
 }: PropsType) => {
   const [page, setPage] = useState<number>(1);
   const [dataLimit, setDataLimit] = useDebouncedState<number>(20, 500);
@@ -78,18 +74,7 @@ const TableComponent = ({
       .startOf("year"),
     end: moment(),
   });
-  const check = useDisableUI();
-
-  const excelFileName = useMemo(
-    () =>
-      title +
-      `-စာမျက်နှာ-${page}-ခုရေ-${dataLimit}-${Math.floor(
-        Math.random() * 1000000
-      )}`,
-    [title, page, dataLimit]
-  );
-
-  const { excelExport } = useExcelExport(excelFileName);
+  // const check = useDisableUI();
 
   const url = useMemo(
     () =>
@@ -105,11 +90,7 @@ const TableComponent = ({
     [page, dataLimit, dataSearch, dateRange, filter, baseUrl]
   );
 
-  const { isLoading, total, data } = useQuery(
-    url,
-    setData,
-    baseUrl === undefined
-  );
+  const { isLoading, total } = useQuery(url, setData, baseUrl === undefined);
 
   const resetPage = useCallback(
     () => setPage(1),
@@ -144,17 +125,14 @@ const TableComponent = ({
             <p className="font-medium sm:text-lg text-base">{title} </p>
           </div>
 
-          {addNewRoute &&
-            check(
-              ["cashier", "manager"].filter((role) => !hideRoles.includes(role))
-            ) && (
-              <MyButton
-                onClick={() => navigate(addNewRoute)}
-                className="!w-[140px] sm:text-base text-sm"
-              >
-                {addNewLabel}
-              </MyButton>
-            )}
+          {addNewRoute && (
+            <MyButton
+              onClick={() => navigate(addNewRoute)}
+              className="!w-[140px] sm:text-base text-sm"
+            >
+              {addNewLabel}
+            </MyButton>
+          )}
         </div>
       )}
 
@@ -166,9 +144,9 @@ const TableComponent = ({
           >
             {search ? (
               <TextInput
-                placeholder={"ရှာရန်"}
+                placeholder={"Search here..."}
                 classNames={{
-                  input: "h-[40px] w-full",
+                  input: "h-[44px] w-full",
                   root: "sm:w-[350px] w-full",
                 }}
                 defaultValue={dataSearch}
@@ -189,33 +167,17 @@ const TableComponent = ({
                 )}
                 <div className="flex items-center gap-6 ">
                   {limitOnly && (
-                    <div className="flex items-center gap-2">
-                      <p className="-translate-y-[2px] text-base">
-                        ပြသမည့်ခုရေ
-                      </p>
-
-                      <NumberInput
-                        defaultValue={dataLimit}
-                        onChange={(e) => setDataLimit(parseInt(e as string))}
-                        min={0}
-                        max={100}
-                        classNames={{
-                          wrapper: "w-[70px] h-full",
-                          input: "text-base",
-                        }}
-                      />
-                    </div>
+                    <NumberInput
+                      defaultValue={dataLimit}
+                      onChange={(e) => setDataLimit(parseInt(e as string))}
+                      min={0}
+                      max={100}
+                      classNames={{
+                        wrapper: "w-[80px] h-full",
+                        input: "text-base h-[44px]",
+                      }}
+                    />
                   )}
-
-                  <div className="flex items-center sm:gap-4 gap-2">
-                    <ActionIcon
-                      disabled={data?.length === 0}
-                      onClick={() => excelExport(excelData || data)}
-                      className={`${data?.length === 0 && "grayscale"}`}
-                    >
-                      <SiMicrosoftexcel className="sm:text-3xl text-2xl text-green-700" />
-                    </ActionIcon>
-                  </div>
                 </div>
               </div>
             )}
@@ -228,11 +190,11 @@ const TableComponent = ({
               <tr className="!bg-primary-500  !h-[50px]">
                 {checkboxCol && <th className="!w-[50px]"></th>}
 
-                <th className="!w-[80px] font-[500] px-2 text-start">စဥ်</th>
+                <th className="!w-[80px] font-[500] px-2 text-start">No</th>
 
                 {heads}
 
-                {actions && <th className="m_th">လုပ်ဆောင်ချက်များ</th>}
+                {actions && <th className="m_th">Actions</th>}
               </tr>
             </thead>
 
@@ -267,7 +229,7 @@ const TableComponent = ({
             <Pagination
               value={page}
               onChange={(e) => setPage(e)}
-              total={total || 0}
+              total={total || 10}
               siblings={1}
               size={matches ? "md" : "sm"}
             />

@@ -5,5 +5,27 @@
 @tailwind utilities;
 
 * {
-    font-family: "DM Sans", sans-serif;
-  }
+  font-family: "DM Sans", sans-serif;
+}
+
+th {
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.m_th {
+  @apply px-[9px] min-w-[120px] !text-start;
+}
+
+.m_td {
+  @apply !min-h-[50px];
+}
+
+.month {
+  color: black !important;
+}
+
+::placeholder {
+  font-size: 16px;
+}
