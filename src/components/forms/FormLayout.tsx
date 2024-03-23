@@ -35,14 +35,14 @@ const FormLayout = ({
     <>
       {header && <FormHeader data={header} />}
 
-      <div className="w-full space-y-4 p-8">
+      <div className="w-full sm:space-y-6 space-y-4 md:p-8 sm:p-4 p-2 md:py-8 py-6">
         <h1 className="text-2xl font-500">{title}</h1>
 
         <MyBreadcrumbs items={linkItems} />
 
         <form
           onSubmit={onSubmitHandler}
-          className="w-full border border-opacity-30 shadow-md rounded-md p-8 bg-white space-y-4 !mt-6"
+          className="w-full border border-opacity-30 shadow-md rounded-md md:p-8 sm:p-4 p-3 bg-white space-y-4 !mt-6"
         >
           {children}
 

@@ -22,7 +22,7 @@ const Create = () => {
       }}
     >
       <ImageUpload label="Profile" setFile={() => {}} withAsterisk />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
         <TextInputComponent
           label="Name"
           placeholder="Enter name"
@@ -63,7 +63,7 @@ const Create = () => {
           withAsterisk
         />
 
-        <div className="col-span-2">
+        <div className="md:col-span-2 col-span-1">
           <DateInputComponent
             placeholder="Choose date"
             label="Date of birth"
@@ -71,7 +71,7 @@ const Create = () => {
           />
         </div>
 
-        <div className="col-span-2">
+        <div className="md:col-span-2 col-span-1">
           <TextAreaComponent
             label="Address"
             placeholder="Enter address"

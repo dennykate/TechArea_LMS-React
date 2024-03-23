@@ -63,8 +63,8 @@ const TableComponent = ({
   baseUrl,
   filter = "",
   setData,
-  // hideRoles = [""],
-}: PropsType) => {
+}: // hideRoles = [""],
+PropsType) => {
   const [page, setPage] = useState<number>(1);
   const [dataLimit, setDataLimit] = useDebouncedState<number>(20, 500);
   const [dataSearch, setDataSearch] = useDebouncedState<string>("", 500);
@@ -119,7 +119,7 @@ const TableComponent = ({
       }`}
     >
       {titleSection && (
-        <div className="sm:p-5 p-2 py-3 border-b border-black border-opacity-20 flex justify-between items-center">
+        <div className="sm:p-5 p-3 py-3 border-b border-black border-opacity-20 flex justify-between items-center">
           <div className="flex items-center gap-2">
             {Icon && <Icon className="sm:text-[22px] text-[20px]" />}
             <p className="font-medium sm:text-lg text-base">{title} </p>
@@ -136,7 +136,7 @@ const TableComponent = ({
         </div>
       )}
 
-      <div className={`${!disableTablePadding && "sm:p-4 p-2"}`}>
+      <div className={`${!disableTablePadding && "sm:p-4 p-3"}`}>
         {(search || limit) && (
           <div
             className="w-full flex lg:justify-between lg:items-center items-end lg:mb-4 mb-2 lg:flex-row 
@@ -203,7 +203,7 @@ const TableComponent = ({
                 <tr>
                   <td colSpan={heads.length + 5}>
                     <div className="w-full h-[40px] flex justify-center items-center gap-2">
-                      <Loader size="xs" /> <p>လုပ်ဆောင်နေပါသည် ...</p>
+                      <Loader size="xs" /> <p>Loading ...</p>
                     </div>
                   </td>
                 </tr>
@@ -212,7 +212,7 @@ const TableComponent = ({
                   <tr>
                     <td colSpan={heads.length + 5}>
                       <div className="w-full h-[40px] flex justify-center items-center gap-2">
-                        <p>ပြသရန်မရှိပါ</p>
+                        <p>No Records</p>
                       </div>
                     </td>
                   </tr>
