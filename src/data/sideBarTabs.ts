@@ -14,7 +14,6 @@ const sideBarTabs = [
     link: undefined,
     links: [
       { label: "List", link: "/users/list" },
-      
       { label: "Create User", link: "/users/create" },
     ],
   },
