@@ -64,7 +64,7 @@ const List = () => {
         dateRangePicker
         pagination
         Icon={PiStudent}
-        addNewRoute="/purchases/create"
+        addNewRoute="/students/create"
         rows={rows}
         title={"Student List"}
         tableHeads={[

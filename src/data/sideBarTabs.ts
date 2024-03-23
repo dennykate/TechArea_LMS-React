@@ -1,4 +1,5 @@
 import { MdDashboard, MdPeople } from "react-icons/md";
+import { PiStudent } from "react-icons/pi";
 
 const sideBarTabs = [
   {
@@ -8,14 +9,11 @@ const sideBarTabs = [
     link: "/dashboard",
   },
   {
-    label: "Students",
+    label: "Accounts",
     icon: MdPeople,
     initiallyOpened: false,
     link: undefined,
-    links: [
-      { icon: MdPeople, label: "List", link: "/students/list" },
-      { icon: MdPeople, label: "Create Student", link: "/students/create" },
-    ],
+    links: [{ icon: PiStudent, label: "Student List", link: "/students/list" }],
   },
 ];
 

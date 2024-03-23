@@ -7,7 +7,7 @@ interface PropsType {
 
 const FormHeader: React.FC<PropsType> = ({ data }) => {
   return (
-    <div className="w-full h-[200px] relative mb-4">
+    <div className="w-full h-[200px] relative mb-4 md:mb-0">
       <img
         src={data.image}
         alt={data.title}
