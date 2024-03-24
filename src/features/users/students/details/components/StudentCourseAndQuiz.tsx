@@ -3,10 +3,10 @@ import {
   IconDeviceDesktopQuestion,
   IconCertificate,
 } from "@tabler/icons-react";
-import Courses from "./Courses";
-import Quizzes from "./Quizzes";
+import StudentCourses from "./StudentCourses";
+import StudentQuizzes from "./StudentQuizzes";
 
-const CourseAndQuiz = () => {
+const StudentCourseAndQuiz = () => {
   return (
     <Tabs defaultValue="courses">
       <Tabs.List>
@@ -27,14 +27,14 @@ const CourseAndQuiz = () => {
       </Tabs.List>
 
       <Tabs.Panel value="courses" pt="md">
-        <Courses />
+        <StudentCourses />
       </Tabs.Panel>
 
       <Tabs.Panel value="quizzes" pt="md">
-        <Quizzes />
+        <StudentQuizzes />
       </Tabs.Panel>
     </Tabs>
   );
 };
 
-export default CourseAndQuiz;
+export default StudentCourseAndQuiz;

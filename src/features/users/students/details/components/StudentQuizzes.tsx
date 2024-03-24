@@ -1,7 +1,7 @@
 import MyPagination from "@/components/common/MyPagination";
 import StudentActivityCard from "./StudentActivityCard";
 
-const StudentCourses = () => {
+const StudentQuizzes = () => {
   return (
     <>
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
@@ -10,11 +10,11 @@ const StudentCourses = () => {
         ))}
       </div>
 
-      <div className="w-full flex justify-end mt-8">
+      <div className="flex mt-8  justify-end">
         <MyPagination total={5} siblings={1} />
       </div>
     </>
   );
 };
 
-export default StudentCourses;
+export default StudentQuizzes;

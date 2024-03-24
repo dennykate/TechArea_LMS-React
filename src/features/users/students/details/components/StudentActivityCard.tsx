@@ -1,4 +1,5 @@
 import { RingProgress, Text } from "@mantine/core";
+import { IoCalendarOutline } from "react-icons/io5";
 
 const StudentCourseCard = () => {
   return (
@@ -21,6 +22,12 @@ const StudentCourseCard = () => {
         <p className="text-xs font-[300] text-black/80">
           Grade 9 , Section - A
         </p>
+        <div className="flex items-center gap-2">
+          <IoCalendarOutline size={14} />
+          <p className="text-xs font-[300] text-black/80">
+            01 Dec 2000 , 12:00AM
+          </p>
+        </div>
         <div className="flex items-center gap-2 !mt-4">
           <RingProgress
             size={60}

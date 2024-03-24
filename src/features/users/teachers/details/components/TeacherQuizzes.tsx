@@ -1,7 +1,7 @@
-import TeacherActivityCard from "./TeacherActivityCard";
 import MyPagination from "@/components/common/MyPagination";
+import TeacherActivityCard from "./TeacherActivityCard";
 
-const Courses = () => {
+const TeacherQuizzes = () => {
   return (
     <>
       <div className=" grid grid-cols-2 gap-4">
@@ -17,4 +17,4 @@ const Courses = () => {
   );
 };
 
-export default Courses;
+export default TeacherQuizzes;
