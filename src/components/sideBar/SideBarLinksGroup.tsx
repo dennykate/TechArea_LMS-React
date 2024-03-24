@@ -5,13 +5,14 @@ import { FaChevronRight } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import SideBarLinkItem from "./SideBarLinkItem";
+import { LinkType } from "./type";
 
 interface LinksGroupProps {
   icon: React.FC<any>;
   label: string;
   initiallyOpened?: boolean;
   link?: string | undefined;
-  links?: { label: string; link: string }[];
+  links?: LinkType[];
 }
 
 export default function SideBarLinksGroup({
@@ -37,8 +38,8 @@ export default function SideBarLinksGroup({
   const isActiveTab = useMemo(() => {
     if (!hasLinks) return pathname === link;
 
-    const isExisted = !!links.find(
-      (link) => pathname === (link.link as string)
+    const isExisted = !!links.find((link) =>
+      pathname.includes(link.path as string)
     );
 
     if (isExisted) {

@@ -1,6 +1,6 @@
-import { RingProgress, Text } from "@mantine/core";
+import { IoCalendarOutline } from "react-icons/io5";
 
-const StudentCourseCard = () => {
+const TeacherActivityCard = () => {
   return (
     <div
       className="sm:h-[200px] h-auto rounded-md overflow-hidden flex sm:items-center items-start sm:gap-8 gap-0
@@ -21,25 +21,13 @@ const StudentCourseCard = () => {
         <p className="text-xs font-[300] text-black/80">
           Grade 9 , Section - A
         </p>
-        <div className="flex items-center gap-2 !mt-4">
-          <RingProgress
-            size={60}
-            thickness={4}
-            roundCaps
-            sections={[{ value: 40, color: "green" }]}
-            label={
-              <Text color="green" weight={700} align="center" size="xs">
-                40%
-              </Text>
-            }
-          />
-          <p className="sm:text-base text-sm font-[300] text-black/80">
-            Complete
-          </p>
+        <div className="flex items-center gap-2">
+          <IoCalendarOutline size={14} />
+          <p className="text-xs font-[300] text-black/80">01 Dec 2000</p>
         </div>
       </div>
     </div>
   );
 };
 
-export default StudentCourseCard;
+export default TeacherActivityCard;

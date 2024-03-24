@@ -3,8 +3,8 @@ import { IconPencilMinus } from "@tabler/icons-react";
 
 import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
-import StudentCourses from "./components/StudentCourses";
-import StudentInformation from "./components/StudentInformation";
+import TeacherInformation from "./components/TeacherInformation";
+import CourseAndQuiz from "./components/CourseAndQuiz";
 
 const Details = () => {
   return (
@@ -38,11 +38,11 @@ const Details = () => {
       </div>
 
       <div className="sm:mt-6 mt-3">
-        <StudentInformation />
+        <TeacherInformation />
       </div>
 
       <div className="sm:mt-6 mt-3">
-        <StudentCourses />
+        <CourseAndQuiz />
       </div>
     </DetailsLayout>
   );

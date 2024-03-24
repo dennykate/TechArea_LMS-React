@@ -5,19 +5,14 @@ import moment, { Moment } from "moment/moment";
 import { IconType } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
 import { useDebouncedState, useMediaQuery } from "@mantine/hooks";
-import {
-  Table,
-  TextInput,
-  NumberInput,
-  Pagination,
-  Loader,
-} from "@mantine/core";
+import { Table, TextInput, NumberInput, Loader } from "@mantine/core";
 import { IoSearch } from "react-icons/io5";
 
 import DateRangePickerComponent from "./DateRangePickerComponent";
 import useQuery from "@/hooks/useQuery";
 // import useDisableUI from "@/hooks/useDisableUI";
 import MyButton from "../buttons/MyButton";
+import MyPagination from "../common/MyPagination";
 
 interface PropsType {
   rows: JSX.Element[];
@@ -226,7 +221,7 @@ PropsType) => {
 
         {pagination && (
           <div className="w-full flex justify-end sm:mt-4 mt-2">
-            <Pagination
+            <MyPagination
               value={page}
               onChange={(e) => setPage(e)}
               total={total || 10}

@@ -1,4 +1,4 @@
-const StudentInformation = () => {
+const AdminInformation = () => {
   return (
     <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
       <div className="">
@@ -19,25 +19,7 @@ const StudentInformation = () => {
         </div>
       </div>
 
-      <div className="">
-        <h2 className="sm:text-xl text-lg font-[400]">Education Information</h2>
-
-        <div className="space-y-2 mt-2">
-          <div className="grid grid-cols-3">
-            <p className="sm:text-sm text-xs font-[300] text-black/70 whitespace-nowrap">
-              Grade - <span className="">Grade 9</span>
-            </p>
-          </div>
-          <p className="sm:text-sm text-xs font-[300] text-black/70">
-            Section - <span className="">A</span>
-          </p>
-          <p className="sm:text-sm text-xs font-[300] text-black/70">
-            Complete courses - <span className="">12</span>
-          </p>
-        </div>
-      </div>
-
-      <div className="md:col-span-1 sm:col-span-2 col-span-1">
+      <div className="md:col-span-2 sm:col-span-2 col-span-1">
         <h2 className="sm:text-xl text-lg font-[400]">Contact Information</h2>
 
         <div className="space-y-2 mt-2">
@@ -68,4 +50,4 @@ const StudentInformation = () => {
   );
 };
 
-export default StudentInformation;
+export default AdminInformation;

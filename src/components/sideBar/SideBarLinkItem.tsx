@@ -1,20 +1,16 @@
 import { useMemo } from "react";
-import { IconType } from "react-icons/lib";
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
+import { LinkType } from "./type";
 
 interface PropsType {
-  link: {
-    label: string;
-    link: string;
-    icon?: IconType;
-  };
+  link: LinkType;
 }
 
 const SideBarLinkItem = ({ link }: PropsType) => {
   const { pathname } = useLocation();
 
-  const isActiveTab = useMemo(() => pathname === link.link, [pathname]);
+  const isActiveTab = useMemo(() => pathname.includes(link.path), [pathname]);
 
   const Icon = useMemo(() => link.icon, [link]);
 

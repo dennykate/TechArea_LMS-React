@@ -17,13 +17,29 @@ const sideBarTabs = [
     link: undefined,
     links: [
       {
+        icon: RiAdminLine,
+        label: "Admins",
+        link: "/accounts/admins/list",
+        path: "/accounts/admins",
+      },
+      {
+        icon: IoPeopleOutline,
+        label: "Staffs",
+        link: "/accounts/staffs/list",
+        path: "/accounts/staffs",
+      },
+      {
         icon: PiChalkboardTeacherLight,
         label: "Teachers",
         link: "/accounts/teachers/list",
+        path: "/accounts/teachers",
       },
-      { icon: IoPeopleOutline, label: "Staffs", link: "/accounts/staffs/list" },
-      { icon: RiAdminLine, label: "Admins", link: "/accounts/admins/list" },
-      { icon: PiStudent, label: "Students", link: "/accounts/students/list" },
+      {
+        icon: PiStudent,
+        label: "Students",
+        link: "/accounts/students/list",
+        path: "/accounts/students",
+      },
     ],
   },
 ];
