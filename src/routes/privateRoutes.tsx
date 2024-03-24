@@ -4,6 +4,9 @@ import { Navigate, Outlet } from "react-router-dom";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Wrapper } from "@/components";
 import { studentRoutes } from "@/features/users/students/routes";
+import { teacherRoutes } from "@/features/users/teachers/routes";
+import { staffRoutes } from "@/features/users/staffs/routes";
+import { adminRoutes } from "@/features/users/admins/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 
@@ -27,8 +30,25 @@ const privateRoutes = [
         element: <Dashboard />,
       },
       {
-        path: "/students",
-        children: studentRoutes,
+        path: "/accounts",
+        children: [
+          {
+            path: "students",
+            children: studentRoutes,
+          },
+          {
+            path: "teachers",
+            children: teacherRoutes,
+          },
+          {
+            path: "staffs",
+            children: staffRoutes,
+          },
+          {
+            path: "admins",
+            children: adminRoutes,
+          },
+        ],
       },
     ],
   },

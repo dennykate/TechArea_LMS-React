@@ -1,7 +1,7 @@
 import { MdDashboard, MdPeople } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline } from "react-icons/io5";
-import { GrUserAdmin } from "react-icons/gr";
+import { RiAdminLine } from "react-icons/ri";
 
 const sideBarTabs = [
   {
@@ -19,11 +19,11 @@ const sideBarTabs = [
       {
         icon: PiChalkboardTeacherLight,
         label: "Teachers",
-        link: "/teachers/list",
+        link: "/accounts/teachers/list",
       },
-      { icon: IoPeopleOutline, label: "Staffs", link: "/staffs/list" },
-      { icon: GrUserAdmin, label: "Admins", link: "/admins/list" },
-      { icon: PiStudent, label: "Students", link: "/students/list" },
+      { icon: IoPeopleOutline, label: "Staffs", link: "/accounts/staffs/list" },
+      { icon: RiAdminLine, label: "Admins", link: "/accounts/admins/list" },
+      { icon: PiStudent, label: "Students", link: "/accounts/students/list" },
     ],
   },
 ];

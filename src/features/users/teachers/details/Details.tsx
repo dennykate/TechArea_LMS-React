@@ -11,8 +11,8 @@ const Details = () => {
     <DetailsLayout
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Student List", link: "/accounts/students/list" },
-        { title: "Student Details", link: "" },
+        { title: "Teacher List", link: "/accounts/teachers/list" },
+        { title: "Teacher Details", link: "" },
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
@@ -26,7 +26,7 @@ const Details = () => {
 
           <div className="space-y-[2px]">
             <p className="text-2xl font-[400]">Ma Ma</p>
-            <p className="text-sm font-[300]">Student , 123321</p>
+            <p className="text-sm font-[300]">Teacher , 123321</p>
           </div>
         </div>
 

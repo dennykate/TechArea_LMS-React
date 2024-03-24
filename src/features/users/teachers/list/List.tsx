@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Avatar } from "@mantine/core";
-import { PiStudent } from "react-icons/pi";
-
-import { TableActions, TableComponent } from "@/components/table";
 import { useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
+import { Avatar } from "@mantine/core";
+import { PiChalkboardTeacherLight } from "react-icons/pi";
+
+import { TableActions, TableComponent } from "@/components/table";
 import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
 
@@ -36,7 +36,7 @@ const List = () => {
           <td className="m_td">22 March 2024</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate("/accounts/students/details/1")}
+              detailCb={() => navigate("/accounts/teachers/details/1")}
               destroyCb={() => {}}
               editCb={() => {}}
             />
@@ -54,7 +54,7 @@ const List = () => {
           link: "/dashboard",
         },
         {
-          title: "Student List",
+          title: "Teacher List",
           link: "",
         },
       ]}
@@ -63,10 +63,10 @@ const List = () => {
         checkboxCol={false}
         dateRangePicker
         pagination
-        Icon={PiStudent}
-        addNewRoute="/accounts/students/create"
+        Icon={PiChalkboardTeacherLight}
+        addNewRoute="/accounts/teachers/create"
         rows={rows}
-        title={"Student List"}
+        title={"Teacher List"}
         tableHeads={[
           "Profile",
           "Name",

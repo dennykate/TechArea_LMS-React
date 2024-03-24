@@ -9,12 +9,12 @@ import TextInputComponent from "@/components/inputs/TextInputComponent";
 const Create = () => {
   return (
     <FormLayout
-      title="Create Student"
+      title="Create Admin"
       onSubmit={() => {}}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Student List", link: "/accounts/students/list" },
-        { title: "New Student", link: "" },
+        { title: "Admin List", link: "/accounts/admins/list" },
+        { title: "New Admin", link: "" },
       ]}
       header={{
         image:

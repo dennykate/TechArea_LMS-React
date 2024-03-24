@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Avatar } from "@mantine/core";
-import { PiStudent } from "react-icons/pi";
+import { RiAdminLine } from "react-icons/ri";
 
 import { TableActions, TableComponent } from "@/components/table";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const List = () => {
           <td className="m_td">22 March 2024</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate("/accounts/students/details/1")}
+              detailCb={() => navigate("/accounts/admins/details/1")}
               destroyCb={() => {}}
               editCb={() => {}}
             />
@@ -63,10 +63,10 @@ const List = () => {
         checkboxCol={false}
         dateRangePicker
         pagination
-        Icon={PiStudent}
-        addNewRoute="/accounts/students/create"
+        Icon={RiAdminLine}
+        addNewRoute="/accounts/admins/create"
         rows={rows}
-        title={"Student List"}
+        title={"Admin List"}
         tableHeads={[
           "Profile",
           "Name",
