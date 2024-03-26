@@ -23,7 +23,7 @@ const Create = () => {
       }}
     >
       <ImageUpload label="Profile" setFile={() => {}} withAsterisk />
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
         <TextInputComponent
           label="Name"
           placeholder="Enter name"
