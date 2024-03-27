@@ -2,9 +2,12 @@
 import { useRoutes } from "react-router-dom";
 import publicRoutes from "./publicRoutes";
 import _rivateRoutes from "./privateRoutes";
+import { useEncryptStorage } from "use-encrypt-storage";
 
 const routes = () => {
-  const isAuth = true;
+  const { get } = useEncryptStorage();
+
+  const isAuth = get("name");
 
   const routes = isAuth ? _rivateRoutes : publicRoutes;
 

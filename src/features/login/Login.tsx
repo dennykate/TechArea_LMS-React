@@ -1,8 +1,19 @@
 import MyButton from "@/components/buttons/MyButton";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { Checkbox } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+import { useEncryptStorage } from "use-encrypt-storage";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { set } = useEncryptStorage();
+
+  const onSubmitHandler = () => {
+    set("name", "techarea");
+
+    navigate("/dashboard");
+  };
+
   return (
     <div className="w-full min-h-screen bg-blue-500 flex justify-center items-center">
       <div className="max-w-[420px] flex-1 px-5 py-8 bg-white rounded-md shadow-md">
@@ -26,7 +37,7 @@ const Login = () => {
 
           <Checkbox label="Remember Me" />
 
-          <MyButton>Login</MyButton>
+          <MyButton onClick={onSubmitHandler}>Login</MyButton>
         </form>
       </div>
     </div>
