@@ -4,10 +4,11 @@ import { Navigate, Outlet } from "react-router-dom";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Wrapper } from "@/components";
 
-import { studentRoutes } from "@/features/users/students/routes";
-import { teacherRoutes } from "@/features/users/teachers/routes";
-import { staffRoutes } from "@/features/users/staffs/routes";
-import { adminRoutes } from "@/features/users/admins/routes";
+import { studentRoutes } from "@/features/accounts/students/routes";
+import { teacherRoutes } from "@/features/accounts/teachers/routes";
+import { staffRoutes } from "@/features/accounts/staffs/routes";
+import { adminRoutes } from "@/features/accounts/admins/routes";
+import { courseRoutes } from "@/features/course/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Chat = lazy(() => import("@/features/chat/Chat"));
@@ -32,7 +33,11 @@ const privateRoutes = [
         element: <Dashboard />,
       },
       {
-        path: "/accounts",
+        path: "/courses/*",
+        children: courseRoutes,
+      },
+      {
+        path: "/accounts/*",
         children: [
           {
             path: "students",

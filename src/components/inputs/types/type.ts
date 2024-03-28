@@ -3,7 +3,7 @@ import { UseFormReturnType } from "@mantine/form";
 
 export interface InputProps {
   label?: string;
-  placeholder: string;
+  placeholder?: string;
   name?: string;
   form?: UseFormReturnType<any>;
   defaultValue?: string;

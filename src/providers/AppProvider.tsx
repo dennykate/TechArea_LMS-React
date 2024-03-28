@@ -1,10 +1,11 @@
 import { MantineProvider } from "@mantine/core";
 import { BrowserRouter } from "react-router-dom";
-
-import "../index.css";
 import { EncryptProvider } from "use-encrypt-storage";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
+
+
+import "../index.css";
 
 interface PropsType {
   children: React.ReactNode;

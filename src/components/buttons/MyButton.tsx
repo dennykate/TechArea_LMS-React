@@ -20,7 +20,7 @@ const MyButton: React.FC<PropsType> = ({
     <Button
       {...props}
       variant={variant}
-      className={twMerge("w-full", className, !variant && "bg-[#1C7ED6]")}
+      className={twMerge("w-auto", className, !variant && "bg-[#1C7ED6]")}
     >
       {children}
     </Button>
