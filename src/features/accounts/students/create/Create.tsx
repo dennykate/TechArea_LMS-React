@@ -5,6 +5,7 @@ import PasswordInputComponent from "@/components/inputs/PasswordInputComponent";
 import SelectComponent from "@/components/inputs/SelectComponent";
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
+import { gradeData, sectionData } from "./data";
 
 const Create = () => {
   return (
@@ -62,6 +63,20 @@ const Create = () => {
           label="Confirm Password"
           placeholder="Enter confrim password"
           withAsterisk
+        />
+
+        <SelectComponent
+          label="Grade"
+          placeholder="Select Grade"
+          withAsterisk
+          data={gradeData}
+        />
+
+        <SelectComponent
+          label="Section"
+          placeholder="Select Section"
+          withAsterisk
+          data={sectionData}
         />
 
         <div className="md:col-span-2 col-span-1">

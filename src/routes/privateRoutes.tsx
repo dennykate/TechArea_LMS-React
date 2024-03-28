@@ -4,10 +4,12 @@ import { Navigate, Outlet } from "react-router-dom";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import { Wrapper } from "@/components";
 
-import { studentRoutes } from "@/features/users/students/routes";
-import { teacherRoutes } from "@/features/users/teachers/routes";
-import { staffRoutes } from "@/features/users/staffs/routes";
-import { adminRoutes } from "@/features/users/admins/routes";
+import { studentRoutes } from "@/features/accounts/students/routes";
+import { teacherRoutes } from "@/features/accounts/teachers/routes";
+import { staffRoutes } from "@/features/accounts/staffs/routes";
+import { adminRoutes } from "@/features/accounts/admins/routes";
+import { courseRoutes } from "@/features/course/routes";
+import StudentCourse from "@/features/studentCourse/StudentCourse";
 import { gradeRoutes } from "@/features/grades/routes";
 import { sectionRoutes } from "@/features/sections/routes";
 import { sectionStudentRoutes } from "@/features/students/routes";
@@ -35,7 +37,15 @@ const privateRoutes = [
         element: <Dashboard />,
       },
       {
-        path: "/accounts",
+        path: "/courses/*",
+        children: courseRoutes,
+      },
+      {
+        path: "/student-courses",
+        element: <StudentCourse />,
+      },
+      {
+        path: "/accounts/*",
         children: [
           {
             path: "students",
