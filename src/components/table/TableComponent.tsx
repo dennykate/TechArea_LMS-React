@@ -61,7 +61,7 @@ const TableComponent = ({
 }: // hideRoles = [""],
 PropsType) => {
   const [page, setPage] = useState<number>(1);
-  const [dataLimit, setDataLimit] = useDebouncedState<number>(20, 500);
+  const [dataLimit, setDataLimit] = useDebouncedState<number>(10, 500);
   const [dataSearch, setDataSearch] = useDebouncedState<string>("", 500);
   const [dateRange, setDateRange] = useState<{ start: Moment; end: Moment }>({
     start: moment()
@@ -141,7 +141,7 @@ PropsType) => {
               <TextInput
                 placeholder={"Search here..."}
                 classNames={{
-                  input: "h-[44px] w-full",
+                  input: "h-[40px] w-full",
                   root: "sm:w-[350px] w-full",
                 }}
                 defaultValue={dataSearch}
@@ -168,8 +168,8 @@ PropsType) => {
                       min={0}
                       max={100}
                       classNames={{
-                        wrapper: "w-[80px] h-full",
-                        input: "text-base h-[44px]",
+                        wrapper: "w-[60px] h-full",
+                        input: "text-sm h-[40px]",
                       }}
                     />
                   )}

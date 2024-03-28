@@ -72,7 +72,7 @@ const DateRangePickerComponent = ({ dateRange, setDateRange }: PropsType) => {
   return (
     <button
       ref={reportRangeRef}
-      className="p-3 bg-primary-500 rounded flex items-center"
+      className="px-3 py-2 bg-primary-500 rounded flex items-center"
     >
       <span className="px-2 text-white text-sm">
         {dateRange.start.format("MMM D YYYY")} -{" "}
