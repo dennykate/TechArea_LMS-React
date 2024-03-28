@@ -15,19 +15,7 @@ const Details = () => {
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
-        <div className="flex items-center justify-center gap-4">
-          <Avatar
-            src="https://mira.bootlab.io/static/img/avatars/avatar-1.jpg"
-            alt="Ma Ma"
-            size="xl"
-            radius={"md"}
-          />
-
-          <div className="space-y-[2px]">
-            <p className="text-2xl font-[400]">Ma Ma</p>
-            <p className="text-sm font-[300]">Admin , 123321</p>
-          </div>
-        </div>
+        
 
         <div className="sm:w-auto w-full flex justify-end">
           <div>

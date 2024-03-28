@@ -13,6 +13,7 @@ import { sectionRoutes } from "@/features/sections/routes";
 import { sectionStudentRoutes } from "@/features/students/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
+const Profile = lazy(() => import("@/features/profile/Profile"));
 const Chat = lazy(() => import("@/features/chat/Chat"));
 
 const WithDashboardLayout = () => {
@@ -33,6 +34,10 @@ const privateRoutes = [
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/accounts",
