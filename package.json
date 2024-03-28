@@ -33,6 +33,7 @@
     "use-encrypt-storage": "^0.0.32"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/daterangepicker": "^3.1.8",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
