@@ -8,6 +8,9 @@ import { studentRoutes } from "@/features/users/students/routes";
 import { teacherRoutes } from "@/features/users/teachers/routes";
 import { staffRoutes } from "@/features/users/staffs/routes";
 import { adminRoutes } from "@/features/users/admins/routes";
+import { gradeRoutes } from "@/features/grades/routes";
+import { sectionRoutes } from "@/features/sections/routes";
+import { sectionStudentRoutes } from "@/features/students/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Chat = lazy(() => import("@/features/chat/Chat"));
@@ -51,6 +54,18 @@ const privateRoutes = [
             children: adminRoutes,
           },
         ],
+      },
+      {
+        path: "/grades/*",
+        children: gradeRoutes,
+      },
+      {
+        path: "/grades/details/:gradeId/sections/*",
+        children: sectionRoutes,
+      },
+      {
+        path: "/grades/details/:gradeId/sections/details/:sectionId/students/*",
+        children: sectionStudentRoutes,
       },
     ],
   },
