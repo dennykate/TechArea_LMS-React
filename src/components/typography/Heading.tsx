@@ -39,7 +39,7 @@ const conditionalClassNames = (
   variant: HeadingTag | undefined
 ) => {
   if (tag === "h1" || variant === "h1") {
-    return "text-4xl leading-[48px]";
+    return "sm:text-2xl text-xl font-[500]";
   }
 
   if (tag === "h2" || variant === "h2") {
@@ -51,7 +51,7 @@ const conditionalClassNames = (
   }
 
   if (tag === "h6" || variant === "h6") {
-    return "text-lg";
+    return "text-base";
   }
 
   return "";

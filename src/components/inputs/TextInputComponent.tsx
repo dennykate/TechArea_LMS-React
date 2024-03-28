@@ -10,6 +10,7 @@ interface PropsType extends InputProps {
   disabled?: boolean;
   form?: UseFormReturnType<any>;
   name?: string;
+  inputClassName?: string;
 }
 
 const TextInputComponent = ({
@@ -22,6 +23,7 @@ const TextInputComponent = ({
   name,
   defaultValue,
   withAsterisk,
+  inputClassName,
 }: PropsType) => {
   return (
     <TextInput
@@ -32,6 +34,7 @@ const TextInputComponent = ({
       placeholder={placeholder}
       classNames={{
         label: `sm:text-[16px] text-[14px] mb-1`,
+        wrapper: inputClassName,
       }}
       value={value}
       defaultValue={defaultValue}

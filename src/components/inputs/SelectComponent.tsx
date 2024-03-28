@@ -2,6 +2,7 @@
 import { MultiSelect, Select } from "@mantine/core";
 import { InputProps } from "./types/type";
 import { UseFormReturnType } from "@mantine/form";
+import { twMerge } from "tailwind-merge";
 
 interface PropsType extends InputProps {
   data: { value: string; label: string }[];
@@ -13,6 +14,7 @@ interface PropsType extends InputProps {
   name?: string;
   defaultValue?: string | undefined;
   defaultValueForMultiple?: string[] | undefined;
+  searchInputClassName?: string;
 }
 
 const SelectComponent = ({
@@ -28,6 +30,7 @@ const SelectComponent = ({
   defaultValue,
   defaultValueForMultiple,
   withAsterisk,
+  searchInputClassName,
 }: PropsType) => {
   return (
     <>
@@ -38,7 +41,10 @@ const SelectComponent = ({
           placeholder={placeholder}
           classNames={{
             label: `sm:text-[16px] text-[14px] mb-1`,
-            searchInput: "!border-none !outline-none ",
+            searchInput: twMerge(
+              "!border-none !outline-none ",
+              searchInputClassName
+            ),
           }}
           data={data}
           searchable
@@ -54,6 +60,7 @@ const SelectComponent = ({
           placeholder={placeholder}
           classNames={{
             label: `sm:text-[16px] text-[14px] mb-1`,
+            input: searchInputClassName,
           }}
           data={data}
           searchable
