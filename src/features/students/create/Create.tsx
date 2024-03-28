@@ -9,12 +9,15 @@ import TextInputComponent from "@/components/inputs/TextInputComponent";
 const Create = () => {
   return (
     <FormLayout
-      title="Create Admin"
+      title="Create Student"
       onSubmit={() => {}}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Admin List", link: "/accounts/admins/list" },
-        { title: "New Admin", link: "" },
+        { title: "Grade List", link: "/grades" },
+        { title: "Grade Details", link: "/grades/details/1" },
+        { title: "Section Details", link: "/grades/details/1/sections/1" },
+        { title: "Student List", link: "/accounts/students/list" },
+        { title: "New Student", link: "" },
       ]}
       header={{
         image:
@@ -23,7 +26,7 @@ const Create = () => {
       }}
     >
       <ImageUpload label="Profile" setFile={() => {}} withAsterisk />
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
         <TextInputComponent
           label="Name"
           placeholder="Enter name"
