@@ -1,4 +1,4 @@
-import { Link,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoMdTime } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
 import { MdSchool, MdOutlineMeetingRoom } from "react-icons/md";
@@ -23,7 +23,7 @@ const LearnCourseInformation = () => {
         </Link>
       </p>
 
-      <div className="flex items-center gap-4">
+      <div className="sm:flex grid grid-cols-2 items-center gap-4">
         <div className="flex items-center gap-1">
           <IoMdTime size={18} />
           <p className="text-sm text-gray-800">01 Dec 2000</p>

@@ -2,13 +2,15 @@ import { ActionIcon, Avatar } from "@mantine/core";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
+import { twMerge } from "tailwind-merge";
 
 interface PropsType {
   toggle: () => void;
   Icon?: IconType;
+  withShadow?: boolean;
 }
 
-const NavBar = ({ toggle, Icon = FaBarsStaggered }: PropsType) => {
+const NavBar = ({ toggle, Icon = FaBarsStaggered, withShadow }: PropsType) => {
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     toggle();
@@ -16,8 +18,10 @@ const NavBar = ({ toggle, Icon = FaBarsStaggered }: PropsType) => {
 
   return (
     <div
-      className="w-full sm:h-[70px] h-[50px] bg-white flex items-center justify-between lg:px-4 px-1
-     shadow-md"
+      className={twMerge(
+        "w-full sm:h-[70px] h-[50px] bg-white flex items-center justify-between lg:px-4 px-1",
+        withShadow && "shadow-md"
+      )}
     >
       <ActionIcon onClick={onClickHandler}>
         <Icon color="black" className="lg:text-lg text-base" />

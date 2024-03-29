@@ -11,7 +11,7 @@ const LearnCourse = () => {
 
   return (
     <>
-      <NavBar Icon={IoArrowBack} toggle={() => navigate(-1)} />
+      <NavBar Icon={IoArrowBack} toggle={() => navigate(-1)} withShadow />
 
       <div className="max-w-2xl mx-auto mb-8">
         <div className="w-full">
