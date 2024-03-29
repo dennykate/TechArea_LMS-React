@@ -13,8 +13,10 @@ import StudentCourse from "@/features/studentCourse/StudentCourse";
 import { gradeRoutes } from "@/features/grades/routes";
 import { sectionRoutes } from "@/features/sections/routes";
 import { sectionStudentRoutes } from "@/features/students/routes";
+import { scheduleRoutes } from "@/features/schedules/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
+const Profile = lazy(() => import("@/features/profile/Profile"));
 const Chat = lazy(() => import("@/features/chat/Chat"));
 
 const WithDashboardLayout = () => {
@@ -35,6 +37,10 @@ const privateRoutes = [
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
       {
         path: "/courses/*",
@@ -64,6 +70,10 @@ const privateRoutes = [
             children: adminRoutes,
           },
         ],
+      },
+      {
+        path: "/schedules/*",
+        children: scheduleRoutes,
       },
       {
         path: "/grades/*",
