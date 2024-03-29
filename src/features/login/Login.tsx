@@ -69,9 +69,9 @@ const Login = () => {
             </div>
           </div>
 
-          <div className="flex justify-center">
-            <MyButton onClick={onSubmitHandler}>Login</MyButton>
-          </div>
+          <MyButton onClick={onSubmitHandler} className="w-full !mt-6">
+            Login
+          </MyButton>
         </form>
       </div>
     </div>
