@@ -1,6 +1,13 @@
-import { MdDashboard, MdPeople, MdSchool } from "react-icons/md";
+import {
+  MdDashboard,
+  MdPeople,
+  MdOutlineMenuBook,
+  MdSchool,
+} from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline } from "react-icons/io5";
+import { FaBookReader } from "react-icons/fa";
+
 import { RiAdminLine } from "react-icons/ri";
 import { AiFillSchedule } from "react-icons/ai";
 
@@ -10,6 +17,12 @@ const sideBarTabs = [
     icon: MdDashboard,
     initiallyOpened: false,
     link: "/dashboard",
+  },
+  {
+    label: "Courses",
+    icon: MdOutlineMenuBook,
+    initiallyOpened: false,
+    link: "/courses",
   },
   {
     label: "Grades",
@@ -54,6 +67,12 @@ const sideBarTabs = [
         path: "/accounts/students",
       },
     ],
+  },
+  {
+    label: "Student Courses",
+    icon: FaBookReader,
+    initiallyOpened: false,
+    link: "/student-courses",
   },
 ];
 

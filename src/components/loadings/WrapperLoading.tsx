@@ -1,9 +1,8 @@
 import { Loader } from "@mantine/core";
-import React from "react";
 
 const WrapperLoading = () => {
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-[calc(100vh-100px)] flex justify-center items-center">
       <Loader size="lg" />
     </div>
   );
