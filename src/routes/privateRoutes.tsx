@@ -36,7 +36,6 @@ const WithDashboardLayout = () => {
 
 const privateRoutes = [
   {
-    path: "",
     element: <WithDashboardLayout />,
     children: [
       {
