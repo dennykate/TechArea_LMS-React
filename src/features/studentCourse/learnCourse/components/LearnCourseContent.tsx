@@ -9,7 +9,7 @@ const LearnCourseContent = () => {
       <div className="mt-6 space-y-4 px-2 mb-4">
         <Heading tag="h2">Course Content</Heading>
 
-        <p className="text-sm text-gray-500">
+        <p className="sm:text-sm text-xs text-gray-500">
           32 Videos • 10 Images • 5 Youtube and 10 Text Contents
         </p>
       </div>
