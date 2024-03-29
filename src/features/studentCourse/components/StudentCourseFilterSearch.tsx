@@ -28,10 +28,12 @@ const StudentCourseFilterSearch = () => {
           />
         </div>
 
-        <TextInputComponent
-          placeholder="Search ..."
-          inputClassName="sm:w-[350px] w-full"
-        />
+        <div className="sm:w-auto w-full">
+          <TextInputComponent
+            placeholder="Search ..."
+            inputClassName="sm:w-[350px] w-full"
+          />
+        </div>
       </div>
 
       <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 sm:gap-3 gap-2">

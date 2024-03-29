@@ -6,7 +6,7 @@ import Heading from "@/components/typography/Heading";
 
 const LearnCourseInformation = () => {
   return (
-    <div className="mt-6 space-y-4">
+    <div className="mt-6 space-y-4 px-2">
       <Heading tag="h1">Grade 12 - ( English Intermediate )</Heading>
 
       <p className="text-sm text-gray-500">

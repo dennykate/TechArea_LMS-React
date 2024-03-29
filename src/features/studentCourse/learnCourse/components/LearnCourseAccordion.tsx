@@ -15,7 +15,7 @@ const LearnCourseAccordion = () => {
       <Accordion.Item value="customization">
         <Accordion.Control
           className=" bg-primary-100 hover:bg-primary-100 hover:bg-opacity-50
-       bg-opacity-50"
+       bg-opacity-50 sm:!px-4 !px-2"
         >
           <div className="flex items-center gap-2">
             <p>How to be a programmer ?</p>
@@ -24,7 +24,7 @@ const LearnCourseAccordion = () => {
           </div>
         </Accordion.Control>
         <Accordion.Panel bg="white">
-          <div className=" space-y-2 px-[6px]">
+          <div className=" space-y-2 sm:!px-4 !px-2">
             <Heading tag="h6">How to be a programmer ?</Heading>
             <p className="text-sm text-gray-500">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque
@@ -56,7 +56,14 @@ const LearnCourseAccordion = () => {
         </Accordion.Panel>
       </Accordion.Item>
 
-      <Modal opened={opened} fullScreen onClose={close}>
+      <Modal
+        opened={opened}
+        fullScreen
+        onClose={close}
+        classNames={{
+          body: "px-0",
+        }}
+      >
         <LearnCourseContentCard />
       </Modal>
     </>

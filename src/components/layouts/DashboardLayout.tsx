@@ -5,6 +5,7 @@ import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
 import NavBar from "../navBar/NavBar";
 import SideBar from "../sideBar/SideBar";
+import Footer from "../footers/Footer";
 
 interface PropsType {
   children: React.ReactNode;
@@ -45,8 +46,13 @@ const DashboardLayout = ({ children }: PropsType) => {
       >
         <NavBar toggle={toggle} />
 
-        <div className="h-[calc(100%-70px)] w-full overflow-y-auto bg-[#f5f5f5]">
+        <div
+          className="sm:h-[calc(100%-70px)] h-[calc(100%-50px)] w-full 
+        overflow-y-auto bg-[#f5f5f5]"
+        >
           {children}
+
+          <Footer />
         </div>
       </div>
     </div>
