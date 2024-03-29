@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { IoMdTime } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
-import { MdSchool, MdOutlineMeetingRoom } from "react-icons/md";
+import { MdOutlineSchool, MdOutlineMeetingRoom } from "react-icons/md";
 import Heading from "@/components/typography/Heading";
 
 const LearnCourseInformation = () => {
@@ -30,7 +30,7 @@ const LearnCourseInformation = () => {
         </div>
 
         <div className="flex items-center gap-1">
-          <MdSchool size={18} />
+          <MdOutlineSchool size={18} />
           <p className="text-sm text-gray-800">Grade - 10</p>
         </div>
 
