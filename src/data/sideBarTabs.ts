@@ -2,6 +2,7 @@ import { MdDashboard, MdPeople, MdSchool } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { RiAdminLine } from "react-icons/ri";
+import { AiFillSchedule } from "react-icons/ai";
 
 const sideBarTabs = [
   {
@@ -15,6 +16,12 @@ const sideBarTabs = [
     icon: MdSchool,
     initiallyOpened: false,
     link: "/grades",
+  },
+  {
+    label: "Schedules",
+    icon: AiFillSchedule,
+    initiallyOpened: false,
+    link: "/schedules",
   },
   {
     label: "Accounts",

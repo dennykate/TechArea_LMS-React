@@ -11,6 +11,7 @@ import { adminRoutes } from "@/features/users/admins/routes";
 import { gradeRoutes } from "@/features/grades/routes";
 import { sectionRoutes } from "@/features/sections/routes";
 import { sectionStudentRoutes } from "@/features/students/routes";
+import { scheduleRoutes } from "@/features/schedules/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
@@ -59,6 +60,10 @@ const privateRoutes = [
             children: adminRoutes,
           },
         ],
+      },
+      {
+        path: "/schedules/*",
+        children: scheduleRoutes,
       },
       {
         path: "/grades/*",
