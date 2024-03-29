@@ -18,7 +18,6 @@ const LearnCourseAccordion = () => {
        bg-opacity-50 sm:!px-4 !px-2"
         >
           <div className="flex items-center gap-2">
-            
             <p>How to be a programmer ?</p> 
 
             <IoIosCheckmarkCircle size={20} className="text-primary-500" />
