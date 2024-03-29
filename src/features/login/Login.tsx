@@ -1,8 +1,10 @@
+import { Checkbox, Popover, Text } from "@mantine/core";
+import { Link, useNavigate } from "react-router-dom";
+import { useEncryptStorage } from "use-encrypt-storage";
+import { BsQuestionCircle } from "react-icons/bs";
+
 import MyButton from "@/components/buttons/MyButton";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
-import { Checkbox } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
-import { useEncryptStorage } from "use-encrypt-storage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,7 +20,9 @@ const Login = () => {
     <div className="w-full min-h-screen bg-primary-600 flex justify-center items-center">
       <div className="max-w-[420px] flex-1 px-5 py-8 bg-white rounded-md shadow-md mx-2">
         <div className="w-full flex flex-col items-center gap-2">
-          <h1 className="text-3xl text-blue-500 font-[700]">Welcome Back!</h1>
+          <h1 className="text-3xl text-primary-500 font-[700]">
+            Welcome Back!
+          </h1>
           <p className="text-sm text-gray-600 text-center">
             Enter your phone number and passwort to login
           </p>
@@ -35,9 +39,39 @@ const Login = () => {
             label="Password"
           />
 
-          <Checkbox label="Remember Me" />
+          <div className="flex justify-between items-center">
+            <Checkbox
+              label="Remember Me"
+              classNames={{
+                label: "sm:text-[16px] text-[14px]",
+              }}
+            />
 
-          <MyButton onClick={onSubmitHandler}>Login</MyButton>
+            <div className="flex gap-1 items-center">
+              <p className="sm:text-[16px] text-[14px]">Forget Password </p>
+              <Popover position="top-end" width={200} withArrow shadow="md">
+                <Popover.Target>
+                  <BsQuestionCircle size={16} />
+                </Popover.Target>
+                <Popover.Dropdown>
+                  <Text size="sm">
+                    If you forgot your current password, please contact school
+                    admin team. You can{" "}
+                    <Link
+                      to="tel:099655704594"
+                      className="underline text-blue-500"
+                    >
+                      contact here
+                    </Link>
+                  </Text>
+                </Popover.Dropdown>
+              </Popover>
+            </div>
+          </div>
+
+          <div className="flex justify-center">
+            <MyButton onClick={onSubmitHandler}>Login</MyButton>
+          </div>
         </form>
       </div>
     </div>
