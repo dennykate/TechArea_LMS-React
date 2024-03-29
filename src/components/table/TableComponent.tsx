@@ -135,7 +135,8 @@ PropsType) => {
       <div className={`${!disableTablePadding && "sm:p-4 p-3"}`}>
         {(search || limit) && (
           <div
-            className="w-full flex lg:justify-between lg:items-center items-end lg:mb-4 mb-2 lg:flex-row 
+            className="w-full flex lg:justify-between lg:items-center items-end lg:mb-4 mb-2 
+            lg:flex-row 
       flex-col-reverse gap-2"
           >
             {search ? (
@@ -154,7 +155,8 @@ PropsType) => {
             )}
 
             {limit && (
-              <div className="flex  sm:items-center items-end  gap-3 sm:flex-row flex-col-reverse sm:w-auto w-full sm:justify-center justify-between">
+              <div className="flex  sm:items-center items-end  gap-3
+              sm:w-auto w-full sm:justify-center justify-between">
                 {dateRangePicker && (
                   <DateRangePickerComponent
                     dateRange={dateRange}

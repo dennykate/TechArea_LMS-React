@@ -24,23 +24,23 @@ const DateRangePickerComponent = ({ dateRange, setDateRange }: PropsType) => {
       setDateRange({ start, end });
     }
     const ranges: { [name: string]: [DateOrString, DateOrString] } = {
-      အားလုံး: [
+      All: [
         moment()
           .subtract(moment().year() - 2000, "year")
           .startOf("year"),
         moment(),
       ],
-      ယနေ့: [moment(), moment()],
-      မနေ့: [moment().subtract(1, "days"), moment().subtract(1, "days")],
-      "လွန်ခဲ့သော ၇ရက်": [moment().subtract(6, "days"), moment()],
-      "လွန်ခဲ့သော ရက်၃၀": [moment().subtract(29, "days"), moment()],
-      ယခုလ: [moment().startOf("month"), moment().endOf("month")],
-      အရင်လ: [
+      Today: [moment(), moment()],
+      Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+      "Last 7Days": [moment().subtract(6, "days"), moment()],
+      "Last 30Days": [moment().subtract(29, "days"), moment()],
+      "This Month": [moment().startOf("month"), moment().endOf("month")],
+      "Previous Month": [
         moment().subtract(1, "month").startOf("month"),
         moment().subtract(1, "month").endOf("month"),
       ],
-      ယခုနှစ်: [moment().startOf("year"), moment().endOf("year")],
-      အရင်နှစ်: [
+      "This Year": [moment().startOf("year"), moment().endOf("year")],
+      "Previous": [
         moment().subtract(1, "year").startOf("year"),
         moment().subtract(1, "year").endOf("year"),
       ],

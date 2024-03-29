@@ -10,8 +10,8 @@ interface PropsType {
 }
 
 const DashboardLayout = ({ children }: PropsType) => {
-  const [opened, { toggle, close }] = useDisclosure(true);
   const matches = useMediaQuery("(max-width: 796px)");
+  const [opened, { toggle, close }] = useDisclosure(!!matches);
 
   return (
     <div className="flex items-start h-screen overflow-hidden">
