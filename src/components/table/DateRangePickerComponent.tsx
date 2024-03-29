@@ -40,7 +40,7 @@ const DateRangePickerComponent = ({ dateRange, setDateRange }: PropsType) => {
         moment().subtract(1, "month").endOf("month"),
       ],
       "This Year": [moment().startOf("year"), moment().endOf("year")],
-      "Previous": [
+      "Previous Year": [
         moment().subtract(1, "year").startOf("year"),
         moment().subtract(1, "year").endOf("year"),
       ],
