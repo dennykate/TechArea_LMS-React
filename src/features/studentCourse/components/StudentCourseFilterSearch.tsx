@@ -18,22 +18,20 @@ const StudentCourseFilterSearch = () => {
           <SelectComponent
             data={gradeData}
             placeholder="Grade"
-            searchInputClassName="sm:w-[150px] w-[100px]"
+            searchInputClassName="sm:w-[150px] w-full"
           />
 
           <SelectComponent
             data={sectionData}
             placeholder="Section"
-            searchInputClassName="sm:w-[150px] w-[100px]"
+            searchInputClassName="sm:w-[150px] w-full"
           />
         </div>
 
-        <div>
-          <TextInputComponent
-            placeholder="Search ..."
-            inputClassName="sm:w-[350px] w-[230px]"
-          />
-        </div>
+        <TextInputComponent
+          placeholder="Search ..."
+          inputClassName="sm:w-[350px] w-full"
+        />
       </div>
 
       <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-2 sm:gap-3 gap-2">

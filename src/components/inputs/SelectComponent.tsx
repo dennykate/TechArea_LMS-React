@@ -45,6 +45,7 @@ const SelectComponent = ({
               "!border-none !outline-none ",
               searchInputClassName
             ),
+            root: "w-full",
           }}
           data={data}
           searchable
