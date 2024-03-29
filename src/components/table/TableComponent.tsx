@@ -5,7 +5,7 @@ import moment, { Moment } from "moment/moment";
 import { IconType } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
 import { useDebouncedState, useMediaQuery } from "@mantine/hooks";
-import { Table, TextInput, NumberInput, Loader } from "@mantine/core";
+import { Table, TextInput, Loader } from "@mantine/core";
 import { IoSearch } from "react-icons/io5";
 
 import DateRangePickerComponent from "./DateRangePickerComponent";
@@ -13,6 +13,7 @@ import useQuery from "@/hooks/useQuery";
 // import useDisableUI from "@/hooks/useDisableUI";
 import MyButton from "../buttons/MyButton";
 import MyPagination from "../common/MyPagination";
+import SelectComponent from "../inputs/SelectComponent";
 
 interface PropsType {
   rows: JSX.Element[];
@@ -61,7 +62,7 @@ const TableComponent = ({
 }: // hideRoles = [""],
 PropsType) => {
   const [page, setPage] = useState<number>(1);
-  const [dataLimit, setDataLimit] = useDebouncedState<number>(10, 500);
+  const [dataLimit, setDataLimit] = useState<string>("10");
   const [dataSearch, setDataSearch] = useDebouncedState<string>("", 500);
   const [dateRange, setDateRange] = useState<{ start: Moment; end: Moment }>({
     start: moment()
@@ -162,16 +163,19 @@ PropsType) => {
                 )}
                 <div className="flex items-center gap-6 ">
                   {limitOnly && (
-                    <NumberInput
-                      defaultValue={dataLimit}
-                      onChange={(e) => setDataLimit(parseInt(e as string))}
-                      min={0}
-                      max={100}
-                      classNames={{
-                        wrapper: "w-[60px] h-full",
-                        input: "text-sm h-[40px]",
-                      }}
-                    />
+                    <div className="w-[80px]">
+                      <SelectComponent
+                        defaultValue={dataLimit}
+                        value={dataLimit}
+                        onChangeHandler={(e) => setDataLimit(e)}
+                        data={[
+                          { value: "10", label: "10" },
+                          { value: "20", label: "20" },
+                          { value: "50", label: "50" },
+                          { value: "100", label: "100" },
+                        ]}
+                      />
+                    </div>
                   )}
                 </div>
               </div>
