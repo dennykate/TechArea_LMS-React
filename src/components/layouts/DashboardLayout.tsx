@@ -1,9 +1,10 @@
+import { twMerge } from "tailwind-merge";
+import { Drawer } from "@mantine/core";
+import { useEffect } from "react";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
 import NavBar from "../navBar/NavBar";
 import SideBar from "../sideBar/SideBar";
-import { twMerge } from "tailwind-merge";
-import { Drawer } from "@mantine/core";
 
 interface PropsType {
   children: React.ReactNode;
@@ -11,7 +12,12 @@ interface PropsType {
 
 const DashboardLayout = ({ children }: PropsType) => {
   const matches = useMediaQuery("(max-width: 796px)");
-  const [opened, { toggle, close }] = useDisclosure(!!matches);
+  const [opened, { toggle, close, open }] = useDisclosure(true);
+
+  useEffect(() => {
+    if (matches) close();
+    else open();
+  }, [matches]);
 
   return (
     <div className="flex items-start h-screen overflow-hidden">

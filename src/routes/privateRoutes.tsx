@@ -97,7 +97,11 @@ const privateRoutes = [
   },
   {
     path: "learn-course/:courseId",
-    element: <LearnCourse />,
+    element: (
+      <Wrapper>
+        <LearnCourse />
+      </Wrapper>
+    ),
   },
   {
     path: "chat",

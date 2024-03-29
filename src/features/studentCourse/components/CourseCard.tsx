@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const CourseCard = () => {
   return (
     <Link
-      to={""}
+      to={"/learn-course/basic-course"}
       className="w-full border border-black border-opacity-20 rounded shadow-sm overflow-hidden
        hover:translate-y-[-2px] hover:shadow-md transition-all duration-300 ease-in-out bg-white
        "
