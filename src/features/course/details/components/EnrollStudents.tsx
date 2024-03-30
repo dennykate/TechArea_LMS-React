@@ -18,6 +18,7 @@ const EnrollStudents = () => {
       [0, 1]?.map((element: any, i: number) => (
         <tr key={i}>
           <td className="m_td">1</td>
+          
           <td className="m_td">
             <Avatar
               size="lg"
