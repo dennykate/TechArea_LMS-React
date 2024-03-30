@@ -17,7 +17,7 @@ const NavLayout: React.FC<PropsType> = ({ children }) => {
         Icon={IoArrowBack}
         toggle={() => navigate(-1)}
         withShadow
-        wrapperClassName="sticky top-0 left-0"
+        wrapperClassName="sticky top-0 left-0 z-10"
       />
 
       {children}

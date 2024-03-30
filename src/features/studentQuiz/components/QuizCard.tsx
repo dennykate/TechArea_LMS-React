@@ -10,7 +10,7 @@ const QuizCard = () => {
        hover:translate-y-[-2px] hover:shadow-md transition-all duration-300 ease-in-out bg-white
        "
     >
-      <div className="w-full sm:h-[160px] h-[150px] relative">
+      <div className="w-full sm:h-[150px] h-[130px] relative">
         <img
           src="https://i.postimg.cc/26gHzHpr/5a108056-a070-44ee-a123-1afd489077e0.jpg"
           alt="thumbnail"
