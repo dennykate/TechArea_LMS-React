@@ -19,6 +19,7 @@ const EditCourseContent: React.FC<PropsType> = ({ close }) => {
       type: "image",
       youtubeURL: "",
       text: "",
+      
     },
   });
 
