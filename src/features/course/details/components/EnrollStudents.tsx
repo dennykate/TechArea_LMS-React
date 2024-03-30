@@ -31,8 +31,9 @@ const EnrollStudents = () => {
           <td className="m_td">
             <a href={`tel:09964470356`}>09964470356</a>
           </td>
-          
+
           <td className="m_td">Male</td>
+          
           <td className="m_td">01 Dec 2000</td>
           <td className="m_td">Ma Ma</td>
           <td className="m_td">22 March 2024</td>
