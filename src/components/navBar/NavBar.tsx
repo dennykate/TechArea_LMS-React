@@ -8,9 +8,15 @@ interface PropsType {
   toggle: () => void;
   Icon?: IconType;
   withShadow?: boolean;
+  wrapperClassName?: string;
 }
 
-const NavBar = ({ toggle, Icon = FaBarsStaggered, withShadow }: PropsType) => {
+const NavBar = ({
+  toggle,
+  Icon = FaBarsStaggered,
+  withShadow,
+  wrapperClassName,
+}: PropsType) => {
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     toggle();
@@ -20,7 +26,8 @@ const NavBar = ({ toggle, Icon = FaBarsStaggered, withShadow }: PropsType) => {
     <div
       className={twMerge(
         "w-full sm:h-[70px] h-[50px] bg-white flex items-center justify-between lg:px-4 px-1",
-        withShadow && "shadow-md"
+        withShadow && "shadow-md",
+        wrapperClassName
       )}
     >
       <ActionIcon onClick={onClickHandler}>

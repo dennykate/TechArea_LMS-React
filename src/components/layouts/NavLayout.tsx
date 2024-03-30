@@ -13,10 +13,15 @@ const NavLayout: React.FC<PropsType> = ({ children }) => {
 
   return (
     <>
-      <NavBar Icon={IoArrowBack} toggle={() => navigate(-1)} withShadow />
+      <NavBar
+        Icon={IoArrowBack}
+        toggle={() => navigate(-1)}
+        withShadow
+        wrapperClassName="sticky top-0 left-0"
+      />
 
       {children}
-      
+
       <Footer />
     </>
   );
