@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CourseInformation = () => {
   return (
-    <div className=" space-y-2 pb-6 border-b border-black border-opacity-20">
+    <div className=" space-y-2 pb-6 ">
       <Heading tag="h2">Course Information</Heading>
 
       <p className="sm:text-sm text-xs font-[300] text-black/70">

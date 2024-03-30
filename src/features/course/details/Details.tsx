@@ -1,10 +1,13 @@
+import { Tabs } from "@mantine/core";
 import { IconPencilMinus } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import { MdContentPaste, MdOutlinePeopleAlt } from "react-icons/md";
 
 import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 import CourseInformation from "./components/CourseInformation";
 import CourseContent from "./components/CourseContent";
+import EnrollStudents from "./components/EnrollStudents";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -43,7 +46,33 @@ const Details = () => {
       </div>
 
       <div className="mt-4">
-        <CourseContent />
+        <Tabs defaultValue="content">
+          <Tabs.List>
+            <Tabs.Tab
+              value="content"
+              icon={<MdContentPaste size={16} />}
+              className="text-base"
+            >
+              Contents
+            </Tabs.Tab>
+
+            <Tabs.Tab
+              value="enroll-students"
+              icon={<MdOutlinePeopleAlt size={16} />}
+              className="text-base"
+            >
+              Enroll Students
+            </Tabs.Tab>
+          </Tabs.List>
+
+          <Tabs.Panel value="content" pt="xl">
+            <CourseContent />
+          </Tabs.Panel>
+
+          <Tabs.Panel value="enroll-students" pt="">
+            <EnrollStudents />
+          </Tabs.Panel>
+        </Tabs>
       </div>
     </DetailsLayout>
   );
