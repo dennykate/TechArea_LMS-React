@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TextInput } from "@mantine/core";
-import { InputProps } from "./types/type";
+import { TextInput, TextInputProps } from "@mantine/core";
 import { ChangeEvent } from "react";
 import { UseFormReturnType } from "@mantine/form";
 
-interface PropsType extends InputProps {
+interface PropsType extends Omit<TextInputProps, "form"> {
   value?: number | string;
   onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
@@ -13,7 +12,7 @@ interface PropsType extends InputProps {
   inputClassName?: string;
 }
 
-const TextInputComponent = ({
+const TextInputComponent: React.FC<PropsType> = ({
   label,
   placeholder,
   value,
@@ -24,9 +23,12 @@ const TextInputComponent = ({
   defaultValue,
   withAsterisk,
   inputClassName,
-}: PropsType) => {
+  classNames,
+  ...props
+}) => {
   return (
     <TextInput
+      {...props}
       disabled={disabled}
       label={label}
       withAsterisk={withAsterisk}
@@ -35,6 +37,7 @@ const TextInputComponent = ({
       classNames={{
         label: `sm:text-[16px] text-[14px] mb-1`,
         wrapper: inputClassName,
+        ...classNames,
       }}
       value={value}
       defaultValue={defaultValue}

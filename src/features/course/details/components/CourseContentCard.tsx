@@ -41,7 +41,11 @@ const CourseContentCard = () => {
             <Badge size="md" color="red" leftSection={<IconUser size={16} />}>
               Thwe Thwe
             </Badge>
-            <Badge size="md" leftSection={<IconCalendarMonth size={16} />}>
+            <Badge
+              size="md"
+              color="teal"
+              leftSection={<IconCalendarMonth size={16} />}
+            >
               01 Dec 2000 12:00 AM
             </Badge>
           </div>
@@ -50,7 +54,7 @@ const CourseContentCard = () => {
         <div className="absolute top-2 right-2">
           <MyButton
             onClick={open}
-            size="sm"
+            size="xs"
             leftIcon={<IconPencilMinus size={16} />}
           >
             Edit

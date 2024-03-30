@@ -3,11 +3,11 @@ import {
   MdPeople,
   MdOutlineMenuBook,
   MdSchool,
+  MdQuiz,
 } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { FaBookReader } from "react-icons/fa";
-
 import { RiAdminLine } from "react-icons/ri";
 import { AiFillSchedule } from "react-icons/ai";
 
@@ -23,6 +23,12 @@ const sideBarTabs = [
     icon: MdOutlineMenuBook,
     initiallyOpened: false,
     link: "/courses",
+  },
+  {
+    label: "Quizzes",
+    icon: MdQuiz,
+    initiallyOpened: false,
+    link: "/quizzes",
   },
   {
     label: "Grades",

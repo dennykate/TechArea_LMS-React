@@ -46,12 +46,12 @@ const Create = () => {
           label="End Date"
           withAsterisk
         />
-      </div>
-      <div className="md:col-span-2 col-span-1">
-        <TextAreaComponent
-          label="Description"
-          placeholder="Enter description"
-        />
+        <div className="md:col-span-2 col-span-1">
+          <TextAreaComponent
+            label="Description"
+            placeholder="Enter description"
+          />
+        </div>
       </div>
     </FormLayout>
   );

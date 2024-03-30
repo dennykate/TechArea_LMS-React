@@ -24,7 +24,7 @@ const EditCourseContent: React.FC<PropsType> = ({ close }) => {
 
   return (
     <FormLayout
-      wrapperClassName="px-2 py-4"
+      wrapperClassName="sm:px-2 px-0 py-4"
       isModal
       onSubmit={() => {}}
       onCancel={close}

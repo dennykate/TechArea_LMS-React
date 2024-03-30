@@ -1,13 +1,14 @@
-import MyButton from "@/components/buttons/MyButton";
-import Heading from "@/components/typography/Heading";
-import { IconBookUpload } from "@tabler/icons-react";
-import CourseContentCard from "./CourseContentCard";
-import MyPagination from "@/components/common/MyPagination";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
-import CreateCourseContent from "./CreateCourseContent";
+import { IconBookUpload } from "@tabler/icons-react";
 
-const CourseContent = () => {
+import MyButton from "@/components/buttons/MyButton";
+import Heading from "@/components/typography/Heading";
+import MyPagination from "@/components/common/MyPagination";
+import QuizQuestionCard from "./QuizQuestionCard";
+import CreateQuizQuestion from "./CreateQuizQuestion";
+
+const QuizQuestion = () => {
   const [opened, { close, open }] = useDisclosure(false);
 
   return (
@@ -21,10 +22,7 @@ const CourseContent = () => {
       </div>
 
       <div className="grid grid-cols-1 mt-4 gap-4">
-        <CourseContentCard />
-        <CourseContentCard />
-        <CourseContentCard />
-        <CourseContentCard />
+        <QuizQuestionCard />
       </div>
 
       <div className="mt-6 flex justify-end">
@@ -34,14 +32,15 @@ const CourseContent = () => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Course Content"
+        title="Create Quiz Question"
         centered
         size="lg"
+     
       >
-        <CreateCourseContent close={close} />
+        <CreateQuizQuestion close={close} />
       </Modal>
     </>
   );
 };
 
-export default CourseContent;
+export default QuizQuestion;

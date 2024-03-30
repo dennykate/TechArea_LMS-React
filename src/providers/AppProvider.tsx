@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 
 import "../index.css";
+import { Toaster } from "react-hot-toast";
 
 interface PropsType {
   children: React.ReactNode;
@@ -36,6 +37,8 @@ const AppProvider = ({ children }: PropsType) => {
             }}
           >
             {children}
+
+            <Toaster />
           </MantineProvider>
         </EncryptProvider>
       </Provider>
