@@ -25,8 +25,9 @@ const EnrollStudents = () => {
               src="https://images.pexels.com/photos/3775087/pexels-photo-3775087.jpeg?auto=compress&cs=tinysrgb&w=600"
             />
           </td>
-          
+
           <td className="m_td">Denny Kate</td>
+          
           <td className="m_td">
             <a href={`tel:09964470356`}>09964470356</a>
           </td>
