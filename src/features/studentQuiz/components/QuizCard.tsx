@@ -1,10 +1,10 @@
 import Heading from "@/components/typography/Heading";
 import { Link } from "react-router-dom";
 
-const CourseCard = () => {
+const QuizCard = () => {
   return (
     <Link
-      to={"/learn-course/basic-course"}
+      to={"/answer-quiz/basic-course"}
       className="w-full border border-black border-opacity-20 rounded shadow-sm overflow-hidden
        hover:translate-y-[-2px] hover:shadow-md transition-all duration-300 ease-in-out bg-white
        "
@@ -31,14 +31,14 @@ const CourseCard = () => {
           Tr. Thwe Thwe
         </p>
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
-          Grade - 12 • Section - A
+          10 Multiple-Choices • 23 True/False
         </p>
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
-          29 Lectures • 01 Dec 2000
+          Grade - 10 • Section - C
         </p>
       </div>
     </Link>
   );
 };
 
-export default CourseCard;
+export default QuizCard;

@@ -21,8 +21,12 @@ const Chat = lazy(() => import("@/features/chat/Chat"));
 const StudentCourse = lazy(
   () => import("@/features/studentCourse/StudentCourse")
 );
+const StudentQuiz = lazy(() => import("@/features/studentQuiz/StudentQuiz"));
 const LearnCourse = lazy(
   () => import("@/features/studentCourse/learnCourse/LearnCourse")
+);
+const AnswerQuiz = lazy(
+  () => import("@/features/studentQuiz/answerQuiz/AnswerQuiz")
 );
 
 const WithDashboardLayout = () => {
@@ -50,6 +54,10 @@ const privateRoutes = [
       {
         path: "/student-courses",
         element: <StudentCourse />,
+      },
+      {
+        path: "/student-quizzes",
+        element: <StudentQuiz />,
       },
       {
         path: "/courses/*",
@@ -103,6 +111,14 @@ const privateRoutes = [
     element: (
       <Wrapper>
         <LearnCourse />
+      </Wrapper>
+    ),
+  },
+  {
+    path: "answer-quiz/:quizId",
+    element: (
+      <Wrapper>
+        <AnswerQuiz />
       </Wrapper>
     ),
   },

@@ -1,8 +1,6 @@
-import LearnCourseInformation from "./components/LearnCourseInformation";
-import LearnCourseContent from "./components/LearnCourseContent";
 import NavLayout from "@/components/layouts/NavLayout";
 
-const LearnCourse = () => {
+const AnswerQuiz = () => {
   return (
     <NavLayout>
       <div className="max-w-2xl mx-auto mb-8">
@@ -13,13 +11,9 @@ const LearnCourse = () => {
             className="w-full object-cover"
           />
         </div>
-
-        <LearnCourseInformation />
-
-        <LearnCourseContent />
       </div>
     </NavLayout>
   );
 };
 
-export default LearnCourse;
+export default AnswerQuiz;

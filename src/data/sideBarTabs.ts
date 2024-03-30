@@ -4,6 +4,7 @@ import {
   MdOutlineMenuBook,
   MdSchool,
   MdQuiz,
+  MdQuestionAnswer,
 } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -79,6 +80,12 @@ const sideBarTabs = [
     icon: FaBookReader,
     initiallyOpened: false,
     link: "/student-courses",
+  },
+  {
+    label: "Student Quizzes",
+    icon: MdQuestionAnswer,
+    initiallyOpened: false,
+    link: "/student-quizzes",
   },
 ];
 
