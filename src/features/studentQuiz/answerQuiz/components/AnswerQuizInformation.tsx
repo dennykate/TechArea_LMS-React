@@ -3,6 +3,7 @@ import { IoMdTime } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
 import { MdOutlineSchool, MdOutlineMeetingRoom } from "react-icons/md";
 import Heading from "@/components/typography/Heading";
+import { Alert } from "@mantine/core";
 
 const AnswerQuizInformation = () => {
   return (
@@ -44,6 +45,15 @@ const AnswerQuizInformation = () => {
           <p className="text-sm text-gray-800">1,001</p>
         </div>
       </div>
+
+      <Alert
+        color="brand"
+        classNames={{
+          message: "text-white",
+        }}
+      >
+        The last time you answered, you received 13 marks.
+      </Alert>
     </div>
   );
 };
