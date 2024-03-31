@@ -28,6 +28,7 @@ const LearnCourse = lazy(
 const AnswerQuiz = lazy(
   () => import("@/features/studentQuiz/answerQuiz/AnswerQuiz")
 );
+const Calendar = lazy(() => import("@/features/calendar/Calendar"));
 
 const WithDashboardLayout = () => {
   return (
@@ -58,6 +59,10 @@ const privateRoutes = [
       {
         path: "/student-quizzes",
         element: <StudentQuiz />,
+      },
+      {
+        path: "/calendar",
+        element: <Calendar />,
       },
       {
         path: "/courses/*",
