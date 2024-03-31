@@ -38,6 +38,18 @@ th {
   @apply sm:!text-[1.75em]  !text-[22px];
 }
 
+.custom-calendar .fc-dayGridMonth-view {
+  @apply !overflow-x-auto;
+}
+
+.custom-calendar table {
+  @apply !min-w-[400px];
+}
+
+.custom-calendar .fc-day {
+  @apply sm:!h-auto !h-[50px] !w-auto flex-1;
+}
+
 .custom-calendar .fc-button-primary,
 .custom-calendar .fc-today-button {
   background-color: #1cd6ab !important; /* Change to your desired color */
