@@ -41,7 +41,7 @@ const Calendar = () => {
 
   return (
     <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar overflow-x-auto">
-      <div className="min-w-[600px] sm:pr-0 pr-2">
+      <div className="">
         <FullCalendar
           plugins={[
             dayGridPlugin,

@@ -30,6 +30,14 @@ th {
   font-size: 16px;
 }
 
+.custom-calendar .fc-header-toolbar {
+  @apply !flex-wrap !gap-2;
+}
+
+.custom-calendar .fc-toolbar-title {
+  @apply sm:!text-[1.75em] !text-[22px];
+}
+
 .custom-calendar .fc-button-primary,
 .custom-calendar .fc-today-button {
   background-color: #1cd6ab !important; /* Change to your desired color */
