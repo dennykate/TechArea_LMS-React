@@ -35,7 +35,7 @@ th {
 }
 
 .custom-calendar .fc-toolbar-title {
-  @apply sm:!text-[1.75em] !text-[22px];
+  @apply sm:!text-[1.75em]  !text-[22px];
 }
 
 .custom-calendar .fc-button-primary,
