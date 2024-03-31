@@ -67,6 +67,7 @@ const Calendar = () => {
         {selectedEvents.map((event: any, index: number) => (
           <div key={index}>
             <Text>Date: {event.start.split("T")[0]}</Text>
+            
             <Text>Title: {event.title}</Text>
             <Text>Description: {event.description}</Text>
             <hr className="my-4" />
