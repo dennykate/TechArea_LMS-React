@@ -40,22 +40,29 @@ const Calendar = () => {
   };
 
   return (
-    <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar">
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        initialView="dayGridMonth"
-        headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
-        }}
-        events={events}
-        dateClick={handleDateClick}
-        editable={true}
-        selectable={true}
-        selectMirror={true}
-        dayMaxEvents={true}
-      />
+    <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar overflow-x-auto">
+      <div className="min-w-[600px] sm:pr-0 pr-2">
+        <FullCalendar
+          plugins={[
+            dayGridPlugin,
+            timeGridPlugin,
+            interactionPlugin,
+            listPlugin,
+          ]}
+          initialView="dayGridMonth"
+          headerToolbar={{
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+          }}
+          events={events}
+          dateClick={handleDateClick}
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+        />
+      </div>
 
       <Modal
         opened={modalOpened}

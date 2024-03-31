@@ -30,15 +30,21 @@ th {
   font-size: 16px;
 }
 
-.custom-calendar .fc-button-primary {
+.custom-calendar .fc-button-primary,
+.custom-calendar .fc-today-button {
   background-color: #1cd6ab !important; /* Change to your desired color */
   border-color: #1cd6ab !important; /* Change to your desired color */
   color: #fff !important; /* Change text color if needed */
 }
 
-.custom-calendar .fc-button-primary:hover {
+.custom-calendar .fc-button-primary:hover,
+.custom-calendar .fc-today-button:hover {
   background-color: #16ab89 !important; /* Change to your desired hover color */
   border-color: #16ab89 !important; /* Change to your desired hover color */
+}
+
+.custom-calendar .fc-button:focus {
+  box-shadow: none !important;
 }
 
 .custom-calendar .fc-button-primary:active,
