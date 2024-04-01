@@ -7,16 +7,18 @@ interface TextEditorInputProps {
   content: any;
   handleChange: (value: any) => void;
   label?: string;
+  inputClassName?: string;
 }
 const TextEditorInput = ({
   content,
   handleChange,
   label,
+  inputClassName,
 }: TextEditorInputProps) => {
   return (
     <div className={twMerge(label ? "min-h-[160px]" : "min-h-[140px] ")}>
       {label && (
-        <label htmlFor="text-editor" className="-mb-2">
+        <label htmlFor="text-editor" className="font-medium">
           {label}
         </label>
       )}
@@ -45,7 +47,11 @@ const TextEditorInput = ({
           "bullet",
           "link",
         ]}
-        className="h-[100px]"
+        className={twMerge(
+          "h-[100px]",
+          label && "mt-2",
+          inputClassName
+        )}
       />
     </div>
   );
