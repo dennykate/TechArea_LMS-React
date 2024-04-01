@@ -9,7 +9,7 @@ import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import React, { useState } from "react";
 
 interface PropsType extends Partial<DropzoneProps> {
-  type?: "video" | "image";
+  type?: "video" | "image" | "all";
 }
 
 const FileUpload: React.FC<PropsType> = ({ type = "image", ...props }) => {
@@ -30,7 +30,13 @@ const FileUpload: React.FC<PropsType> = ({ type = "image", ...props }) => {
           onDrop={handleDrop}
           onReject={(files) => console.log("rejected files", files)}
           // maxSize={3 * 1024 ** 2}
-          accept={type === "image" ? IMAGE_MIME_TYPE : ["video/mp4"]}
+          accept={
+            type === "all"
+              ? []
+              : type === "image"
+              ? IMAGE_MIME_TYPE
+              : ["video/mp4"]
+          }
           {...props}
         >
           <Group
