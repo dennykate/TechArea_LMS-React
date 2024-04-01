@@ -8,6 +8,7 @@ import {
 } from "@/features/accounts/students/create/data";
 import TextEditorInput from "@/components/inputs/TextEditorInput";
 import { useForm } from "@mantine/form";
+import FileUpload from "@/components/inputs/FileUpload";
 
 const Create = () => {
   const form = useForm({
@@ -48,23 +49,22 @@ const Create = () => {
           inputClassName="mb-5"
         />
 
-        <div className=" ">
-          <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
-            <SelectComponent
-              label="Grade"
-              placeholder="Select Grade"
-              withAsterisk
-              data={gradeData}
-            />
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
+          <SelectComponent
+            label="Grade"
+            placeholder="Select Grade"
+            withAsterisk
+            data={gradeData}
+          />
 
-            <SelectComponent
-              label="Section"
-              placeholder="Select Section"
-              withAsterisk
-              data={sectionData}
-            />
-          </div>
+          <SelectComponent
+            label="Section"
+            placeholder="Select Section"
+            withAsterisk
+            data={sectionData}
+          />
         </div>
+        <FileUpload type={"all"} className="mt-5"/>
       </div>
     </FormLayout>
   );
