@@ -14,11 +14,9 @@ const CharRom = () => {
     <div className="p-1 relative h-[90vh] w-full flex  ">
       {/* chat mate nav  */}
       <div className="flex absolute top-5 w-[90%] right-[50%] translate-x-[50%]">
-        <ChatMate justify={"justify-start"} gap="5" />
+        <ChatMate justify={"justify-start"} gap="gap-5" />
       </div>
-      <div>
-
-      </div>
+      <div></div>
       {/* input form  */}
       <div className="absolute bottom-0 w-[90%] right-[50%] translate-x-[50%]">
         <Input

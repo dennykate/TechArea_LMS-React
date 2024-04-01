@@ -1,4 +1,4 @@
-import { MdChat, MdDashboard, MdPeople } from "react-icons/md";
+import { MdChat, MdDashboard, MdPeople, MdPodcasts } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { RiAdminLine } from "react-icons/ri";
@@ -47,6 +47,12 @@ const sideBarTabs = [
     icon: MdChat,
     initiallyOpened: false,
     link: "/chat",
+  },
+  {
+    label: "New Feed",
+    icon: MdPodcasts,
+    initiallyOpened: false,
+    link: "/new-feed",
   },
 ];
 

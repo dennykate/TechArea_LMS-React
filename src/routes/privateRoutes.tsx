@@ -8,6 +8,8 @@ import { studentRoutes } from "@/features/users/students/routes";
 import { teacherRoutes } from "@/features/users/teachers/routes";
 import { staffRoutes } from "@/features/users/staffs/routes";
 import { adminRoutes } from "@/features/users/admins/routes";
+import NewFeed from "@/features/newfeed/NewFeed";
+import UploadField from "@/features/newfeed/components/UploadField";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Chat = lazy(() => import("@/features/chat/Chat"));
@@ -55,6 +57,14 @@ const privateRoutes = [
       {
         path: "/chat",
         element: <Chat />,
+      },
+      {
+        path: "/new-feed",
+        element: <NewFeed />,
+      },
+      {
+        path: "/upload",
+        element: <UploadField />,
       },
     ],
   },
