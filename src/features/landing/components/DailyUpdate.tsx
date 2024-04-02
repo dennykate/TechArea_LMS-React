@@ -2,13 +2,14 @@
 import React from "react";
 // import { FaCaretRight } from "react-icons/fa";
 import { dailyUpdateData, subTitle, title } from "../data";
+import { FaCaretRight } from "react-icons/fa6";
 
 const DailyUpdate = () => {
   return (
     <div className="w-full py-24">
       <div className="w-2/3 mx-auto text-center">
         <h6 className={subTitle}>Together We Can Create</h6>
-        <h1 className={title}>Interesting Articles Updated Daily</h1>
+        <h1 className={title}>Accouncements Updated Daily</h1>
       </div>
 
       <div className="my-10 w-full grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-8 sm:px-10 px-2 mx-auto">
@@ -16,7 +17,7 @@ const DailyUpdate = () => {
           <div
             key={index}
             className="sm:h-[450px] min-h-[480px] lg:shadow-sm shadow-2xl hover:-translate-y-3 hover:shadow-2xl
-        transition duration-200 ease-in-out relative group"
+        transition duration-200 ease-in-out relative group border border-black border-opacity-10"
           >
             <img
               src={data.thumbnail}
@@ -27,7 +28,7 @@ const DailyUpdate = () => {
               <h1 className=" font-poppins font-bold text-xl">{data.title}</h1>
               <p className=" font-sans text-base mt-2">{data.paragraph}</p>
               <p className="font-poppins text-sm mt-7 text-primary-500">
-                12 Comments | Dec 17, 2020
+                Created At - Dec 17, 2020
               </p>
             </div>
 
@@ -38,48 +39,26 @@ const DailyUpdate = () => {
           </div>
         ))}
       </div>
-      {/* <div className="w-full md:h-[60px] h-auto flex md:flex-row flex-col justify-center items-center gap-5">
-        <h1 className=" font-sans font-bold sm:text-2xl text-lg text-[#383838]">
-          With 20+ Qualified Teacher?​
-        </h1>
-        <div
-          className="w-[230px] h-[60px] border-[2px] border-[#383838] flex justify-center items-center gap-2
-        cursor-pointer relative p-0 group"
+      <div
+        className="max-w-[320px] h-[50px] border-2 border-[#33415C] flex justify-center gap-3 
+      items-center mx-auto mt-18 cursor-pointer group relative"
+      >
+        <h4
+          className="font-poppins text-[#33415C] font-bold group-hover:text-white 
+        transition-all duration-200 ease-in-out"
         >
-          <h1
-            className=" font-sans font-medium sm:text-xl text-base text-[#383838] group-hover:text-white
-          transition-all duration-200 ease-in-out"
-          >
-            View All Here
-          </h1>
-          <FaCaretRight
-            size={23}
-            className="text-[#33415C] group-hover:text-white transition-all duration-200 ease-in-out"
-          />
+          Discover More Accouncements
+        </h4>
+        <FaCaretRight
+          size={18}
+          className="text-[#33415C] group-hover:text-white transition-all duration-200 ease-in-out"
+        />
 
-          <div
-            className="w-0 h-0 group-hover:w-[101%] group-hover:h-[103%] -translate-y-[1px] -translate-x-[1px]
-             bg-[#383838] -z-10  absolute top-0 left-0 right-0 bottom-0 transition-all duration-200 ease-in-out"
-          ></div>
-        </div>
-
-        <div className="w-[85px]">
-          <div className="relative group">
-            <a
-              href=""
-              className="font-sans font-bold  text-[#FF564F] cursor-pointer group-hover:tracking-widest
-              transition-all duration-500  ease-in-out text-2xl"
-            >
-              Carrers
-            </a>
-
-            <div
-              className="sm:w-2/6 w-full group-hover:w-full absolute h-1 bg-[#FF564F] bottom-0 translate-y-1
-              transition-all duration-500 ease-in-out"
-            ></div>
-          </div>
-        </div>
-      </div> */}
+        <div
+          className="w-0 h-0 group-hover:w-full group-hover:h-full bg-[#33415C] absolute top-0 left-0 right-0 
+        bottom-0 -z-10 transition-all duration-200 ease-in-out origin-center"
+        ></div>
+      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import {
   About,
   Class,
   Contact,
+  DailyUpdate,
   Footer,
   Home,
   Marketing,
@@ -20,7 +21,7 @@ const Landing = () => {
       <Class />
       <Marketing />
       <Teacher />
-      {/* <DailyUpdate /> */}
+      <DailyUpdate />
       {/* <Subscribe /> */}
       <Footer />
 
