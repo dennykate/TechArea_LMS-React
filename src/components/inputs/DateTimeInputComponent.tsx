@@ -23,6 +23,7 @@ export default function DateTimeInputComponent({
     <DateTimePicker
       {...props}
       placeholder={placeholder}
+      onPointerEnterCapture={undefined}
       onPointerLeaveCapture={undefined}
       valueFormat={format ?? "DD MMM YYYY hh:mm A"}
       label={label}
