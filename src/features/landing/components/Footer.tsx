@@ -66,8 +66,8 @@ const Footer = () => {
               <a href="#events" className=" text-white sm:text-lg text-xs">
                 - Events
               </a>
-              <a href="#classes" className=" text-white sm:text-lg text-xs">
-                - Classes
+              <a href="#courses" className=" text-white sm:text-lg text-xs">
+                - Courses
               </a>
               <a href="#location" className=" text-white sm:text-lg text-xs">
                 - Location

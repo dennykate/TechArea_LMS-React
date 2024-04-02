@@ -31,25 +31,25 @@ const About = () => {
           </p>
           <div className="grid grid-cols-2 mt-5 sm:gap-7 gap-3">
             <div className="flex sm:gap-3 gap-1 items-center ">
-              <BsFillCheckCircleFill size={22} color="#564FFF" />
+              <BsFillCheckCircleFill size={22} color="#1cd6ab" />
               <p className=" font-poppins md:text-base xs:text-sm text-xs">
                 Transportation
               </p>
             </div>
             <div className="flex sm:gap-3 gap-1 items-center">
-              <BsFillCheckCircleFill size={22} color="#564FFF" />
+              <BsFillCheckCircleFill size={22} color="#1cd6ab" />
               <p className=" font-poppins md:text-base xs:text-sm text-xs">
                 Outdoor Games
               </p>
             </div>
             <div className="flex sm:gap-3 gap-1 items-center">
-              <BsFillCheckCircleFill size={22} color="#564FFF" />
+              <BsFillCheckCircleFill size={22} color="#1cd6ab" />
               <p className=" font-poppins md:text-base xs:text-sm text-xs">
                 Nutritious Food
               </p>
             </div>
             <div className="flex sm:gap-3 gap-1 items-center">
-              <BsFillCheckCircleFill size={22} color="#564FFF" />
+              <BsFillCheckCircleFill size={22} color="#1cd6ab" />
               <p className=" font-poppins md:text-base xs:text-sm text-xs">
                 Best Care
               </p>
@@ -59,25 +59,6 @@ const About = () => {
             As a word from our heart, we love to dedicate for Kids the valuable
             things in Life . We go with kids to play, learn, and grow better.
           </p>
-          <div className="flex gap-10 mt-5">
-            <h6 className="font-sans font-bold md:text-2xl text-sm">
-              Have a question?
-            </h6>
-            <div className="relative group">
-              <a
-                href=""
-                className="font-sans font-bold  text-[#FF564F] cursor-pointer group-hover:tracking-widest
-              transition-all duration-500  ease-in-out md:text-2xl text-sm"
-              >
-                Get Start Free
-              </a>
-
-              <div
-                className="w-1/3 group-hover:w-full absolute h-1 bg-[#FF564F] bottom-0 translate-y-1
-              transition-all duration-500 ease-in-out"
-              ></div>
-            </div>
-          </div>
         </div>
       </div>
 

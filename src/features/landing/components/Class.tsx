@@ -5,7 +5,7 @@ import { classData, paragraph, subTitle, title } from "../data";
 
 const Class = () => {
   return (
-    <div id="classes" className="w-full sm:py-20  py-5">
+    <div id="courses" className="w-full sm:py-20  py-5">
       <div className="md:w-2/3 w-11/12 mx-auto text-center py-5 flex justify-center items-center flex-col">
         <h6 className={subTitle}>Education For Everyone</h6>
         <h3 className={title}>Learn About Our Work Culture At Devschool</h3>
@@ -31,7 +31,7 @@ const Class = () => {
           className="font-poppins text-[#33415C] font-bold group-hover:text-white 
         transition-all duration-200 ease-in-out"
         >
-          Discover More Projects
+          Discover More Courses
         </h4>
         <FaCaretRight
           size={18}

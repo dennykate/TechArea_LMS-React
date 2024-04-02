@@ -31,7 +31,7 @@ const Header = ({ setShowNavItems }: PropsType) => {
       >
         <div className="flex md:gap-5 gap-2 md:my-0 my-2 md:flex-row flex-col justify-center items-center">
           <div className="flex gap-1">
-            <HiEnvelope size={19} color="#564FFF" />
+            <HiEnvelope size={19} color="#1cd6ab" />
             <a
               href="mailto:dennykate22@gmail.com"
               className=" text-black font-bold sm:text-xs text-[11px]"
@@ -40,7 +40,7 @@ const Header = ({ setShowNavItems }: PropsType) => {
             </a>
           </div>
           <div className="flex gap-1">
-            <FaHome size={19} color="#564FFF" />
+            <FaHome size={19} color="#1cd6ab" />
             <a
               href=""
               className=" text-black font-bold text-xs sm:text-xs text-[11px]"
@@ -52,13 +52,13 @@ const Header = ({ setShowNavItems }: PropsType) => {
 
         <div className="flex gap-7 mr-3 md:mb-0 mb-2">
           <a href="https://www.facebook.com">
-            <FaFacebookF size={19} color="#564FFF" />
+            <FaFacebookF size={19} color="#1cd6ab" />
           </a>
           <a href="https://www.instagram.com">
-            <FaInstagram size={19} color="#564FFF" />
+            <FaInstagram size={19} color="#1cd6ab" />
           </a>
           <a href="https://www.twitter.com">
-            <FaTwitter size={19} color="#564FFF" />
+            <FaTwitter size={19} color="#1cd6ab" />
           </a>
         </div>
       </div>
@@ -78,12 +78,12 @@ const Header = ({ setShowNavItems }: PropsType) => {
             >
               <a
                 href={`#${data.toLowerCase()}`}
-                className="group-hover:text-[#564FFF]"
+                className="group-hover:text-primary-500"
               >
                 {data}
               </a>
               <div
-                className=" h-[3px] absolute bottom-0 left-0 bg-[#564FFF] rounded-md w-0 
+                className=" h-[3px] absolute bottom-0 left-0 bg-primary-500 rounded-md w-0 
           group-hover:w-full transition-all duration-200 ease-in"
               ></div>
             </li>
@@ -92,7 +92,7 @@ const Header = ({ setShowNavItems }: PropsType) => {
 
         <Link
           to={"/login"}
-          className="px-6 py-3 bg-[#564FFF] gap-3 items-center rounded-md cursor-pointer sm:flex
+          className="px-6 py-3 bg-primary-500 gap-3 items-center rounded-md cursor-pointer sm:flex
       hidden hover:-translate-y-1 transform transition-all duration-200 "
         >
           <FiLogIn size={22} color="white" />

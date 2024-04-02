@@ -44,25 +44,25 @@ const TeacherCard: React.FC<PropsType> = ({ data }) => {
           >
             <a
               href="https://www.facebook.com"
-              className="cursor-pointer text-[#564FFF] hover:text-[#000]"
+              className="cursor-pointer text-primary-500 hover:text-[#000]"
             >
               <FaFacebookF size={14} />
             </a>
             <a
               href="https://www.twitter.com"
-              className="cursor-pointer text-[#564FFF] hover:text-[#000]"
+              className="cursor-pointer text-primary-500 hover:text-[#000]"
             >
               <FaTwitter size={14} />
             </a>
             <a
               href="https://www.instagram.com"
-              className="cursor-pointer text-[#564FFF] hover:text-[#000]"
+              className="cursor-pointer text-primary-500 hover:text-[#000]"
             >
               <FaInstagram size={14} />
             </a>
             <a
               href="https://www.linkdin.com"
-              className="cursor-pointer text-[#564FFF] hover:text-[#000]"
+              className="cursor-pointer text-primary-500 hover:text-[#000]"
             >
               <FaLinkedin size={14} />
             </a>

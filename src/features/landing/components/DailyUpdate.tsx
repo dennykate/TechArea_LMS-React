@@ -3,7 +3,6 @@ import React from "react";
 // import { FaCaretRight } from "react-icons/fa";
 import { dailyUpdateData, subTitle, title } from "../data";
 
-
 const DailyUpdate = () => {
   return (
     <div className="w-full py-24">
@@ -27,7 +26,7 @@ const DailyUpdate = () => {
             <div className="px-5 mt-5">
               <h1 className=" font-poppins font-bold text-xl">{data.title}</h1>
               <p className=" font-sans text-base mt-2">{data.paragraph}</p>
-              <p className="font-poppins text-sm mt-7 text-[#564FFF]">
+              <p className="font-poppins text-sm mt-7 text-primary-500">
                 12 Comments | Dec 17, 2020
               </p>
             </div>
