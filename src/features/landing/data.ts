@@ -62,49 +62,49 @@ export const navbarData = [
   export const teacherData = [
     {
       name: "Devil Roy Barman",
-      role: "CEO",
+      role: "Head-Master",
       image:
         "https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg",
     },
     {
       name: "Arup Barman",
-      role: "CTO",
+      role: "Head-Mistress",
       image:
         "https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg",
     },
     {
       name: "Politkans",
-      role: "CEO",
+      role: "Manager",
       image:
         "https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg",
     },
     {
       name: "Saiful Islam",
-      role: "MANAGER",
+      role: "Teacher",
       image:
         "https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg",
     },
     {
       name: "Munir Hayder",
-      role: "SEO",
+      role: "Teacher",
       image:
         "https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg",
     },
     {
       name: "Pritom Roy",
-      role: "CEO",
+      role: "Teacher",
       image:
         "https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg",
     },
     {
       name: "Devil Roy Barman",
-      role: "MARKETING",
+      role: "Marketing",
       image:
         "https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg",
     },
     {
       name: "Nishad Boruya",
-      role: "CEO",
+      role: "Teacher",
       image:
         "https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg",
     },

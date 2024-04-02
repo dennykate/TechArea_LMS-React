@@ -1,10 +1,10 @@
 import React from "react";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedin,
-} from "react-icons/fa";
+// import {
+//   FaFacebookF,
+//   FaTwitter,
+//   FaInstagram,
+//   FaLinkedin,
+// } from "react-icons/fa";
 
 interface PropsType {
   data: {
@@ -16,26 +16,29 @@ interface PropsType {
 
 const TeacherCard: React.FC<PropsType> = ({ data }) => {
   return (
-    <div className="lg:h-[370px] sm:h-[480px] lg:w-auto sm:w-[500px] mx-auto relative overflow-hidden rounded-md ">
+    <div className="lg:h-[370px] sm:h-[480px] h-[400px] lg:w-auto sm:w-[500px] mx-auto relative overflow-hidden rounded-md ">
       <img
         src={data.image}
         alt="teacher"
         className="w-full h-full object-cover hover:scale-105 transition-all duration-200 ease-in-out"
       />
 
-      <div className="absolute sm:bottom-[80px] bottom-[50px] left-0 right-0 w-full z-10 flex justify-center">
+      <div
+        className="absolute sm:bottom-[80px] bottom-[50px] left-0 right-0 w-full z-10 flex
+       justify-center"
+      >
         <div
-          className="w-2/3 sm:h-[80px] h-[100px] hover:h-[100px]  
+          className="w-2/3  h-[80px] 
             flex justify-center items-center flex-col bg-white  rounded-lg group 
             transition-all duration-200 ease-in-out "
         >
-          <h1 className="font-poppins font-bold sm:text-lg text-base sm:translate-y-0 -translate-y-2">
+          <h1 className="font-poppins font-bold sm:text-lg text-base sm:translate-y-0 ">
             {data.name}
           </h1>
-          <h6 className=" font-poppins sm:text-base text-sm sm:translate-y-0 -translate-y-2">
+          <h6 className=" font-poppins sm:text-base text-sm sm:translate-y-0 ">
             {data.role}
           </h6>
-          <div
+          {/* <div
             className="sm:hidden flex translate-y-5 group-hover:flex group-hover:translate-y-0 gap-3 sm:mt-2 -mt-3
               transition-all duration-200 ease-in-out"
           >
@@ -63,7 +66,7 @@ const TeacherCard: React.FC<PropsType> = ({ data }) => {
             >
               <FaLinkedin size={14} />
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
