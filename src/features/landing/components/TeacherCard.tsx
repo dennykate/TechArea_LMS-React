@@ -6,7 +6,15 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 
-const TeacherCard = ({ data }) => {
+interface PropsType {
+  data: {
+    image: string;
+    name: string;
+    role: string;
+  };
+}
+
+const TeacherCard: React.FC<PropsType> = ({ data }) => {
   return (
     <div className="lg:h-[370px] sm:h-[480px] lg:w-auto sm:w-[500px] mx-auto relative overflow-hidden rounded-md ">
       <img
