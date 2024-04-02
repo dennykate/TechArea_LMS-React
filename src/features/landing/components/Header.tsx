@@ -1,10 +1,11 @@
 import { BiMenuAltRight } from "react-icons/bi";
-import { GiRotaryPhone } from "react-icons/gi";
 import { navbarData } from "../data";
 import { FaFacebookF, FaHome, FaInstagram, FaTwitter } from "react-icons/fa";
 import { HiEnvelope } from "react-icons/hi2";
 import Logo from "../../../assets/logo.png";
 import { useEffect, useState } from "react";
+import { FiLogIn } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 interface PropsType {
   setShowNavItems: React.Dispatch<React.SetStateAction<boolean>>;
@@ -89,16 +90,16 @@ const Header = ({ setShowNavItems }: PropsType) => {
           ))}
         </ul>
 
-        <a
-          href="tel:09964470356"
-          className="px-6 py-5 bg-[#564FFF] gap-3 items-center rounded-md cursor-pointer sm:flex
+        <Link
+          to={"/login"}
+          className="px-6 py-3 bg-[#564FFF] gap-3 items-center rounded-md cursor-pointer sm:flex
       hidden hover:-translate-y-1 transform transition-all duration-200 "
         >
-          <GiRotaryPhone size={22} color="white" />
+          <FiLogIn size={22} color="white" />
           <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
-            +959 964470356
+            Login
           </h6>
-        </a>
+        </Link>
 
         <button
           className="lg:hidden visible"

@@ -72,6 +72,12 @@ const Login = () => {
           <MyButton onClick={onSubmitHandler} className="w-full !mt-6">
             Login
           </MyButton>
+
+          <div className="w-full mt-2  text-center">
+            <Link to="/" className="text-sm underline ">
+              Back to Home
+            </Link>
+          </div>
         </form>
       </div>
     </div>

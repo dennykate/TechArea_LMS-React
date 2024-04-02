@@ -23,7 +23,7 @@ const SideBar = ({ opened }: PropsType) => {
 
   const onLogoutHandler = () => {
     remove("name");
-    navigate("/login");
+    navigate("/");
   };
 
   return (
