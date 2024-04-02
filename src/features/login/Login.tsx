@@ -73,7 +73,7 @@ const Login = () => {
             Login
           </MyButton>
 
-          <div className="w-full mt-2  text-center">
+          <div className="w-full mt-2 text-center">
             <Link to="/" className="text-sm underline ">
               Back to Home
             </Link>
