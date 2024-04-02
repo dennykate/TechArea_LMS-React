@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import { Wrapper } from "@/components";
 
 const Login = lazy(() => import("@/features/login/Login"));
+const Landing = lazy(() => import("@/features/landing/Landing"));
 
 const publicRoutes = [
   {
@@ -14,6 +15,15 @@ const publicRoutes = [
       </Wrapper>
     ),
   },
+  {
+    path: "/",
+    element: (
+      <Wrapper>
+        <Landing />
+      </Wrapper>
+    ),
+  },
+
   {
     path: "*",
     element: <Navigate to="/login" />,

@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 
 const AssignmentCreate = lazy(() => import("./create/Create"));
 const AssignmentList = lazy(() => import("./List/List"));
+const AssignmentSubmit = lazy(() => import("./submit/Submit"));
 
 export const assignmentRoutes = [
   {
@@ -12,6 +13,10 @@ export const assignmentRoutes = [
   {
     path: "list",
     element: <AssignmentList />,
+  },
+  {
+    path: "submit",
+    element: <AssignmentSubmit />,
   },
   {
     path: "*",

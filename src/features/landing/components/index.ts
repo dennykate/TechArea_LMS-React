@@ -1,0 +1,10 @@
+export { default as About } from "./About";
+export { default as Class } from "./Class";
+export { default as Home } from "./Home";
+export { default as Marketing } from "./Marketing";
+export { default as Teacher } from "./Teacher";
+export { default as TopButton } from "./TopButton";
+export { default as Contact } from "./Contact";
+export { default as DailyUpdate } from "./DailyUpdate";
+export { default as Subscribe } from "./Subscribe";
+export { default as Footer } from "./Footer";
