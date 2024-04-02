@@ -14,6 +14,7 @@ import { sectionRoutes } from "@/features/sections/routes";
 import { sectionStudentRoutes } from "@/features/students/routes";
 import { scheduleRoutes } from "@/features/schedules/routes";
 import { quizRoutes } from "@/features/quiz/routes";
+import { assignmentRoutes } from "@/features/assignments/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
@@ -63,6 +64,10 @@ const privateRoutes = [
       {
         path: "/calendar",
         element: <Calendar />,
+      },
+      {
+        path: "/assignments/*",
+        children: assignmentRoutes,
       },
       {
         path: "/courses/*",

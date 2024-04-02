@@ -69,7 +69,7 @@ const FileUpload: React.FC<PropsType> = ({ type = "image", ...props }) => {
 
             <div>
               <Text size="xl" inline>
-                Drag images here or click to select files
+                Drag here or click to select files
               </Text>
               <Text size="sm" color="dimmed" inline mt={7}>
                 Attach as many files as you like, each file should not exceed
