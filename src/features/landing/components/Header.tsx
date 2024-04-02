@@ -90,13 +90,13 @@ const Header = ({ setShowNavItems }: PropsType) => {
         </ul>
 
         <a
-          href="tel:+959969969969"
+          href="tel:09964470356"
           className="px-6 py-5 bg-[#564FFF] gap-3 items-center rounded-md cursor-pointer sm:flex
       hidden hover:-translate-y-1 transform transition-all duration-200 "
         >
           <GiRotaryPhone size={22} color="white" />
           <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
-            +95 969 969 9696
+            +959 964470356
           </h6>
         </a>
 
