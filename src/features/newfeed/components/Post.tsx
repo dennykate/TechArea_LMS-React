@@ -8,6 +8,7 @@ import {
   Text,
   ActionIcon,
   HoverCard,
+  Avatar,
 } from "@mantine/core";
 import { IconThumbUp, IconMessageCircle } from "@tabler/icons-react";
 import PostModal from "./PostModal";
@@ -50,15 +51,25 @@ const Post: React.FC<ParentProps> = ({ parent }) => {
           />
         </Card.Section>
 
-        <Group style={{ justifyContent: "space-between" }} mt="md" mb="xs">
-          <Text weight={500}>Norway Fjord Adventures</Text>
-          <Badge color="pink">On Sale</Badge>
-        </Group>
+        <div className="flex gap-5 items-center ">
+          <Avatar
+            radius={"100%"}
+            size={"lg"}
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
+          />
+          <div>
+            <Group style={{ justifyContent: "space-between" }} mt="md" mb="xs">
+              <Text weight={500}>Norway Fjord Adventures</Text>
+              <Badge color="pink">On Sale</Badge>
+            </Group>
 
-        <Text size="sm" color="dimmed">
-          With Fjord Tours you can explore more of the magical fjord landscapes
-          with tours and activities on and around the fjords of Norway
-        </Text>
+            <Text size="sm" color="dimmed">
+              With Fjord Tours you can explore more of the magical fjord
+              landscapes with tours and activities on and around the fjords of
+              Norway
+            </Text>
+          </div>
+        </div>
 
         <div className="flex w-full justify-around gap-1 mt-5">
           <HoverCard shadow="md" openDelay={50}>

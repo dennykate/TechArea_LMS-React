@@ -3,7 +3,7 @@ import ChatBar from "./components/ChatBar";
 
 const Chat = () => {
   return (
-    <div className="flex overflow-hidden">
+    <div className="flex overflow-hidden h-[calc(100vh-70px)]">
       <div className="w-9/12">
         <ChatRom />
       </div>

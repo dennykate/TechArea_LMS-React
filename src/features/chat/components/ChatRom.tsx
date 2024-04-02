@@ -1,21 +1,19 @@
 import { Input } from "@mantine/core";
 import { IoIosSend } from "react-icons/io";
 import ChatMate from "./ChatMate";
+import { useMessageHandler } from "@/utilities/messageHandler";
 
 const CharRom = () => {
-  const messageHandler = (e: {
-    preventDefault: () => void;
-    target: { value: unknown };
-  }) => {
-    e.preventDefault();
-    console.log(e.target.value);
-  };
+  const [messageHandler,inputValue] = useMessageHandler()
+
+  console.log(inputValue)
   return (
-    <div className="p-1 relative h-[90vh] w-full flex  ">
+    <div className="p-1 relative h-full w-full flex  ">
       {/* chat mate nav  */}
       <div className="flex absolute top-5 w-[90%] right-[50%] translate-x-[50%]">
         <ChatMate justify={"justify-start"} gap="gap-5" />
       </div>
+      {/* for message  */}
       <div></div>
       {/* input form  */}
       <div className="absolute bottom-0 w-[90%] right-[50%] translate-x-[50%]">

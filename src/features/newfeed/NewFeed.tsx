@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 const NewFeed = () => {
   return (
-    <div className=" w-full flex justify-center items-center relative">
-      <ScrollArea h={"90vh"} w={"50%"}>
+    <div className=" w-full flex h-[calc(100vh-70px)] justify-center items-center relative">
+      <ScrollArea h={"100%"} w={"50%"}>
         <div className="flex flex-col gap-5 ">
           <Post parent="newfeed" />
           <Post parent="newfeed" />

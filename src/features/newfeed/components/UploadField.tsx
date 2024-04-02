@@ -47,74 +47,87 @@ const UploadField = (props: Partial<DropzoneProps>) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-5">
-      <TextInput
-        placeholder="Title"
-        label="Title"
-        required
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-      />
-      <TextInput
-        placeholder="Description"
-        label="Description"
-        required
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-      />
-      {uploadedImage.length > 0 ? (
-        <UploadedImages
-          uploadedImage={uploadedImage}
-          setUploadedImage={setUploadedImage}
-        />
-      ) : (
-        <Dropzone
-          onDrop={handleDrop}
-          onReject={(files) => console.log("rejected files", files)}
-          maxSize={3 * 1024 ** 2}
-          accept={IMAGE_MIME_TYPE}
-          {...props}
-        >
-          <Group
-            position="center"
-            spacing="xl"
-            style={{ minHeight: rem(220), pointerEvents: "none" }}
-          >
-            <Dropzone.Accept>
-              <IconUpload
-                size="3.2rem"
-                stroke={1.5}
-                color={
-                  theme.colors[theme.primaryColor][
-                    theme.colorScheme === "dark" ? 4 : 6
-                  ]
-                }
-              />
-            </Dropzone.Accept>
-            <Dropzone.Reject>
-              <IconX
-                size="3.2rem"
-                stroke={1.5}
-                color={theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]}
-              />
-            </Dropzone.Reject>
-            <Dropzone.Idle>
-              <IconPhoto size="3.2rem" stroke={1.5} />
-            </Dropzone.Idle>
+    <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-10">
+      <div className="flex h-[40vh] items-center ">
+        <div className="flex flex-col justify-between gap-10 w-1/2 p-5">
+          <TextInput
+            placeholder="Title"
+            label="Title"
+            required
+            size="lg"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <TextInput
+            placeholder="Description"
+            label="Description"
+            required
+            size="lg"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <Button variant="outline" type="submit">
+            Submit
+          </Button>
+        </div>
+        {/* for uploading photo  */}
+        <div className="w-1/2 p-5">
+          {uploadedImage.length > 0 ? (
+            <UploadedImages
+              uploadedImage={uploadedImage}
+              setUploadedImage={setUploadedImage}
+            />
+          ) : (
+            <Dropzone
+              onDrop={handleDrop}
+              onReject={(files) => console.log("rejected files", files)}
+              maxSize={3 * 1024 ** 2}
+              accept={IMAGE_MIME_TYPE}
+              {...props}
+            >
+              <Group
+                position="center"
+                spacing="xl"
+                style={{ minHeight: rem(220), pointerEvents: "none" }}
+              >
+                <Dropzone.Accept>
+                  <IconUpload
+                    size="3.2rem"
+                    stroke={1.5}
+                    color={
+                      theme.colors[theme.primaryColor][
+                        theme.colorScheme === "dark" ? 4 : 6
+                      ]
+                    }
+                  />
+                </Dropzone.Accept>
+                <Dropzone.Reject>
+                  <IconX
+                    size="3.2rem"
+                    stroke={1.5}
+                    color={
+                      theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]
+                    }
+                  />
+                </Dropzone.Reject>
+                <Dropzone.Idle>
+                  <IconPhoto size="3.2rem" stroke={1.5} />
+                </Dropzone.Idle>
 
-            <div>
-              <Text size="xl" inline>
-                Drag images here or click to select files
-              </Text>
-              <Text size="sm" color="dimmed" inline mt={7}>
-                Attach as many files as you like, each file should not exceed
-                5mb
-              </Text>
-            </div>
-          </Group>
-        </Dropzone>
-      )}
-      <Button type="submit">Submit</Button>
+                <div>
+                  <Text size="xl" inline>
+                    Drag images here or click to select files
+                  </Text>
+                  <Text size="sm" color="dimmed" inline mt={7}>
+                    Attach as many files as you like, each file should not
+                    exceed 5mb
+                  </Text>
+                </div>
+              </Group>
+            </Dropzone>
+          )}
+        </div>
+      </div>
     </form>
   );
 };
