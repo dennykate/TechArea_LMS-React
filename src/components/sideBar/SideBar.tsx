@@ -29,7 +29,7 @@ const SideBar = ({ opened }: PropsType) => {
   return (
     <nav
       className={twMerge(
-        "h-screen  bg-white   transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden ",
+        "h-screen  bg-white shadow-lg transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden ",
         opened ? "w-[230px]" : "w-0"
       )}
     >
