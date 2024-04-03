@@ -20,7 +20,7 @@ const About = () => {
         <div className="lg:w-1/2 w-full z-10">
           <img src={LearnChildren} alt="learn-children" className="w-full" />
         </div>
-        <div className="lg:w-1/2 w-full lg:ml-10 ml-0 lg:mt-0 mt-5">
+        <div className="lg:w-1/2 w-full lg:ml-10 ml-0 lg:mt-0 mt-5 px-2">
           <h6 className={subTitle}>Education For Everyone</h6>
           <h3 className={title}>Learn About Our Work Culture At Devschool</h3>
           <p className={paragraph}>

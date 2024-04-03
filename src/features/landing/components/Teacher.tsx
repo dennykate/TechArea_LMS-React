@@ -7,7 +7,7 @@ import TeacherCard from "./TeacherCard";
 const Teacher = () => {
   return (
     <div id="teachers" className="w-full pt-28 px-2">
-      <div className="w-2/3 mx-auto text-center">
+      <div className="sm:w-2/3 w-full mx-auto text-center">
         <h6 className={subTitle}>Together We Can Create</h6>
         <h1 className={title}>Who Stand By Your Kids Always</h1>
         <p className={paragraph}>

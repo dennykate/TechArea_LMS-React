@@ -36,7 +36,7 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
         <div className="p-5">
           <h1 className=" font-poppins font-bold text-xl">{data.title}</h1>
           <p className=" font-sans text-base mt-2">{data.paragraph}</p>
-          <p className="font-poppins text-sm mt-7 text-primary-500">
+          <p className="font-poppins text-sm mt-2 text-primary-500">
             Created At - Dec 17, 2020
           </p>
         </div>
