@@ -96,10 +96,11 @@ const Header = ({ setShowNavItems }: PropsType) => {
         <div className="flex items-center gap-2">
           <Link
             to={"/login"}
-            className="px-6 py-3 bg-primary-500 gap-3 items-center rounded-md cursor-pointer 
+            className="sm:px-6 sm:py-3 px-4 py-2 bg-primary-500 gap-3 items-center rounded-md
+             cursor-pointer 
             flex hover:-translate-y-1 transform transition-all duration-200 "
           >
-            <FiLogIn size={22} color="white" />
+            <FiLogIn className="sm:text-2xl text-sm" color="white" />
             <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
               Login
             </h6>
