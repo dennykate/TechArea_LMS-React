@@ -21,12 +21,9 @@ const AnswerQuiz = () => {
         <QuizQuestion />
       </div>
 
-      <div className="fixed top-[50%] translate-y-[-50%] right-0">
-        <QuizTimer />
-      </div>
-
-      <div className="fixed sm:top-[42%] top-[45%] translate-y-[-50%] right-0">
+      <div className="fixed sm:top-[42%] top-[45%] translate-y-[-50%] right-0 flex flex-col gap-2">
         <QuizCount />
+        <QuizTimer />
       </div>
     </NavLayout>
   );

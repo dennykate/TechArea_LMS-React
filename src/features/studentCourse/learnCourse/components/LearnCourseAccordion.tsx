@@ -12,7 +12,7 @@ const LearnCourseAccordion = () => {
 
   return (
     <>
-      <Accordion.Item value="customization">
+      <Accordion.Item value={"customization" + Math.random()}>
         <Accordion.Control
           className=" bg-primary-100 hover:bg-primary-100 hover:bg-opacity-50
        bg-opacity-50 sm:!px-4 !px-2"

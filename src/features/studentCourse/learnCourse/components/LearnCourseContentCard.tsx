@@ -13,24 +13,22 @@ const LearnCourseContentCard = () => {
         />
       </div>
 
-      <div className="px-2">
-        <div className=" space-y-2 px-[6px] mt-4">
-          <Heading tag="h6">How to be a programmer ?</Heading>
-          <p className="text-sm text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque sint
-            quasi dolore voluptatem perferendis hic debitis sapiente mollitia
-            autem obcaecati corporis, placeat possimus quisquam laboriosam totam
-            aliquid deserunt laborum reiciendis.
-          </p>
-          <p className="text-sm text-gray-500">
-            Created by -{" "}
-            <Link to={""} className="underline text-gray-800">
-              Ma Ma Thwe
-            </Link>
-          </p>
-          <p className="text-sm text-gray-500">Completed At - 01 Dec 2000</p>
-          <p className="text-sm text-gray-500">Status - Not Complete</p>
-        </div>
+      <div className=" space-y-2 px-[6px] mt-4">
+        <Heading tag="h6">How to be a programmer ?</Heading>
+        <p className="text-sm text-gray-500">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque sint
+          quasi dolore voluptatem perferendis hic debitis sapiente mollitia
+          autem obcaecati corporis, placeat possimus quisquam laboriosam totam
+          aliquid deserunt laborum reiciendis.
+        </p>
+        <p className="text-sm text-gray-500">
+          Created by -{" "}
+          <Link to={""} className="underline text-gray-800">
+            Ma Ma Thwe
+          </Link>
+        </p>
+        <p className="text-sm text-gray-500">Completed At - 01 Dec 2000</p>
+        <p className="text-sm text-gray-500">Status - Not Complete</p>
 
         <div className="flex justify-end items-center gap-2 mt-4">
           <MyButton>Make As Complete</MyButton>

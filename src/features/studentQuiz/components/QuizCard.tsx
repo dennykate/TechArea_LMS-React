@@ -1,5 +1,5 @@
 import Heading from "@/components/typography/Heading";
-import {  RingProgress } from "@mantine/core";
+import { RingProgress } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 const QuizCard = () => {
@@ -48,8 +48,6 @@ const QuizCard = () => {
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
           Grade - 10 • Section - C
         </p>
-
-      
       </div>
     </Link>
   );

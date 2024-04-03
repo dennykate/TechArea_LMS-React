@@ -49,22 +49,28 @@ const Create = () => {
           inputClassName="mb-5"
         />
 
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
           <SelectComponent
             label="Grade"
-            placeholder="Select Grade"
-            withAsterisk
+            placeholder="Select grade"
             data={gradeData}
+            withAsterisk
           />
-
           <SelectComponent
             label="Section"
-            placeholder="Select Section"
-            withAsterisk
+            placeholder="Select section"
             data={sectionData}
+            withAsterisk
+          />
+          <SelectComponent
+            label="Subject"
+            placeholder="Select section"
+            data={sectionData}
+            withAsterisk
           />
         </div>
-        <FileUpload type={"all"} className="mt-5"/>
+
+        <FileUpload type={"all"} className="mt-5" />
       </div>
     </FormLayout>
   );

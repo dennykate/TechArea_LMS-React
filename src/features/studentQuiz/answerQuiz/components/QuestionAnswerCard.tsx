@@ -4,6 +4,10 @@ import { Group, Radio } from "@mantine/core";
 const QuestionAnswerCard = () => {
   return (
     <div className="w-full py-6 border-b border-black border-opacity-10 relative">
+      <div className="mb-3">
+        <Heading tag="h6">Question - 1</Heading>
+      </div>
+
       <img
         src="https://i.postimg.cc/6qrGKPhX/design-online-course-thumbnail-udemy-course-cover-image.webp"
         alt="question-image"
@@ -23,13 +27,6 @@ const QuestionAnswerCard = () => {
             <Radio value="canada" label="Canada" />
           </Group>
         </Radio.Group>
-      </div>
-
-      <div
-        className="absolute top-8 right-0 w-[25px] h-[25px] bg-primary-500 flex
-       justify-center items-center text-white text-sm rounded-full font-[400]"
-      >
-        1
       </div>
     </div>
   );
