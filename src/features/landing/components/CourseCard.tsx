@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { FaBook, FaChevronRight } from "react-icons/fa";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -11,7 +10,7 @@ interface PropsType {
     lessons: string;
     students: string;
     thumbnail: string;
-}
+  };
 }
 const ClassCard = ({ data }: PropsType) => {
   const [showDoubleCard, setShowDoubleCard] = useState(false);
@@ -33,7 +32,7 @@ const ClassCard = ({ data }: PropsType) => {
           className="w-full h-full object-cover"
         />
         <div
-          className="w-14 h-14 absolute right-10 -bottom-7 bg-[#564FFF] rounded-full
+          className="w-14 h-14 absolute right-10 -bottom-7 bg-primary-500 rounded-full
           flex justify-center items-center font-bold text-white"
         >
           {data.price}
@@ -72,9 +71,9 @@ const ClassCard = ({ data }: PropsType) => {
       </div>
 
       <div
-        className={` border-4 border-[#564FFF] -z-10 absolute top-0 right-0 left-0 transition-all
+        className={` border-4 border-primary-500 -z-10 absolute top-0 right-0 left-0 transition-all
             ${
-              showDoubleCard ? "w-full h-full -translate-x-4 translate-y-4" : ""
+              showDoubleCard ? "w-full h-full -translate-x-2 translate-y-2" : ""
             }
           duration-100 ease-in-out `}
       ></div>

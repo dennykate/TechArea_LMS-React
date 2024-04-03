@@ -46,7 +46,7 @@ const Home = () => {
               <div
                 className="sm:w-[160px] sm:h-[47px] w-[120px] h-[35px]
                 flex justify-center items-center border-[1px] border-white
-              rounded-md cursor-pointer group hover:border-[#564FFF] relative"
+              rounded-md cursor-pointer group hover:border-primary-500 relative"
               >
                 <h6 className="text-white z-10 font-medium sm:text-base xs:text-sm text-xs">
                   Apply Now
@@ -58,14 +58,14 @@ const Home = () => {
 
                 <div
                   className="w-0 h-full absolute top-0 left-0 right-0
-                group-hover:w-full transition-all duration-200 ease-in bg-[#564FFF] "
+                group-hover:w-full transition-all duration-200 ease-in bg-primary-500 "
                 ></div>
               </div>
 
               <div
                 className="sm:w-[160px] sm:h-[47px] w-[120px] h-[35px] 
                 flex justify-center items-center border-[1px] border-white
-              rounded-md cursor-pointer group hover:border-[#564FFF] relative"
+              rounded-md cursor-pointer group hover:border-primary-500 relative"
               >
                 <h6 className="text-white z-10 font-medium sm:text-base xs:text-sm text-xs">
                   Learn More
@@ -77,7 +77,7 @@ const Home = () => {
 
                 <div
                   className="w-0 h-full absolute top-0 left-0 right-0
-                group-hover:w-full transition-all duration-200 ease-in bg-[#564FFF] "
+                group-hover:w-full transition-all duration-200 ease-in bg-primary-500 "
                 ></div>
               </div>
             </div>
@@ -108,16 +108,21 @@ const Home = () => {
           className="absolute top-10 right-10"
           onClick={() => setShowNavItems(false)}
         >
-          <HiOutlineXCircle size={60} color="#FFAB4A" />
+          <HiOutlineXCircle size={60} className="text-primary-500" />
         </button>
 
         <ul className=" list-none m-10 flex flex-col sm:gap-8 gap-4">
           {navbarData.map((data, index) => (
             <li
               key={index}
-              className="font-bold text-black sm:text-2xl text-lg first:text-[#564FFF]"
+              className="font-bold text-black sm:text-2xl text-lg first:text-primary-500"
             >
-              {data}
+              <a
+                href={`/#${data.toLowerCase()}`}
+                className="group-hover:text-primary-500"
+              >
+                {data}
+              </a>
             </li>
           ))}
         </ul>

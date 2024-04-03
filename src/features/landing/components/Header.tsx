@@ -1,14 +1,16 @@
 import { BiMenuAltRight } from "react-icons/bi";
-import { GiRotaryPhone } from "react-icons/gi";
 import { navbarData } from "../data";
 import { FaFacebookF, FaHome, FaInstagram, FaTwitter } from "react-icons/fa";
 import { HiEnvelope } from "react-icons/hi2";
 import Logo from "../../../assets/logo.png";
 import { useEffect, useState } from "react";
+import { FiLogIn } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 interface PropsType {
   setShowNavItems: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const Header = ({ setShowNavItems }: PropsType) => {
   const [scrollY, setScrollY] = useState(false);
   useEffect(() => {
@@ -30,7 +32,7 @@ const Header = ({ setShowNavItems }: PropsType) => {
       >
         <div className="flex md:gap-5 gap-2 md:my-0 my-2 md:flex-row flex-col justify-center items-center">
           <div className="flex gap-1">
-            <HiEnvelope size={19} color="#564FFF" />
+            <HiEnvelope size={19} color="#1cd6ab" />
             <a
               href="mailto:dennykate22@gmail.com"
               className=" text-black font-bold sm:text-xs text-[11px]"
@@ -39,7 +41,7 @@ const Header = ({ setShowNavItems }: PropsType) => {
             </a>
           </div>
           <div className="flex gap-1">
-            <FaHome size={19} color="#564FFF" />
+            <FaHome size={19} color="#1cd6ab" />
             <a
               href=""
               className=" text-black font-bold text-xs sm:text-xs text-[11px]"
@@ -51,13 +53,13 @@ const Header = ({ setShowNavItems }: PropsType) => {
 
         <div className="flex gap-7 mr-3 md:mb-0 mb-2">
           <a href="https://www.facebook.com">
-            <FaFacebookF size={19} color="#564FFF" />
+            <FaFacebookF size={19} color="#1cd6ab" />
           </a>
           <a href="https://www.instagram.com">
-            <FaInstagram size={19} color="#564FFF" />
+            <FaInstagram size={19} color="#1cd6ab" />
           </a>
           <a href="https://www.twitter.com">
-            <FaTwitter size={19} color="#564FFF" />
+            <FaTwitter size={19} color="#1cd6ab" />
           </a>
         </div>
       </div>
@@ -66,7 +68,9 @@ const Header = ({ setShowNavItems }: PropsType) => {
         className={`w-full h-[100px] bg-white flex justify-between items-center lg:px-5 sm:px-20  px-5
   ${scrollY ? "fixed" : "sticky"} top-0 left-0 right-0 z-50 shadow-xl `}
       >
-        <img src={Logo} alt="logo" className="w-[100px] h-[40px]" />
+        <Link to={"/"}>
+          <img src={Logo} alt="logo" className="w-[100px] h-[40px]" />
+        </Link>
 
         <ul className=" list-none hidden gap-4 lg:flex ">
           {navbarData.map((data, index) => (
@@ -76,36 +80,38 @@ const Header = ({ setShowNavItems }: PropsType) => {
         flex justify-center items-center"
             >
               <a
-                href={`#${data.toLowerCase()}`}
-                className="group-hover:text-[#564FFF]"
+                href={`/#${data.toLowerCase()}`}
+                className="group-hover:text-primary-500"
               >
                 {data}
               </a>
               <div
-                className=" h-[3px] absolute bottom-0 left-0 bg-[#564FFF] rounded-md w-0 
+                className=" h-[3px] absolute bottom-0 left-0 bg-primary-500 rounded-md w-0 
           group-hover:w-full transition-all duration-200 ease-in"
               ></div>
             </li>
           ))}
         </ul>
 
-        <a
-          href="tel:+959969969969"
-          className="px-6 py-5 bg-[#564FFF] gap-3 items-center rounded-md cursor-pointer sm:flex
-      hidden hover:-translate-y-1 transform transition-all duration-200 "
-        >
-          <GiRotaryPhone size={22} color="white" />
-          <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
-            +95 969 969 9696
-          </h6>
-        </a>
+        <div className="flex items-center gap-2">
+          <Link
+            to={"/login"}
+            className="px-6 py-3 bg-primary-500 gap-3 items-center rounded-md cursor-pointer 
+            flex hover:-translate-y-1 transform transition-all duration-200 "
+          >
+            <FiLogIn size={22} color="white" />
+            <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
+              Login
+            </h6>
+          </Link>
 
-        <button
-          className="lg:hidden visible"
-          onClick={() => setShowNavItems(true)}
-        >
-          <BiMenuAltRight size={50} color="#FFAB4A" />
-        </button>
+          <button
+            className="lg:hidden visible"
+            onClick={() => setShowNavItems(true)}
+          >
+            <BiMenuAltRight size={50} className="text-primary-500" />
+          </button>
+        </div>
       </div>
     </>
   );

@@ -37,6 +37,7 @@ interface PropsType {
   hideRoles?: string[];
   excelData?: any[];
   disableTablePadding?: boolean;
+  addNewAction?: () => void;
 }
 
 const TableComponent = ({
@@ -59,6 +60,7 @@ const TableComponent = ({
   baseUrl,
   filter = "",
   setData,
+  addNewAction,
 }: // hideRoles = [""],
 PropsType) => {
   const [page, setPage] = useState<number>(1);
@@ -121,14 +123,15 @@ PropsType) => {
             <p className="font-medium sm:text-lg text-base">{title} </p>
           </div>
 
-          {addNewRoute && (
-            <MyButton
-              onClick={() => navigate(addNewRoute)}
-              className="!w-[140px] sm:text-base text-sm"
-            >
-              {addNewLabel}
-            </MyButton>
-          )}
+          <MyButton
+            onClick={() => {
+              if (addNewRoute) navigate(addNewRoute);
+              if (addNewAction) addNewAction();
+            }}
+            className="!w-[140px] sm:text-base text-sm"
+          >
+            {addNewLabel}
+          </MyButton>
         </div>
       )}
 
@@ -155,8 +158,10 @@ PropsType) => {
             )}
 
             {limit && (
-              <div className="flex  sm:items-center items-end  gap-3
-              sm:w-auto w-full sm:justify-center justify-between">
+              <div
+                className="flex  sm:items-center items-end  gap-3
+              sm:w-auto w-full sm:justify-center justify-between"
+              >
                 {dateRangePicker && (
                   <DateRangePickerComponent
                     dateRange={dateRange}

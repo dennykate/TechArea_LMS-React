@@ -15,18 +15,21 @@ const Footer = () => {
             Contact Us
           </h1>
           <div className="flex flex-col gap-2">
-            <div className="flex gap-3 items-center">
+            <a href="tel:" className="flex gap-3 items-center">
               <FaPhone className="text-white lg:text-lg text-sm" />
               <p className=" text-white sm:text-lg text-xs">
-                Phone: +1 516 231 1313
+                Phone: +959 964 470 356
               </p>
-            </div>
-            <div className="flex gap-3 items-center">
+            </a>
+            <a
+              href="mailto:dennykate22@gmail.com"
+              className="flex gap-3 items-center"
+            >
               <MdEmail className="text-white lg:text-lg text-sm" />
               <p className=" text-white sm:text-lg text-xs">
-                Mail: 0devdesign.studio@gmail.com
+                Mail: dennykate22@gmail.com
               </p>
-            </div>
+            </a>
             <div className="flex gap-3 items-center">
               <FaHome className="text-white lg:text-lg text-sm" />
               <p className=" text-white sm:text-lg text-xs">
@@ -48,28 +51,32 @@ const Footer = () => {
           </h1>
           <div className="grid grid-cols-2 ">
             <div className="flex flex-col gap-3">
-              <a href="" className=" text-white sm:text-lg text-xs">
-                - Home
-              </a>
-              <a href="" className=" text-white sm:text-lg text-xs">
+              <a href="/#about us" className=" text-white sm:text-lg text-xs">
                 - About Us
               </a>
 
-              <a href="" className=" text-white sm:text-lg text-xs">
+              <a href="/#contact" className=" text-white sm:text-lg text-xs">
                 - Contact Us
               </a>
             </div>
             <div className="flex flex-col gap-3">
-              <a href="" className=" text-white sm:text-lg text-xs">
+              <a href="/#courses" className=" text-white sm:text-lg text-xs">
+                - Courses
+              </a>
+              <a href="/#teachers" className=" text-white sm:text-lg text-xs">
                 - Teachers
               </a>
-              <a href="" className=" text-white sm:text-lg text-xs">
+              <a
+                href="/#announcements"
+                className=" text-white sm:text-lg text-xs"
+              >
+                - Announcements
+              </a>
+              <a href="/#events" className=" text-white sm:text-lg text-xs">
                 - Events
               </a>
-              <a href="" className=" text-white sm:text-lg text-xs">
-                - Classes
-              </a>
-              <a href="" className=" text-white sm:text-lg text-xs">
+
+              <a href="/#location" className=" text-white sm:text-lg text-xs">
                 - Location
               </a>
             </div>
@@ -85,7 +92,7 @@ const Footer = () => {
             {galleryData.map((data, index) => (
               <div
                 key={index}
-                className=" border-2 border-white rounded-md cursor-pointer p-0
+                className=" border-2 border-white rounded-md p-0
             overflow-hidden"
               >
                 <img
@@ -99,8 +106,12 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="py-8 text-center text-white font-thin font-poppins md:text-base xs:text-sm text-xs">
-        ©2020 Dev - Kindergarten is Product Created by Devdesign.studio
+      <div
+        className="py-8 text-center text-white font-thin font-poppins md:text-base xs:text-sm \
+      text-xs flex justify-between items-center"
+      >
+        <p>Tech Area LMS</p>
+        <p>©2024 All Right Reserved.</p>
       </div>
     </div>
   );

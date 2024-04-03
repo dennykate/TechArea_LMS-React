@@ -1,32 +1,38 @@
 import { lazy } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 import { Wrapper } from "@/components";
+import { landingRoutes } from "@/features/landing/routes";
 
 const Login = lazy(() => import("@/features/login/Login"));
-const Landing = lazy(() => import("@/features/landing/Landing"));
+
+const WithWrapper = () => {
+  return (
+    <Wrapper>
+      <Outlet />
+    </Wrapper>
+  );
+};
 
 const publicRoutes = [
   {
-    path: "/login",
-    element: (
-      <Wrapper>
-        <Login />
-      </Wrapper>
-    ),
-  },
-  {
-    path: "/",
-    element: (
-      <Wrapper>
-        <Landing />
-      </Wrapper>
-    ),
+    // path: "",
+    element: <WithWrapper />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/",
+        children: landingRoutes,
+      },
+    ],
   },
 
   {
     path: "*",
-    element: <Navigate to="/login" />,
+    element: <Navigate to="/" />,
   },
 ];
 

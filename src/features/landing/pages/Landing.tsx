@@ -4,13 +4,16 @@ import {
   About,
   Class,
   Contact,
+  Announcement,
   Footer,
   Home,
   Marketing,
   Teacher,
   TopButton,
-} from "./components";
-import Location from "./components/Location";
+  Event,
+} from "../components";
+
+import Location from "../components/Location";
 
 const Landing = () => {
   return (
@@ -21,11 +24,11 @@ const Landing = () => {
       <Class />
       <Marketing />
       <Teacher />
-      {/* <DailyUpdate /> */}
-      {/* <Subscribe /> */}
+      <Announcement />
+      <Event />
       <Location />
-      <Footer />
       <TopButton />
+      <Footer />
     </div>
   );
 };
