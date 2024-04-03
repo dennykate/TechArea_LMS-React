@@ -10,6 +10,7 @@ import {
   Teacher,
   TopButton,
 } from "./components";
+import Location from "./components/Location";
 
 const Landing = () => {
   return (
@@ -22,8 +23,8 @@ const Landing = () => {
       <Teacher />
       {/* <DailyUpdate /> */}
       {/* <Subscribe /> */}
+      <Location />
       <Footer />
-
       <TopButton />
     </div>
   );
