@@ -8,7 +8,7 @@ const Accouncements = () => {
     <>
       <Home />
 
-      <div className="max-w-5xl mx-auto pb-20 sm:mt-20 pt-0 px-2">
+      <div className="max-w-5xl mx-auto py-20 px-2">
         <div className="w-2/3 mx-auto text-center">
           <h6 className={subTitle}>Education For Everyone</h6>
           <h3 className={title}>Learn About Our Work Culture At Devschool</h3>
