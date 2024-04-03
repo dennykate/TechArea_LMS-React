@@ -2,7 +2,13 @@ import { Loader } from "@mantine/core";
 import { useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
-const fullScreenPaths = ["/", "/login"];
+const fullScreenPaths = [
+  "/",
+  "/login",
+  "/courses",
+  "/events",
+  "/announcements",
+];
 
 const WrapperLoading = () => {
   const { pathname } = useLocation();

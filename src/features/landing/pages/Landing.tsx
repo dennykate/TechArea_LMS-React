@@ -4,13 +4,14 @@ import {
   About,
   Class,
   Contact,
-  DailyUpdate,
+  Announcement,
   Footer,
   Home,
   Marketing,
   Teacher,
   TopButton,
-} from "./components";
+  Event,
+} from "../components";
 
 const Landing = () => {
   return (
@@ -21,8 +22,8 @@ const Landing = () => {
       <Class />
       <Marketing />
       <Teacher />
-      <DailyUpdate />
-      {/* <Subscribe /> */}
+      <Announcement />
+      <Event />
       <Footer />
 
       <TopButton />

@@ -51,25 +51,32 @@ const Footer = () => {
           </h1>
           <div className="grid grid-cols-2 ">
             <div className="flex flex-col gap-3">
-              <a href="#about us" className=" text-white sm:text-lg text-xs">
+              <a href="/#about us" className=" text-white sm:text-lg text-xs">
                 - About Us
               </a>
 
-              <a href="#contact" className=" text-white sm:text-lg text-xs">
+              <a href="/#contact" className=" text-white sm:text-lg text-xs">
                 - Contact Us
               </a>
             </div>
             <div className="flex flex-col gap-3">
-              <a href="#teachers" className=" text-white sm:text-lg text-xs">
-                - Teachers
-              </a>
-              <a href="#events" className=" text-white sm:text-lg text-xs">
-                - Events
-              </a>
-              <a href="#courses" className=" text-white sm:text-lg text-xs">
+              <a href="/#courses" className=" text-white sm:text-lg text-xs">
                 - Courses
               </a>
-              <a href="#location" className=" text-white sm:text-lg text-xs">
+              <a href="/#teachers" className=" text-white sm:text-lg text-xs">
+                - Teachers
+              </a>
+              <a
+                href="/#announcements"
+                className=" text-white sm:text-lg text-xs"
+              >
+                - Announcements
+              </a>
+              <a href="/#events" className=" text-white sm:text-lg text-xs">
+                - Events
+              </a>
+
+              <a href="/#location" className=" text-white sm:text-lg text-xs">
                 - Location
               </a>
             </div>
@@ -85,7 +92,7 @@ const Footer = () => {
             {galleryData.map((data, index) => (
               <div
                 key={index}
-                className=" border-2 border-white rounded-md cursor-pointer p-0
+                className=" border-2 border-white rounded-md p-0
             overflow-hidden"
               >
                 <img

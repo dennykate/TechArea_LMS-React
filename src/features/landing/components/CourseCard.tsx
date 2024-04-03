@@ -73,7 +73,7 @@ const ClassCard = ({ data }: PropsType) => {
       <div
         className={` border-4 border-primary-500 -z-10 absolute top-0 right-0 left-0 transition-all
             ${
-              showDoubleCard ? "w-full h-full -translate-x-4 translate-y-4" : ""
+              showDoubleCard ? "w-full h-full -translate-x-2 translate-y-2" : ""
             }
           duration-100 ease-in-out `}
       ></div>

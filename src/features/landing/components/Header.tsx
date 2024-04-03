@@ -67,7 +67,9 @@ const Header = ({ setShowNavItems }: PropsType) => {
         className={`w-full h-[100px] bg-white flex justify-between items-center lg:px-5 sm:px-20  px-5
   ${scrollY ? "fixed" : "sticky"} top-0 left-0 right-0 z-50 shadow-xl `}
       >
-        <img src={Logo} alt="logo" className="w-[100px] h-[40px]" />
+        <Link to={"/"}>
+          <img src={Logo} alt="logo" className="w-[100px] h-[40px]" />
+        </Link>
 
         <ul className=" list-none hidden gap-4 lg:flex ">
           {navbarData.map((data, index) => (
@@ -77,7 +79,7 @@ const Header = ({ setShowNavItems }: PropsType) => {
         flex justify-center items-center"
             >
               <a
-                href={`#${data.toLowerCase()}`}
+                href={`/#${data.toLowerCase()}`}
                 className="group-hover:text-primary-500"
               >
                 {data}

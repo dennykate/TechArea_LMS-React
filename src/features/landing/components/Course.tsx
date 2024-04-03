@@ -1,7 +1,6 @@
-import { FaCaretRight } from "react-icons/fa";
-
-import ClassCard from "./ClassCard";
+import ClassCard from "./CourseCard";
 import { classData, paragraph, subTitle, title } from "../data";
+import MoreButton from "./MoreButton";
 
 const Class = () => {
   return (
@@ -23,26 +22,7 @@ const Class = () => {
         ))}
       </div>
 
-      <div
-        className="max-w-[280px] h-[50px] border-2 border-[#33415C] flex justify-center gap-3 
-      items-center mx-auto mt-24 cursor-pointer group relative"
-      >
-        <h4
-          className="font-poppins text-[#33415C] font-bold group-hover:text-white 
-        transition-all duration-200 ease-in-out"
-        >
-          Discover More Courses
-        </h4>
-        <FaCaretRight
-          size={18}
-          className="text-[#33415C] group-hover:text-white transition-all duration-200 ease-in-out"
-        />
-
-        <div
-          className="w-0 h-0 group-hover:w-full group-hover:h-full bg-[#33415C] absolute top-0 left-0 right-0 
-        bottom-0 -z-10 transition-all duration-200 ease-in-out origin-center"
-        ></div>
-      </div>
+      <MoreButton to="/courses" label="Discover More Courses" />
     </div>
   );
 };
