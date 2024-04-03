@@ -13,6 +13,8 @@ import {
   Event,
 } from "../components";
 
+import Location from "../components/Location";
+
 const Landing = () => {
   return (
     <div>
@@ -24,9 +26,9 @@ const Landing = () => {
       <Teacher />
       <Announcement />
       <Event />
-      <Footer />
-
+      <Location />
       <TopButton />
+      <Footer />
     </div>
   );
 };
