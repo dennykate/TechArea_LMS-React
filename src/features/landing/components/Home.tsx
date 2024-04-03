@@ -29,7 +29,7 @@ const Home = () => {
             <div className="font-medium lg:text-7xl xs:text-5xl text-3xl text-white sm:text-left text-center">
               We Are Child Care <br />
               <span className="lg:text-8xl xs:text-6xl text-4xl mt-5">
-                Professinal
+                Professional
               </span>
             </div>
 
