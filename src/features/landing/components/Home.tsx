@@ -108,7 +108,7 @@ const Home = () => {
           className="absolute top-10 right-10"
           onClick={() => setShowNavItems(false)}
         >
-          <HiOutlineXCircle size={60} color="#FFAB4A" />
+          <HiOutlineXCircle size={60} className="text-primary-500" />
         </button>
 
         <ul className=" list-none m-10 flex flex-col sm:gap-8 gap-4">
@@ -117,7 +117,12 @@ const Home = () => {
               key={index}
               className="font-bold text-black sm:text-2xl text-lg first:text-primary-500"
             >
-              {data}
+              <a
+                href={`/#${data.toLowerCase()}`}
+                className="group-hover:text-primary-500"
+              >
+                {data}
+              </a>
             </li>
           ))}
         </ul>

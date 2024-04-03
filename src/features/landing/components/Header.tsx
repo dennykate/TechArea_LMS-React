@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 interface PropsType {
   setShowNavItems: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
 const Header = ({ setShowNavItems }: PropsType) => {
   const [scrollY, setScrollY] = useState(false);
   useEffect(() => {
@@ -92,23 +93,25 @@ const Header = ({ setShowNavItems }: PropsType) => {
           ))}
         </ul>
 
-        <Link
-          to={"/login"}
-          className="px-6 py-3 bg-primary-500 gap-3 items-center rounded-md cursor-pointer sm:flex
-      hidden hover:-translate-y-1 transform transition-all duration-200 "
-        >
-          <FiLogIn size={22} color="white" />
-          <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
-            Login
-          </h6>
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link
+            to={"/login"}
+            className="px-6 py-3 bg-primary-500 gap-3 items-center rounded-md cursor-pointer 
+            flex hover:-translate-y-1 transform transition-all duration-200 "
+          >
+            <FiLogIn size={22} color="white" />
+            <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
+              Login
+            </h6>
+          </Link>
 
-        <button
-          className="lg:hidden visible"
-          onClick={() => setShowNavItems(true)}
-        >
-          <BiMenuAltRight size={50} color="#FFAB4A" />
-        </button>
+          <button
+            className="lg:hidden visible"
+            onClick={() => setShowNavItems(true)}
+          >
+            <BiMenuAltRight size={50} className="text-primary-500" />
+          </button>
+        </div>
       </div>
     </>
   );
