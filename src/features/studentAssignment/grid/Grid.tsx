@@ -1,13 +1,13 @@
 import Heading from "@/components/typography/Heading";
-import StudentQuizFilterSearch from "./components/StudentQuizFilterSearch";
+import StudentQuizFilterSearch from "./components/StudentAssignmentFilterSearch";
 
-const StudentQuiz = () => {
+const Grid = () => {
   return (
     <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 space-y-4">
-      <Heading tag="h1">Student Quizzes</Heading>
+      <Heading tag="h1">Student Assignments</Heading>
       <StudentQuizFilterSearch />
     </div>
   );
 };
 
-export default StudentQuiz;
+export default Grid;

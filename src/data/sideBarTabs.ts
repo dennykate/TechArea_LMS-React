@@ -6,6 +6,7 @@ import {
   MdQuiz,
   MdQuestionAnswer,
   MdAssignment,
+  MdAssignmentTurnedIn,
 } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -93,6 +94,12 @@ const sideBarTabs = [
     icon: MdQuestionAnswer,
     initiallyOpened: false,
     link: "/student-quizzes",
+  },
+  {
+    label: "Student Assignments",
+    icon: MdAssignmentTurnedIn,
+    initiallyOpened: false,
+    link: "/student-assignments",
   },
   {
     label: "Calendar",

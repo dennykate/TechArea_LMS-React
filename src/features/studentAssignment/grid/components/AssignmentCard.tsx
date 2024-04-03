@@ -1,11 +1,13 @@
-import Heading from "@/components/typography/Heading";
-import { RingProgress } from "@mantine/core";
+import { Center, RingProgress } from "@mantine/core";
+import { IconCheck } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
-const QuizCard = () => {
+import Heading from "@/components/typography/Heading";
+
+const AssignmentCard = () => {
   return (
     <Link
-      to={"/answer-quiz/basic-course"}
+      to={"/student-assignments/submit/hello-world"}
       className="w-full border border-black border-opacity-20 rounded shadow-sm overflow-hidden
        hover:translate-y-[-2px] hover:shadow-md transition-all duration-300 ease-in-out bg-white
        "
@@ -19,11 +21,13 @@ const QuizCard = () => {
 
         <div className="absolute bottom-[-9px] right-[-6px] p-[4px] bg-white rounded-full">
           <RingProgress
-            sections={[{ value: 40, color: "brand" }]}
+            sections={[{ value: 100, color: "teal" }]}
             size={50}
             thickness={4}
             label={
-              <p className="text-primary-500 text-center text-[10px]">40%</p>
+              <Center>
+                <IconCheck size={20} color="teal" />
+              </Center>
             }
           />
         </div>
@@ -46,11 +50,11 @@ const QuizCard = () => {
           Grade - 10 • Section - C
         </p>
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
-          10 Multiple-Choices • 23 True/False
+          40 Marks. 04 April 2024 ( Deadline )
         </p>
       </div>
     </Link>
   );
 };
 
-export default QuizCard;
+export default AssignmentCard;
