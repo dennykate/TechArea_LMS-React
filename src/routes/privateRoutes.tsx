@@ -54,10 +54,7 @@ const privateRoutes = [
           },
         ],
       },
-      {
-        path: "/chat",
-        element: <Chat />,
-      },
+
       {
         path: "/new-feed",
         element: <NewFeed />,
@@ -67,6 +64,10 @@ const privateRoutes = [
         element: <UploadField />,
       },
     ],
+  },
+  {
+    path: "/chat",
+    element: <Chat />,
   },
   {
     path: "*",

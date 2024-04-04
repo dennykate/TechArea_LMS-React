@@ -1,20 +1,22 @@
 import { useState, useCallback } from "react";
 
-export const useMessageHandler = (): [
-  (e: React.ChangeEvent<HTMLInputElement>) => void,
-  string
-] => {
+type UseMessageHandlerReturnType = {
+  messageHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputValue: string;
+  appendEmoji: (emoji: string) => void;
+};
+
+export const useMessageHandler = (): UseMessageHandlerReturnType => {
   const [inputValue, setInputValue] = useState<string>("");
 
-  const messageHandler = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      const value = e.target.value;
-      setInputValue(value);
-     //  console.log(value);
-    },
-    []
-  );
+  const messageHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setInputValue(e.target.value);
+  }, []);
 
-  return [messageHandler, inputValue];
+  const appendEmoji = useCallback((emoji: string) => {
+    setInputValue((currentValue) => `${currentValue}${emoji}`);
+  }, []);
+
+  return { messageHandler, inputValue, appendEmoji };
 };
