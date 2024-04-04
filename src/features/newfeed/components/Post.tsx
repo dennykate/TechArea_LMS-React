@@ -13,6 +13,7 @@ import {
 import { IconThumbUp, IconMessageCircle } from "@tabler/icons-react";
 import PostModal from "./PostModal";
 import { useDisclosure } from "@mantine/hooks";
+// import { MdMoodBad } from "react-icons/md";
 
 interface Reaction {
   id: string;
@@ -20,12 +21,10 @@ interface Reaction {
 }
 
 const reactions: Reaction[] = [
-  { id: "like", emoji: "👍" },
-  { id: "love", emoji: "❤️" },
-  { id: "haha", emoji: "😂" },
-  { id: "wow", emoji: "😮" },
-  { id: "sad", emoji: "😢" },
-  { id: "angry", emoji: "😠" },
+  { id: "bad", emoji: "👍" },
+  { id: "not bad", emoji: "❤️" },
+  { id: "good", emoji: "😂" },
+  { id: "best", emoji: "😮" },
 ];
 
 interface ParentProps {
@@ -36,7 +35,7 @@ const Post: React.FC<ParentProps> = ({ parent }) => {
 
   const [opened, { open, close }] = useDisclosure();
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className="w-full flex justify-center items-center cursor-default">
       <Card
         shadow={`${parent === "newfeed" ? "md" : ""}`}
         padding="lg"

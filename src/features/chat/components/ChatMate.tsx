@@ -2,11 +2,12 @@ import { Avatar, Badge, Flex, Text } from "@mantine/core";
 interface LayoutProps {
   justify: string;
   gap: string;
+  padding: string;
 }
-const ChatMate: React.FC<LayoutProps> = ({ justify, gap }) => {
+const ChatMate: React.FC<LayoutProps> = ({ justify, gap, padding }) => {
   return (
     <div
-      className={`border hover:bg-slate-200 transition duration-75 cursor-pointer ${gap}  rounded shadow-sm flex ${justify} items-center p-5 bg-white my-0.5 w-full`}
+      className={`border hover:bg-slate-200 transition duration-75 cursor-pointer ${gap}  rounded shadow-sm flex ${justify} items-center ${padding} bg-white w-full h-full`}
     >
       <Avatar
         radius={"100%"}

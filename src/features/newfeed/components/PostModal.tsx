@@ -9,7 +9,8 @@ interface ModalProps {
   opened: boolean;
 }
 const PostModal: React.FC<ModalProps> = ({ opened, close }) => {
-  const [messageHandler, inputValue] = useMessageHandler();
+  const { messageHandler, inputValue } = useMessageHandler();
+
   console.log(inputValue);
   return (
     <Modal

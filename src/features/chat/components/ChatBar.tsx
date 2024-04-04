@@ -9,21 +9,21 @@ const ChatBar = () => {
         <p>Tech Area</p>
       </div>
       <ScrollArea h="80vh" display={"flex"}>
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
-        <ChatMate justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
+        <ChatMate padding="p-5" justify={"justify-start"} gap={"gap-5"} />
       </ScrollArea>
       <div className="h-[10vh] flex">
-        <Profile gap="gap-5"/>
+        <Profile gap="gap-5" />
       </div>
     </div>
   );
