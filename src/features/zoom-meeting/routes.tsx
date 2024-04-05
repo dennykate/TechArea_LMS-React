@@ -1,22 +1,22 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
-const ScheduleCreate = lazy(() => import("./create/Create"));
-const ScheduleList = lazy(() => import("./list/List"));
-const ScheduleDetails = lazy(() => import("./details/Details"));
+const ZoomMeetingCreate = lazy(() => import("./create/Create"));
+const ZoomMeetingList = lazy(() => import("./list/List"));
+const ZoomMeetingDetails = lazy(() => import("./details/Details"));
 
-export const scheduleRoutes = [
+export const zoomMeetingRoutes = [
   {
     path: "list",
-    element: <ScheduleList />,
+    element: <ZoomMeetingList />,
   },
   {
     path: "create",
-    element: <ScheduleCreate />,
+    element: <ZoomMeetingCreate />,
   },
   {
-    path: "details/:scheduleId",
-    element: <ScheduleDetails />,
+    path: "details/:zoomMeetingId",
+    element: <ZoomMeetingDetails />,
   },
   {
     path: "*",

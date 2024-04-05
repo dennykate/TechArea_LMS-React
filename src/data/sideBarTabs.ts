@@ -13,6 +13,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { FaBookReader, FaCalendarAlt } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import { AiFillSchedule } from "react-icons/ai";
+import { BiLogoZoom } from "react-icons/bi";
 
 const sideBarTabs = [
   {
@@ -50,6 +51,12 @@ const sideBarTabs = [
     icon: AiFillSchedule,
     initiallyOpened: false,
     link: "/schedules",
+  },
+  {
+    label: "Zoom Meetings",
+    icon: BiLogoZoom,
+    initiallyOpened: false,
+    link: "/zoom-meetings",
   },
   {
     label: "Accounts",

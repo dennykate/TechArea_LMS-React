@@ -17,6 +17,7 @@ import { quizRoutes } from "@/features/quiz/routes";
 import { assignmentRoutes } from "@/features/assignments/routes";
 import { subjectRoutes } from "@/features/subjects/routes";
 import { studentAssignmentRoutes } from "@/features/student-assignment/routes";
+import { zoomMeetingRoutes } from "@/features/zoom-meeting/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
@@ -82,6 +83,10 @@ const privateRoutes = [
       {
         path: "/quizzes/*",
         children: quizRoutes,
+      },
+      {
+        path: "/zoom-meetings/*",
+        children: zoomMeetingRoutes,
       },
       {
         path: "/accounts/*",
