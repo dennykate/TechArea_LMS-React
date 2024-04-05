@@ -32,7 +32,7 @@ const List = () => {
             <TableActions
               detailCb={() => navigate("/zoom-meetings/details/1")}
               destroyCb={() => {}}
-              editCb={() => {}}
+              editCb={() => navigate("/zoom-meetings/edit/1")}
             />
           </td>
         </tr>
