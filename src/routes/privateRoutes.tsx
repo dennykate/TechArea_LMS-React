@@ -16,20 +16,20 @@ import { scheduleRoutes } from "@/features/schedules/routes";
 import { quizRoutes } from "@/features/quiz/routes";
 import { assignmentRoutes } from "@/features/assignments/routes";
 import { subjectRoutes } from "@/features/subjects/routes";
-import { studentAssignmentRoutes } from "@/features/studentAssignment/routes";
+import { studentAssignmentRoutes } from "@/features/student-assignment/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
 const Chat = lazy(() => import("@/features/chat/Chat"));
 const StudentCourse = lazy(
-  () => import("@/features/studentCourse/StudentCourse")
+  () => import("@/features/student-course/StudentCourse")
 );
-const StudentQuiz = lazy(() => import("@/features/studentQuiz/StudentQuiz"));
+const StudentQuiz = lazy(() => import("@/features/student-quiz/StudentQuiz"));
 const LearnCourse = lazy(
-  () => import("@/features/studentCourse/learnCourse/LearnCourse")
+  () => import("@/features/student-course/learnCourse/LearnCourse")
 );
 const AnswerQuiz = lazy(
-  () => import("@/features/studentQuiz/answerQuiz/AnswerQuiz")
+  () => import("@/features/student-quiz/answerQuiz/AnswerQuiz")
 );
 const Calendar = lazy(() => import("@/features/calendar/Calendar"));
 

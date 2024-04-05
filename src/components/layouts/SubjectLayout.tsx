@@ -1,6 +1,6 @@
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { Tabs } from "@mantine/core";
-import { subjects } from "@/features/studentCourse/components/data";
+import { subjects } from "@/features/student-course/components/data";
 
 interface PropsType {
   children: React.ReactNode;
