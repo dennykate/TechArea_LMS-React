@@ -18,7 +18,7 @@ import { assignmentRoutes } from "@/features/assignments/routes";
 import { subjectRoutes } from "@/features/subjects/routes";
 import { studentAssignmentRoutes } from "@/features/student-assignment/routes";
 import { zoomMeetingRoutes } from "@/features/zoom-meeting/routes";
-import { studentMeetingRoutes } from "@/features/student-meeting/routes";
+import { studentClassRoutes } from "@/features/student-class/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
@@ -78,8 +78,8 @@ const privateRoutes = [
         children: studentAssignmentRoutes,
       },
       {
-        path: "/student-meetings/*",
-        children: studentMeetingRoutes,
+        path: "/student-classes/*",
+        children: studentClassRoutes,
       },
       {
         path: "/courses/*",

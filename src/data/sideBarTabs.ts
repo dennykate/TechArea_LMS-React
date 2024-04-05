@@ -14,6 +14,7 @@ import { FaBookReader, FaCalendarAlt } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import { AiFillSchedule } from "react-icons/ai";
 import { BiLogoZoom } from "react-icons/bi";
+import { SiGoogleclassroom } from "react-icons/si";
 
 const sideBarTabs = [
   {
@@ -107,6 +108,12 @@ const sideBarTabs = [
     icon: MdAssignmentTurnedIn,
     initiallyOpened: false,
     link: "/student-assignments",
+  },
+  {
+    label: "Student Classes",
+    icon: SiGoogleclassroom,
+    initiallyOpened: false,
+    link: "/student-classes",
   },
   {
     label: "Calendar",
