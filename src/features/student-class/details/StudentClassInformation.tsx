@@ -62,14 +62,14 @@ const StudentClassInformation = () => {
         </div>
 
         <h2 className="sm:text-xl text-base font-[400] my-5">
-          Important Information <span className="text-red-500"> * * *</span>
+          Important Information <span className="text-red-500"> ***</span>
         </h2>
 
         <div className="w-full flex items-center gap-6 flex-wrap">
           <ImportantInformation label="Meeting ID" value="8438274831" />
 
           <ImportantInformation label="Meeting Password" value="123123" />
-
+          
           <MyButton size="lg" className="rounded-full">
             Direct Enter
           </MyButton>
