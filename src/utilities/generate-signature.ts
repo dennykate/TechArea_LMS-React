@@ -7,15 +7,13 @@ const generateSignature = (
   role: number
 ) => {
   const timestamp = new Date().getTime() - 30000;
-  const msg = Buffer.from(apiKey + meetingNumber + timestamp + role).toString(
-    "base64"
-  );
+  const msg = btoa(apiKey + meetingNumber + timestamp + role);
   const hash = CryptoJS.HmacSHA256(msg, apiSecret).toString(
     CryptoJS.enc.Base64
   );
-  const signature = Buffer.from(
+  const signature = btoa(
     `${apiKey}.${meetingNumber}.${timestamp}.${role}.${hash}`
-  ).toString("base64");
+  );
 
   return signature;
 };

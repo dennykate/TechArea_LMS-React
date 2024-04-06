@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
 const Grid = lazy(() => import("./grid/Grid"));
-const Room = lazy(() => import("./room/Room"));
+const Details = lazy(() => import("./details/Details"));
 
 export const studentClassRoutes = [
   {
@@ -10,8 +10,8 @@ export const studentClassRoutes = [
     element: <Grid />,
   },
   {
-    path: "room/:roomId",
-    element: <Room />,
+    path: ":classId",
+    element: <Details />,
   },
   {
     path: "*",
