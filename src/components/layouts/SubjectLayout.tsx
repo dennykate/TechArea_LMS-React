@@ -1,3 +1,6 @@
+import { ActionIcon, Menu } from "@mantine/core";
+import { IconAdjustments } from "@tabler/icons-react";
+
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { Tabs } from "@mantine/core";
 import { subjects } from "@/features/student-course/components/data";
@@ -26,11 +29,28 @@ const SubjectLayout: React.FC<PropsType> = ({ children }) => {
           </Tabs.List>
         </Tabs>
 
-        <div className="sm:w-auto w-full">
+        <div className="sm:w-auto w-full gap-2 flex items-center">
           <TextInputComponent
             placeholder="Search ..."
             inputClassName="sm:w-[350px] w-full"
           />
+
+          <Menu position="bottom-end" shadow="md" width={200}>
+            <Menu.Target>
+              <ActionIcon
+                size="lg"
+                className="border border-black border-opacity-20"
+              >
+                <IconAdjustments size="1.125rem" />
+              </ActionIcon>
+            </Menu.Target>
+
+            <Menu.Dropdown>
+              <Menu.Item>Section - A</Menu.Item>
+              <Menu.Item>Section - B</Menu.Item>
+              <Menu.Item>Section - C</Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
         </div>
       </div>
 
