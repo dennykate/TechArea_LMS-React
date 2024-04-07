@@ -1,12 +1,34 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
 
 import TextInputComponent from "@/components/inputs/TextInputComponent";
+import { useForm } from "@mantine/form";
+import useMutate from "@/hooks/useMutate";
+import { useParams } from "react-router-dom";
 
 const Create = () => {
+  const { gradeId } = useParams();
+
+  const form = useForm<any>({
+    initialValues: {
+      name: "",
+    },
+    validateInputOnBlur: true,
+    validate: {
+      name: (value: string) =>
+        value.length > 0 ? null : "Subject name is required",
+    },
+  });
+
+  const [onSubmit, { isLoading }] = useMutate();
+
   return (
     <FormLayout
       title="Create Subject"
-      onSubmit={() => {}}
+      submitLoading={isLoading}
+      onSubmit={form.onSubmit((values) =>
+        onSubmit("/subjects", { ...values, grade_id: gradeId })
+      )}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Grade List", link: "/grades" },
@@ -24,6 +46,8 @@ const Create = () => {
           label="Name"
           placeholder="Enter name"
           withAsterisk
+          form={form}
+          name="name"
         />
       </div>
     </FormLayout>

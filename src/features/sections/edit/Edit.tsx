@@ -5,9 +5,10 @@ import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import { useParams } from "react-router-dom";
+import useQuery from "@/hooks/useQuery";
 
-const Create = () => {
-  const { gradeId } = useParams();
+const Edit = () => {
+  const { sectionId } = useParams();
 
   const form = useForm<any>({
     initialValues: {
@@ -22,18 +23,26 @@ const Create = () => {
 
   const [onSubmit, { isLoading }] = useMutate();
 
+  const { isLoading: queryLoading } = useQuery(
+    `/sections/${sectionId}`,
+    (data) => {
+      form.setFieldValue("name", data.name);
+    }
+  );
+
   return (
     <FormLayout
-      title="Create Section"
+      title="Edit Section"
+      queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) =>
-        onSubmit("/sections", { ...values, grade_id: gradeId })
+        onSubmit(`/sections/${sectionId}`, values, "PUT")
       )}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Grade List", link: "/grades" },
         { title: "Grade Details", link: "/grades/details/1" },
-        { title: "New Section", link: "" },
+        { title: "Edit Section", link: "" },
       ]}
       header={{
         image:
@@ -54,4 +63,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Edit;
