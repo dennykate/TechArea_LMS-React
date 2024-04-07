@@ -62,8 +62,8 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
       }
     }
 
-    if (data && callback) {
-      return callback(data, navigate);
+    if (data.data && callback) {
+      return callback(data.data, navigate);
     }
 
     if (navigateBack && method !== "DELETE") {

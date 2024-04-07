@@ -1,5 +1,5 @@
-import { useEncryptStorage } from "use-encrypt-storage";
 import { useNavigate } from "react-router-dom";
+import useEncryptStorage from "./use-encrypt-storage";
 
 const useLogout = () => {
   const { remove } = useEncryptStorage();

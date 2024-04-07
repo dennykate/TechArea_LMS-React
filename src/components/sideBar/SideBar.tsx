@@ -6,8 +6,8 @@ import SideBarLinksGroup from "./SideBarLinksGroup";
 import sideBarTabs from "@/data/sideBarTabs";
 import { Logo } from "../";
 import { twMerge } from "tailwind-merge";
-import { useEncryptStorage } from "use-encrypt-storage";
 import { useNavigate } from "react-router-dom";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 interface PropsType {
   opened: boolean;
