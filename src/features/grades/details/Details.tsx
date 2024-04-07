@@ -58,7 +58,7 @@ const List = () => {
 
           <td className="m_td">{element?.created_by}</td>
           <td className="m_td">{element?.created_at}</td>
-          <td className="m_td w-[80px]">
+          <td className="m_td w-[80px] ">
             <TableActions
               destroyCb={() =>
                 onSubmit(`/subjects/${element.id}`, {}, "DELETE")
