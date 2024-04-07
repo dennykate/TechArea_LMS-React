@@ -8,7 +8,6 @@ const useEncryptStorage = () => {
   const set = useCallback(
     (key: string, value: string) => {
       const encryptedValue = AES.encrypt(value, secretKey).toString();
-      console.log("store secret => ", secretKey);
       localStorage.setItem(key, encryptedValue);
     },
     [secretKey]
@@ -16,20 +15,13 @@ const useEncryptStorage = () => {
   const get = useCallback(
     (key: string) => {
       const value = localStorage.getItem(key);
-      console.log("secret => ", secretKey);
       if (!value) return null;
 
-      try {
-        const decryptedValue = AES.decrypt(value, secretKey).toString(
-          CryptoJS.enc.Utf8
-        );
+      const decryptedValue = AES.decrypt(value, secretKey).toString(
+        CryptoJS.enc.Utf8
+      );
 
-        console.log("decryptedValue => ", decryptedValue);
-        return decryptedValue;
-      } catch (error) {
-        console.error("Decryption error:", error);
-        return null;
-      }
+      return decryptedValue;
     },
     [secretKey]
   );

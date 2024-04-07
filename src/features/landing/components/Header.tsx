@@ -3,15 +3,18 @@ import { navbarData } from "../data";
 import { FaFacebookF, FaHome, FaInstagram, FaTwitter } from "react-icons/fa";
 import { HiEnvelope } from "react-icons/hi2";
 import Logo from "../../../assets/logo.png";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FiLogIn } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
+import { FaSchool } from "react-icons/fa6";
 
 interface PropsType {
   setShowNavItems: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Header = ({ setShowNavItems }: PropsType) => {
+  const { get } = useEncryptStorage();
   const [scrollY, setScrollY] = useState(false);
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -22,6 +25,8 @@ const Header = ({ setShowNavItems }: PropsType) => {
       }
     });
   }, [scrollY]);
+
+  const token = useMemo(() => get("token"), []);
 
   return (
     <>
@@ -94,17 +99,31 @@ const Header = ({ setShowNavItems }: PropsType) => {
         </ul>
 
         <div className="flex items-center gap-2">
-          <Link
-            to={"/login"}
-            className="sm:px-6 sm:py-3 px-4 py-2 bg-primary-500 gap-3 items-center rounded-md
+          {token ? (
+            <Link
+              to={"/dashboard"}
+              className="sm:px-6 sm:py-3 px-4 py-2 bg-primary-500 gap-3 items-center rounded-md
              cursor-pointer 
             flex hover:-translate-y-1 transform transition-all duration-200 "
-          >
-            <FiLogIn className="sm:text-2xl text-sm" color="white" />
-            <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
-              Login
-            </h6>
-          </Link>
+            >
+              <FaSchool className="sm:text-2xl text-sm" color="white" />
+              <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
+                Dashboard
+              </h6>
+            </Link>
+          ) : (
+            <Link
+              to={"/login"}
+              className="sm:px-6 sm:py-3 px-4 py-2 bg-primary-500 gap-3 items-center rounded-md
+             cursor-pointer 
+            flex hover:-translate-y-1 transform transition-all duration-200 "
+            >
+              <FiLogIn className="sm:text-2xl text-sm" color="white" />
+              <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
+                Login
+              </h6>
+            </Link>
+          )}
 
           <button
             className="lg:hidden visible"
