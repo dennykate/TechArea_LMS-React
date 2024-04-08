@@ -7,7 +7,7 @@ interface LayoutProps {
 const ChatMate: React.FC<LayoutProps> = ({ justify, gap, padding }) => {
   return (
     <div
-      className={`border hover:bg-slate-200 transition duration-75 cursor-pointer ${gap}  rounded shadow-sm flex ${justify} items-center ${padding} bg-white w-full h-full`}
+      className={`border hover:bg-slate-200 transition duration-75 cursor-pointer ${gap}  shadow-sm flex ${justify} items-center ${padding} bg-white w-full h-full`}
     >
       <Avatar
         radius={"100%"}

@@ -2,12 +2,15 @@ import { ScrollArea, Tooltip } from "@mantine/core";
 import Post from "./components/Post";
 import { TbTextPlus } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import AddPost from "./components/AddPost";
 
 const NewFeed = () => {
   return (
     <div className=" w-full flex h-[calc(100vh-70px)] justify-center items-center relative">
       <ScrollArea h={"100%"} w={"50%"}>
-        <div className="flex flex-col gap-5 ">
+        <div className="flex flex-col gap-5 items-center ">
+          {/* for adding post  */}
+          <AddPost/>
           <Post parent="newfeed" />
           <Post parent="newfeed" />
         </div>

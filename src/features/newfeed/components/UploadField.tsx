@@ -15,8 +15,7 @@ const UploadField = (props: Partial<DropzoneProps>) => {
   const theme = useMantineTheme();
 
   const [uploadedImage, setUploadedImage] = useState<string[]>([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [content, setContent] = useState("");
 
   const handleDrop = (files: File[]) => {
     const newImageUrls: string[] = [];
@@ -37,8 +36,7 @@ const UploadField = (props: Partial<DropzoneProps>) => {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const formData = {
-      title,
-      description,
+      content,
       images: uploadedImage,
     };
     console.log(formData);
@@ -49,25 +47,17 @@ const UploadField = (props: Partial<DropzoneProps>) => {
   return (
     <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-10">
       <div className="flex h-[40vh] items-center ">
-        <div className="flex flex-col justify-between gap-10 w-1/2 p-5">
+        <div className="flex flex-col justify-around gap-10 w-1/2 p-5 h-full">
           <TextInput
-            placeholder="Title"
-            label="Title"
+            placeholder="Content"
+            label="Content"
             required
             size="lg"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <TextInput
-            placeholder="Description"
-            label="Description"
-            required
-            size="lg"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
           <Button variant="outline" type="submit">
-            Submit
+            Post
           </Button>
         </div>
         {/* for uploading photo  */}

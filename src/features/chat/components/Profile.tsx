@@ -5,7 +5,7 @@ interface LayoutProps {
 const Profile: React.FC<LayoutProps> = ({ gap }) => {
   return (
     <div
-      className={`bg-slate-300 border cursor-pointer ${gap}  rounded shadow-sm flex items-center p-5 bg-white my-0.5 w-full`}
+      className={`bg-blue-300 border cursor-pointer ${gap}  rounded shadow-sm flex items-center p-5 bg-white my-0.5 w-full`}
     >
       <Avatar
         radius={"100%"}
