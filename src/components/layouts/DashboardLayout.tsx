@@ -28,7 +28,7 @@ const DashboardLayout = ({ children }: PropsType) => {
           onClose={close}
           withCloseButton={false}
           classNames={{
-            content: "max-w-[230px] ",
+            content: "max-w-[250px] ",
             body: "p-0 ",
           }}
         >
@@ -41,7 +41,7 @@ const DashboardLayout = ({ children }: PropsType) => {
       <div
         className={twMerge(
           "h-full transition-all duration-300 ease-in-out",
-          opened && !matches ? "w-[calc(100%-230px)]" : "w-full"
+          opened && !matches ? "w-[calc(100%-250px)]" : "w-full"
         )}
       >
         <NavBar toggle={toggle} />

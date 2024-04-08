@@ -27,10 +27,10 @@ const SideBar = ({ opened }: PropsType) => {
   };
 
   return (
-    <nav
+    <aside
       className={twMerge(
-        "h-screen  bg-white shadow-lg transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden ",
-        opened ? "w-[230px]" : "w-0"
+        "h-screen  bg-white shadow-md transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden",
+        opened ? "w-[250px]" : "w-0"
       )}
     >
       <div className="h-[70px] flex items-center px-2 w-full ">
@@ -40,7 +40,7 @@ const SideBar = ({ opened }: PropsType) => {
       <ScrollArea className="px-2 h-[calc(100%-120px)] overflow-y-auto w-full">
         <Divider opacity={0.5} />
 
-        {links}
+        <div className="py-2">{links}</div>
       </ScrollArea>
 
       <button
@@ -51,7 +51,7 @@ const SideBar = ({ opened }: PropsType) => {
         <HiOutlineLogout className="lg:text-xl text-lg text-black" />
         <span className="lg:text-base text-sm font-[400]">Logout</span>
       </button>
-    </nav>
+    </aside>
   );
 };
 

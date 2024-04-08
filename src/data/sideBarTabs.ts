@@ -7,6 +7,8 @@ import {
   MdQuestionAnswer,
   MdAssignment,
   MdAssignmentTurnedIn,
+  MdChat,
+  MdPodcasts,
 } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline } from "react-icons/io5";
@@ -84,6 +86,7 @@ const sideBarTabs = [
     ],
   },
   {
+
     label: "Student Courses",
     icon: FaBookReader,
     initiallyOpened: false,
@@ -106,6 +109,18 @@ const sideBarTabs = [
     icon: FaCalendarAlt,
     initiallyOpened: false,
     link: "/calendar",
+},
+  { 
+    label: "Chat",
+    icon: MdChat,
+    initiallyOpened: false,
+    link: "/chat",
+  },
+  {
+    label: "New Feed",
+    icon: MdPodcasts,
+    initiallyOpened: false,
+    link: "/new-feed",
   },
 ];
 

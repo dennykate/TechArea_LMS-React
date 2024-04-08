@@ -24,7 +24,7 @@ const NavBar = ({
   return (
     <div
       className={twMerge(
-        "w-full sm:h-[70px] h-[50px] bg-white flex items-center justify-between lg:px-4 px-1 shadow-lg",
+        "w-full sm:h-[70px] h-[50px] bg-white flex items-center justify-between lg:px-4 px-1 border-b",
         withShadow && "shadow-md",
         wrapperClassName
       )}
