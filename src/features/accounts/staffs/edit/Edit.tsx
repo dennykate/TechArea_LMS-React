@@ -9,11 +9,14 @@ import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import dayjs from "dayjs";
+import { useParams } from "react-router-dom";
+import useQuery from "@/hooks/useQuery";
 
-const Create = () => {
+const Edit = () => {
+  const { staffId } = useParams();
   const [profile, setProfile] = useState<File | undefined>();
+  const [defaultImage, setDefaultImage] = useState<string | undefined>();
 
   const form = useForm<any>({
     initialValues: {
@@ -33,10 +36,7 @@ const Create = () => {
       phone: (value: string) => (value.length > 0 ? null : "Phone is required"),
       gender: (value: string) =>
         value.length > 0 ? null : "Gender is required",
-      password: (value: string) =>
-        value.length > 0 ? null : "Password is required",
-      password_confirmation: (value: string, values: any) =>
-        value === values.password ? null : "Password doesn't match",
+
       date_of_birth: (value: string) =>
         value ? null : "Date of Birth is required",
       address: (value: string) =>
@@ -47,10 +47,11 @@ const Create = () => {
   const [onSubmit, { isLoading }] = useMutate();
 
   const onSubmitHandler = (values: any) => {
-    if (!profile) return toast.error("Profile is required");
-
     const formData = new FormData();
+
     Object.entries(values).forEach(([key, value]) => {
+      if (value === "") return;
+
       if (key === "date_of_birth") {
         formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
         return;
@@ -58,15 +59,32 @@ const Create = () => {
       formData.append(key, value as string);
     });
 
-    formData.append("profile", profile as File);
-    formData.append("role_id", "4");
+    if (profile) formData.append("profile", profile as File);
 
-    onSubmit("/users", formData, "POST", true);
+    onSubmit(`/users/${staffId}`, formData, "POST", true);
   };
+
+  const { isLoading: queryLoading } = useQuery(`users/${staffId}`, (data) => {
+    console.log(data);
+    setDefaultImage(data?.profile);
+
+    form.setFieldValue("name", data?.name);
+    form.setFieldValue("email", data?.email);
+    form.setFieldValue("phone", data?.phone);
+    form.setFieldValue("gender", data?.gender);
+    form.setFieldValue("address", data?.address);
+    form.setFieldValue(
+      "date_of_birth",
+      data?.date_of_birth
+        ? dayjs(data?.date_of_birth, "DD-MM-YYYY").toDate()
+        : ""
+    );
+  });
 
   return (
     <FormLayout
-      title="Create Staff"
+      title="Edit Staff"
+      queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
@@ -80,7 +98,12 @@ const Create = () => {
         title: "Loream Ispum",
       }}
     >
-      <ImageUpload label="Profile" setFile={setProfile} withAsterisk />
+      <ImageUpload
+        defaultImage={defaultImage}
+        label="Profile"
+        setFile={setProfile}
+        withAsterisk
+      />
 
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
         <TextInputComponent
@@ -120,16 +143,16 @@ const Create = () => {
         />
 
         <PasswordInputComponent
-          label="Password"
-          placeholder="Enter password"
+          label="New Password"
+          placeholder="Enter new password"
           withAsterisk
           form={form}
           name="password"
         />
 
         <PasswordInputComponent
-          label="Confirm Password"
-          placeholder="Enter confrim password"
+          label="Confirm New Password"
+          placeholder="Enter confrim new password"
           withAsterisk
           form={form}
           name="password_confirmation"
@@ -159,4 +182,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Edit;
