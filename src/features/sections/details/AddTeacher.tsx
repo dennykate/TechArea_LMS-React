@@ -56,6 +56,7 @@ const AddTeacher: React.FC<PropsType> = ({
               key={dt.id}
               className="flex items-center justify-between border-t py-2 cursor-pointer
                 hover:bg-gray-100 px-2"
+                
               onClick={() => setTeacherId(dt.id)}
             >
               <Group noWrap className=" justify-between items-center flex">
