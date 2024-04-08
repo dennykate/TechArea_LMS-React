@@ -6,31 +6,23 @@ import SideBarLinksGroup from "./SideBarLinksGroup";
 import sideBarTabs from "@/data/sideBarTabs";
 import { Logo } from "../";
 import { twMerge } from "tailwind-merge";
-import { useEncryptStorage } from "use-encrypt-storage";
-import { useNavigate } from "react-router-dom";
+import useLogout from "@/hooks/useLogout";
 
 interface PropsType {
   opened: boolean;
 }
 
 const SideBar = ({ opened }: PropsType) => {
-  const navigate = useNavigate();
-  const { remove } = useEncryptStorage();
-
+  const logout = useLogout();
   const links = sideBarTabs.map((item: any) => (
     <SideBarLinksGroup {...item} key={item.label} />
   ));
 
-  const onLogoutHandler = () => {
-    remove("name");
-    navigate("/");
-  };
-
   return (
     <aside
       className={twMerge(
-        "h-screen  bg-white shadow-md transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden",
-        opened ? "w-[250px]" : "w-0"
+        "h-screen  bg-white shadow-lg transition-all duration-300 ease-in-out whitespace-nowrap overflow-hidden ",
+        opened ? "w-[260px]" : "w-0"
       )}
     >
       <div className="h-[70px] flex items-center px-2 w-full ">
@@ -46,7 +38,7 @@ const SideBar = ({ opened }: PropsType) => {
       <button
         className="h-[50px] w-full flex items-center lg:px-6 px-4 justify-start gap-4 hover:bg-gray-100
        border-t border-black border-opacity-20 "
-        onClick={onLogoutHandler}
+        onClick={logout}
       >
         <HiOutlineLogout className="lg:text-xl text-lg text-black" />
         <span className="lg:text-base text-sm font-[400]">Logout</span>

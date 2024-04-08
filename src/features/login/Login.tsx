@@ -1,20 +1,44 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Checkbox, Popover, Text } from "@mantine/core";
 import { Link, useNavigate } from "react-router-dom";
-import { useEncryptStorage } from "use-encrypt-storage";
 import { BsQuestionCircle } from "react-icons/bs";
 
 import MyButton from "@/components/buttons/MyButton";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
+import useMutate from "@/hooks/useMutate";
+import { useForm } from "@mantine/form";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 const Login = () => {
   const navigate = useNavigate();
   const { set } = useEncryptStorage();
 
-  const onSubmitHandler = () => {
-    set("name", "techarea");
+  const form = useForm<any>({
+    initialValues: {
+      phone: "",
+      password: "",
+    },
+    validateInputOnBlur: true,
+    validate: {
+      phone: (value: string) =>
+        value.length > 0 ? null : "Phone number is required",
+      password: (value: string) =>
+        value.length >= 6 ? null : "Password must be at least 6 characters",
+    },
+  });
 
-    navigate("/dashboard");
+  const onSuccess = (value: any) => {
+    set("token", value.token);
+    set("role", value.role);
+    set("userInfo", JSON.stringify(value.userInfo));
+
+    return navigate("/dashboard");
   };
+
+  const [onSubmit, { isLoading }] = useMutate({
+    callback: onSuccess,
+    navigateBack: false,
+  });
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-br from-primary-200 to-primary-600 flex justify-center items-center">
@@ -26,15 +50,22 @@ const Login = () => {
           </p>
         </div>
 
-        <form className="space-y-4 mt-6">
+        <form
+          onSubmit={form.onSubmit((values) => onSubmit("/login", values))}
+          className="space-y-4 mt-6"
+        >
           <TextInputComponent
             placeholder="Enter your phone number"
             label="Phone Number"
+            form={form}
+            name="phone"
           />
 
           <TextInputComponent
             placeholder="Enter your password"
             label="Password"
+            form={form}
+            name="password"
           />
 
           <div className="flex justify-between items-center">
@@ -67,11 +98,18 @@ const Login = () => {
             </Popover>
           </div>
 
-          <MyButton onClick={onSubmitHandler} className="w-full !mt-6 mb-6">
+          <MyButton
+            loading={isLoading}
+            type="submit"
+            className="w-full !mt-6 mb-6"
+          >
             Login
           </MyButton>
           <div className="w-full flex justify-center">
-            <Link to={"/"} className="underline sm:text-sm text-xs text-primary">
+            <Link
+              to={"/"}
+              className="underline sm:text-sm text-xs text-primary"
+            >
               Back to Home
             </Link>
           </div>

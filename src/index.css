@@ -72,3 +72,11 @@ th {
   background-color: #118067 !important; /* Change to your desired active color */
   border-color: #118067 !important; /* Change to your desired active color */
 }
+
+.custom-calendar .fc-col-header-cell-cushion {
+  color: black !important;
+}
+
+.custom-calendar .fc-day:hover {
+  background: #f5f5f5;
+}

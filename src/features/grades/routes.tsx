@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 
 const GradeCreate = lazy(() => import("./create/Create"));
 const GradeList = lazy(() => import("./list/List"));
+const GradeEdit = lazy(() => import("./edit/Edit"));
 const GradeDetails = lazy(() => import("./details/Details"));
 
 export const gradeRoutes = [
@@ -18,7 +19,10 @@ export const gradeRoutes = [
     path: "details/:gradeId",
     element: <GradeDetails />,
   },
-
+  {
+    path: "edit/:gradeId",
+    element: <GradeEdit />,
+  },
   {
     path: "*",
     element: <Navigate to="list" />,

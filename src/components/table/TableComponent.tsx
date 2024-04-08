@@ -38,6 +38,7 @@ interface PropsType {
   excelData?: any[];
   disableTablePadding?: boolean;
   addNewAction?: () => void;
+  hideAddNew?: boolean;
 }
 
 const TableComponent = ({
@@ -61,6 +62,7 @@ const TableComponent = ({
   filter = "",
   setData,
   addNewAction,
+  hideAddNew,
 }: // hideRoles = [""],
 PropsType) => {
   const [page, setPage] = useState<number>(1);
@@ -123,15 +125,17 @@ PropsType) => {
             <p className="font-medium sm:text-lg text-base">{title} </p>
           </div>
 
-          <MyButton
-            onClick={() => {
-              if (addNewRoute) navigate(addNewRoute);
-              if (addNewAction) addNewAction();
-            }}
-            className="!w-[140px] sm:text-base text-sm"
-          >
-            {addNewLabel}
-          </MyButton>
+          {!hideAddNew && (
+            <MyButton
+              onClick={() => {
+                if (addNewRoute) navigate(addNewRoute);
+                if (addNewAction) addNewAction();
+              }}
+              className="!w-[140px] sm:text-base text-sm"
+            >
+              {addNewLabel}
+            </MyButton>
+          )}
         </div>
       )}
 

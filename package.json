@@ -44,9 +44,13 @@
     "react-responsive-masonry": "^2.2.0",
     "react-router-dom": "^6.20.1",
     "sweetalert2": "^11.10.6",
+<<<<<<< HEAD
     "tailwind-merge": "^2.2.2",
     "tailwind-scrollbar": "^3.1.0",
     "use-encrypt-storage": "^0.0.32"
+=======
+    "tailwind-merge": "^2.2.2"
+>>>>>>> 901b57a4ecee9928d262bd5b97c87f15c631084e
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",

@@ -46,12 +46,12 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
 
     if (error) {
       if (error?.status === 401) {
-        toast.error("အကောင့်အသုံးပြုခွင့်မရှိပါ");
+        toast.error("You're Unauthorized");
 
         return logout();
       }
 
-      return toast.error(error?.data?.message || "လုပ်ဆောင်မှုမအောင်မြင်ပါ");
+      return toast.error(error?.data?.message || "Something wrong");
     }
 
     if (data?.message) {
@@ -62,8 +62,8 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
       }
     }
 
-    if (data && callback) {
-      return callback(data, navigate);
+    if (data.data && callback) {
+      return callback(data.data, navigate);
     }
 
     if (navigateBack && method !== "DELETE") {

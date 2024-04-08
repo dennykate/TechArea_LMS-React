@@ -4,6 +4,7 @@ import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import FormHeader from "../forms/FormHeader";
 import { twMerge } from "tailwind-merge";
+import { Loader } from "@mantine/core";
 
 export type FormHeaderType = {
   image: string;
@@ -19,6 +20,8 @@ interface PropsType {
   isModal?: boolean;
   onCancel?: () => void;
   wrapperClassName?: string;
+  submitLoading?: boolean;
+  queryLoading?: boolean;
 }
 
 const FormLayout = ({
@@ -30,6 +33,8 @@ const FormLayout = ({
   isModal,
   onCancel,
   wrapperClassName = "w-full sm:space-y-6 space-y-4 md:p-8 sm:p-4 p-2 md:py-8 py-6",
+  submitLoading,
+  queryLoading,
 }: PropsType) => {
   const navigate = useNavigate();
 
@@ -54,25 +59,35 @@ const FormLayout = ({
               "w-full border border-opacity-30 shadow-md rounded-md md:p-8 sm:p-4 p-3 bg-white  !mt-6"
           )}
         >
-          {children}
-
-          <div className="w-full flex items-center justify-end gap-2 mt-6">
-            <div>
-              <MyButton
-                onClick={() => {
-                  onCancel ? onCancel() : navigate(-1);
-                }}
-                variant="outline"
-                color="red"
-              >
-                Cancel
-              </MyButton>
+          {queryLoading ? (
+            <div className="w-full h-[100px] flex justify-center items-center">
+              <Loader />
             </div>
+          ) : (
+            <>
+              {children}
 
-            <div>
-              <MyButton>Create</MyButton>
-            </div>
-          </div>
+              <div className="w-full flex items-center justify-end gap-2 mt-6">
+                <div>
+                  <MyButton
+                    onClick={() => {
+                      onCancel ? onCancel() : navigate(-1);
+                    }}
+                    variant="outline"
+                    color="red"
+                  >
+                    Cancel
+                  </MyButton>
+                </div>
+
+                <div>
+                  <MyButton type="submit" loading={submitLoading}>
+                    Submit
+                  </MyButton>
+                </div>
+              </div>
+            </>
+          )}
         </form>
       </div>
     </>

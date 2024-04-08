@@ -9,27 +9,25 @@ import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
 
 const List = () => {
-  const [onSubmit] = useMutate();
-
-  const [data, setData] = useState<any>();
-
   const navigate = useNavigate();
+  const [onSubmit] = useMutate({ navigateBack: false });
+  const [data, setData] = useState<any>();
 
   const rows = useMemo(
     () =>
-      [0, 1]?.map((element: any, i: number) => (
+      data?.map((element: any, i: number) => (
         <tr key={i}>
-          <td className="m_td">1</td>
+          <td className="m_td">{i + 1}</td>
 
-          <td className="m_td">Grade 1</td>
+          <td className="m_td">{element.name}</td>
 
-          <td className="m_td">Ma Ma</td>
-          <td className="m_td">22 March 2024</td>
+          <td className="m_td">{element.created_by}</td>
+          <td className="m_td">{element.created_at}</td>
           <td className="m_td w-[80px]">
             <TableActions
-              detailCb={() => navigate("/grades/details/1")}
-              destroyCb={() => {}}
-              editCb={() => {}}
+              detailCb={() => navigate(`/grades/details/${element.id}`)}
+              destroyCb={() => onSubmit(`/grades/${element.id}`, {}, "DELETE")}
+              editCb={() => navigate(`/grades/edit/${element.id}`)}
             />
           </td>
         </tr>
@@ -52,14 +50,13 @@ const List = () => {
     >
       <TableComponent
         checkboxCol={false}
-        dateRangePicker
         pagination
         Icon={RiAdminLine}
         addNewRoute="/grades/create"
         rows={rows}
         title={"Grade List"}
         tableHeads={["Name", "Created By", "Created At"]}
-        baseUrl="purchases"
+        baseUrl="grades"
         setData={setData}
       />
     </TableLayout>
