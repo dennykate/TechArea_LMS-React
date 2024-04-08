@@ -100,7 +100,8 @@ const List = () => {
         rows={sections}
         title={"Section List"}
         tableHeads={["Section", "Created By", "Created At"]}
-        baseUrl={`sections?filter[grade_id]=${gradeId}`}
+        baseUrl={`sections`}
+        filter={`&filter[grade_id]=${gradeId}`}
         setData={setSectionData}
       />
 
@@ -112,7 +113,8 @@ const List = () => {
         rows={subjects}
         title={"Subject List"}
         tableHeads={["Subject", "Created By", "Created At"]}
-        baseUrl={`subjects?filter[grade_id]=${gradeId}`}
+        baseUrl={`subjects`}
+        filter={`&filter[grade_id]=${gradeId}`}
         setData={setSubjectData}
       />
     </TableLayout>

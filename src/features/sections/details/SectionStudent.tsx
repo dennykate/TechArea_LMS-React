@@ -70,7 +70,8 @@ const SectionStudent: React.FC<PropsType> = ({ sectionId }) => {
         "Created By",
         "Created At",
       ]}
-      baseUrl={`users?filter[section_id]=${sectionId}&filter[role_id]=1`}
+      baseUrl={`users`}
+      filter={`&filter[section_id]=${sectionId}&filter[role_id]=1`}
       setData={setData}
     />
   );

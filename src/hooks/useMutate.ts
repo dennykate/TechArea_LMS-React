@@ -62,7 +62,7 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
       }
     }
 
-    if (data.data && callback) {
+    if (callback) {
       return callback(data.data, navigate);
     }
 

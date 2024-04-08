@@ -3,7 +3,7 @@ import DonutChartContainer from "./components/DonutChartContainer";
 
 const Dashboard = () => {
   return (
-    <main className="w-full min-h-full p-5">
+    <main className="w-full p-5">
       <div className="w-full grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-2 sm:gap-5 sm:mb-5 mb-2">
         <DashCardContainer />
       </div>

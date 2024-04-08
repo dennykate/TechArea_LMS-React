@@ -7,10 +7,14 @@ import useQuery from "@/hooks/useQuery";
 import SectionStudent from "./SectionStudent";
 import { useState } from "react";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
+import { useDisclosure } from "@mantine/hooks";
+import { Modal } from "@mantine/core";
+import AddTeacher from "./AddTeacher";
 
 const List = () => {
   const { sectionId, gradeId } = useParams();
   const [data, setData] = useState<any>();
+  const [opened, { open, close }] = useDisclosure();
 
   const navigate = useNavigate();
 
@@ -30,7 +34,7 @@ const List = () => {
           },
           {
             title: "Grade Details",
-            link: "/grades/details/1",
+            link: `/grades/details/${gradeId}`,
           },
           {
             title: "Section Details",
@@ -116,12 +120,28 @@ const List = () => {
               </div>
             </div>
           </div>
+
+          <div className="flex items-center gap-10 mt-6">
+            <h2 className="sm:text-xl text-lg font-[400]">
+              Set Home Room Teacher
+            </h2>
+
+            <MyButton onClick={open}>Set Teacher</MyButton>
+          </div>
         </div>
       </DetailsLayout>
 
       <div className="mt-2 md:px-8 sm:px-4 px-2 ">
         <SectionStudent sectionId={sectionId as string} />
       </div>
+
+      <Modal title="Home Room Teacher" onClose={close} opened={opened} centered>
+        <AddTeacher
+          sectionId={sectionId as string}
+          close={close}
+          oldTeacherId={data?.teacher?.id as string}
+        />
+      </Modal>
     </>
   );
 };
