@@ -1,18 +1,59 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
-import SelectComponent from "@/components/inputs/SelectComponent";
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import FileUplaod from "@/components/inputs/FileUpload";
-import {
-  gradeData,
-  sectionData,
-} from "@/features/accounts/students/create/data";
+import { useForm } from "@mantine/form";
+import useMutate from "@/hooks/useMutate";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Create = () => {
+  const [file, setFile] = useState<File | null>();
+
+  const form = useForm<any>({
+    initialValues: {
+      title: "",
+      grade_id: "",
+      section_id: "",
+      subject_id: "",
+      description: "",
+    },
+    validateInputOnBlur: true,
+    validate: {
+      title: (value: string) => (value.length > 0 ? null : "Title is required"),
+      grade_id: (value: string) =>
+        value.length > 0 ? null : "Grade is required",
+      section_id: (value: string) =>
+        value.length > 0 ? null : "Section is required",
+      subject_id: (value: string) =>
+        value.length > 0 ? null : "Subject is required",
+      description: (value: string) =>
+        value.length > 0 ? null : "Description is required",
+    },
+  });
+
+  const [onSubmit, { isLoading }] = useMutate();
+
+  const onSubmitHandler = (values: any) => {
+    if (!file) return toast.error("Profile is required");
+
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value as string);
+    });
+
+    formData.append("file", file as File);
+
+    onSubmit("/quizzes", formData, "POST", true);
+  };
+
   return (
     <FormLayout
       title="Create Quiz"
-      onSubmit={() => {}}
+      submitLoading={isLoading}
+      onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Quiz List", link: "/quizzes/list" },
@@ -24,40 +65,25 @@ const Create = () => {
         title: "Loream Ispum",
       }}
     >
-      <FileUplaod />
+      <FileUplaod setSingleFile={setFile} />
 
       <div className="flex flex-col gap-4 mt-4">
         <TextInputComponent
-          label="Name"
-          placeholder="Enter name"
+          label="Title"
+          placeholder="Enter title"
           withAsterisk
+          form={form}
+          name="title"
         />
 
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
-          <SelectComponent
-            label="Grade"
-            placeholder="Select grade"
-            data={gradeData}
-            withAsterisk
-          />
-          <SelectComponent
-            label="Section"
-            placeholder="Select section"
-            data={sectionData}
-            withAsterisk
-          />
-          <SelectComponent
-            label="Subject"
-            placeholder="Select section"
-            data={sectionData}
-            withAsterisk
-          />
-        </div>
+        <GradeSectionSubject form={form} />
 
         <TextAreaComponent
           label="Description"
           placeholder="Enter description"
           withAsterisk
+          form={form}
+          name="description"
         />
       </div>
     </FormLayout>
