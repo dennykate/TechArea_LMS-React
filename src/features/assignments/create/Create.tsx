@@ -44,6 +44,8 @@ const Create = () => {
     formData.append("file", file as File);
 
     onSubmit("/assignments", values, "POST", true);
+
+    setFile(undefined);
   };
 
   return (
