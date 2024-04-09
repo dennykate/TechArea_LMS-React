@@ -1,6 +1,7 @@
 import ClassCard from "./CourseCard";
 import { classData, paragraph, subTitle, title } from "../data";
 import MoreButton from "./MoreButton";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 
 const Class = () => {
   return (
@@ -14,6 +15,10 @@ const Class = () => {
           in both soul and mind for kids. We go with kids to play, learn, and
           grow better.
         </p>
+      </div>
+
+      <div className="w-full flex justify-center items-center mt-4">
+        <GradeSectionSubject usage={["grade", "section"]} hideLabel />
       </div>
 
       <div className="mt-10 grid lg:grid-cols-3 grid-cols-1 gap-10 sm:px-10 px-2">

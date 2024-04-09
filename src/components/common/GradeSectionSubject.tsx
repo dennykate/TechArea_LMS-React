@@ -1,21 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import SelectComponent from "../inputs/SelectComponent";
+import { twMerge } from "tailwind-merge";
 
 interface PropsType {
   form?: any;
   usage?: string[];
+  hideLabel?: boolean;
 }
 
 const GradeSectionSubject: React.FC<PropsType> = ({
   form,
   usage = ["subject", "grade", "section"],
+  hideLabel = false,
 }) => {
   return (
-    <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+    <div
+      className={twMerge(
+        "grid grid-cols-1 gap-4",
+        usage.length === 1 && "md:grid-cols-1",
+        usage.length === 2 && "md:grid-cols-2",
+        usage.length === 3 && "md:grid-cols-3"
+      )}
+    >
       {usage.includes("grade") && (
         <SelectComponent
-          label="Grade"
+          label={!hideLabel ? "Grade" : ""}
           placeholder="Select grade"
           data={[]}
           withAsterisk
@@ -26,7 +36,7 @@ const GradeSectionSubject: React.FC<PropsType> = ({
 
       {usage.includes("section") && (
         <SelectComponent
-          label="Section"
+          label={!hideLabel ? "Section" : ""}
           placeholder="Select section"
           data={[]}
           withAsterisk
@@ -37,7 +47,7 @@ const GradeSectionSubject: React.FC<PropsType> = ({
 
       {usage.includes("subject") && (
         <SelectComponent
-          label="Subject"
+          label={!hideLabel ? "Subject" : ""}
           placeholder="Select section"
           data={[]}
           withAsterisk

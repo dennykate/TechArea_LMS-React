@@ -2,6 +2,7 @@ import MyPagination from "@/components/common/MyPagination";
 import { Footer, Home } from "../components";
 import CourseCard from "../components/CourseCard";
 import { classData, subTitle, title } from "../data";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 
 const Accouncements = () => {
   return (
@@ -13,6 +14,11 @@ const Accouncements = () => {
           <h6 className={subTitle}>Education For Everyone</h6>
           <h3 className={title}>Learn About Our Work Culture At Devschool</h3>
         </div>
+
+        <div className="w-full flex justify-center items-center mt-4">
+          <GradeSectionSubject usage={["grade", "section"]} hideLabel />
+        </div>
+
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mt-8">
           {classData?.map((data, index) => (
             <CourseCard key={index} data={data} />

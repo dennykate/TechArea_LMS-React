@@ -17,25 +17,23 @@ const Home = () => {
     <div className="w-full min-h-screen relative">
       <Header setShowNavItems={setShowNavItems} />
 
-      <div
-        id="home"
-        className="w-full sm:py-20 py-8 relative bg-[#33415C] rounded-[40px] z-10"
-      >
+      <div id="home" className="w-full sm:py-20 py-8 relative bg-white z-10 ">
         <div className="flex justify-between items-center lg:flex-row flex-col-reverse">
           <div
             className="lg:w-1/2 sm:w-[575px] w-full mx-auto lg:ml-10 lg:mt-0 mt-0 
           sm:px-0 px-10"
           >
-            <div className="font-medium lg:text-7xl xs:text-5xl text-3xl text-white sm:text-left text-center">
+            <div
+              className="font-medium lg:text-7xl xs:text-5xl text-3xl text-black
+             sm:text-left text-center"
+            >
               We Are Child Care <br />
-              <span className="lg:text-8xl xs:text-6xl text-4xl mt-5">
-                Professinal
-              </span>
+              Professional
             </div>
 
             <p
-              className="mt-10 text-[#f5f5f5] sm:text-base xs:text-sm text-xs leading-8 sm:text-left text-center
-            font-medium"
+              className="mt-10 text-black/50 sm:text-base xs:text-sm text-xs leading-8 
+              sm:text-left text-center font-medium w-[90%]"
             >
               You must know that three is nothing higher and stronger and more
               wholesome and good for life in the future than some
@@ -45,14 +43,14 @@ const Home = () => {
             <div className="sm:mt-18 mt-8 flex sm:justify-start justify-center sm:gap-10 gap-5 flex-wrap">
               <div
                 className="sm:w-[160px] sm:h-[47px] w-[120px] h-[35px]
-                flex justify-center items-center border-[1px] border-white
+                flex justify-center items-center border-[1px] border-black
               rounded-md cursor-pointer group hover:border-primary-500 relative"
               >
-                <h6 className="text-white z-10 font-medium sm:text-base xs:text-sm text-xs">
+                <h6 className="text-black z-10 font-medium sm:text-base xs:text-sm text-xs">
                   Apply Now
                 </h6>
                 <FaArrowRight
-                  className="ml-3 text-white transform translate-y-[1px] group-hover:translate-x-2 
+                  className="ml-3 text-black transform translate-y-[1px] group-hover:translate-x-2 
                   transition-all duration-200 ease-in z-10 text-sm sm:text-base"
                 />
 
@@ -64,14 +62,14 @@ const Home = () => {
 
               <div
                 className="sm:w-[160px] sm:h-[47px] w-[120px] h-[35px] 
-                flex justify-center items-center border-[1px] border-white
+                flex justify-center items-center border-[1px] border-black
               rounded-md cursor-pointer group hover:border-primary-500 relative"
               >
-                <h6 className="text-white z-10 font-medium sm:text-base xs:text-sm text-xs">
+                <h6 className="text-black z-10 font-medium sm:text-base xs:text-sm text-xs">
                   Learn More
                 </h6>
                 <FaArrowRight
-                  className="ml-3 text-white transform translate-y-[1px] group-hover:translate-x-2 
+                  className="ml-3 text-black transform translate-y-[1px] group-hover:translate-x-2 
                   transition-all duration-200 ease-in z-10 text-sm sm:text-base"
                 />
 
@@ -115,14 +113,9 @@ const Home = () => {
           {navbarData.map((data, index) => (
             <li
               key={index}
-              className="font-bold text-black sm:text-2xl text-lg first:text-primary-500"
+              className="font-bold text-black sm:text-2xl text-lg "
             >
-              <a
-                href={`/#${data.toLowerCase()}`}
-                className="group-hover:text-primary-500"
-              >
-                {data}
-              </a>
+              <a href={`/#${data.toLowerCase()}`}>{data}</a>
             </li>
           ))}
         </ul>
