@@ -1,5 +1,6 @@
 const config = {
-  baseUrl: import.meta.env.VITE_BASE_URL || "http://127.0.0.1:8000/api/v1",
+  baseUrl:
+    import.meta.env.VITE_BASE_URL || "https://lmsapi.techarea.space/api/v1",
   expireIn: 10080,
   secretKey: "123123",
 };
