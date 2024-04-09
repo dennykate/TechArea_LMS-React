@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Avatar } from "@mantine/core";
-import { PiStudent } from "react-icons/pi";
+import { IoPeopleOutline } from "react-icons/io5";
 
 import { TableActions, TableComponent } from "@/components/table";
 import { useNavigate } from "react-router-dom";
@@ -17,28 +17,27 @@ const List = () => {
 
   const rows = useMemo(
     () =>
-      [0, 1]?.map((element: any, i: number) => (
+      data?.map((element: any, i: number) => (
         <tr key={i}>
-          <td className="m_td">1</td>
+          <td className="m_td">{i + 1}</td>
           <td className="m_td">
-            <Avatar
-              size="lg"
-              src="https://images.pexels.com/photos/3775087/pexels-photo-3775087.jpeg?auto=compress&cs=tinysrgb&w=600"
-            />
+            <Avatar size="lg" src={element?.profile} alt={element?.name} />
           </td>
-          <td className="m_td">Denny Kate</td>
+          <td className="m_td">{element?.name}</td>
           <td className="m_td">
-            <a href={`tel:09964470356`}>09964470356</a>
+            <a href={`tel:09964470356`}>{element?.phone}</a>
           </td>
-          <td className="m_td">Male</td>
-          <td className="m_td">01 Dec 2000</td>
-          <td className="m_td">Ma Ma</td>
-          <td className="m_td">22 March 2024</td>
+          <td className="m_td">{element?.gender}</td>
+          <td className="m_td">{element?.date_of_birth}</td>
+          <td className="m_td">{element?.created_by}</td>
+          <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate("/accounts/students/details/1")}
+              detailCb={() =>
+                navigate(`/accounts/students/details/${element.id}`)
+              }
               destroyCb={() => {}}
-              editCb={() => {}}
+              editCb={() => navigate(`/accounts/students/edit/${element.id}`)}
             />
           </td>
         </tr>
@@ -63,7 +62,7 @@ const List = () => {
         checkboxCol={false}
         dateRangePicker
         pagination
-        Icon={PiStudent}
+        Icon={IoPeopleOutline}
         addNewRoute="/accounts/students/create"
         rows={rows}
         title={"Student List"}
@@ -76,7 +75,8 @@ const List = () => {
           "Created By",
           "Created At",
         ]}
-        baseUrl="purchases"
+        baseUrl={`users`}
+        filter="&filter[role_id]=1"
         setData={setData}
       />
     </TableLayout>

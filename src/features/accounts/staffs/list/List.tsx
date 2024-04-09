@@ -75,7 +75,8 @@ const List = () => {
           "Created By",
           "Created At",
         ]}
-        baseUrl={`users?filter[role_id]=4`}
+        baseUrl={`users`}
+        filter="&filter[role_id]=4"
         setData={setData}
       />
     </TableLayout>

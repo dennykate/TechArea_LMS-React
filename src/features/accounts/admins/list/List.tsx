@@ -34,10 +34,10 @@ const List = () => {
           <td className="m_td">
             <TableActions
               detailCb={() =>
-                navigate(`/accounts/staffs/details/${element.id}`)
+                navigate(`/accounts/admins/details/${element.id}`)
               }
               destroyCb={() => {}}
-              editCb={() => navigate(`/accounts/staffs/edit/${element.id}`)}
+              editCb={() => navigate(`/accounts/admins/edit/${element.id}`)}
             />
           </td>
         </tr>
@@ -75,7 +75,8 @@ const List = () => {
           "Created By",
           "Created At",
         ]}
-        baseUrl={`users?filter[role_id]=4`}
+        baseUrl={`users`}
+        filter="&filter[role_id]=3"
         setData={setData}
       />
     </TableLayout>

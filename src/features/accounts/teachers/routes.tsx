@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 
 const TeacherCreate = lazy(() => import("./create/Create"));
+const TeacherEdit = lazy(() => import("./edit/Edit"));
 const TeacherList = lazy(() => import("./list/List"));
 const TeacherDetails = lazy(() => import("./details/Details"));
 
@@ -15,7 +16,11 @@ export const teacherRoutes = [
     element: <TeacherCreate />,
   },
   {
-    path: "details/:TeacherId",
+    path: "edit/:teacherId",
+    element: <TeacherEdit />,
+  },
+  {
+    path: "details/:teacherId",
     element: <TeacherDetails />,
   },
   {

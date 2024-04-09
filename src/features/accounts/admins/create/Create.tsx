@@ -55,6 +55,7 @@ const Create = () => {
         formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
         return;
       }
+
       formData.append(key, value as string);
     });
 
@@ -71,7 +72,7 @@ const Create = () => {
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Admin List", link: "/accounts/staffs/list" },
+        { title: "Admin List", link: "/accounts/admins/list" },
         { title: "New Admin", link: "" },
       ]}
       header={{
