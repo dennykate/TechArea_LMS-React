@@ -8,6 +8,7 @@ import TextInputComponent from "@/components/inputs/TextInputComponent";
 import useMutate from "@/hooks/useMutate";
 import { useForm } from "@mantine/form";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
+import PasswordInputComponent from "@/components/inputs/PasswordInputComponent";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const Login = () => {
             name="phone"
           />
 
-          <TextInputComponent
+          <PasswordInputComponent
             placeholder="Enter your password"
             label="Password"
             form={form}

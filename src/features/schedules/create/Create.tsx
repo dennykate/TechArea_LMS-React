@@ -1,15 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
 
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import SelectComponent from "@/components/inputs/SelectComponent";
 import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
+import { useForm } from "@mantine/form";
+import useMutate from "@/hooks/useMutate";
 
 const Create = () => {
+  const form = useForm<any>({
+    initialValues: {
+      name: "",
+    },
+    validateInputOnBlur: true,
+    validate: {
+      name: (value: string) =>
+        value.length > 0 ? null : "Grade name is required",
+    },
+  });
+
+  const [onSubmit, { isLoading }] = useMutate();
+
   return (
     <FormLayout
       title="Create Schedule"
-      onSubmit={() => {}}
+      submitLoading={isLoading}
+      onSubmit={form.onSubmit((values) => onSubmit("/grades", values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Schedule List", link: "/schedules/list" },
