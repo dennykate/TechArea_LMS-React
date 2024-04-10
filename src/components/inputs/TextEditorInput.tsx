@@ -4,8 +4,8 @@ import "react-quill/dist/quill.snow.css";
 import { twMerge } from "tailwind-merge";
 
 interface TextEditorInputProps {
-  content: any;
-  handleChange: (value: any) => void;
+  content?: any;
+  handleChange?: (value: any) => void;
   label?: string;
   inputClassName?: string;
 }
