@@ -1,15 +1,41 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ActionIcon, Menu } from "@mantine/core";
 import { IconAdjustments } from "@tabler/icons-react";
 
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { Tabs } from "@mantine/core";
-import { subjects } from "@/features/student-course/components/data";
+import useQuery from "@/hooks/useQuery";
+import { useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface PropsType {
   children: React.ReactNode;
+  gradeId?: string;
+  setSubjectId?: (x: string) => void;
 }
 
-const SubjectLayout: React.FC<PropsType> = ({ children }) => {
+const SubjectLayout: React.FC<PropsType> = ({
+  children,
+  gradeId,
+  setSubjectId,
+}) => {
+  const [activeSubject, setActiveSubject] = useState<string | null>("");
+  const [activeSection, setActiveSection] = useState<string | null>("");
+
+  const { data: subjects } = useQuery(`/subjects?filter[grade_id]=${gradeId}`);
+  const { data: sections } = useQuery(`/sections?filter[grade_id]=${gradeId}`);
+
+  useEffect(() => {
+    if (subjects?.length > 0) {
+      setActiveSubject(subjects[0]?.id as string);
+      setSubjectId && setSubjectId(subjects[0]?.id as string);
+    }
+  }, [subjects]);
+
+  useEffect(() => {
+    if (sections?.length > 0) setActiveSection(sections[0]?.id as string);
+  }, [sections]);
+
   return (
     <div
       className="w-full bg-white space-y-4 shadow-md sm:p-4 p-2 border border-black 
@@ -19,10 +45,16 @@ const SubjectLayout: React.FC<PropsType> = ({ children }) => {
         className="w-full flex justify-between md:items-center items-end 
       gap-2 md:flex-row flex-col-reverse "
       >
-        <Tabs defaultValue="gallery">
+        <Tabs
+          value={activeSubject}
+          onTabChange={(val: string) => {
+            setActiveSubject(val);
+            setSubjectId && setSubjectId(val);
+          }}
+        >
           <Tabs.List>
-            {subjects?.map((subject) => (
-              <Tabs.Tab key={subject.id} value={subject.name}>
+            {subjects?.map((subject: any) => (
+              <Tabs.Tab key={subject.id} value={subject.id}>
                 {subject.name}
               </Tabs.Tab>
             ))}
@@ -46,9 +78,18 @@ const SubjectLayout: React.FC<PropsType> = ({ children }) => {
             </Menu.Target>
 
             <Menu.Dropdown>
-              <Menu.Item>Section - A</Menu.Item>
-              <Menu.Item>Section - B</Menu.Item>
-              <Menu.Item>Section - C</Menu.Item>
+              {sections?.map((section: any) => (
+                <Menu.Item
+                  key={section?.id}
+                  className={twMerge(
+                    activeSection == section?.id &&
+                      "bg-primary text-white hover:!bg-primary-600"
+                  )}
+                  onClick={() => setActiveSection(section?.id as string)}
+                >
+                  {section?.name}
+                </Menu.Item>
+              ))}
             </Menu.Dropdown>
           </Menu>
         </div>
