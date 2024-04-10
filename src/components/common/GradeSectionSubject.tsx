@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SelectComponent from "../inputs/SelectComponent";
 import { twMerge } from "tailwind-merge";
 import useQuery from "@/hooks/useQuery";
 
 interface PropsType {
-  form?: any;
+  form: any;
   usage?: string[];
   hideLabel?: boolean;
   asterisk?: any;
@@ -33,10 +33,10 @@ const GradeSectionSubject: React.FC<PropsType> = ({
     !usage.includes("subject")
   );
 
-  useEffect(() => {
-    form.setFieldValue("section_id", "");
-    form.setFieldValue("subject_id", "");
-  }, [form.values?.grade_id]);
+  // useEffect(() => {
+  //   form.setFieldValue("section_id", "");
+  //   form.setFieldValue("subject_id", "");
+  // }, [form.values?.grade_id]);
 
   return (
     <div

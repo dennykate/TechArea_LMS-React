@@ -3,8 +3,16 @@ import { Footer, Home } from "../components";
 import CourseCard from "../components/CourseCard";
 import { classData, subTitle, title } from "../data";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
+import { useForm } from "@mantine/form";
 
 const Accouncements = () => {
+  const form = useForm({
+    initialValues: {
+      grade_id: "",
+      section_id: "",
+    },
+  });
+
   return (
     <>
       <Home />
@@ -16,7 +24,11 @@ const Accouncements = () => {
         </div>
 
         <div className="w-full flex justify-center items-center mt-4">
-          <GradeSectionSubject usage={["grade", "section"]} hideLabel />
+          <GradeSectionSubject
+            usage={["grade", "section"]}
+            hideLabel
+            form={form}
+          />
         </div>
 
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mt-8">

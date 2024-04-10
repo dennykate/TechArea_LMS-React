@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 const Edit = () => {
   const { quizId } = useParams();
   const [file, setFile] = useState<File | null>();
+  const [defaultImage, setDefaultImage] = useState<string>("");
 
   const form = useForm<any>({
     initialValues: {
@@ -50,7 +51,7 @@ const Edit = () => {
   };
 
   const { isLoading: queryLoading } = useQuery(`quizzes/${quizId}`, (data) => {
-    // setDefaultImage(data?.profile);
+    setDefaultImage(data?.image);
 
     form.setFieldValue("title", data?.title);
     form.setFieldValue("grade_id", data?.grade_id);
@@ -76,7 +77,7 @@ const Edit = () => {
         title: "Loream Ispum",
       }}
     >
-      <FileUplaod setSingleFile={setFile} />
+      <FileUplaod setSingleFile={setFile} defaultImage={defaultImage} />
 
       <div className="flex flex-col gap-4 mt-4">
         <TextInputComponent
