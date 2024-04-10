@@ -20,7 +20,7 @@ const QuizQuestionCard: React.FC<PropsType> = ({ data }) => {
     <>
       <div
         className="w-full rounded-sm shadow-md p-4 space-y-2 border border-black border-opacity-10
-    relative  flex"
+    relative  flex gap-4"
       >
         {data?.image && (
           <div className="w-[200px] h-[100px]">

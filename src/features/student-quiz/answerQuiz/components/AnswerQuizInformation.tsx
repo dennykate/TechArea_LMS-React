@@ -16,12 +16,7 @@ const AnswerQuizInformation: React.FC<PropsType> = ({ data }) => {
     <div className="mt-6 space-y-4 px-2">
       <Heading tag="h1">{data?.title}</Heading>
 
-      <p className="text-sm text-gray-500">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, corrupti
-        consequatur. Nesciunt, deleniti aliquam! Eos quos ad, illum numquam,
-        alias vitae quibusdam expedita exercitationem eius nam excepturi.
-        Exercitationem, ratione et?
-      </p>
+      <p className="text-sm text-gray-500">{data?.description}</p>
 
       <p className="text-sm text-gray-500">
         Created by -{" "}
@@ -52,14 +47,17 @@ const AnswerQuizInformation: React.FC<PropsType> = ({ data }) => {
         </div>
       </div>
 
-      <Alert
-        color="brand"
-        classNames={{
-          message: "text-white",
-        }}
-      >
-        The last time you answered, you received 13 marks.
-      </Alert>
+      {data?.is_answered && (
+        <Alert
+          color="brand"
+          classNames={{
+            message: "text-white",
+          }}
+        >
+          The last time you answered, you received{" "}
+          {data?.is_answered?.score_percentage}% score.
+        </Alert>
+      )}
     </div>
   );
 };

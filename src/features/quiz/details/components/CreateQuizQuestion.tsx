@@ -123,7 +123,12 @@ const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
             classNames={{
               rightSection: "w-[80px]",
             }}
-            onKeyDown={(e) => e.key === "Enter" && newOptionCreateHandler()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                newOptionCreateHandler();
+              }
+            }}
             rightSection={
               <MyButton
                 className="rounded-l-none"
