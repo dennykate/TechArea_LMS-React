@@ -5,27 +5,33 @@ import QuizTimer from "./components/QuizTimer";
 import QuizQuestion from "./components/QuizQuestion";
 import QuizCount from "./components/QuizCount";
 import useQuery from "@/hooks/useQuery";
-import { useCallback, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Loader, Modal } from "@mantine/core";
+import { useCallback, useMemo, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Alert, Loader, Modal } from "@mantine/core";
 import useMutate from "@/hooks/useMutate";
 import toast from "react-hot-toast";
 import alertActions from "@/utilities/alertActions";
 import MyButton from "@/components/buttons/MyButton";
 import { useDisclosure } from "@mantine/hooks";
 import QuizComplete from "./components/QuizComplete";
+import { IconAlertCircle } from "@tabler/icons-react";
 
 const AnswerQuiz = () => {
   const { quizId } = useParams();
+  const navigate = useNavigate();
   const [data, setData] = useState<any>();
   const [answers, setAnswers] = useState<any>([]);
   const [opened, { open, close }] = useDisclosure();
+  const [resData, setResData] = useState<any>();
 
   const { isLoading } = useQuery(`/quizzes/${quizId}?key=asdffdsa`, setData);
 
   const [onSubmit, { isLoading: submitLoading }] = useMutate({
     navigateBack: false,
-    callback: () => open(),
+    callback: (data) => {
+      open();
+      setResData(data);
+    },
   });
 
   const onCompleteHandler = useCallback(() => {
@@ -46,6 +52,11 @@ const AnswerQuiz = () => {
       "Are you sure to submit your all answers"
     );
   };
+
+  const isLimitExceeded = useMemo(
+    () => data?.answer_count >= data?.answer_limit,
+    [data]
+  );
 
   if (isLoading)
     return (
@@ -68,10 +79,26 @@ const AnswerQuiz = () => {
 
           <AnswerQuizInformation data={data} />
 
+          {isLimitExceeded && (
+            <div className="my-4 px-2">
+              <Alert
+                icon={<IconAlertCircle size="1rem" />}
+                title="Notice!"
+                color="red"
+              >
+                Your answer limit is already exceeded.
+              </Alert>
+            </div>
+          )}
+
           <QuizQuestion questions={data?.questions} setAnswers={setAnswers} />
 
           <div className="flex justify-end items-center mt-6">
-            <MyButton loading={submitLoading} onClick={onSubmitHandler}>
+            <MyButton
+              disabled={isLimitExceeded}
+              loading={submitLoading}
+              onClick={onSubmitHandler}
+            >
               Submit My All Answers
             </MyButton>
           </div>
@@ -86,8 +113,15 @@ const AnswerQuiz = () => {
         </div>
       </NavLayout>
 
-      <Modal opened={opened} onClose={close}>
-        <QuizComplete />
+      <Modal
+        opened={opened}
+        onClose={() => {
+          close();
+          navigate(-1);
+        }}
+        centered
+      >
+        <QuizComplete data={resData} questionCount={data?.questions?.length} />
       </Modal>
     </>
   );

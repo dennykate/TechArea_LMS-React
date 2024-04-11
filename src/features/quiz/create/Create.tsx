@@ -8,6 +8,7 @@ import useMutate from "@/hooks/useMutate";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 
 const Create = () => {
   const [file, setFile] = useState<File | null>();
@@ -19,6 +20,7 @@ const Create = () => {
       section_id: "",
       subject_id: "",
       description: "",
+      answer_limit: 0,
     },
     validateInputOnBlur: true,
     validate: {
@@ -31,6 +33,8 @@ const Create = () => {
         value.length > 0 ? null : "Subject is required",
       description: (value: string) =>
         value.length > 0 ? null : "Description is required",
+      answer_limit: (value: number) =>
+        value > 0 ? null : "Answer Limit is required",
     },
   });
 
@@ -68,13 +72,23 @@ const Create = () => {
       <FileUplaod setSingleFile={setFile} />
 
       <div className="flex flex-col gap-4 mt-4">
-        <TextInputComponent
-          label="Title"
-          placeholder="Enter title"
-          withAsterisk
-          form={form}
-          name="title"
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextInputComponent
+            label="Title"
+            placeholder="Enter title"
+            withAsterisk
+            form={form}
+            name="title"
+          />
+
+          <NumberInputComponent
+            label="Answer Limit"
+            placeholder="Enter answer limit"
+            withAsterisk
+            form={form}
+            name="answer_limit"
+          />
+        </div>
 
         <GradeSectionSubject form={form} />
 

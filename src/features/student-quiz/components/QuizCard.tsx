@@ -56,6 +56,10 @@ const QuizCard: React.FC<PropsType> = ({ data }) => {
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
           {data?.created_at}
         </p>
+        <p className="text-xs font-[300] text-gray-500 line-clamp-3">
+          Answer Limit - {data?.answer_limit} , Answer Count -{" "}
+          {data?.answer_count}
+        </p>
       </div>
     </Link>
   );

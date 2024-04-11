@@ -9,6 +9,7 @@ import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
+import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 
 const Edit = () => {
   const { quizId } = useParams();
@@ -22,6 +23,7 @@ const Edit = () => {
       section_id: "",
       subject_id: "",
       description: "",
+      answer_limit: 0,
     },
     validateInputOnBlur: true,
     validate: {
@@ -34,6 +36,8 @@ const Edit = () => {
         value.length > 0 ? null : "Subject is required",
       description: (value: string) =>
         value.length > 0 ? null : "Description is required",
+      answer_limit: (value: number) =>
+        value > 0 ? null : "Answer Limit is required",
     },
   });
 
@@ -58,6 +62,7 @@ const Edit = () => {
     form.setFieldValue("section_id", data?.section_id);
     form.setFieldValue("subject_id", data?.subject_id);
     form.setFieldValue("description", data?.description);
+    form.setFieldValue("answer_limit", data?.answer_limit);
   });
 
   return (
@@ -80,13 +85,23 @@ const Edit = () => {
       <FileUplaod setSingleFile={setFile} defaultImage={defaultImage} />
 
       <div className="flex flex-col gap-4 mt-4">
-        <TextInputComponent
-          label="Title"
-          placeholder="Enter title"
-          withAsterisk
-          form={form}
-          name="title"
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <TextInputComponent
+            label="Title"
+            placeholder="Enter title"
+            withAsterisk
+            form={form}
+            name="title"
+          />
+
+          <NumberInputComponent
+            label="Answer Limit"
+            placeholder="Enter answer limit"
+            withAsterisk
+            form={form}
+            name="answer_limit"
+          />
+        </div>
 
         <GradeSectionSubject form={form} />
 
