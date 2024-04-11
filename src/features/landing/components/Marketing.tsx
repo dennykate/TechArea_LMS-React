@@ -27,7 +27,7 @@ const Marketing = () => {
       </div>
 
       <div className="lg:w-[51%] w-full  bg-[#235C51] sm:py-16 xs:py-10 py-5 sm:px-10 xs:px-3 px-2">
-        <h6 className="font-poppins font-bold xs:text-xl text-lg text-white">
+        <h6 className="font-poppins font-bold xs:text-xl text-lg text-white leading-6">
           Why Hesitate To Register?
         </h6>
         <h1 className="font-poppins font-bold xs:text-5xl text-4xl my-5 text-white">

@@ -1,4 +1,15 @@
-const ScheduleInformation = () => {
+export interface ScheduleType {
+  data: {
+    title: string;
+    description?: string;
+    start_date: string;
+    end_date: string;
+    type: string;
+    created_by: string;
+    created_at: string;
+  };
+}
+const ScheduleInformation = ({ data }: ScheduleType) => {
   return (
     <div className=" ">
       <div className="">
@@ -11,52 +22,44 @@ const ScheduleInformation = () => {
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               Title
             </p>
-            <span className="sm:text-sm text-xs">- Exam</span>
+            <span className="sm:text-sm text-xs">- {data?.title}</span>
           </div>
 
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               Description
             </p>
-            <p className="sm:text-sm text-xs w-[90%]">
-              - Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas,
-              quisquam a amet fugiat, dicta excepturi iure voluptas sunt
-              deserunt minima, quasi aut! Perferendis amet iure tempore eaque
-              officia sequi aspernatur. Officiis maiores ipsa molestias vel
-              magnam labore eum tenetur, quod minima saepe cumque quasi rerum
-              ipsum repellendus voluptates laudantium, ratione autem assumenda
-              sed eveniet consectetur eligendi fugiat! Commodi, nulla iure.
-            </p>
+            <p className="sm:text-sm text-xs w-[90%]">- {data?.description}</p>
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               Start Date
             </p>
-            <span className="sm:text-sm text-xs">- 1-12-2000 10:00 AM</span>
+            <span className="sm:text-sm text-xs">- {data?.start_date}</span>
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               End Date
             </p>
-            <span className="sm:text-sm text-xs">- 12-12-2000 10:00 AM</span>
+            <span className="sm:text-sm text-xs">- {data?.end_date}</span>
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               Type
             </p>
-            <span className="sm:text-sm text-xs">- Exam</span>
+            <span className="sm:text-sm text-xs">- {data?.type}</span>
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               Created by
             </p>
-            <span className="sm:text-sm text-xs">- Thwe Thwe</span>
+            <span className="sm:text-sm text-xs">- {data?.created_by}</span>
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               Created at
             </p>
-            <span className="sm:text-sm text-xs">- 29-3-2024</span>
+            <span className="sm:text-sm text-xs">- {data?.created_at}</span>
           </div>
         </div>
       </div>
