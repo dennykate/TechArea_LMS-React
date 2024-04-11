@@ -13,6 +13,8 @@ import { useParams } from "react-router-dom";
 const Edit = () => {
   const { announcementId } = useParams();
   const [file, setFile] = useState<File>();
+  const [defaultImage, setDefaultImage] = useState<string>("");
+
   const form = useForm<any>({
     initialValues: {
       title: "",
@@ -31,6 +33,7 @@ const Edit = () => {
   const { isLoading: queryLoading } = useQuery(
     `/announcements/${announcementId}`,
     (data) => {
+      setDefaultImage(data?.image);
       form.setFieldValue("title", data?.title);
       form.setFieldValue("description", data?.description);
     }
@@ -82,7 +85,11 @@ const Edit = () => {
           onChange={(val) => form.setFieldValue("description", val)}
         />
         <div className="!mt-6">
-          <FileUpload type="image" setSingleFile={setFile} />
+          <FileUpload
+            defaultImage={defaultImage}
+            type="image"
+            setSingleFile={setFile}
+          />
         </div>
       </div>
     </FormLayout>

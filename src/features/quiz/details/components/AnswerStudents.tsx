@@ -18,19 +18,15 @@ const AnswerStudents = () => {
         <tr key={i}>
           <td className="m_td">{i + 1}</td>
           <td className="m_td">
-            <Avatar
-              size="lg"
-              src={element?.student?.profile}
-              alt={element?.student?.name}
-            />
+            <Avatar size="lg" src={element?.profile} alt={element?.name} />
           </td>
-          <td className="m_td">{element?.student?.name}</td>
-          <td className="m_td">{element?.student?.gender}</td>
-          <td className="m_td">{element?.student?.grade}</td>
-          <td className="m_td">{element?.student?.section}</td>
-          <td className="m_td">{element?.score}</td>
-          <td className="m_td">{element?.score_percentage}</td>
-          <td className="m_td">{element?.created_at}</td>
+          <td className="m_td">{element?.name}</td>
+          <td className="m_td">{element?.gender}</td>
+          <td className="m_td">{element?.grade}</td>
+          <td className="m_td">{element?.section}</td>
+          <td className="m_td">{element?.total_score}</td>
+          <td className="m_td">{element?.total_score_percentage}</td>
+          <td className="m_td">{element?.lastest_answer_at}</td>
         </tr>
       )),
     [data, navigate, onSubmit]
@@ -51,9 +47,9 @@ const AnswerStudents = () => {
         "Gender",
         "Grade",
         "Section",
-        "Score",
-        "Score Percentage",
-        "Answered At",
+        "Total Score",
+        "Total Score Percentage",
+        "Lastest Answered At",
       ]}
       baseUrl={`quizzes/${quizId}/answer-students`}
       setData={setData}

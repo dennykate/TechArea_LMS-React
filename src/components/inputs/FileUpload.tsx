@@ -88,7 +88,7 @@ const FileUpload: React.FC<PropsType> = ({
       ) : (
         <div
           className="h-auto rounded-md border border-dashed border-gray-400 w-full flex 
-      justify-center items-center p-[2px] relative"
+      justify-center items-center p-[2px] relative mt-6"
         >
           <button
             onClick={() => setPreviewUrl(null)}

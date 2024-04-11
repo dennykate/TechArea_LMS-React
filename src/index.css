@@ -80,3 +80,7 @@ th {
 .custom-calendar .fc-day:hover {
   background: #f5f5f5;
 }
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  @apply h-[200px];
+}

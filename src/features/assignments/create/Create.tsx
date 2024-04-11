@@ -17,15 +17,19 @@ const Create = () => {
     initialValues: {
       title: "",
       description: "",
-      grade: "",
-      section: "",
+      grade_id: "",
+      section_id: "",
+      subject_id: "",
     },
     validateInputOnBlur: true,
     validate: {
       title: (value: string) => (value.length > 0 ? null : "Title is required"),
-      grade: (value: string) => (value.length > 0 ? null : "Grade is required"),
-      section: (value: string) =>
+      grade_id: (value: string) =>
+        value.length > 0 ? null : "Grade is required",
+      section_id: (value: string) =>
         value.length > 0 ? null : "Section is required",
+      subject_id: (value: string) =>
+        value.length > 0 ? null : "Subject is required",
     },
   });
 
@@ -47,6 +51,8 @@ const Create = () => {
 
     setFile(undefined);
   };
+
+  console.log(form.errors);
 
   return (
     <FormLayout
@@ -76,14 +82,14 @@ const Create = () => {
 
         <TextEditorInput
           label="Description"
-          content={form.values.description}
-          handleChange={(val) => form.setFieldValue("description", val)}
+          value={form.values.description}
+          onChange={(val) => form.setFieldValue("description", val)}
           inputClassName="mb-5"
         />
 
         <GradeSectionSubject form={form} />
 
-        <FileUpload type={"all"} className="mt-5" />
+        <FileUpload type={"all"} className="mt-5" setSingleFile={setFile} />
       </div>
     </FormLayout>
   );
