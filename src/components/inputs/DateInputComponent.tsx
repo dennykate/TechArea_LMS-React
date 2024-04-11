@@ -28,6 +28,7 @@ export default function DateInputComponent({
       placeholder={placeholder}
       classNames={{
         label: `sm:text-[16px] text-[14px] mb-1`,
+        weekday: "!text-black",
       }}
       {...form?.getInputProps(name as string)}
       withAsterisk={withAsterisk}

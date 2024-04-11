@@ -3,7 +3,7 @@ import Swal, { SweetAlertResult } from "sweetalert2";
 const alertActions = (callback: () => void, text: string) => {
   Swal.fire({
     title: "Warning !",
-    background: "#212121",
+    background: "#fffff",
     text,
     icon: "warning",
     iconColor: "#DCA715",

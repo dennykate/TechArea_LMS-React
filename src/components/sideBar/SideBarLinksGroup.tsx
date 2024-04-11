@@ -36,7 +36,7 @@ export default function SideBarLinksGroup({
   };
 
   const isActiveTab = useMemo(() => {
-    if (!hasLinks) return pathname === link;
+    if (!hasLinks) return pathname.includes(link as string);
 
     const isExisted = !!links.find((link) =>
       pathname.includes(link.path as string)

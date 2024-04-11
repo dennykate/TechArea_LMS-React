@@ -46,12 +46,12 @@ const useQuery = (
     if (error) {
       setIsLoading(false);
       if (error.status === 401) {
-        toast.error("အကောင့်အသုံးပြုခွင့်မရှိပါ");
+        toast.error("You're Unauthorized");
 
         logout();
       }
 
-      toast.error("လုပ်ဆောင်မှုမအောင်မြင်ပါ");
+      toast.error("Something wrong");
     }
   }, [error]);
 

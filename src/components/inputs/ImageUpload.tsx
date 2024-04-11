@@ -65,7 +65,7 @@ export default function ImageUpload({
                   <img
                     src={image["data_url"]}
                     alt=""
-                    className="w-full h-full"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ))

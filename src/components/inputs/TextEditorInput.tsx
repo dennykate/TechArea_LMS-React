@@ -1,25 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { twMerge } from "tailwind-merge";
 
 interface TextEditorInputProps {
-  content: any;
-  handleChange: (value: any) => void;
-  label: string;
+  value?: any;
+  onChange?: (value: any) => void;
+  label?: string;
+  inputClassName?: string;
 }
 const TextEditorInput = ({
-  content,
-  handleChange,
+  value,
+  onChange,
   label,
+  inputClassName,
 }: TextEditorInputProps) => {
   return (
-    <>
-      <label htmlFor="text-editor" className="-mb-2">{label}</label>
+    <div className={twMerge(label ? "min-h-[160px]" : "min-h-[140px] ")}>
+      {label && (
+        <label htmlFor="text-editor" className="font-medium">
+          {label}
+        </label>
+      )}
+
       <ReactQuill
         id="text-editor"
-        value={content}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
         modules={{
           toolbar: [
             // [{ header: [1, 2, false] }],
@@ -40,8 +47,9 @@ const TextEditorInput = ({
           "bullet",
           "link",
         ]}
+        className={twMerge("h-[100px]", label && "mt-2", inputClassName)}
       />
-    </>
+    </div>
   );
 };
 

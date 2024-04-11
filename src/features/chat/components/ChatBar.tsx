@@ -17,7 +17,5 @@ const ChatBar = () => {
       <ChatMate justify={"justify-around"} gap={"0"} />
       <ChatMate justify={"justify-around"} gap={"0"} />
     </ScrollArea>
-  );
-};
-
+  )}
 export default ChatBar;

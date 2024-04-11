@@ -1,14 +1,20 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useRoutes } from "react-router-dom";
 import publicRoutes from "./publicRoutes";
-import _rivateRoutes from "./privateRoutes";
+import privateRoutes from "./privateRoutes";
+import commonRoutes from "./commonRoutes";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 const routes = () => {
-  const isAuth = true;
+  const { get } = useEncryptStorage();
 
-  const routes = isAuth ? _rivateRoutes : publicRoutes;
+  const isAuth = get("token");
 
-  const element = useRoutes(routes);
+  console.log("token => ", isAuth);
+
+  const routes = isAuth ? privateRoutes : publicRoutes;
+
+  const element = useRoutes([...routes, ...commonRoutes]);
 
   return <>{element}</>;
 };

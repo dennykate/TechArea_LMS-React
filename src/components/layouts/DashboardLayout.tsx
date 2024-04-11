@@ -1,17 +1,24 @@
+import { twMerge } from "tailwind-merge";
+import { Drawer } from "@mantine/core";
+import { useEffect } from "react";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 
 import NavBar from "../navBar/NavBar";
 import SideBar from "../sideBar/SideBar";
-import { twMerge } from "tailwind-merge";
-import { Drawer } from "@mantine/core";
+import Footer from "../footers/Footer";
 
 interface PropsType {
   children: React.ReactNode;
 }
 
 const DashboardLayout = ({ children }: PropsType) => {
-  const [opened, { toggle, close }] = useDisclosure(true);
   const matches = useMediaQuery("(max-width: 796px)");
+  const [opened, { toggle, close, open }] = useDisclosure(true);
+
+  useEffect(() => {
+    if (matches) close();
+    else open();
+  }, [matches]);
 
   return (
     <div className="flex items-start h-screen overflow-hidden">
@@ -21,7 +28,7 @@ const DashboardLayout = ({ children }: PropsType) => {
           onClose={close}
           withCloseButton={false}
           classNames={{
-            content: "max-w-[230px] ",
+            content: "max-w-[260px] ",
             body: "p-0 ",
           }}
         >
@@ -34,13 +41,18 @@ const DashboardLayout = ({ children }: PropsType) => {
       <div
         className={twMerge(
           "h-full transition-all duration-300 ease-in-out",
-          opened && !matches ? "w-[calc(100%-230px)]" : "w-full"
+          opened && !matches ? "w-[calc(100%-260px)]" : "w-full"
         )}
       >
         <NavBar toggle={toggle} />
 
-        <div className="h-[calc(100%-70px)] w-full overflow-y-auto bg-[#f5f5f5]">
+        <div
+          className="sm:h-[calc(100%-70px)] h-[calc(100%-50px)] w-full 
+        overflow-y-auto bg-gray-50/80 flex justify-between flex-col"
+        >
           {children}
+
+          <Footer />
         </div>
       </div>
     </div>
