@@ -3,17 +3,19 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: { xs: "400px" },
       colors: {
         primary: {
-          100: "#d2e5f7",
-          200: "#a4cbef",
-          300: "#77b2e6",
-          400: "#4998de",
-          500: "#1c7ed6",
-          600: "#1665ab",
-          700: "#114c80",
-          800: "#0b3256",
-          900: "#06192b",
+          DEFAULT: "#2a8dca",
+          100: "#d4e8f4",
+          200: "#aad1ea",
+          300: "#7fbbdf",
+          400: "#55a4d5",
+          500: "#2a8dca",
+          600: "#2271a2",
+          700: "#195579",
+          800: "#113851",
+          900: "#081c28",
         },
       },
     },
@@ -21,3 +23,15 @@ export default {
   // eslint-disable-next-line no-undef
   plugins: [require("tailwind-scrollbar")],
 };
+
+// blue: {
+//     100: "#d4e8f4",
+//     200: "#aad1ea",
+//     300: "#7fbbdf",
+//     400: "#55a4d5",
+//     500: "#2a8dca",
+//     600: "#2271a2",
+//     700: "#195579",
+//     800: "#113851",
+//     900: "#081c28"
+// },

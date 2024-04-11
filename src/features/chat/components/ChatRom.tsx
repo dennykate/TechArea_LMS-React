@@ -8,6 +8,15 @@ import { MdAttachFile } from "react-icons/md";
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import FileSend from "./FileSend";
+import { useSelector } from "react-redux";
+import { selectCurrentChatData } from "@/redux/services/chatSlice";
+import { useGetChatDataQuery } from "@/redux/api/chatApi";
+import Message from "./Message";
+
+interface MsgData {
+  is_sender: boolean;
+  message: string;
+}
 
 const CharRom: React.FC = () => {
   const { messageHandler, inputValue, appendEmoji } = useMessageHandler();
@@ -17,16 +26,48 @@ const CharRom: React.FC = () => {
   const handleEmojiClick = (emojiObject: { emoji: string }): void => {
     appendEmoji(emojiObject.emoji);
   };
-  console.log(inputValue);
+  // console.log(inputValue);
+  const userData = useSelector(selectCurrentChatData);
+  // console.log(userData)
 
   const [opened, { open, close }] = useDisclosure();
+
+  // message
+  const { data, error, isLoading } = useGetChatDataQuery({
+    url: userData?.id ? `/messages?conversation_id=${userData.id}` : undefined,
+    method: "GET",
+  });
+
+  console.log(data);
+
+  if (isLoading)
+    return (
+      <div className="h-[100vh] flex justify-center items-center">
+        Loading...
+      </div>
+    );
+  if (error) return <div>Error</div>;
+
   return (
-    <div className="relative h-full w-full flex">
+    <div className="relative h-full w-full flex flex-col">
       <div className="w-full h-[10vh]">
-        <ChatMate padding="p-5" justify={"justify-start"} gap="gap-5" />
+        <ChatMate
+          data={userData}
+          padding="p-5"
+          justify={"justify-start"}
+          gap="gap-5"
+        />
       </div>
       {/* message will here  */}
-      <div></div>
+      <div className="w-full h-full p-5 flex flex-col">
+        <div>
+          {data?.data?.map(
+            (el: MsgData, index: React.Key | null | undefined) => (
+              <Message key={index} msg={el} />
+            )
+          )}
+        </div>
+      </div>
 
       <div className="absolute bottom-0 h-[45px] flex w-[100%] right-[50%] translate-x-[50%] border">
         {/* for emoji  */}
@@ -51,7 +92,7 @@ const CharRom: React.FC = () => {
             title="Drop your file here"
             centered
           >
-            <FileSend/>
+            <FileSend />
           </Modal>
         </div>
 

@@ -1,19 +1,24 @@
+import { setCurrentChatData } from "@/redux/services/chatSlice";
 import { Avatar, Badge, Flex, Text } from "@mantine/core";
+import { useDispatch } from "react-redux";
+interface Info {
+  partner: { role: string; name: string; profile: string };
+  last_message: string;
+}
 interface LayoutProps {
   justify: string;
   gap: string;
   padding: string;
+  data: Info;
 }
-const ChatMate: React.FC<LayoutProps> = ({ justify, gap, padding }) => {
+const ChatMate: React.FC<LayoutProps> = ({ justify, gap, padding, data }) => {
+  const dispatch = useDispatch();
   return (
     <div
-      className={`border hover:bg-slate-200 transition duration-75 cursor-pointer ${gap}  shadow-sm flex ${justify} items-center ${padding} bg-white w-full h-full`}
+      onClick={() => dispatch(setCurrentChatData(data))}
+      className={`border hover:bg-slate-200 transition duration-75 cursor-pointer ${gap}  shadow-sm flex ${justify} items-center ${padding} bg-white w-full h-[10vh]`}
     >
-      <Avatar
-        radius={"100%"}
-        size={"lg"}
-        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
-      />
+      <Avatar radius={"100%"} size={"lg"} src={`${data?.partner?.profile}`} />
       <Flex
         gap="sm"
         justify="flex-start"
@@ -22,15 +27,15 @@ const ChatMate: React.FC<LayoutProps> = ({ justify, gap, padding }) => {
       >
         <Flex gap="md" justify="center" align="center">
           <Text fz={16} fw={600}>
-            Jhon Doe
+            {data?.partner?.name}
           </Text>
           <Badge size="xs" color="blue">
-            Badge
+            {data?.partner?.role}
           </Badge>
         </Flex>
 
         <Text c="dimmed" fz={14}>
-          Blah Blha
+          {data?.last_message}
         </Text>
       </Flex>
     </div>

@@ -5,7 +5,7 @@ import moment, { Moment } from "moment/moment";
 import { IconType } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
 import { useDebouncedState, useMediaQuery } from "@mantine/hooks";
-import { Table, TextInput, NumberInput, Loader } from "@mantine/core";
+import { Table, TextInput, Loader } from "@mantine/core";
 import { IoSearch } from "react-icons/io5";
 
 import DateRangePickerComponent from "./DateRangePickerComponent";
@@ -13,6 +13,7 @@ import useQuery from "@/hooks/useQuery";
 // import useDisableUI from "@/hooks/useDisableUI";
 import MyButton from "../buttons/MyButton";
 import MyPagination from "../common/MyPagination";
+import SelectComponent from "../inputs/SelectComponent";
 
 interface PropsType {
   rows: JSX.Element[];
@@ -36,6 +37,8 @@ interface PropsType {
   hideRoles?: string[];
   excelData?: any[];
   disableTablePadding?: boolean;
+  addNewAction?: () => void;
+  hideAddNew?: boolean;
 }
 
 const TableComponent = ({
@@ -58,10 +61,12 @@ const TableComponent = ({
   baseUrl,
   filter = "",
   setData,
+  addNewAction,
+  hideAddNew,
 }: // hideRoles = [""],
 PropsType) => {
   const [page, setPage] = useState<number>(1);
-  const [dataLimit, setDataLimit] = useDebouncedState<number>(20, 500);
+  const [dataLimit, setDataLimit] = useState<string>("10");
   const [dataSearch, setDataSearch] = useDebouncedState<string>("", 500);
   const [dateRange, setDateRange] = useState<{ start: Moment; end: Moment }>({
     start: moment()
@@ -120,9 +125,12 @@ PropsType) => {
             <p className="font-medium sm:text-lg text-base">{title} </p>
           </div>
 
-          {addNewRoute && (
+          {!hideAddNew && (
             <MyButton
-              onClick={() => navigate(addNewRoute)}
+              onClick={() => {
+                if (addNewRoute) navigate(addNewRoute);
+                if (addNewAction) addNewAction();
+              }}
               className="!w-[140px] sm:text-base text-sm"
             >
               {addNewLabel}
@@ -134,14 +142,15 @@ PropsType) => {
       <div className={`${!disableTablePadding && "sm:p-4 p-3"}`}>
         {(search || limit) && (
           <div
-            className="w-full flex lg:justify-between lg:items-center items-end lg:mb-4 mb-2 lg:flex-row 
+            className="w-full flex lg:justify-between lg:items-center items-end lg:mb-4 mb-2 
+            lg:flex-row 
       flex-col-reverse gap-2"
           >
             {search ? (
               <TextInput
                 placeholder={"Search here..."}
                 classNames={{
-                  input: "h-[44px] w-full",
+                  input: "h-[40px] w-full",
                   root: "sm:w-[350px] w-full",
                 }}
                 defaultValue={dataSearch}
@@ -153,7 +162,10 @@ PropsType) => {
             )}
 
             {limit && (
-              <div className="flex  sm:items-center items-end  gap-3 sm:flex-row flex-col-reverse sm:w-auto w-full sm:justify-center justify-between">
+              <div
+                className="flex  sm:items-center items-end  gap-3
+              sm:w-auto w-full sm:justify-center justify-between"
+              >
                 {dateRangePicker && (
                   <DateRangePickerComponent
                     dateRange={dateRange}
@@ -162,16 +174,19 @@ PropsType) => {
                 )}
                 <div className="flex items-center gap-6 ">
                   {limitOnly && (
-                    <NumberInput
-                      defaultValue={dataLimit}
-                      onChange={(e) => setDataLimit(parseInt(e as string))}
-                      min={0}
-                      max={100}
-                      classNames={{
-                        wrapper: "w-[80px] h-full",
-                        input: "text-base h-[44px]",
-                      }}
-                    />
+                    <div className="w-[80px]">
+                      <SelectComponent
+                        defaultValue={dataLimit}
+                        value={dataLimit}
+                        onChangeHandler={(e) => setDataLimit(e)}
+                        data={[
+                          { value: "10", label: "10" },
+                          { value: "20", label: "20" },
+                          { value: "50", label: "50" },
+                          { value: "100", label: "100" },
+                        ]}
+                      />
+                    </div>
                   )}
                 </div>
               </div>

@@ -16,19 +16,21 @@ const NumberInputComponent = ({
   disabled,
   form,
   name,
+  withAsterisk,
 }: PropsType) => {
   return (
     <NumberInput
       disabled={disabled}
       label={label}
       placeholder={placeholder}
-      defaultValue={1.0}
+      defaultValue={1}
       min={0}
       classNames={{
         label: `sm:text-[16px] text-[14px] mb-1`,
       }}
       value={value ? parseInt(value as unknown as string) : 0}
       onChange={onChangeHandler}
+      withAsterisk={withAsterisk}
       {...form?.getInputProps(name as string)}
     />
   );
