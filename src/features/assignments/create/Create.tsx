@@ -10,6 +10,9 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import AdditionalLessons from "./components/AdditionalLessons";
+import NumberInputComponent from "@/components/inputs/NumberInputComponent";
+import DateInputComponent from "@/components/inputs/DateInputComponent";
+import dayjs from "dayjs";
 
 const Create = () => {
   const [file, setFile] = useState<File | undefined>();
@@ -22,6 +25,8 @@ const Create = () => {
       grade_id: "",
       section_id: "",
       subject_id: "",
+      deadline: new Date(),
+      marks: 0,
     },
     validateInputOnBlur: true,
     validate: {
@@ -32,6 +37,8 @@ const Create = () => {
         value.length > 0 ? null : "Section is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
+      deadline: (value) => (value ? null : "Deadline is required"),
+      marks: (value: number) => (value > 0 ? null : "Marks are required"),
     },
   });
 
@@ -44,6 +51,11 @@ const Create = () => {
     const formData = new FormData();
 
     Object.entries(values).forEach(([key, value]) => {
+      if (key === "deadline") {
+        formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
+        return;
+      }
+
       formData.append(key, value as string);
     });
 
@@ -85,6 +97,24 @@ const Create = () => {
           form={form}
           name="title"
         />
+
+        <div className="grid grid-cols-2 gap-4">
+          <NumberInputComponent
+            label="Marks"
+            placeholder="Enter marks"
+            withAsterisk
+            form={form}
+            name="marks"
+          />
+
+          <DateInputComponent
+            label="Deadline"
+            placeholder="Enter deadline"
+            withAsterisk
+            form={form}
+            name="deadline"
+          />
+        </div>
 
         <TextEditorInput
           label="Description"

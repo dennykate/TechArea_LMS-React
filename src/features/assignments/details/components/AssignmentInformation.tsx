@@ -36,11 +36,11 @@ const AssignmentInformation: React.FC<PropsType> = ({ data }) => {
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
           <p>Deadline</p>
-          <p>22 Dec 2002</p>
+          <p>{data?.deadline}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
           <p>Marks</p>
-          <p>1,223</p>
+          <p>{data?.marks}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
           <p>Description</p>

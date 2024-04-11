@@ -13,6 +13,9 @@ import AdditionalLessons from "./components/AdditionalLessons";
 import { useParams } from "react-router-dom";
 import useQuery from "@/hooks/useQuery";
 import Attachments from "./components/Attachments";
+import NumberInputComponent from "@/components/inputs/NumberInputComponent";
+import DateInputComponent from "@/components/inputs/DateInputComponent";
+import dayjs from "dayjs";
 
 const Edit = () => {
   const { assignmentId } = useParams();
@@ -28,6 +31,8 @@ const Edit = () => {
       grade_id: "",
       section_id: "",
       subject_id: "",
+      deadline: new Date(),
+      marks: 0,
     },
     validateInputOnBlur: true,
     validate: {
@@ -38,6 +43,8 @@ const Edit = () => {
         value.length > 0 ? null : "Section is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
+      deadline: (value) => (value ? null : "Subject is required"),
+      marks: (value: number) => (value > 0 ? null : "Subject is required"),
     },
   });
 
@@ -49,6 +56,11 @@ const Edit = () => {
     const formData = new FormData();
 
     Object.entries(values).forEach(([key, value]) => {
+      if (key === "deadline") {
+        formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
+        return;
+      }
+
       formData.append(key, value as string);
     });
 
@@ -80,6 +92,11 @@ const Edit = () => {
       form.setFieldValue("grade_id", data?.grade_id);
       form.setFieldValue("subject_id", data?.subject_id);
       form.setFieldValue("section_id", data?.section_id);
+      form.setFieldValue("marks", data?.marks);
+      form.setFieldValue(
+        "deadline",
+        dayjs(data?.deadline, "DD-MM-YYYY").toDate()
+      );
     }
   );
 
@@ -109,6 +126,24 @@ const Edit = () => {
           name="title"
         />
 
+        <div className="grid grid-cols-2 gap-4">
+          <NumberInputComponent
+            label="Marks"
+            placeholder="Enter marks"
+            withAsterisk
+            form={form}
+            name="marks"
+          />
+
+          <DateInputComponent
+            label="Marks"
+            placeholder="Enter marks"
+            withAsterisk
+            form={form}
+            name="deadline"
+          />
+        </div>
+
         <TextEditorInput
           label="Description"
           value={form.values.description}
@@ -124,7 +159,7 @@ const Edit = () => {
         />
 
         {attachments?.length > 0 && <Attachments attachments={attachments} />}
-        
+
         <AdditionalLessons
           additonalFiles={additionalFiles}
           setAdditionalFiles={setAdditionalFiles}
