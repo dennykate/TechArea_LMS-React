@@ -1,21 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MultiSelect, Select } from "@mantine/core";
-import { InputProps } from "./types/type";
-import { UseFormReturnType } from "@mantine/form";
+import { MultiSelect, Select, SelectProps } from "@mantine/core";
 import { twMerge } from "tailwind-merge";
 
-interface PropsType extends InputProps {
+interface PropsType extends Omit<SelectProps, "label"> {
   data: { value: string; label: string }[];
   multiple?: boolean;
   onChangeHandler?: ((e: any) => void) | undefined;
   valueForMultiple?: string[];
   value?: string;
-  form?: UseFormReturnType<any>;
-  name?: string;
   defaultValue?: string | undefined;
   defaultValueForMultiple?: string[] | undefined;
   searchInputClassName?: string;
   disabled?: boolean;
+  label?: string;
+  form?: any;
+  name?: any;
 }
 
 const SelectComponent = ({
@@ -33,6 +32,7 @@ const SelectComponent = ({
   withAsterisk,
   searchInputClassName,
   disabled,
+  ...props
 }: PropsType) => {
   return (
     <>
@@ -56,6 +56,7 @@ const SelectComponent = ({
           onChange={onChangeHandler}
           {...form?.getInputProps(name as string)}
           withAsterisk={withAsterisk}
+          {...props}
         />
       ) : (
         <Select
@@ -73,6 +74,7 @@ const SelectComponent = ({
           onChange={(e) => onChangeHandler && onChangeHandler(e as string)}
           {...form?.getInputProps(name as string)}
           withAsterisk={withAsterisk}
+          {...props}
         />
       )}
     </>

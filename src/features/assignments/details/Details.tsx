@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IconPencilMinus } from "@tabler/icons-react";
 
 import MyButton from "@/components/buttons/MyButton";
@@ -5,10 +6,20 @@ import DetailsLayout from "@/components/layouts/DetailsLayout";
 import AssignmentInformation from "./components/AssignmentInformation";
 import Heading from "@/components/typography/Heading";
 import AssignmentStudentTable from "./components/AssignmentStudentTable";
+import useQuery from "@/hooks/useQuery";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
 
 const Details = () => {
+  const { assignmentId } = useParams();
+  const navigate = useNavigate();
+  const [data, setData] = useState<any>();
+
+  const { isLoading } = useQuery(`/assignments/${assignmentId}`, setData);
+
   return (
     <DetailsLayout
+      isLoading={isLoading}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Admin List", link: "/accounts/admins/list" },
@@ -16,17 +27,20 @@ const Details = () => {
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
-        <Heading tag="h1">This is testing</Heading>
+        <Heading tag="h1">{data?.title}</Heading>
 
         <div className="sm:w-auto w-full flex justify-end">
-          <div>
-            <MyButton leftIcon={<IconPencilMinus size={16} />}>Edit</MyButton>
-          </div>
+          <MyButton
+            onClick={() => navigate(`/assignments/edit/${assignmentId}`)}
+            leftIcon={<IconPencilMinus size={16} />}
+          >
+            Edit
+          </MyButton>
         </div>
       </div>
 
       <div className="sm:mt-6 mt-3">
-        <AssignmentInformation />
+        <AssignmentInformation data={data} />
       </div>
 
       <div className="sm:mt-6 mt-3">
