@@ -109,7 +109,7 @@ const FileUpload: React.FC<PropsType> = ({
             <img
               src={previewUrl}
               alt="thumbnail"
-              className="h-full object-cover w-full rounded-md"
+              className="h-[300px] object-contain w-full rounded-md"
             />
           )}
         </div>
