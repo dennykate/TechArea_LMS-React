@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ActionIcon, Alert, Chip } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconAlertCircle, IconX } from "@tabler/icons-react";
@@ -9,24 +10,39 @@ import SelectComponent from "@/components/inputs/SelectComponent";
 import Heading from "@/components/typography/Heading";
 import MyButton from "@/components/buttons/MyButton";
 import toast from "react-hot-toast";
+import FileUpload from "@/components/inputs/FileUpload";
+import useMutate from "@/hooks/useMutate";
+import useQuery from "@/hooks/useQuery";
 
 interface PropsType {
   close: () => void;
+  id: string;
 }
 
-const EditQuizQuestion: React.FC<PropsType> = ({ close }) => {
+const EditQuizQuestion: React.FC<PropsType> = ({ close, id }) => {
+  const [file, setFile] = useState<File | undefined>();
+  const [defaultImage, setDefaultImage] = useState<string>("");
+
   const form = useForm({
     initialValues: {
+      title: "",
       type: "true/false",
+    },
+    validateInputOnBlur: true,
+    validate: {
+      title: (value: string) => (value.length > 0 ? null : "Title is required"),
     },
   });
 
+  const [onSubmit, { isLoading }] = useMutate({
+    callback: () => close(),
+  });
   const [correctAnswer, setCorrectAnswer] = useState<string>("");
   const [options, setOptions] = useState<string[]>([]);
   const [optionalAnswer, setOptionalAnswer] = useState<string>("");
 
   const newOptionCreateHandler = () => {
-    if (options.length >= 4)
+    if (options.length >= 6)
       return toast.error("Sorry, maximun answers limit exceeded");
 
     setOptions((prev: string[]) => {
@@ -36,14 +52,68 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close }) => {
     setOptionalAnswer("");
   };
 
+  const onSubmitHandler = (values: any) => {
+    if (!correctAnswer) return toast.error("Please select one correct answer");
+
+    const formData = new FormData();
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value as string);
+    });
+
+    formData.append("image", file as File);
+
+    let optionsWithCorrectAns: any[] = [];
+
+    if (form.values.type == "true/false") {
+      optionsWithCorrectAns = ["True", "False"].map((option) => ({
+        content: option,
+        is_correct: option == correctAnswer,
+      }));
+    } else {
+      optionsWithCorrectAns = options?.map((option) => ({
+        content: option,
+        is_correct: option == correctAnswer,
+      }));
+    }
+
+    formData.append("options", JSON.stringify(optionsWithCorrectAns));
+
+    onSubmit(`/quiz-questions/${id}`, formData, "POST", true);
+  };
+
+  const { isLoading: queryLoading } = useQuery(
+    `/quiz-questions/${id}`,
+    (data) => {
+      setDefaultImage(data?.image);
+
+      form.setFieldValue("title", data?.title);
+      form.setFieldValue("type", data?.type);
+
+      if (data?.type == "multiple-choice") {
+        setOptions(data?.options?.map((option: any) => option.content));
+      }
+
+      data?.options?.map((option: any) => {
+        console.log("option => ", option);
+        option.is_correct && setCorrectAnswer(option.content);
+      });
+    }
+  );
+
+  // useEffect(() => setCorrectAnswer(""), [form.values.type]);
+
   return (
     <FormLayout
       wrapperClassName="sm:px-2 px-0 py-4"
       isModal
-      onSubmit={() => {}}
+      queryLoading={queryLoading}
+      submitLoading={isLoading}
+      onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       onCancel={close}
     >
       <div className="space-y-4">
+        <FileUpload defaultImage={defaultImage} setSingleFile={setFile} />
+
         <SelectComponent
           data={[
             { value: "multiple-choice", label: "Multiple-Choice" },
@@ -59,6 +129,8 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close }) => {
           label="Qustion"
           placeholder="Enter Question"
           withAsterisk
+          form={form}
+          name="title"
         />
 
         {form.values.type === "multiple-choice" && (
@@ -67,11 +139,16 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close }) => {
             placeholder="Enter Optional Answer"
             withAsterisk
             value={optionalAnswer}
-            onChangeHandler={(e) => setOptionalAnswer(e.target.value)}
+            onChange={(e) => setOptionalAnswer(e.target.value)}
             classNames={{
               rightSection: "w-[80px]",
             }}
-            onKeyDown={(e) => e.key === "Enter" && newOptionCreateHandler()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                newOptionCreateHandler();
+              }
+            }}
             rightSection={
               <MyButton
                 className="rounded-l-none"
@@ -97,8 +174,8 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close }) => {
             >
               {form.values.type === "true/false" ? (
                 <>
-                  <Chip value="true">True</Chip>
-                  <Chip value="false">False</Chip>
+                  <Chip value="True">True</Chip>
+                  <Chip value="False">False</Chip>
                 </>
               ) : (
                 options?.map((option: string) => (
@@ -126,11 +203,11 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close }) => {
 
           <div className="mt-4 space-y-1">
             <Alert icon={<IconAlertCircle size={18} />} color="orange">
-              Plese click the correct answer
+              Plese press the correct answer
             </Alert>
             {form.values.type === "multiple-choice" && (
               <Alert icon={<IconAlertCircle size={18} />} color="orange">
-                In Multiple-Choice,maximum optional answers is 4
+                In Multiple-Choice,maximum optional answers is 6
               </Alert>
             )}
           </div>

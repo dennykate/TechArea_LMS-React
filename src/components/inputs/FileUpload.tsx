@@ -10,16 +10,23 @@ import React, { useState } from "react";
 
 interface PropsType extends Partial<DropzoneProps> {
   type?: "video" | "image" | "all";
+  setSingleFile?: (x: File | undefined) => void;
+  defaultImage?: string;
 }
 
-const FileUpload: React.FC<PropsType> = ({ type = "image", ...props }) => {
+const FileUpload: React.FC<PropsType> = ({
+  type = "image",
+  setSingleFile,
+  defaultImage = "",
+  ...props
+}) => {
   const theme = useMantineTheme();
   const [file, setFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(defaultImage);
 
   const handleDrop = (files: File[]) => {
     setFile(files[0]);
-    console.log(files);
+    setSingleFile && setSingleFile(files[0]);
     setPreviewUrl(URL.createObjectURL(files[0]));
   };
 

@@ -1,4 +1,9 @@
-const AdminInformation = () => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+interface PropsType {
+  data: any;
+}
+
+const AdminInformation: React.FC<PropsType> = ({ data }) => {
   return (
     <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
       <div className="">
@@ -7,14 +12,16 @@ const AdminInformation = () => {
         <div className="space-y-2 mt-2">
           <div className="grid grid-cols-3">
             <p className="sm:text-sm text-xs font-[300] text-black/70">
-              Gender - <span className="underline">Male</span>
+              Gender - <span className="underline">{data?.gender}</span>
             </p>
           </div>
           <p className="sm:text-sm text-xs font-[300] text-black/70">
-            Date of birth - <span className="underline">01 Dec 2000</span>
+            Date of birth -{" "}
+            <span className="underline">{data?.date_of_birth}</span>
           </p>
           <p className="sm:text-sm text-xs font-[300] text-black/70">
-            Entrance date - <span className="underline">22 Dec 2002</span>
+            Entrance date -{" "}
+            <span className="underline">{data?.created_at}</span>
           </p>
         </div>
       </div>
@@ -25,24 +32,18 @@ const AdminInformation = () => {
         <div className="space-y-2 mt-2">
           <p className="sm:text-sm text-xs font-[300] text-black/70">
             Phone number -{" "}
-            <a className="underline" href={`tel:`}>
-              +959 964 470 356
+            <a className="underline" href={`tel:${data?.phone}`}>
+              {data?.phone}
             </a>
           </p>
           <p className="sm:text-sm text-xs font-[300] text-black/70">
             Email -{" "}
-            <a className="underline" href={`mailto:`}>
-              dennykate22@gmail.com
+            <a className="underline" href={`mailto:${data?.email}`}>
+              {data?.email}
             </a>
           </p>
           <p className="sm:text-sm text-xs font-[300] text-black/70">
-            Address -{" "}
-            <span className="">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Blanditiis vero natus corrupti perferendis esse non. At impedit id
-              qui, consectetur ut quod dolore necessitatibus, dolorum optio
-              provident vero commodi itaque.
-            </span>
+            Address - <span className="">{data?.address}</span>
           </p>
         </div>
       </div>

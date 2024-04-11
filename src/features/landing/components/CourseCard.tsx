@@ -31,16 +31,16 @@ const ClassCard = ({ data }: PropsType) => {
           alt="class-image"
           className="w-full h-full object-cover"
         />
-        <div
+        {/* <div
           className="w-14 h-14 absolute right-10 -bottom-7 bg-primary-500 rounded-full
           flex justify-center items-center font-bold text-white"
         >
           {data.price}
-        </div>
+        </div> */}
       </div>
-      <div className="sm:px-6 px-2 sm:py-8 py-5 sm:mt-0 mt-3">
+      <div className="sm:px-6 px-3 sm:py-6 py-3">
         <h3 className="font-poppins font-bold text-2xl">{data.title}</h3>
-        <div className="sm:mt-8 mt-4 flex gap-3">
+        <div className="sm:mt-6 mt-4 flex gap-3">
           <div className="flex gap-2 items-center">
             <FaBook size={20} color="black" />
             <p className="sm:text-base text-sm">{data.lessons}</p>

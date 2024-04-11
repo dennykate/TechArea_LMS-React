@@ -19,10 +19,10 @@ const TopButton = () => {
       {showBtn && (
         <button
           type="button"
-          className="fixed sm:bottom-10 sm:right-10 bottom-5 right-2 sm:w-12 sm:h-12 
-          h-8 w-8  rounded-full bg-[#FFAB4A] z-20
+          className="fixed sm:bottom-10 sm:right-10 bottom-5 right-5 
+          h-12 w-12  rounded-full bg-[#FFAB4A] z-20
       flex justify-center items-center text-white cursor-pointer hover:bg-white hover:text-[#FFAB4A]
-      transition duration-200 ease-in-out sm:text-4xl text-2xl"
+      transition duration-200 ease-in-out text-4xl shadow-lg"
           onClick={() => {
             window.scroll({ top: 1, left: 0, behavior: "smooth" });
           }}

@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
 
 import TextInputComponent from "@/components/inputs/TextInputComponent";
-import SelectComponent from "@/components/inputs/SelectComponent";
-import {
-  gradeData,
-  sectionData,
-} from "@/features/accounts/students/create/data";
 import TextEditorInput from "@/components/inputs/TextEditorInput";
 import { useForm } from "@mantine/form";
 import FileUpload from "@/components/inputs/FileUpload";
+import useMutate from "@/hooks/useMutate";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 
 const Create = () => {
+  const [file, setFile] = useState<File | undefined>();
+
   const form = useForm({
     initialValues: {
       title: "",
@@ -18,11 +20,39 @@ const Create = () => {
       grade: "",
       section: "",
     },
+    validateInputOnBlur: true,
+    validate: {
+      title: (value: string) => (value.length > 0 ? null : "Title is required"),
+      grade: (value: string) => (value.length > 0 ? null : "Grade is required"),
+      section: (value: string) =>
+        value.length > 0 ? null : "Section is required",
+    },
   });
+
+  const [onSubmit, { isLoading }] = useMutate();
+
+  const onSubmitHandler = (values: any) => {
+    if (values.description == "") return toast.error("Description is requried");
+    if (!file) return toast.error("File is requried");
+
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value as string);
+    });
+
+    formData.append("file", file as File);
+
+    onSubmit("/assignments", values, "POST", true);
+
+    setFile(undefined);
+  };
+
   return (
     <FormLayout
       title="Create Assignment"
-      onSubmit={() => {}}
+      submitLoading={isLoading}
+      onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Assignment List", link: "/assignments/list" },
@@ -40,6 +70,8 @@ const Create = () => {
           placeholder="Enter title"
           inputClassName="mb-3"
           withAsterisk
+          form={form}
+          name="title"
         />
 
         <TextEditorInput
@@ -49,22 +81,9 @@ const Create = () => {
           inputClassName="mb-5"
         />
 
-        <div className="grid sm:grid-cols-2 grid-cols-1 gap-6">
-          <SelectComponent
-            label="Grade"
-            placeholder="Select Grade"
-            withAsterisk
-            data={gradeData}
-          />
+        <GradeSectionSubject form={form} />
 
-          <SelectComponent
-            label="Section"
-            placeholder="Select Section"
-            withAsterisk
-            data={sectionData}
-          />
-        </div>
-        <FileUpload type={"all"} className="mt-5"/>
+        <FileUpload type={"all"} className="mt-5" />
       </div>
     </FormLayout>
   );

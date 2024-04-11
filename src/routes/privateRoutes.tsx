@@ -16,19 +16,25 @@ import { scheduleRoutes } from "@/features/schedules/routes";
 import { quizRoutes } from "@/features/quiz/routes";
 import { assignmentRoutes } from "@/features/assignments/routes";
 import { subjectRoutes } from "@/features/subjects/routes";
+import { studentAssignmentRoutes } from "@/features/student-assignment/routes";
+import { zoomMeetingRoutes } from "@/features/zoom-meeting/routes";
+import { studentClassRoutes } from "@/features/student-class/routes";
+
+import NewFeed from "@/features/newfeed/NewFeed";
+import UploadField from "@/features/newfeed/components/UploadField";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
 const Chat = lazy(() => import("@/features/chat/Chat"));
 const StudentCourse = lazy(
-  () => import("@/features/studentCourse/StudentCourse")
+  () => import("@/features/student-course/StudentCourse")
 );
-const StudentQuiz = lazy(() => import("@/features/studentQuiz/StudentQuiz"));
+const StudentQuiz = lazy(() => import("@/features/student-quiz/StudentQuiz"));
 const LearnCourse = lazy(
-  () => import("@/features/studentCourse/learnCourse/LearnCourse")
+  () => import("@/features/student-course/learnCourse/LearnCourse")
 );
 const AnswerQuiz = lazy(
-  () => import("@/features/studentQuiz/answerQuiz/AnswerQuiz")
+  () => import("@/features/student-quiz/answerQuiz/AnswerQuiz")
 );
 const Calendar = lazy(() => import("@/features/calendar/Calendar"));
 
@@ -71,12 +77,24 @@ const privateRoutes = [
         children: assignmentRoutes,
       },
       {
+        path: "/student-assignments/*",
+        children: studentAssignmentRoutes,
+      },
+      {
+        path: "/student-classes/*",
+        children: studentClassRoutes,
+      },
+      {
         path: "/courses/*",
         children: courseRoutes,
       },
       {
         path: "/quizzes/*",
         children: quizRoutes,
+      },
+      {
+        path: "/zoom-meetings/*",
+        children: zoomMeetingRoutes,
       },
       {
         path: "/accounts/*",
@@ -118,6 +136,14 @@ const privateRoutes = [
       {
         path: "/grades/details/:gradeId/sections/details/:sectionId/students/*",
         children: sectionStudentRoutes,
+      },
+      {
+        path: "/new-feed",
+        element: <NewFeed />,
+      },
+      {
+        path: "/upload",
+        element: <UploadField />,
       },
     ],
   },

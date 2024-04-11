@@ -6,7 +6,7 @@ const TeacherQuizzes = () => {
     <>
       <div className=" grid grid-cols-2 gap-4">
         {[0, 1, 2, 3, 4, 5].map((data) => (
-          <TeacherActivityCard key={data} />
+          <TeacherActivityCard key={data} type="quizzes" />
         ))}
       </div>
 

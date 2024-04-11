@@ -1,19 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tabs } from "@mantine/core";
 import { MdOutlinePeopleAlt, MdOutlineQuestionMark } from "react-icons/md";
 import { IconPencilMinus } from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 import QuizInformation from "./components/QuizInformation";
 import QuizQuestion from "./components/QuizQuestion";
 import AnswerStudents from "./components/AnswerStudents";
+import { useState } from "react";
+import useQuery from "@/hooks/useQuery";
 
 const Details = () => {
+  const { quizId } = useParams();
   const navigate = useNavigate();
+  const [data, setData] = useState<any>();
+
+  const { isLoading } = useQuery(`/quizzes/${quizId}`, setData);
 
   return (
     <DetailsLayout
+      isLoading={isLoading}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Quiz List", link: "/quizzes/list" },
@@ -23,8 +31,8 @@ const Details = () => {
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
         <div className="sm:w-[400px] w-full">
           <img
-            src="https://i.postimg.cc/rmQCLwT8/1600w-w-K95f3-XNRa-M.webp"
-            alt="thumbnail"
+            src={data?.image}
+            alt={data?.title}
             className="w-full object-cover"
           />
         </div>
@@ -32,7 +40,7 @@ const Details = () => {
         <div className="sm:w-auto w-full flex justify-end">
           <div>
             <MyButton
-              onClick={() => navigate("/courses/edit/1")}
+              onClick={() => navigate(`/quizzes/edit/${quizId}`)}
               leftIcon={<IconPencilMinus size={16} />}
             >
               Edit
@@ -42,7 +50,7 @@ const Details = () => {
       </div>
 
       <div className="mt-6 ">
-        <QuizInformation />
+        <QuizInformation data={data} />
       </div>
 
       <div className="mt-6 ">
@@ -66,7 +74,7 @@ const Details = () => {
           </Tabs.List>
 
           <Tabs.Panel value="content" pt="xl">
-            <QuizQuestion />
+            <QuizQuestion questions={data?.questions} />
           </Tabs.Panel>
 
           <Tabs.Panel value="answer-students" pt="xl">

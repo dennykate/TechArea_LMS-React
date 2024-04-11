@@ -15,6 +15,7 @@ interface PropsType extends InputProps {
   defaultValue?: string | undefined;
   defaultValueForMultiple?: string[] | undefined;
   searchInputClassName?: string;
+  disabled?: boolean;
 }
 
 const SelectComponent = ({
@@ -31,11 +32,13 @@ const SelectComponent = ({
   defaultValueForMultiple,
   withAsterisk,
   searchInputClassName,
+  disabled,
 }: PropsType) => {
   return (
     <>
       {multiple ? (
         <MultiSelect
+          disabled={disabled}
           defaultValue={defaultValueForMultiple}
           label={label}
           placeholder={placeholder}
@@ -56,6 +59,7 @@ const SelectComponent = ({
         />
       ) : (
         <Select
+          disabled={disabled}
           defaultValue={defaultValue}
           label={label}
           placeholder={placeholder}
