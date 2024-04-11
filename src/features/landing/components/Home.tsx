@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import { HiOutlineXCircle } from "react-icons/hi";
-import { FaArrowRight } from "react-icons/fa";
 
 import Kids from "../../../assets/kids.svg";
 import Cross from "../../../assets/cross.svg";
@@ -21,59 +20,48 @@ const Home = () => {
         <div className="flex justify-between items-center lg:flex-row flex-col-reverse">
           <div
             className="lg:w-1/2 sm:w-[575px] w-full mx-auto lg:ml-10 lg:mt-0 mt-0 
-          sm:px-0 px-10"
+          sm:pl-8"
           >
             <div
-              className="font-medium lg:text-7xl xs:text-5xl text-3xl text-black
+              className="font-semibold lg:text-7xl xs:text-5xl text-3xl text-gray-800 tracking-wide
              sm:text-left text-center"
             >
-              We Are Child Care <br />
-              <span className="lg:text-8xl xs:text-6xl text-4xl mt-5">
-                Professional
-              </span>
+              Better future <br />
+              for your kids
             </div>
 
             <p
-              className="mt-10 text-black/50 sm:text-base xs:text-sm text-xs leading-8 
+              className="mt-3 text-black/50 sm:text-base xs:text-sm text-xs sm:leading-8 leading-4 
               sm:text-left text-center font-medium w-[90%]"
             >
-              You must know that three is nothing higher and stronger and more
-              wholesome and good for life in the future than some
-              money,specially memory of Childhood.
+              We just don't give our students only lecture but real life
+              experiment, workshops and filed experience
             </p>
 
             <div className="sm:mt-18 mt-8 flex sm:justify-start justify-center sm:gap-10 gap-5 flex-wrap">
-              <div
+              <button
                 className="sm:w-[160px] sm:h-[47px] w-[120px] h-[35px]
-                flex justify-center items-center border-[1px] border-black
-              rounded-md cursor-pointer group hover:border-primary-500 relative"
+                flex justify-center items-center border-[1px] 
+              rounded-md cursor-pointer group border-primary relative"
               >
-                <h6 className="text-black z-10 font-medium sm:text-base xs:text-sm text-xs">
+                <p className="text-primary group-hover:text-white z-10 font-medium sm:text-base xs:text-sm text-xs">
                   Apply Now
-                </h6>
-                <FaArrowRight
-                  className="ml-3 text-black transform translate-y-[1px] group-hover:translate-x-2 
-                  transition-all duration-200 ease-in z-10 text-sm sm:text-base"
-                />
+                </p>
 
                 <div
                   className="w-0 h-full absolute top-0 left-0 right-0
                 group-hover:w-full transition-all duration-200 ease-in bg-primary-500 "
                 ></div>
-              </div>
+              </button>
 
               <div
                 className="sm:w-[160px] sm:h-[47px] w-[120px] h-[35px] 
-                flex justify-center items-center border-[1px] border-black
+                flex justify-center items-center border-[1px] border-gray-500
               rounded-md cursor-pointer group hover:border-primary-500 relative"
               >
-                <h6 className="text-black z-10 font-medium sm:text-base xs:text-sm text-xs">
+                <button className="text-gray-500 group-hover:text-white z-10 font-medium sm:text-base xs:text-sm text-xs">
                   Learn More
-                </h6>
-                <FaArrowRight
-                  className="ml-3 text-black transform translate-y-[1px] group-hover:translate-x-2 
-                  transition-all duration-200 ease-in z-10 text-sm sm:text-base"
-                />
+                </button>
 
                 <div
                   className="w-0 h-full absolute top-0 left-0 right-0
@@ -84,11 +72,11 @@ const Home = () => {
           </div>
 
           <div className="lg:w-1/2 w-full lg:p-0 p-10 ">
-            <img src={Kids} alt="kids" className="w-full h-full z-20" />
+            <img src={Kids} alt="kids" className="w-full h-[450px] z-20" />
           </div>
         </div>
 
-        <img src={Cross} alt="cross" className="absolute -left-4 top-1/3" />
+        <img src={Cross} alt="cross" className="absolute -left-2 top-1/3" />
         <img
           src={Triangle}
           alt="triangle"

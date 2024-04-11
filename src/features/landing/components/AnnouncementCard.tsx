@@ -13,7 +13,7 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
     <>
       <div
         className="shadow-md hover:-translate-y-3 hover:shadow-lg
-     transition duration-200 ease-in-out relative group border border-black border-opacity-10"
+     transition duration-200 ease-in-out relative group border border-gray-800 border-opacity-10"
         onClick={open}
       >
         <img
@@ -22,7 +22,7 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
           className="w-full h-[240px] object-cover"
         />
         <div className="p-5">
-          <h1 className=" font-poppins font-bold text-xl">{data.title}</h1>
+          <h1 className=" font-poppins font-bold text-xl text-gray-800">{data.title}</h1>
           <p className=" font-sans text-base mt-2">{data.paragraph}</p>
           <p className="font-poppins text-sm mt-2 text-primary-500">
             Created At - Dec 17, 2020

@@ -22,6 +22,7 @@ import { studentClassRoutes } from "@/features/student-class/routes";
 
 import NewFeed from "@/features/newfeed/NewFeed";
 import UploadField from "@/features/newfeed/components/UploadField";
+import { announcementRoutes } from "@/features/announcements/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
@@ -71,6 +72,10 @@ const privateRoutes = [
       {
         path: "/calendar",
         element: <Calendar />,
+      },
+      {
+        path: "/announcements/*",
+        children: announcementRoutes,
       },
       {
         path: "/assignments/*",

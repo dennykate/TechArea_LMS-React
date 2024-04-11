@@ -14,7 +14,7 @@ const About = () => {
   return (
     <div
       id="about us"
-      className="md:py-24 py-12 md:pt-32 pt-20 bg-white relative"
+      className="md:py-24 py-12 bg-white relative"
     >
       <div className="flex lg:flex-row flex-col sm:px-10 xs:px-3 px-1 justify-center items-center">
         <div className="lg:w-1/2 w-full z-10">
@@ -31,25 +31,25 @@ const About = () => {
           </p>
           <div className="grid grid-cols-2 mt-5 sm:gap-7 gap-3">
             <div className="flex sm:gap-3 gap-1 items-center ">
-              <BsFillCheckCircleFill size={22} color="#1cd6ab" />
+              <BsFillCheckCircleFill size={22} className="text-primary" />
               <p className=" font-poppins md:text-base xs:text-sm text-xs">
                 Transportation
               </p>
             </div>
             <div className="flex sm:gap-3 gap-1 items-center">
-              <BsFillCheckCircleFill size={22} color="#1cd6ab" />
+              <BsFillCheckCircleFill size={22} className="text-primary" />
               <p className=" font-poppins md:text-base xs:text-sm text-xs">
                 Outdoor Games
               </p>
             </div>
             <div className="flex sm:gap-3 gap-1 items-center">
-              <BsFillCheckCircleFill size={22} color="#1cd6ab" />
+              <BsFillCheckCircleFill size={22} className="text-primary" />
               <p className=" font-poppins md:text-base xs:text-sm text-xs">
                 Nutritious Food
               </p>
             </div>
             <div className="flex sm:gap-3 gap-1 items-center">
-              <BsFillCheckCircleFill size={22} color="#1cd6ab" />
+              <BsFillCheckCircleFill size={22} className="text-primary" />
               <p className=" font-poppins md:text-base xs:text-sm text-xs">
                 Best Care
               </p>

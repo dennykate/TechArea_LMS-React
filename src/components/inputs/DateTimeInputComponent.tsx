@@ -32,6 +32,7 @@ export default function DateTimeInputComponent({
         input: "h-[35px]",
         placeholder: "text-base",
       }}
+      name={name}
       {...form?.getInputProps(name as string)}
       withAsterisk={withAsterisk}
       rightSection={<IoCalendarSharp size={20} className="mr-2 opacity-60" />}
