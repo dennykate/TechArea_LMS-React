@@ -21,26 +21,26 @@ const List = () => {
         <tr key={i}>
           <td className="m_td">{i + 1}</td>
           <td className="m_td">
-            {element.image && (
-              <img
-                src={element?.image}
-                alt={element.title}
-                className="w-10 h-10 rounded-md"
-              />
-            )}
+            <div className="h-[60px]">
+              {element.image && (
+                <img
+                  src={element?.image}
+                  alt={element.title}
+                  className="w-[60px] h-[60px] object-cover rounded-md"
+                />
+              )}
+            </div>
           </td>
           <td className="m_td">{element?.title}</td>
           <td className="m_td">
-            <a href={`tel:09964470356`}>{element?.description}</a>
+            <div dangerouslySetInnerHTML={{ __html: element?.description }} />
           </td>
 
           <td className="m_td">{element?.created_by}</td>
           <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() =>
-                navigate(`/announcements/details/${element.id}`)
-              }
+              detailCb={() => navigate(`/announcements/details/${element.id}`)}
               destroyCb={() => {}}
               editCb={() => navigate(`/announcements/edit/${element.id}`)}
             />

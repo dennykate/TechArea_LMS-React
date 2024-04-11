@@ -20,7 +20,7 @@ export const announcementRoutes = [
     element: <AnnouncementDetails />,
   },
   {
-    path: "edit/:adminId",
+    path: "edit/:announcementId",
     element: <AnnouncementEdit />,
   },
   {

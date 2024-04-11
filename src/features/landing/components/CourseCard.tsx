@@ -39,14 +39,14 @@ const ClassCard = ({ data }: PropsType) => {
         </div> */}
       </div>
       <div className="sm:px-6 px-3 sm:py-6 py-3">
-        <h3 className="font-poppins font-bold text-2xl">{data.title}</h3>
+        <h3 className="font-poppins font-bold text-gray-800 text-2xl">{data.title}</h3>
         <div className="sm:mt-6 mt-4 flex gap-3">
           <div className="flex gap-2 items-center">
-            <FaBook size={20} color="black" />
+            <FaBook size={20} className="text-gray-800" />
             <p className="sm:text-base text-sm">{data.lessons}</p>
           </div>
           <div className="flex gap-2 items-center">
-            <BsFillPersonFill size={20} color="black" />
+            <BsFillPersonFill size={20} className="text-gray-800" />
             <p className="sm:text-base text-sm">{data.students}</p>
           </div>
         </div>

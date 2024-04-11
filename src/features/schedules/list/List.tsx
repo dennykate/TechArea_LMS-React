@@ -17,29 +17,23 @@ const List = () => {
 
   const rows = useMemo(
     () =>
-      [0]?.map((element: any, i: number) => (
+      data?.map((element: any, i: number) => (
         <tr key={i}>
-          <td className="m_td">1</td>
-          <td className="m_td">Exam</td>
-          <td className="m_td line-clamp-1 w-[200px]">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi,
-            quisquam nulla rerum ad dolor beatae? Repellendus natus ad autem,
-            fugiat accusamus voluptatum quo officia fugit velit impedit dicta.
-            Aut, commodi! Soluta, dolorum. Enim odio mollitia laborum voluptates
-            fugit, blanditiis libero dolorum minus. Alias tempora, doloremque
-            cumque consequuntur natus accusamus maxime neque soluta aperiam
-            perferendis veniam aliquid sit totam rem asperiores.
+          <td className="m_td">{i + 1}</td>
+          <td className="m_td">{element.title}</td>
+          <td className="m_td line-clamp-1 w-[200px] flex items-center">
+            {element.description}
           </td>
-          <td className="m_td">01 Dec 2000 10:00 AM</td>
-          <td className="m_td">01 Dec 2000 10:00 AM</td>
-          <td className="m_td">exam</td>
-          <td className="m_td">22 March 2024</td>
-          <td className="m_td">22 March 2024</td>
+          <td className="m_td">{element.start_date}</td>
+          <td className="m_td">{element.end_date}</td>
+          <td className="m_td">{element.type}</td>
+          <td className="m_td">{element.created_by}</td>
+          <td className="m_td">{element.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate("/schedules/details/1")}
-              destroyCb={() => {}}
-              editCb={() => {}}
+              detailCb={() => navigate(`/schedules/details/${element.id}`)}
+              destroyCb={() => onSubmit(`/academic-calendar-events/${element.id}`, {}, "DELETE")}
+              editCb={() => navigate(`/schedules/edit/${element.id}`)}
             />
           </td>
         </tr>
@@ -77,7 +71,7 @@ const List = () => {
           "Created By",
           "Created At",
         ]}
-        baseUrl="purchases"
+        baseUrl="academic-calendar-events"
         setData={setData}
       />
     </TableLayout>

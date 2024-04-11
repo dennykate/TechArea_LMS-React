@@ -8,14 +8,17 @@ import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import dayjs from "dayjs";
+import useQuery from "@/hooks/useQuery";
+import { useParams } from "react-router-dom";
 
-const Create = () => {
+const Edit = () => {
+  const { scheduleId } = useParams();
   const form = useForm<any>({
     initialValues: {
       title: "",
       type: "",
-      start_date: new Date(),
-      end_date: new Date(),
+      start_date: "",
+      end_date: "",
       description: "",
     },
     validateInputOnBlur: true,
@@ -28,19 +31,30 @@ const Create = () => {
   });
 
   const [onSubmit, { isLoading }] = useMutate();
+
+  const { isLoading: queryLoading } = useQuery(
+    `/academic-calendar-events/${scheduleId}`,
+    (data) => {
+      form.setValues({
+        ...data,
+        start_date: dayjs(data?.start_date, "DD MMM YYYY hh:mm A").toDate(),
+        end_date: dayjs(data?.end_date, "DD MMM YYYY hh:mm A").toDate(),
+      });
+    }
+  );
   const onSubmitHandler = (values: any) => {
     const newItem = {
       ...values,
       start_date: dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
       end_date: dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
     };
-    console.log(newItem);
-    onSubmit("/academic-calendar-events", newItem);
+    onSubmit(`/academic-calendar-events/${scheduleId}`, newItem, "PUT");
   };
-  //
+
   return (
     <FormLayout
-      title="Create Schedule"
+      title="Edit Schedule"
+      queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
@@ -102,4 +116,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Edit;

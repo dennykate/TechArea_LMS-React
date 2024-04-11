@@ -4,11 +4,43 @@ import TextInputComponent from "@/components/inputs/TextInputComponent";
 
 import FileUpload from "@/components/inputs/FileUpload";
 import TextEditorInput from "@/components/inputs/TextEditorInput";
+import { useForm } from "@mantine/form";
+import useMutate from "@/hooks/useMutate";
+import { useState } from "react";
 
 const Create = () => {
+  const [file, setFile] = useState<File>();
+  const form = useForm<any>({
+    initialValues: {
+      title: "",
+      description: "",
+      image: "",
+    },
+    validateInputOnBlur: true,
+    validate: {
+      title: (value: string) => (value.length > 0 ? null : "Title is required"),
+      description: (value: string) =>
+        value.length > 0 ? null : "Description is required",
+    },
+  });
+
+  const [onSubmit, { isLoading }] = useMutate();
+  const onSubmitHandler = (values: any) => {
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value as string);
+    });
+
+    if (file) formData.append("image", file as File);
+
+    onSubmit("/announcements", formData);
+  };
+
   return (
     <FormLayout
-      onSubmit={() => {}}
+      submitLoading={isLoading}
+      onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       title="Create Announcement"
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
@@ -26,12 +58,16 @@ const Create = () => {
           label="Title"
           placeholder="Enter title"
           withAsterisk
-          // form={form}
-          name="name"
+          form={form}
+          name="title"
         />
-        <TextEditorInput label="Description" />
+        <TextEditorInput
+          label="Description"
+          value={form.values.description}
+          onChange={(val) => form.setFieldValue("description", val)}
+        />
         <div className="!mt-6">
-          <FileUpload type="image" />
+          <FileUpload type="image" setSingleFile={setFile} />
         </div>
       </div>
     </FormLayout>

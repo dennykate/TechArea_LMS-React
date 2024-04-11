@@ -32,7 +32,7 @@ const TeacherCard: React.FC<PropsType> = ({ data }) => {
             flex justify-center items-center flex-col bg-white  rounded-lg group 
             transition-all duration-200 ease-in-out "
         >
-          <h1 className="font-poppins font-bold sm:text-lg text-base sm:translate-y-0 ">
+          <h1 className="font-poppins font-bold text-gray-800 sm:text-lg text-base sm:translate-y-0 ">
             {data.name}
           </h1>
           <h6 className=" font-poppins sm:text-base text-sm sm:translate-y-0 ">

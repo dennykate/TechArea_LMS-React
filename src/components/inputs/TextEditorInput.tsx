@@ -4,14 +4,14 @@ import "react-quill/dist/quill.snow.css";
 import { twMerge } from "tailwind-merge";
 
 interface TextEditorInputProps {
-  content?: any;
-  handleChange?: (value: any) => void;
+  value?: any;
+  onChange?: (value: any) => void;
   label?: string;
   inputClassName?: string;
 }
 const TextEditorInput = ({
-  content,
-  handleChange,
+  value,
+  onChange,
   label,
   inputClassName,
 }: TextEditorInputProps) => {
@@ -25,8 +25,8 @@ const TextEditorInput = ({
 
       <ReactQuill
         id="text-editor"
-        value={content}
-        onChange={handleChange}
+        value={value}
+        onChange={onChange}
         modules={{
           toolbar: [
             // [{ header: [1, 2, false] }],
@@ -47,11 +47,7 @@ const TextEditorInput = ({
           "bullet",
           "link",
         ]}
-        className={twMerge(
-          "h-[100px]",
-          label && "mt-2",
-          inputClassName
-        )}
+        className={twMerge("h-[100px]", label && "mt-2", inputClassName)}
       />
     </div>
   );
