@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { Avatar, Modal } from "@mantine/core";
 
@@ -11,6 +11,7 @@ import { useDisclosure } from "@mantine/hooks";
 import RateStudent from "./RateStudent";
 
 const AssignmentStudentTable = () => {
+  const { assignmentId } = useParams();
   const navigate = useNavigate();
   const [onSubmit] = useMutate();
   const [data, setData] = useState<any>();
@@ -55,7 +56,7 @@ const AssignmentStudentTable = () => {
         rows={rows}
         titleSection={false}
         tableHeads={["Profile", "Name", "Gender", "Created At"]}
-        baseUrl="purchases"
+        baseUrl={`assignment-reports/?assignment_id=${assignmentId}`}
         setData={setData}
       />
 
