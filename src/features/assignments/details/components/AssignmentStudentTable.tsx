@@ -9,6 +9,7 @@ import Heading from "@/components/typography/Heading";
 import MyButton from "@/components/buttons/MyButton";
 import { useDisclosure } from "@mantine/hooks";
 import RateStudent from "./RateStudent";
+import alertActions from "@/utilities/alertActions";
 
 interface PropsType {
   assignmentMarks: number;
@@ -17,11 +18,10 @@ interface PropsType {
 const AssignmentStudentTable: React.FC<PropsType> = ({ assignmentMarks }) => {
   const { assignmentId } = useParams();
   const navigate = useNavigate();
-  const [onSubmit] = useMutate();
+  const [onSubmit] = useMutate({ navigateBack: false });
   const [data, setData] = useState<any>();
   const [opened, { open, close }] = useDisclosure(false);
-  const [reportId, setReportId] = useState<string>("");
-  const [attachments, setAttachments] = useState<any>([]);
+  const [report, setReport] = useState<any>();
 
   const rows = useMemo(
     () =>
@@ -36,22 +36,41 @@ const AssignmentStudentTable: React.FC<PropsType> = ({ assignmentMarks }) => {
             />
           </td>
           <td className="m_td">{element?.user?.name}</td>
-          <td className="m_td">{element?.user?.marks ?? 0}</td>
+          <td className="m_td">{element?.marks || 0}</td>
           <td className="m_td">{element?.user?.gender}</td>
           <td className="m_td">{element?.user?.grade}</td>
           <td className="m_td">{element?.user?.section}</td>
           <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
-            <MyButton
-              size="xs"
-              onClick={() => {
-                open();
-                setAttachments(element?.attachments);
-                setReportId(element?.id);
-              }}
-            >
-              Rate
-            </MyButton>
+            <div className="min-w-[200px] flex items-center gap-1">
+              <MyButton
+                size="xs"
+                onClick={() => {
+                  open();
+                  setReport(element);
+                }}
+              >
+                Rate
+              </MyButton>
+              <MyButton
+                size="xs"
+                color="red"
+                variant="filled"
+                onClick={() => {
+                  alertActions(
+                    () =>
+                      onSubmit(
+                        `/assignment-reports/${element?.id}`,
+                        {},
+                        "DELETE"
+                      ),
+                    "Are your sure ?"
+                  );
+                }}
+              >
+                Remove
+              </MyButton>
+            </div>
           </td>
         </tr>
       )),
@@ -87,9 +106,9 @@ const AssignmentStudentTable: React.FC<PropsType> = ({ assignmentMarks }) => {
 
       <Modal opened={opened} onClose={close} title="Rate Student" centered>
         <RateStudent
-          reportId={reportId}
+          onClose={close}
           assignmentMarks={assignmentMarks}
-          attachments={attachments}
+          report={report}
         />
       </Modal>
     </>

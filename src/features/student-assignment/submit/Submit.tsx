@@ -90,6 +90,7 @@ const Submit = () => {
           onClick={onSubmitHandler}
           loading={submitLoading}
           className="w-full mt-4 mb-2"
+          disabled={data?.my_assignment_report}
         >
           Mark as done
         </MyButton>

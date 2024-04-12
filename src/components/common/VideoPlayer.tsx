@@ -35,7 +35,7 @@ const VideoPlayer: React.FC<PropsType> = ({
   return (
     <div
       className="w-full flex justify-center items-center border border-black
-    border-opacity-10 rounded"
+    border-opacity-10 rounded h-[300px]"
     >
       <ReactPlayer
         url={url}

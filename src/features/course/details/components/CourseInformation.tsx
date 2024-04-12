@@ -21,6 +21,9 @@ const CourseInformation: React.FC<PropsType> = ({ data }) => {
         Section - <span className="underline">{data?.section}</span>
       </p>
       <p className="sm:text-sm text-xs font-[300] text-black/70">
+        Subject - <span className="underline">{data?.subject}</span>
+      </p>
+      <p className="sm:text-sm text-xs font-[300] text-black/70">
         Created By -{" "}
         <Link to="/" className="underline">
           Tr. {data?.created_by}

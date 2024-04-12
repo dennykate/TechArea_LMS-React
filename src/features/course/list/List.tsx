@@ -28,6 +28,7 @@ const List = () => {
           <td className="m_td">{element?.name} </td>
           <td className="m_td">{element?.grade}</td>
           <td className="m_td">{element?.section}</td>
+          <td className="m_td">{element?.subject}</td>
           <td className="m_td">{element?.created_by}</td>
           <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
@@ -68,6 +69,7 @@ const List = () => {
           "Name",
           "Grade",
           "Section",
+          "Subject",
           "Created By",
           "Created At",
         ]}

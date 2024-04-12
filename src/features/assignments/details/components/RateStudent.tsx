@@ -6,19 +6,19 @@ import useMutate from "@/hooks/useMutate";
 import { useForm } from "@mantine/form";
 
 interface PropsType {
-  reportId: string;
   assignmentMarks: number;
-  attachments: any;
+  report: any;
+  onClose: () => void;
 }
 
 const RateStudent: React.FC<PropsType> = ({
-  reportId,
+  report,
   assignmentMarks,
-  attachments,
+  onClose,
 }) => {
   const form = useForm({
     initialValues: {
-      marks: 0,
+      marks: report?.marks || 0,
     },
     validateInputOnBlur: true,
     validate: {
@@ -26,12 +26,15 @@ const RateStudent: React.FC<PropsType> = ({
     },
   });
 
-  const [onSubmit, { isLoading }] = useMutate();
+  const [onSubmit, { isLoading }] = useMutate({
+    navigateBack: false,
+    callback: () => onClose(),
+  });
 
   return (
     <form
       onSubmit={form.onSubmit((values) =>
-        onSubmit(`/assignment-reports/${reportId}/rate`, values)
+        onSubmit(`/assignment-reports/${report?.id}/rate`, values)
       )}
       className="space-y-4"
     >
@@ -50,7 +53,7 @@ const RateStudent: React.FC<PropsType> = ({
         </MyButton>
       </div>
 
-      <MediaViewer attachments={attachments} />
+      <MediaViewer attachments={report?.attachments} />
     </form>
   );
 };
