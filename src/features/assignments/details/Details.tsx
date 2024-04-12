@@ -9,6 +9,7 @@ import AssignmentStudentTable from "./components/AssignmentStudentTable";
 import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import MediaViewer from "@/components/common/MediaViewer";
 
 const Details = () => {
   const { assignmentId } = useParams();
@@ -42,16 +43,19 @@ const Details = () => {
       <div className="sm:mt-6 mt-3">
         <AssignmentInformation data={data} />
 
-        <div className="mt-2 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
-          <p>Lessons</p>
-          {data?.attachments?.map((attachment: any) => (
-            <p>{attachment?.url}</p>
-          ))}
-        </div>
+        {data?.attachments && (
+          <div className="mt-2 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
+            <p>Lessons</p>
+
+            <div className="sm:w-[500px] w-[300px]">
+              <MediaViewer attachments={data?.attachments} />
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="sm:mt-6 mt-3">
-        <AssignmentStudentTable />
+        <AssignmentStudentTable assignmentMarks={data?.marks} />
       </div>
     </DetailsLayout>
   );

@@ -14,7 +14,7 @@ import { useParams } from "react-router-dom";
 const Submit = () => {
   const { assignmentId } = useParams();
   const [data, setData] = useState<any>();
-  const [files, setFiles] = useState<File[] | null>();
+  const [files, setFiles] = useState<File[] | null>([]);
 
   const { isLoading } = useQuery(`/assignments/${assignmentId}`, setData);
 
@@ -26,7 +26,7 @@ const Submit = () => {
     const formData = new FormData();
 
     formData.append("assignment_id", assignmentId as string);
-    formData.append("content", "Hello World" as string);
+    formData.append("content", "" as string);
 
     files?.forEach((file: any, index: number) => {
       formData?.append(`files[${index}]`, file);
@@ -81,7 +81,11 @@ const Submit = () => {
 
       <div className=" lg:ml-0 sm:ml-12 sm:mb-0 mb-5 min-w-[350px] w-[350px] p-5 rounded-lg shadow-md border bg-white ">
         <p className="text-2xl font-medium mb-2">Your work</p>
-        <FileUpload type="all" setMultileFile={setFiles} />
+        <FileUpload
+          type="all"
+          setMultileFile={setFiles as any}
+          setSingleFile={(file) => setFiles((prev: any) => [...prev, file])}
+        />
         <MyButton
           onClick={onSubmitHandler}
           loading={submitLoading}

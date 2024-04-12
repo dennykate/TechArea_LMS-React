@@ -10,30 +10,46 @@ import MyButton from "@/components/buttons/MyButton";
 import { useDisclosure } from "@mantine/hooks";
 import RateStudent from "./RateStudent";
 
-const AssignmentStudentTable = () => {
+interface PropsType {
+  assignmentMarks: number;
+}
+
+const AssignmentStudentTable: React.FC<PropsType> = ({ assignmentMarks }) => {
   const { assignmentId } = useParams();
   const navigate = useNavigate();
   const [onSubmit] = useMutate();
   const [data, setData] = useState<any>();
   const [opened, { open, close }] = useDisclosure(false);
+  const [reportId, setReportId] = useState<string>("");
+  const [attachments, setAttachments] = useState<any>([]);
 
   const rows = useMemo(
     () =>
-      [0, 1]?.map((element: any, i: number) => (
+      data?.map((element: any, i: number) => (
         <tr key={i}>
-          <td className="m_td">1</td>
+          <td className="m_td">{i + 1}</td>
           <td className="m_td">
             <Avatar
               size="lg"
-              src="https://images.pexels.com/photos/3775087/pexels-photo-3775087.jpeg?auto=compress&cs=tinysrgb&w=600"
+              src={element?.user?.profile}
+              alt={element?.user?.name}
             />
           </td>
-          <td className="m_td">Denny Kate</td>
-
-          <td className="m_td">Male</td>
-          <td className="m_td">22 March 2024</td>
+          <td className="m_td">{element?.user?.name}</td>
+          <td className="m_td">{element?.user?.marks ?? 0}</td>
+          <td className="m_td">{element?.user?.gender}</td>
+          <td className="m_td">{element?.user?.grade}</td>
+          <td className="m_td">{element?.user?.section}</td>
+          <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
-            <MyButton size="xs" onClick={open}>
+            <MyButton
+              size="xs"
+              onClick={() => {
+                open();
+                setAttachments(element?.attachments);
+                setReportId(element?.id);
+              }}
+            >
               Rate
             </MyButton>
           </td>
@@ -55,13 +71,26 @@ const AssignmentStudentTable = () => {
         disableTablePadding
         rows={rows}
         titleSection={false}
-        tableHeads={["Profile", "Name", "Gender", "Created At"]}
-        baseUrl={`assignment-reports/?assignment_id=${assignmentId}`}
+        tableHeads={[
+          "Profile",
+          "Name",
+          "Marks",
+          "Gender",
+          "Grade",
+          "Section",
+          "Created At",
+        ]}
+        baseUrl={`assignment-reports`}
+        filter={`&assignment_id=${assignmentId}`}
         setData={setData}
       />
 
       <Modal opened={opened} onClose={close} title="Rate Student" centered>
-        <RateStudent />
+        <RateStudent
+          reportId={reportId}
+          assignmentMarks={assignmentMarks}
+          attachments={attachments}
+        />
       </Modal>
     </>
   );

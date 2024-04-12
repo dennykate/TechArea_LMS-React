@@ -25,18 +25,26 @@ const AssignmentCard: React.FC<PropsType> = ({ data }) => {
           className="w-full h-full object-cover"
         />
 
-        <div className="absolute bottom-[-9px] right-[-6px] p-[4px] bg-white rounded-full">
-          <RingProgress
-            sections={[{ value: 100, color: "teal" }]}
-            size={50}
-            thickness={4}
-            label={
-              <Center>
-                <IconCheck size={20} color="teal" />
-              </Center>
-            }
-          />
-        </div>
+        {data?.my_assignment_report && (
+          <div className="absolute bottom-[-9px] right-[-6px] p-[4px] bg-white rounded-full">
+            <RingProgress
+              sections={[{ value: 100, color: "teal" }]}
+              size={50}
+              thickness={4}
+              label={
+                <Center>
+                  {data?.my_assignment_report?.marks ? (
+                    <p className="text-sm font-[400] ">
+                      {data?.my_assignment_report?.marks}
+                    </p>
+                  ) : (
+                    <IconCheck size={20} color="teal" />
+                  )}
+                </Center>
+              }
+            />
+          </div>
+        )}
       </div>
 
       <div className="w-full space-y-2  sm:p-3 p-2">
@@ -44,9 +52,7 @@ const AssignmentCard: React.FC<PropsType> = ({ data }) => {
           {data?.title}
         </Heading>
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
-          <div
-            dangerouslySetInnerHTML={{ __html: data?.description }}
-          />
+          <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         </p>
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
           Tr. {data?.created_by}

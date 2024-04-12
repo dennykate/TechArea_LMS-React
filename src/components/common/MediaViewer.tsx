@@ -1,4 +1,5 @@
 import React from "react";
+import VideoPlayer from "./VideoPlayer";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface PropsType {
@@ -8,6 +9,9 @@ interface PropsType {
 const MediaViewer: React.FC<PropsType> = ({ attachments }) => {
   const renderMedia = (attachment: any) => {
     const fileType = attachment.url.split(".").pop().toLowerCase();
+
+    if (attachment?.type == "youtube")
+      return <VideoPlayer url={attachment.url} />;
 
     switch (fileType) {
       case "jpg":

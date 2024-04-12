@@ -112,10 +112,10 @@ const FileUpload: React.FC<PropsType> = ({
 
           {file?.type == "application/pdf" ? (
             <div
-              className=" w-full h-[44px] flex items-center px-2
+              className=" w-full h-[44px] flex items-center px-2 overflow-hidden
          "
             >
-              <p className="text-base font-[400] text-start">{previewUrl}</p>
+              <p className="text-xs font-[400] text-start">{previewUrl}</p>
             </div>
           ) : file?.type === "video/mp4" ? (
             <video
