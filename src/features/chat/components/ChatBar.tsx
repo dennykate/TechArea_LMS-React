@@ -18,6 +18,7 @@ interface Data {
 }
 
 const ChatBar: React.FC = () => {
+  
   const { data, error, isLoading } = useGetDataQuery<GetDataResponse>({
     url: `conversations`,
     method: "GET",

@@ -10,7 +10,10 @@ import { useDisclosure } from "@mantine/hooks";
 import FileSend from "./FileSend";
 import { useSelector } from "react-redux";
 import { selectCurrentChatData } from "@/redux/services/chatSlice";
-import { useGetChatDataQuery } from "@/redux/api/chatApi";
+import {
+  useGetChatDataQuery,
+  useSendMessageMutation,
+} from "@/redux/api/chatApi";
 import Message from "./Message";
 
 interface MsgData {
@@ -18,72 +21,107 @@ interface MsgData {
   message: string;
 }
 
-const CharRom: React.FC = () => {
+interface ApiError {
+  status: number;
+  message: string;
+}
+
+const ChatRoom: React.FC = () => {
   const { messageHandler, inputValue, appendEmoji } = useMessageHandler();
+  const [openEmoji, setOpenEmoji] = useState<boolean>(false);
 
-  const [openEmoji, setOpenEmoji] = useState(false);
-
-  const handleEmojiClick = (emojiObject: { emoji: string }): void => {
-    appendEmoji(emojiObject.emoji);
-  };
-  // console.log(inputValue);
-  const userData = useSelector(selectCurrentChatData);
-  // console.log(userData)
-
+  const [
+    sendMessage,
+    { isLoading: isSending, isError: isSendError, data: sendMessageResponse },
+  ] = useSendMessageMutation();
   const [opened, { open, close }] = useDisclosure();
 
-  // message
-  const { data, error, isLoading } = useGetChatDataQuery({
+
+  // for user data
+  const userData = useSelector(selectCurrentChatData);
+
+  // for get message
+  const {
+    data: chatData,
+    error,
+    isLoading,
+  } = useGetChatDataQuery({
     url: userData?.id ? `/messages?conversation_id=${userData.id}` : undefined,
     method: "GET",
   });
 
-  console.log(data);
+  // for send message
+  const handleSendMessage = async () => {
+    try {
+      // URL-encode your payload
+      const formData = new URLSearchParams();
+      formData.append("message", inputValue);
+      formData.append("partner_id", userData?.partner?.id.toString());
 
-  if (isLoading)
+      const payload = {
+        url: "/messages",
+        method: "POST",
+        body: formData, // Use the URLSearchParams object as the body
+      };
+
+      // where you would need to make sure that 'Content-Type' is set to 'application/x-www-form-urlencoded'
+      // if not set globally, adjust it in the specific endpoint configuration or in the baseQuery headers setup
+
+      await sendMessage(payload);
+    } catch (error) {
+      console.error("Failed to send message:", error);
+    }
+  };
+
+  const handleEmojiClick = (emojiObject: { emoji: string }) => {
+    appendEmoji(emojiObject.emoji);
+  };
+
+  if (isLoading) {
     return (
       <div className="h-[100vh] flex justify-center items-center">
         Loading...
       </div>
     );
-  if (error) return <div>Error</div>;
+  }
+
+  const apiError = error as ApiError;
+  if (apiError?.status) {
+    return (
+      <div className="w-full h-full text-xl text-blue-500 font-bold flex justify-center items-center">
+        Select chat
+      </div>
+    );
+  }
 
   return (
     <div className="relative h-full w-full flex flex-col">
-      <div className="w-full h-[10vh]">
-        <ChatMate
-          data={userData}
-          padding="p-5"
-          justify={"justify-start"}
-          gap="gap-5"
-        />
-      </div>
-      {/* message will here  */}
+      <ChatMate
+        data={userData}
+        padding="p-5"
+        justify={"justify-start"}
+        gap="gap-5"
+      />
       <div className="w-full h-full p-5 flex flex-col">
-        <div>
-          {data?.data?.map(
-            (el: MsgData, index: React.Key | null | undefined) => (
-              <Message key={index} msg={el} />
-            )
-          )}
-        </div>
+        {chatData?.data?.map((msg: MsgData, index: React.Key) => (
+          <Message key={index} msg={msg} />
+        ))}
       </div>
-
       <div className="absolute bottom-0 h-[45px] flex w-[100%] right-[50%] translate-x-[50%] border">
-        {/* for emoji  */}
         <div className="w-[5%] h-full flex justify-center items-center cursor-pointer">
           <MdOutlineEmojiEmotions
             onClick={() => setOpenEmoji(!openEmoji)}
             size={30}
           />
-          <div
-            className="absolute bottom-10"
-            onMouseLeave={() => setOpenEmoji(false)}
-          >
-            <EmojiPicker open={openEmoji} onEmojiClick={handleEmojiClick} />
-          </div>
+          {openEmoji && (
+            <div
+              className="absolute bottom-10"
+              onMouseLeave={() => setOpenEmoji(false)}
+            >
+              <EmojiPicker onEmojiClick={handleEmojiClick} />
+            </div>
+          )}
         </div>
-        {/* for file  */}
         <div className="w-[5%] h-full flex justify-center items-center cursor-pointer">
           <MdAttachFile onClick={open} size={30} />
           <Modal
@@ -95,7 +133,6 @@ const CharRom: React.FC = () => {
             <FileSend />
           </Modal>
         </div>
-
         <div className="flex w-[90%] h-full bg-slate-200 rounded-full overflow-hidden mx-5">
           <input
             type="text"
@@ -104,7 +141,10 @@ const CharRom: React.FC = () => {
             placeholder="Enter your message..."
             className="outline-none p-2 px-5 w-full rounded-full h-full bg-slate-200"
           />
-          <div className="w-48 h-full rounded-full flex justify-center items-center bg-blue-500 hover:bg-blue-400 text-white">
+          <div
+            onClick={handleSendMessage}
+            className="w-48 h-full rounded-full flex justify-center items-center bg-blue-500 hover:bg-blue-400 text-white"
+          >
             <IoIosSend size={28} />
           </div>
         </div>
@@ -113,4 +153,4 @@ const CharRom: React.FC = () => {
   );
 };
 
-export default CharRom;
+export default ChatRoom;

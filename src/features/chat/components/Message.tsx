@@ -1,14 +1,14 @@
 import { Avatar } from "@mantine/core";
 
 const Message = ({ msg }) => {
-  console.log(msg);
+  // console.log(msg);
   return (
     <div
       className={`w-full flex items-center ${
-        msg?.is_sender ? "justify-start " : " justify-end"
+        !msg?.is_sender ? "justify-start " : " justify-end"
       } `}
     >
-      {msg?.is_sender && (
+      {!msg?.is_sender && (
         <Avatar
           radius={"100%"}
           size={"md"}
@@ -18,7 +18,7 @@ const Message = ({ msg }) => {
 
       <div
         className={`  flex m-2 p-3 w-1/3 ${
-          msg?.is_sender
+          !msg?.is_sender
             ? " bg-black text-white rounded-t-lg rounded-e-xl"
             : " bg-slate-300 text-gray-800 rounded-t-xl rounded-s-xl"
         }`}

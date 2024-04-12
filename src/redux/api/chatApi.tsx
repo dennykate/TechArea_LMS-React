@@ -7,15 +7,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import config from "@/config";
 import { EncryptStorage } from "use-encrypt-storage";
 
-
-
 const baseQuery = fetchBaseQuery({
   baseUrl: config.baseUrl, // Your API base URL
   prepareHeaders: (headers) => {
     const encryptStorage = new EncryptStorage(import.meta.env.VITE_SECRET_KEY);
 
-    const token = encryptStorage.get("token") || "14|Bk8y7ZZ7e91h97KJHPIni4dmcaTQjJEOsi69JKS81222312e";
-    console.log(token)
+    const token =
+      encryptStorage.get("token") ||
+      "14|Bk8y7ZZ7e91h97KJHPIni4dmcaTQjJEOsi69JKS81222312e";
+    console.log(token);
 
     headers.set("Authorization", `Bearer ${token}`);
     return headers;
@@ -45,7 +45,7 @@ export const chatApi = createApi({
         };
       },
     }),
-    postData: builder.mutation<any, any>({
+    sendMessage: builder.mutation<any, any>({
       query: ({ url, body, method }) => {
         return {
           url,
@@ -58,5 +58,5 @@ export const chatApi = createApi({
   }),
 });
 
-export const { usePostDataMutation, useGetDataQuery, useGetChatDataQuery } =
+export const { useSendMessageMutation, useGetDataQuery, useGetChatDataQuery } =
   chatApi;
