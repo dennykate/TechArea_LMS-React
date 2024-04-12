@@ -11,8 +11,8 @@ import toast from "react-hot-toast";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import AdditionalLessons from "./components/AdditionalLessons";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
-import DateInputComponent from "@/components/inputs/DateInputComponent";
 import dayjs from "dayjs";
+import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
 
 const Create = () => {
   const [file, setFile] = useState<File | undefined>();
@@ -52,7 +52,7 @@ const Create = () => {
 
     Object.entries(values).forEach(([key, value]) => {
       if (key === "deadline") {
-        formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
+        formData.append(key, dayjs(value as Date).format("DD-MM-YYYY HH:mm"));
         return;
       }
 
@@ -107,7 +107,7 @@ const Create = () => {
             name="marks"
           />
 
-          <DateInputComponent
+          <DateTimeInputComponent
             label="Deadline"
             placeholder="Enter deadline"
             withAsterisk

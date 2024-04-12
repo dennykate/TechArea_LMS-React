@@ -15,7 +15,6 @@ const StudentQuizFilterSearch = () => {
   const { data } = useQuery(
     `/quizzes?filter[subject_id]=${subjectId}&key=asdffdsa`
   );
-  console.log("student courses => ", data);
 
   return (
     <SubjectLayout gradeId={userInfo?.grade_id} setSubjectId={setSubjectId}>

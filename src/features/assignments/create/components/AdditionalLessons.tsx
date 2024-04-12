@@ -42,6 +42,7 @@ const AdditionalLessons: React.FC<PropsType> = ({
           if (additonalFile.type === "file")
             return (
               <FileUpload
+                type="all"
                 setSingleFile={(val) => {
                   setAdditionalFiles((prev: any) =>
                     prev?.map((item: any) => {

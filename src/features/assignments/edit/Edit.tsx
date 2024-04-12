@@ -14,8 +14,8 @@ import { useParams } from "react-router-dom";
 import useQuery from "@/hooks/useQuery";
 import Attachments from "./components/Attachments";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
-import DateInputComponent from "@/components/inputs/DateInputComponent";
 import dayjs from "dayjs";
+import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
 
 const Edit = () => {
   const { assignmentId } = useParams();
@@ -57,7 +57,7 @@ const Edit = () => {
 
     Object.entries(values).forEach(([key, value]) => {
       if (key === "deadline") {
-        formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
+        formData.append(key, dayjs(value as Date).format("DD-MM-YYYY HH:mm"));
         return;
       }
 
@@ -95,7 +95,7 @@ const Edit = () => {
       form.setFieldValue("marks", data?.marks);
       form.setFieldValue(
         "deadline",
-        dayjs(data?.deadline, "DD-MM-YYYY").toDate()
+        dayjs(data?.deadline, "DD-MM-YYYY HH:mm").toDate()
       );
     }
   );
@@ -135,7 +135,7 @@ const Edit = () => {
             name="marks"
           />
 
-          <DateInputComponent
+          <DateTimeInputComponent
             label="Marks"
             placeholder="Enter marks"
             withAsterisk

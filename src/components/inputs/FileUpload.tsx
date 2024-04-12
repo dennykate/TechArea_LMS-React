@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Group, Text, useMantineTheme } from "@mantine/core";
 import {
   IconUpload,
@@ -11,28 +12,36 @@ import React, { useState } from "react";
 interface PropsType extends Partial<DropzoneProps> {
   type?: "video" | "image" | "all";
   setSingleFile?: (x: File | undefined) => void;
+  setMultileFile?: (x: File[] | undefined) => void;
   defaultImage?: string;
 }
 
 const FileUpload: React.FC<PropsType> = ({
   type = "image",
   setSingleFile,
+  setMultileFile,
   defaultImage = "",
   ...props
 }) => {
   const theme = useMantineTheme();
   const [file, setFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<File[] | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(defaultImage);
 
   const handleDrop = (files: File[]) => {
-    setFile(files[0]);
-    setSingleFile && setSingleFile(files[0]);
-    setPreviewUrl(URL.createObjectURL(files[0]));
+    if (files.length === 1) {
+      setFile(files[0]);
+      setSingleFile && setSingleFile(files[0]);
+      setPreviewUrl(URL.createObjectURL(files[0]));
+    } else {
+      setFiles(files);
+      setMultileFile && setMultileFile(files as File[]);
+    }
   };
 
   return (
     <>
-      {!previewUrl ? (
+      {!previewUrl && (files?.length == 0 || !files) && (
         <Dropzone
           onDrop={handleDrop}
           onReject={(files) => console.log("rejected files", files)}
@@ -85,10 +94,12 @@ const FileUpload: React.FC<PropsType> = ({
             </div>
           </Group>
         </Dropzone>
-      ) : (
+      )}
+
+      {previewUrl && (
         <div
           className="h-auto rounded-md border border-dashed border-gray-400 w-full flex 
-      justify-center items-center p-[2px] relative mt-6"
+   justify-center items-center p-[2px] relative mt-6"
         >
           <button
             onClick={() => setPreviewUrl(null)}
@@ -99,7 +110,14 @@ const FileUpload: React.FC<PropsType> = ({
             <p className="sr-only">Delete Button</p>
           </button>
 
-          {file?.type === "video/mp4" ? (
+          {file?.type == "application/pdf" ? (
+            <div
+              className=" w-full h-[44px] flex items-center px-2
+         "
+            >
+              <p className="text-base font-[400] text-start">{previewUrl}</p>
+            </div>
+          ) : file?.type === "video/mp4" ? (
             <video
               src={previewUrl}
               controls
@@ -112,6 +130,32 @@ const FileUpload: React.FC<PropsType> = ({
               className="h-[300px] object-cover rounded-md"
             />
           )}
+        </div>
+      )}
+
+      {(files as any)?.length > 0 && (
+        <div
+          className="h-auto rounded-md border border-dashed border-gray-400 w-full flex 
+ justify-center items-center p-2 relative mt-6  flex-col gap-1"
+        >
+          {files?.map((dt: File) => (
+            <div className="w-full flex gap-1 justify-between">
+              <p className="text-sm font-[400] ">{dt?.name}</p>
+
+              <button
+                onClick={() =>
+                  setFiles((prev: any) =>
+                    prev.filter((file: any) => file?.name != dt?.name)
+                  )
+                }
+                className=" bg-red-500 p-2 rounded-md hover:bg-red-700"
+              >
+                <IconTrashFilled color="white" size={12} />
+
+                <p className="sr-only">Delete Button</p>
+              </button>
+            </div>
+          ))}
         </div>
       )}
     </>
