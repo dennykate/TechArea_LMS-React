@@ -15,24 +15,25 @@ const List = () => {
 
   const rows = useMemo(
     () =>
-      [0, 1]?.map((element: any, i: number) => (
+      data?.map((element: any, i: number) => (
         <tr key={i}>
-          <td className="m_td">1</td>
+          <td className="m_td">{i + 1}</td>
           <td className="m_td">
             <img
-              src="https://images.pexels.com/photos/3775087/pexels-photo-3775087.jpeg?auto=compress&cs=tinysrgb&w=600"
+              src={element?.thumbnail}
+              alt={element?.name}
               className="h-[70px] w-[120px] object-cover rounded-sm"
             />
           </td>
-          <td className="m_td">Grammer Basic </td>
-          <td className="m_td">Grade 10</td>
-          <td className="m_td">Section A</td>
-          <td className="m_td">Ma Ma</td>
-          <td className="m_td">22 March 2024</td>
+          <td className="m_td">{element?.name} </td>
+          <td className="m_td">{element?.grade}</td>
+          <td className="m_td">{element?.section}</td>
+          <td className="m_td">{element?.created_by}</td>
+          <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate("/courses/details/1")}
-              editCb={() => navigate("/courses/edit/1")}
+              detailCb={() => navigate(`/courses/details/${element?.id}`)}
+              editCb={() => navigate(`/courses/edit/${element?.id}`)}
               destroyCb={() => {}}
             />
           </td>
@@ -70,7 +71,7 @@ const List = () => {
           "Created By",
           "Created At",
         ]}
-        baseUrl="purchases"
+        baseUrl="courses"
         setData={setData}
       />
     </TableLayout>

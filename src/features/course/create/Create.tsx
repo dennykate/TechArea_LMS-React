@@ -1,18 +1,61 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
-import SelectComponent from "@/components/inputs/SelectComponent";
-import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
-import FileUplaod from "@/components/inputs/FileUpload";
-import {
-  gradeData,
-  sectionData,
-} from "@/features/accounts/students/create/data";
+import { useState } from "react";
+import { useForm } from "@mantine/form";
+import useMutate from "@/hooks/useMutate";
+import toast from "react-hot-toast";
+import FileUpload from "@/components/inputs/FileUpload";
+import TextEditorInput from "@/components/inputs/TextEditorInput";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 
 const Create = () => {
+  const [file, setFile] = useState<File | undefined>();
+
+  const form = useForm({
+    initialValues: {
+      name: "",
+      description: "",
+      grade_id: "",
+      section_id: "",
+      subject_id: "",
+    },
+    validateInputOnBlur: true,
+    validate: {
+      name: (value: string) => (value.length > 0 ? null : "Title is required"),
+      grade_id: (value: string) =>
+        value.length > 0 ? null : "Grade is required",
+      section_id: (value: string) =>
+        value.length > 0 ? null : "Section is required",
+      subject_id: (value: string) =>
+        value.length > 0 ? null : "Subject is required",
+    },
+  });
+
+  const [onSubmit, { isLoading }] = useMutate();
+
+  const onSubmitHandler = (values: any) => {
+    if (values.description == "") return toast.error("Description is requried");
+    if (!file) return toast.error("File is requried");
+
+    const formData = new FormData();
+
+    Object.entries(values).forEach(([key, value]) => {
+      formData.append(key, value as string);
+    });
+
+    formData.append("thumbnail", file as File);
+
+    onSubmit("/courses", formData, "POST", true);
+
+    setFile(undefined);
+  };
+
   return (
     <FormLayout
       title="Create Course"
-      onSubmit={() => {}}
+      submitLoading={isLoading}
+      onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Course List", link: "/courses/list" },
@@ -24,41 +67,24 @@ const Create = () => {
         title: "Loream Ispum",
       }}
     >
-      <FileUplaod />
-
       <div className="flex flex-col gap-4 mt-4">
         <TextInputComponent
           label="Name"
           placeholder="Enter name"
           withAsterisk
+          form={form}
+          name="name"
         />
 
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
-          <SelectComponent
-            label="Grade"
-            placeholder="Select grade"
-            data={gradeData}
-            withAsterisk
-          />
-          <SelectComponent
-            label="Section"
-            placeholder="Select section"
-            data={sectionData}
-            withAsterisk
-          />
-          <SelectComponent
-            label="Subject"
-            placeholder="Select section"
-            data={sectionData}
-            withAsterisk
-          />
-        </div>
+        <GradeSectionSubject form={form} />
 
-        <TextAreaComponent
+        <TextEditorInput
           label="Description"
-          placeholder="Enter description"
-          withAsterisk
+          value={form.values.description}
+          onChange={(val) => form.setFieldValue("description", val)}
         />
+
+        <FileUpload type={"image"} setSingleFile={setFile} />
       </div>
     </FormLayout>
   );
