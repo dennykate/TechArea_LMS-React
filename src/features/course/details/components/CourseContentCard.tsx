@@ -1,15 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MyButton from "@/components/buttons/MyButton";
 import Heading from "@/components/typography/Heading";
 import { Badge, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import {
-  IconCalendarMonth,
-  IconUser,
-  IconPencilMinus,
-} from "@tabler/icons-react";
+import { IconCalendarMonth, IconPencilMinus } from "@tabler/icons-react";
 import EditCourseContent from "./EditCourseContent";
+import React from "react";
 
-const CourseContentCard = () => {
+interface PropsType {
+  data: any;
+}
+
+const CourseContentCard: React.FC<PropsType> = ({ data }) => {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
@@ -18,35 +20,45 @@ const CourseContentCard = () => {
         className="w-full border rounded-sm border-black border-opacity-20 p-2 shadow-md
      flex items-start lg:gap-4 gap-2 relative  lg:flex-row flex-col"
       >
-        <div className="lg:w-[300px] w-full h-[200px] rounded-sm overflow-hidden ">
-          <img
-            src="https://i.postimg.cc/rmQCLwT8/1600w-w-K95f3-XNRa-M.webp"
-            alt="thumbnail"
-            className="
+        {data?.content_type == "image" && (
+          <div className="lg:w-[300px] w-full h-[200px] rounded-sm overflow-hidden ">
+            <img
+              src={data?.content}
+              alt="thumbnail"
+              className="
          w-full h-full object-cover"
-          />
-        </div>
+            />
+          </div>
+        )}
+
+        {data?.content_type == "video" && (
+          <div className="lg:w-[300px] w-full h-[200px] rounded-sm overflow-hidden ">
+            <video
+              src={data?.content}
+              className="
+         w-full h-full object-cover"
+              controls
+            />
+          </div>
+        )}
 
         <div className=" space-y-3 w-full lg:w-[calc(100%-300px)] py-2">
           <div className="w-[calc(100%-80px)]">
-            <Heading tag="h6">Step 1. How to be a grammar</Heading>
+            <Heading tag="h6">{data?.name}</Heading>
           </div>
           <p className="text-sm font-[300] text-gray-500">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores
-            sequi alias cumque magni sit quaerat id repellat, adipisci eius
-            perspiciatis, ab nisi minus voluptatem optio eveniet. Nihil
-            cupiditate fuga dolorum!
+            {data?.description}
           </p>
           <div className="flex flex-col gap-3 items-start !mt-4">
-            <Badge size="md" color="red" leftSection={<IconUser size={16} />}>
-              Thwe Thwe
-            </Badge>
+            {/* <Badge size="md" color="red" leftSection={<IconUser size={16} />}>
+              {data?.created_by}
+            </Badge> */}
             <Badge
               size="md"
               color="teal"
               leftSection={<IconCalendarMonth size={16} />}
             >
-              01 Dec 2000 12:00 AM
+              {data?.created_at}
             </Badge>
           </div>
         </div>
@@ -69,7 +81,7 @@ const CourseContentCard = () => {
         centered
         size="lg"
       >
-        <EditCourseContent close={close} />
+        <EditCourseContent close={close} data={data} />
       </Modal>
     </>
   );

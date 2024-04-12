@@ -10,12 +10,14 @@ interface PropsType {
   additonalFiles: any;
   setAdditionalFiles: any;
   addedCount?: number;
+  label?: string;
 }
 
 const AdditionalLessons: React.FC<PropsType> = ({
   additonalFiles,
   setAdditionalFiles,
   addedCount = 0,
+  label = "Additional Lessons ( Optional )",
 }) => {
   const [type, setType] = useState<string | undefined>("");
 
@@ -37,7 +39,7 @@ const AdditionalLessons: React.FC<PropsType> = ({
   return (
     <div className="w-full space-y-4">
       <label htmlFor="text-editor" className="font-medium mb-2">
-        Additional Lessons ( Optional )
+        {label}
       </label>
 
       <div className="border-t border-black/10 flex flex-col gap-4">
