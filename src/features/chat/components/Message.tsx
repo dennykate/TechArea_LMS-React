@@ -1,6 +1,10 @@
 import { Avatar } from "@mantine/core";
 
-const Message = ({ msg }) => {
+interface MsgProps {
+  msg: { is_sender: boolean; message: string };
+}
+
+const Message: React.FC<MsgProps> = ({ msg }) => {
   // console.log(msg);
   return (
     <div

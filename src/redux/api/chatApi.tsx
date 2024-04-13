@@ -14,7 +14,7 @@ const baseQuery = fetchBaseQuery({
 
     const token =
       encryptStorage.get("token") ||
-      "14|Bk8y7ZZ7e91h97KJHPIni4dmcaTQjJEOsi69JKS81222312e";
+      "21|PlRC16SqMqr2DsMFezRn6jqtAxmUgFnbIcUuZ1lK14484fd7";
     console.log(token);
 
     headers.set("Authorization", `Bearer ${token}`);
@@ -35,6 +35,7 @@ export const chatApi = createApi({
           body,
         };
       },
+      providesTags: [{ type: "getData", id: "all" }],
     }),
     getChatData: builder.query<any, any>({
       query: ({ url, body, method }) => {
@@ -44,6 +45,7 @@ export const chatApi = createApi({
           body,
         };
       },
+      providesTags: [{ type: "getData", id: "all" }],
     }),
     sendMessage: builder.mutation<any, any>({
       query: ({ url, body, method }) => {

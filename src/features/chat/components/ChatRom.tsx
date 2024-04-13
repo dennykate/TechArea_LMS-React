@@ -27,15 +27,12 @@ interface ApiError {
 }
 
 const ChatRoom: React.FC = () => {
-  const { messageHandler, inputValue, appendEmoji } = useMessageHandler();
+  const { messageHandler, inputValue, appendEmoji, setInputValue } =
+    useMessageHandler();
   const [openEmoji, setOpenEmoji] = useState<boolean>(false);
 
-  const [
-    sendMessage,
-    { isLoading: isSending, isError: isSendError, data: sendMessageResponse },
-  ] = useSendMessageMutation();
+  const [sendMessage] = useSendMessageMutation();
   const [opened, { open, close }] = useDisclosure();
-
 
   // for user data
   const userData = useSelector(selectCurrentChatData);
@@ -50,10 +47,21 @@ const ChatRoom: React.FC = () => {
     method: "GET",
   });
 
+  // for press enter key
+  const handleKeyDown = (event: {
+    key: string;
+    shiftKey: unknown;
+    preventDefault: () => void;
+  }) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      handleSendMessage();
+    }
+  };
+
   // for send message
   const handleSendMessage = async () => {
     try {
-      // URL-encode your payload
       const formData = new URLSearchParams();
       formData.append("message", inputValue);
       formData.append("partner_id", userData?.partner?.id.toString());
@@ -61,13 +69,11 @@ const ChatRoom: React.FC = () => {
       const payload = {
         url: "/messages",
         method: "POST",
-        body: formData, // Use the URLSearchParams object as the body
+        body: formData,
       };
 
-      // where you would need to make sure that 'Content-Type' is set to 'application/x-www-form-urlencoded'
-      // if not set globally, adjust it in the specific endpoint configuration or in the baseQuery headers setup
-
       await sendMessage(payload);
+      setInputValue("");
     } catch (error) {
       console.error("Failed to send message:", error);
     }
@@ -102,11 +108,14 @@ const ChatRoom: React.FC = () => {
         justify={"justify-start"}
         gap="gap-5"
       />
+
+      {/* for message showing  */}
       <div className="w-full h-full p-5 flex flex-col">
         {chatData?.data?.map((msg: MsgData, index: React.Key) => (
           <Message key={index} msg={msg} />
         ))}
       </div>
+      {/* for message send  */}
       <div className="absolute bottom-0 h-[45px] flex w-[100%] right-[50%] translate-x-[50%] border">
         <div className="w-[5%] h-full flex justify-center items-center cursor-pointer">
           <MdOutlineEmojiEmotions
@@ -137,6 +146,7 @@ const ChatRoom: React.FC = () => {
           <input
             type="text"
             value={inputValue}
+            onKeyDown={handleKeyDown}
             onChange={messageHandler}
             placeholder="Enter your message..."
             className="outline-none p-2 px-5 w-full rounded-full h-full bg-slate-200"
