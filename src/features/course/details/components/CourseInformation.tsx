@@ -1,31 +1,36 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Heading from "@/components/typography/Heading";
 import { Link } from "react-router-dom";
 
-const CourseInformation = () => {
+interface PropsType {
+  data: any;
+}
+
+const CourseInformation: React.FC<PropsType> = ({ data }) => {
   return (
     <div className=" space-y-2 pb-6 ">
       <Heading tag="h2">Course Information</Heading>
 
       <p className="sm:text-sm text-xs font-[300] text-black/70">
-        Name - <span className="underline">Grammer Basic</span>
+        Name - <span className="underline">{data?.name}</span>
       </p>
       <p className="sm:text-sm text-xs font-[300] text-black/70">
-        Grade - <span className="underline">Grade 10</span>
+        Grade - <span className="underline">{data?.grade}</span>
       </p>
       <p className="sm:text-sm text-xs font-[300] text-black/70">
-        Section - <span className="underline">Section A</span>
+        Section - <span className="underline">{data?.section}</span>
+      </p>
+      <p className="sm:text-sm text-xs font-[300] text-black/70">
+        Subject - <span className="underline">{data?.subject}</span>
       </p>
       <p className="sm:text-sm text-xs font-[300] text-black/70">
         Created By -{" "}
         <Link to="/" className="underline">
-          Tr. Thwe Thwe
+          Tr. {data?.created_by}
         </Link>
       </p>
       <p className="sm:text-sm text-xs font-[300] text-black/70">
-        Created At - <span className="underline">22 Dec 2002</span>
-      </p>
-      <p className="sm:text-sm text-xs font-[300] text-black/70">
-        Enroll Students - <span className="underline">1023 students</span>
+        Created At - <span className="underline">{data?.created_at}</span>
       </p>
     </div>
   );

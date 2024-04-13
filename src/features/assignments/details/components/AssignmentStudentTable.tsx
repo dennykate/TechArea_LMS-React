@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { Avatar, Modal } from "@mantine/core";
 
@@ -9,32 +9,68 @@ import Heading from "@/components/typography/Heading";
 import MyButton from "@/components/buttons/MyButton";
 import { useDisclosure } from "@mantine/hooks";
 import RateStudent from "./RateStudent";
+import alertActions from "@/utilities/alertActions";
 
-const AssignmentStudentTable = () => {
+interface PropsType {
+  assignmentMarks: number;
+}
+
+const AssignmentStudentTable: React.FC<PropsType> = ({ assignmentMarks }) => {
+  const { assignmentId } = useParams();
   const navigate = useNavigate();
-  const [onSubmit] = useMutate();
+  const [onSubmit] = useMutate({ navigateBack: false });
   const [data, setData] = useState<any>();
   const [opened, { open, close }] = useDisclosure(false);
+  const [report, setReport] = useState<any>();
 
   const rows = useMemo(
     () =>
-      [0, 1]?.map((element: any, i: number) => (
+      data?.map((element: any, i: number) => (
         <tr key={i}>
-          <td className="m_td">1</td>
+          <td className="m_td">{i + 1}</td>
           <td className="m_td">
             <Avatar
               size="lg"
-              src="https://images.pexels.com/photos/3775087/pexels-photo-3775087.jpeg?auto=compress&cs=tinysrgb&w=600"
+              src={element?.user?.profile}
+              alt={element?.user?.name}
             />
           </td>
-          <td className="m_td">Denny Kate</td>
-
-          <td className="m_td">Male</td>
-          <td className="m_td">22 March 2024</td>
+          <td className="m_td">{element?.user?.name}</td>
+          <td className="m_td">{element?.marks || 0}</td>
+          <td className="m_td">{element?.user?.gender}</td>
+          <td className="m_td">{element?.user?.grade}</td>
+          <td className="m_td">{element?.user?.section}</td>
+          <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
-            <MyButton size="xs" onClick={open}>
-              Rate
-            </MyButton>
+            <div className="min-w-[200px] flex items-center gap-1">
+              <MyButton
+                size="xs"
+                onClick={() => {
+                  open();
+                  setReport(element);
+                }}
+              >
+                Rate
+              </MyButton>
+              <MyButton
+                size="xs"
+                color="red"
+                variant="filled"
+                onClick={() => {
+                  alertActions(
+                    () =>
+                      onSubmit(
+                        `/assignment-reports/${element?.id}`,
+                        {},
+                        "DELETE"
+                      ),
+                    "Are your sure ?"
+                  );
+                }}
+              >
+                Remove
+              </MyButton>
+            </div>
           </td>
         </tr>
       )),
@@ -54,13 +90,26 @@ const AssignmentStudentTable = () => {
         disableTablePadding
         rows={rows}
         titleSection={false}
-        tableHeads={["Profile", "Name", "Gender", "Created At"]}
-        baseUrl="purchases"
+        tableHeads={[
+          "Profile",
+          "Name",
+          "Marks",
+          "Gender",
+          "Grade",
+          "Section",
+          "Created At",
+        ]}
+        baseUrl={`assignment-reports`}
+        filter={`&assignment_id=${assignmentId}`}
         setData={setData}
       />
 
       <Modal opened={opened} onClose={close} title="Rate Student" centered>
-        <RateStudent />
+        <RateStudent
+          onClose={close}
+          assignmentMarks={assignmentMarks}
+          report={report}
+        />
       </Modal>
     </>
   );

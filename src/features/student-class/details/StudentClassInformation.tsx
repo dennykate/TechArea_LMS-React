@@ -1,7 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MyButton from "@/components/buttons/MyButton";
 import ImportantInformation from "./ImportantInformation";
+import React from "react";
+import { Link } from "react-router-dom";
 
-const StudentClassInformation = () => {
+interface PropsType {
+  data?: any;
+}
+
+const StudentClassInformation: React.FC<PropsType> = ({ data }) => {
   return (
     <div className=" ">
       <div className="">
@@ -10,54 +17,36 @@ const StudentClassInformation = () => {
         <div className="space-y-2 mt-2">
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
-              Title
+              Topic
             </p>
-            <span className="sm:text-sm text-xs">- Exam</span>
+            <span className="sm:text-sm text-xs">- {data?.topic}</span>
           </div>
 
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
-              Description
+              Agenda
             </p>
-            <p className="sm:text-sm text-xs w-[90%]">
-              - Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas,
-              quisquam a amet fugiat, dicta excepturi iure voluptas sunt
-              deserunt minima, quasi aut! Perferendis amet iure tempore eaque
-              officia sequi aspernatur. Officiis maiores ipsa molestias vel
-              magnam labore eum tenetur, quod minima saepe cumque quasi rerum
-              ipsum repellendus voluptates laudantium, ratione autem assumenda
-              sed eveniet consectetur eligendi fugiat! Commodi, nulla iure.
-            </p>
+            <span className="sm:text-sm text-xs">- {data?.agenda}</span>
           </div>
+
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
-              Start Date
+              Start Time
             </p>
-            <span className="sm:text-sm text-xs">- 1-12-2000 10:00 AM</span>
+            <span className="sm:text-sm text-xs">- {data?.start_time}</span>
           </div>
-          <div className="flex gap-1">
-            <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
-              End Date
-            </p>
-            <span className="sm:text-sm text-xs">- 12-12-2000 10:00 AM</span>
-          </div>
-          <div className="flex gap-1">
-            <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
-              Type
-            </p>
-            <span className="sm:text-sm text-xs">- Exam</span>
-          </div>
+
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               Created by
             </p>
-            <span className="sm:text-sm text-xs">- Thwe Thwe</span>
+            <span className="sm:text-sm text-xs">- {data?.created_by}</span>
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
               Created at
             </p>
-            <span className="sm:text-sm text-xs">- 29-3-2024</span>
+            <span className="sm:text-sm text-xs">- {data?.created_at}</span>
           </div>
         </div>
 
@@ -66,13 +55,18 @@ const StudentClassInformation = () => {
         </h2>
 
         <div className="w-full flex items-center gap-6 flex-wrap">
-          <ImportantInformation label="Meeting ID" value="8438274831" />
+          <ImportantInformation label="Meeting ID" value={data?.meeting_id} />
 
-          <ImportantInformation label="Meeting Password" value="123123" />
-          
-          <MyButton size="lg" className="rounded-full">
-            Direct Enter
-          </MyButton>
+          <ImportantInformation
+            label="Meeting Password"
+            value={data?.meeting_password}
+          />
+
+          <Link to={data?.meeting_url} target="_blank">
+            <MyButton size="lg" className="rounded-full">
+              Direct Enter
+            </MyButton>
+          </Link>
         </div>
       </div>
     </div>

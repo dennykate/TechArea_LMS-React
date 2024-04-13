@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MyButton from "@/components/buttons/MyButton";
 import Heading from "@/components/typography/Heading";
 import { IconBookUpload } from "@tabler/icons-react";
@@ -6,8 +7,13 @@ import MyPagination from "@/components/common/MyPagination";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import CreateCourseContent from "./CreateCourseContent";
+import React from "react";
 
-const CourseContent = () => {
+interface PropsType {
+  data: any;
+}
+
+const CourseContent: React.FC<PropsType> = ({ data }) => {
   const [opened, { close, open }] = useDisclosure(false);
 
   return (
@@ -21,10 +27,9 @@ const CourseContent = () => {
       </div>
 
       <div className="grid grid-cols-1 mt-4 gap-4">
-        <CourseContentCard />
-        <CourseContentCard />
-        <CourseContentCard />
-        <CourseContentCard />
+        {data?.map((dt: any) => (
+          <CourseContentCard key={dt?.id} data={dt} />
+        ))}
       </div>
 
       <div className="mt-6 flex justify-end">

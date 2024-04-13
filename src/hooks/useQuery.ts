@@ -40,6 +40,10 @@ const useQuery = (
       callback(data?.data);
       setIsLoading(false);
     }
+
+    if (data) {
+      setIsLoading(false);
+    }
   }, [data]);
 
   useEffect(() => {

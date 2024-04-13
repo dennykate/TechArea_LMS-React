@@ -17,28 +17,29 @@ const List = () => {
 
   const rows = useMemo(
     () =>
-      [0]?.map((element: any, i: number) => (
+      data?.map((element: any, i: number) => (
         <tr key={i}>
-          <td className="m_td">1</td>
-          <td className="m_td">Assignment 1</td>
-          <td className="m_td line-clamp-1 w-[200px]">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi,
-            quisquam nulla rerum ad dolor beatae? Repellendus natus ad autem,
-            fugiat accusamus voluptatum quo officia fugit velit impedit dicta.
-            Aut, commodi! Soluta, dolorum. Enim odio mollitia laborum voluptates
-            fugit, blanditiis libero dolorum minus. Alias tempora, doloremque
-            cumque consequuntur natus accusamus maxime neque soluta aperiam
-            perferendis veniam aliquid sit totam rem asperiores.
+          <td className="m_td">{i + 1}</td>
+          <td className="m_td">{element?.title}</td>
+          <td className="m_td">
+            <div className="flex items-center max-w-[200px] ">
+              <div
+                className="line-clamp-1 truncate"
+                dangerouslySetInnerHTML={{ __html: element?.description }}
+              />
+            </div>
           </td>
-          <td className="m_td">Grade 1</td>
-          <td className="m_td">Section 1</td>
-          <td className="m_td">Thwe Thwe</td>
-          <td className="m_td">22 March 2024</td>
+          <td className="m_td">{element?.grade}</td>
+          <td className="m_td">{element?.section}</td>
+          <td className="m_td">{element?.subject}</td>
+          <td className="m_td">{element?.deadline}</td>
+          <td className="m_td">{element?.created_by}</td>
+          <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate("/assignments/details/1")}
+              detailCb={() => navigate(`/assignments/details/${element.id}`)}
               destroyCb={() => {}}
-              editCb={() => {}}
+              editCb={() => navigate(`/assignments/edit/${element.id}`)}
             />
           </td>
         </tr>
@@ -72,10 +73,12 @@ const List = () => {
           "Description",
           "Grade",
           "Section",
+          "Subject",
+          "Deadline",
           "Created By",
           "Created At",
         ]}
-        baseUrl="purchases"
+        baseUrl="assignments"
         setData={setData}
       />
     </TableLayout>

@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { NumberInput } from "@mantine/core";
-import { InputProps } from "./types/type";
+import { NumberInput, NumberInputProps } from "@mantine/core";
 
-interface PropsType extends InputProps {
-  value?: number | string;
-  onChangeHandler?: (e: number) => void;
-  disabled?: boolean;
+interface PropsType extends Omit<NumberInputProps, "form"> {
+  form?: any;
 }
 
 const NumberInputComponent = ({
   label,
   placeholder,
   value,
-  onChangeHandler,
+  onChange,
   disabled,
   form,
   name,
   withAsterisk,
+  ...props
 }: PropsType) => {
   return (
     <NumberInput
+      {...props}
       disabled={disabled}
       label={label}
       placeholder={placeholder}
@@ -29,7 +28,7 @@ const NumberInputComponent = ({
         label: `sm:text-[16px] text-[14px] mb-1`,
       }}
       value={value ? parseInt(value as unknown as string) : 0}
-      onChange={onChangeHandler}
+      onChange={onChange}
       withAsterisk={withAsterisk}
       {...form?.getInputProps(name as string)}
     />

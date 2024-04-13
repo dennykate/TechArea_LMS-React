@@ -32,6 +32,7 @@ const Edit = () => {
   const { isLoading: queryLoading } = useQuery(
     `/announcements/${announcementId}`,
     (data) => {
+      setDefaultImage(data?.image);
       form.setFieldValue("title", data?.title);
       form.setFieldValue("description", data?.description);
       setDefaultImage(data?.image);

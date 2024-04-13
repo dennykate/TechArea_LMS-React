@@ -47,7 +47,8 @@ const TextEditorInput = ({
           "bullet",
           "link",
         ]}
-        className={twMerge("h-[100px]", label && "mt-2", inputClassName)}
+        className={twMerge("", label && "mt-2", inputClassName)}
+        
       />
     </div>
   );
