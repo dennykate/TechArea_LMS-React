@@ -7,7 +7,7 @@ export const navbarData = [
 ];
 
 export const title =
-  "md:text-[50px] sm:text-[40px] xs:text-[30px] text-[25px] font-bold text-black font-poppins ";
+  "md:text-[50px] sm:text-[40px] xs:text-[30px] text-[25px] font-bold text-gray-800 font-poppins ";
 
 export const subTitle = "text-base  text-primary-500 font-bold sm:text-2xl ";
 
@@ -150,4 +150,14 @@ export const galleryData = [
   "https://i.postimg.cc/4dQcWNk8/ccessful-600nw-521875054.webp",
   "https://i.postimg.cc/4dQcWNk8/ccessful-600nw-521875054.webp",
   "https://i.postimg.cc/4dQcWNk8/ccessful-600nw-521875054.webp",
+];
+
+export const footerInfoData = [
+  "about us",
+  "contact us",
+  "courses",
+  "teachers",
+  "announcements",
+  "events",
+  "location",
 ];

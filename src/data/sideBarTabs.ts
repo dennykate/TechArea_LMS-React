@@ -17,6 +17,8 @@ import { RiAdminLine } from "react-icons/ri";
 import { AiFillSchedule } from "react-icons/ai";
 import { BiLogoZoom } from "react-icons/bi";
 import { SiGoogleclassroom } from "react-icons/si";
+import { HiSpeakerphone } from "react-icons/hi";
+import { TbTimelineEventFilled } from "react-icons/tb";
 
 const sideBarTabs = [
   {
@@ -42,6 +44,18 @@ const sideBarTabs = [
     icon: MdAssignment,
     initiallyOpened: false,
     link: "/assignments",
+  },
+  {
+    label: "Announcements",
+    icon: HiSpeakerphone,
+    initiallyOpened: false,
+    link: "/announcements",
+  },
+  {
+    label: "Events",
+    icon: TbTimelineEventFilled,
+    initiallyOpened: false,
+    link: "/events",
   },
   {
     label: "Grades",
@@ -94,7 +108,6 @@ const sideBarTabs = [
     ],
   },
   {
-
     label: "Student Courses",
     icon: FaBookReader,
     initiallyOpened: false,
@@ -123,8 +136,8 @@ const sideBarTabs = [
     icon: FaCalendarAlt,
     initiallyOpened: false,
     link: "/calendar",
-},
-  { 
+  },
+  {
     label: "Chat",
     icon: MdChat,
     initiallyOpened: false,

@@ -1,9 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MyPagination from "@/components/common/MyPagination";
 import { Footer, Home } from "../components";
 import EventCard from "../components/EventCard";
-import { dailyUpdateData, subTitle, title } from "../data";
+import { subTitle, title } from "../data";
+import { useState } from "react";
+import useQuery from "@/hooks/useQuery";
 
 const Events = () => {
+  const [data, setData] = useState<any>();
+
+  useQuery(`/announcements`, setData);
   return (
     <>
       <Home />
@@ -14,14 +20,8 @@ const Events = () => {
           <h1 className={title}>Events Updated Daily</h1>
         </div>
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mt-8">
-          {dailyUpdateData?.map((data, index) => (
-            <EventCard key={index} data={data} />
-          ))}
-          {dailyUpdateData?.map((data, index) => (
-            <EventCard key={index} data={data} />
-          ))}
-          {dailyUpdateData?.map((data, index) => (
-            <EventCard key={index} data={data} />
+          {data?.map((item: any, index: number) => (
+            <EventCard key={index} data={item} />
           ))}
         </div>
 

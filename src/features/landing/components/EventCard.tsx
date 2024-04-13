@@ -24,20 +24,22 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
     <>
       <div
         className="shadow-md hover:-translate-y-3 hover:shadow-lg
-         hover:shadow-2xl
      transition duration-200 ease-in-out relative group border border-black border-opacity-10"
         onClick={open}
       >
         <img
-          src={data.thumbnail}
-          alt="daily-update"
+          src={
+            data.image ??
+            "https://i.postimg.cc/j5cskhjj/viber-image-2024-04-10-10-19-49-078.png"
+          }
+          alt="event"
           className="w-full h-[240px] object-cover"
         />
         <div className="p-5">
-          <h1 className=" font-poppins font-bold text-xl">{data.title}</h1>
-          <p className=" font-sans text-base mt-2">{data.paragraph}</p>
-          <p className="font-poppins text-sm mt-2 text-primary-500">
-            Created At - Dec 17, 2020
+          <p className=" font-poppins font-bold text-xl">{data?.title}</p>
+
+          <p className=" font-sans text-base mt-2">
+            <div dangerouslySetInnerHTML={{ __html: data?.description }} />
           </p>
         </div>
 

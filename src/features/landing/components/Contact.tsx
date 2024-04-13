@@ -1,5 +1,4 @@
-import { FaCaretRight } from "react-icons/fa";
-
+import { BiSolidRightArrow } from "react-icons/bi";
 const Contact = () => {
   return (
     <div
@@ -17,19 +16,19 @@ const Contact = () => {
       </h1>
 
       <a
-        className="max-w-[230px] h-[60px] border-[2px] border-white flex justify-center items-center gap-2
+        className="max-w-[230px] h-[60px] border-[2px] border-white flex justify-center items-center gap-4
         cursor-pointer relative p-0 group mx-auto mt-10"
         href="tel:09964470356"
       >
-        <h1
-          className=" font-sans font-medium sm:text-xl text-base text-white group-hover:text-[#383838]
-          transition-all duration-200 ease-in-out z-10"
+        <p
+          className=" font-sans font-medium sm:text-lg text-base text-white group-hover:text-gray-600
+          transition-all duration-200 ease-in-out z-10 -translate-y-[2px]"
         >
           Call Now
-        </h1>
-        <FaCaretRight
-          size={23}
-          className="text-white group-hover:text-[#383838] transition-all duration-200 ease-in-out z-10"
+        </p>
+        <BiSolidRightArrow
+          size={14}
+          className="text-white group-hover:text-gray-600 transition-all duration-200 ease-in-out z-10"
         />
 
         <div

@@ -103,7 +103,7 @@ const FileUpload: React.FC<PropsType> = ({
             <video
               src={previewUrl}
               controls
-              className="h-full object-cover w-full rounded-md"
+              className="h-[300px] object-cover rounded-md"
             />
           ) : (
             <img

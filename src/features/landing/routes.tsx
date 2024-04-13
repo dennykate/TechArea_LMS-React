@@ -12,15 +12,15 @@ export const landingRoutes = [
     element: <Landing />,
   },
   {
-    path: "/announcements",
+    path: "/pub-announcements",
     element: <Accouncements />,
   },
   {
-    path: "/events",
+    path: "/pub-events",
     element: <Events />,
   },
   {
-    path: "/courses",
+    path: "/pub-courses",
     element: <Courses />,
   },
   {

@@ -20,7 +20,7 @@ const Create = () => {
   const [onSubmit, { isLoading }] = useMutate();
 
   return (
-    <FormLayout
+    <FormLayout 
       title="Create Grade"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmit("/grades", values))}

@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MyPagination from "@/components/common/MyPagination";
 import { Footer, Home } from "../components";
 import AnnouncementCard from "../components/AnnouncementCard";
-import { dailyUpdateData, subTitle, title } from "../data";
+import { subTitle, title } from "../data";
+import { useState } from "react";
+import useQuery from "@/hooks/useQuery";
 
 const Accouncements = () => {
+  const [data, setData] = useState<any>();
+
+  useQuery(`/announcements`, setData);
+  console.log(data);
   return (
     <>
       <Home />
@@ -14,14 +21,8 @@ const Accouncements = () => {
           <h1 className={title}>Accouncements Updated Daily</h1>
         </div>
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mt-8">
-          {dailyUpdateData?.map((data, index) => (
-            <AnnouncementCard key={index} data={data} />
-          ))}
-          {dailyUpdateData?.map((data, index) => (
-            <AnnouncementCard key={index} data={data} />
-          ))}
-          {dailyUpdateData?.map((data, index) => (
-            <AnnouncementCard key={index} data={data} />
+          {data?.map((item: any, index: number) => (
+            <AnnouncementCard key={index} data={item} />
           ))}
         </div>
 
