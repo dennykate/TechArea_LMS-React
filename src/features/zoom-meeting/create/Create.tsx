@@ -11,7 +11,7 @@ import {
   recurrenceRepeactInterval,
   recurrenceType,
 } from "./data";
-import { Group, Radio } from "@mantine/core";
+// import { Group, Radio } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import useMutate from "@/hooks/useMutate";
@@ -23,7 +23,7 @@ const Create = () => {
       type: "2",
       agenda: "",
       topic: "",
-      duration: 9,
+      duration: 0,
       start_date: new Date(),
       password: "",
       grade_id: "",
@@ -31,9 +31,9 @@ const Create = () => {
       subject_id: "",
       recurrence_type: "",
       recurrence_repeat_interval: "",
-      recurrence_end_type: "",
+      recurrence_end_type: "count",
       recurrence_end_date_time: new Date(),
-      recurrence_end_time: "",
+      recurrence_end_times: "",
     },
     validateInputOnBlur: true,
     validate: {
@@ -76,7 +76,7 @@ const Create = () => {
           : value
           ? null
           : "Recurrence End Date Time is required",
-      recurrence_end_time: (value: string, values) =>
+      recurrence_end_times: (value: string, values) =>
         values?.recurrence_end_type != "count"
           ? null
           : values?.type != "8"
@@ -183,6 +183,7 @@ const Create = () => {
               form={form}
               name="recurrence_type"
             />
+
             <SelectComponent
               label="Recurrence Repeat Interval"
               placeholder="Select recurrence repeat interval ( in days )"
@@ -191,7 +192,8 @@ const Create = () => {
               form={form}
               name="recurrence_repeat_interval"
             />
-            <Radio.Group
+
+            {/* <Radio.Group
               name="end_date_type"
               label="End Date Type"
               withAsterisk
@@ -201,25 +203,28 @@ const Create = () => {
                 <Radio value="date" label="Date" />
                 <Radio value="count" label="Count" />
               </Group>
-            </Radio.Group>
-            {form.values.recurrence_end_type === "date" ? (
-              <DateTimeInputComponent
-                placeholder="Choose end date"
-                label="End Date"
-                withAsterisk
-                form={form}
-                name="recurrence_end_date_time"
-              />
-            ) : (
-              <SelectComponent
-                label="Occurence Count"
-                placeholder="Select recurrence count"
-                data={recurrenceOccurence}
-                withAsterisk
-                form={form}
-                name="recurrence_end_time"
-              />
-            )}
+            </Radio.Group> */}
+
+            <div className="col-span-2">
+              {form.values.recurrence_end_type === "date" ? (
+                <DateTimeInputComponent
+                  placeholder="Choose end date"
+                  label="End Date"
+                  withAsterisk
+                  form={form}
+                  name="recurrence_end_date_time"
+                />
+              ) : (
+                <SelectComponent
+                  label="Count"
+                  placeholder="Select recurrence count"
+                  data={recurrenceOccurence}
+                  withAsterisk
+                  form={form}
+                  name="recurrence_end_times"
+                />
+              )}
+            </div>
           </>
         )}
       </div>

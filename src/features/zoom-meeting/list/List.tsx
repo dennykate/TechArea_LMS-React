@@ -18,21 +18,21 @@ const List = () => {
     () =>
       data?.map((element: any, i: number) => (
         <tr key={i}>
-          <td className="m_td">1</td>
-          <td className="m_td">LMS</td>
-          <td className="m_td">Nay Kaung Lr</td>
-          <td className="m_td">43289492</td>
-          <td className="m_td">Grade - 10</td>
-          <td className="m_td">Section - A</td>
-          <td className="m_td">Myanmar</td>
-          <td className="m_td">01 Dec 2000 10:00 AM</td>
-          <td className="m_td">Ma Ma Thwe</td>
-          <td className="m_td">22 March 2024 10:00 AM</td>
+          <td className="m_td">{i + 1}</td>
+          <td className="m_td">{element?.agenda}</td>
+          <td className="m_td">{element?.topic}</td>
+          <td className="m_td">{element?.meeting_id}</td>
+          <td className="m_td">{element?.grade}</td>
+          <td className="m_td">{element?.section}</td>
+          <td className="m_td">{element?.subject}</td>
+          <td className="m_td">{element?.start_time}</td>
+          <td className="m_td">{element?.created_by}</td>
+          <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate("/zoom-meetings/details/1")}
-              destroyCb={() => {}}
-              editCb={() => navigate("/zoom-meetings/edit/1")}
+              detailCb={() => navigate(`/zoom-meetings/details/${element?.id}`)}
+              destroyCb={() => onSubmit(`/zooms/${element?.id}`, {}, "DELETE")}
+              editCb={() => navigate(`/zoom-meetings/edit/${element?.id}`)}
             />
           </td>
         </tr>
