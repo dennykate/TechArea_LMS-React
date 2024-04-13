@@ -1,21 +1,42 @@
-import React from "react";
-import { Worker, Viewer } from "@react-pdf-viewer/core";
-import "@react-pdf-viewer/core/lib/styles/index.css";
+import { useState } from "react";
+import { Document, Page } from "react-pdf";
+import { pdfjs } from "react-pdf";
 
-interface PropsType {
-  fileUrl: string;
-}
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.js",
+  import.meta.url
+).toString();
 
-const PdfViewer: React.FC<PropsType> = ({ fileUrl }) => {
+const PDFViwer = () => {
+  const [numPages, setNumPages] = useState();
+  const [pageNumber, setPageNumber] = useState(1);
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+
   return (
-    <div style={{ height: "750px" }}>
-      <Worker
-        workerUrl={`https://unpkg.com/pdfjs-dist@2.10.377/build/pdf.worker.min.js`}
+    <div className="pdf-div">
+      <p>
+        Page {pageNumber} of {numPages}
+      </p>
+      <Document
+        file={"/im-fullstackdev.pdf"}
+        onLoadSuccess={onDocumentLoadSuccess}
       >
-        <Viewer fileUrl={fileUrl} />
-      </Worker>
+        {Array.apply(null, Array(numPages))
+          .map((x, i) => i + 1)
+          .map((page) => {
+            return (
+              <Page
+                pageNumber={page}
+                renderTextLayer={false}
+                renderAnnotationLayer={false}
+              />
+            );
+          })}
+      </Document>
     </div>
   );
 };
-
-export default PdfViewer;
+export default PDFViwer;

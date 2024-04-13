@@ -1,12 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
 
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import SelectComponent from "@/components/inputs/SelectComponent";
 import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
-import {
-  gradeData,
-  sectionData,
-} from "@/features/accounts/students/create/data";
+
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import {
   recurrenceOccurence,
@@ -15,19 +13,97 @@ import {
 } from "./data";
 import { Group, Radio } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
+import useMutate from "@/hooks/useMutate";
+import dayjs from "dayjs";
 
 const Create = () => {
   const form = useForm({
     initialValues: {
-      end_date_type: "date",
       type: "2",
+      agenda: "",
+      topic: "",
+      duration: 9,
+      start_date: new Date(),
+      password: "",
+      grade_id: "",
+      section_id: "",
+      subject_id: "",
+      recurrence_type: "",
+      recurrence_repeat_interval: "",
+      recurrence_end_type: "",
+      recurrence_end_date_time: new Date(),
+      recurrence_end_time: "",
+    },
+    validateInputOnBlur: true,
+    validate: {
+      agenda: (value: string) =>
+        value.length > 0 ? null : "Agenda is required",
+      topic: (value: string) => (value.length > 0 ? null : "Topic is required"),
+      duration: (value: number) => (value > 0 ? null : "Duration is required"),
+      start_date: (value) => (value ? null : "Start Date is required"),
+      password: (value: string) =>
+        value.length > 0 ? null : "Password is required",
+      grade_id: (value: string) =>
+        value.length > 0 ? null : "Grade ID is required",
+      section_id: (value: string) =>
+        value.length > 0 ? null : "Section ID is required",
+      subject_id: (value: string) =>
+        value.length > 0 ? null : "Subject ID is required",
+      recurrence_type: (value: string, values) =>
+        values?.type != "8"
+          ? null
+          : value.length > 0
+          ? null
+          : "Recurrence Type is required",
+      recurrence_repeat_interval: (value: string, values) =>
+        values?.type != "8"
+          ? null
+          : value.length > 0
+          ? null
+          : "Recurrence Repeat Inteval is required",
+      recurrence_end_type: (value: string, values) =>
+        values?.type != "8"
+          ? null
+          : value.length > 0
+          ? null
+          : "Recurrence End Type is required",
+      recurrence_end_date_time: (value, values) =>
+        values?.recurrence_end_type != "date"
+          ? null
+          : values?.type != "8"
+          ? null
+          : value
+          ? null
+          : "Recurrence End Date Time is required",
+      recurrence_end_time: (value: string, values) =>
+        values?.recurrence_end_type != "count"
+          ? null
+          : values?.type != "8"
+          ? null
+          : value.length > 0
+          ? null
+          : "Recurrence End Time is required",
     },
   });
+
+  const [onSubmit, { isLoading }] = useMutate();
+
+  const onSubmitHandler = (data: any) => {
+    onSubmit("/zooms", {
+      ...data,
+      start_time: dayjs(data?.start_date).format("D-M-YYYY HH:mm"),
+      recurrence_end_date_time: dayjs(data?.start_date).format(
+        "D-M-YYYY HH:mm"
+      ),
+    });
+  };
 
   return (
     <FormLayout
       title="Create Schedule"
-      onSubmit={() => {}}
+      submitLoading={isLoading}
+      onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Zoom Meeting List", link: "/zoom-meetings/list" },
@@ -44,30 +120,40 @@ const Create = () => {
           label="Agenda"
           placeholder="Enter agenda"
           withAsterisk
+          form={form}
+          name="agenda"
         />
 
         <TextInputComponent
           label="Topic"
           placeholder="Enter topic"
           withAsterisk
+          form={form}
+          name="topic"
         />
 
         <NumberInputComponent
           placeholder="Duration ( in minutes )"
           label="Duration"
           withAsterisk
+          form={form}
+          name="duration"
         />
 
         <DateTimeInputComponent
           placeholder="Choose start date"
           label="Start Date"
           withAsterisk
+          form={form}
+          name="start_date"
         />
 
         <TextInputComponent
           label="Password"
           placeholder="Enter password"
           withAsterisk
+          form={form}
+          name="password"
         />
 
         <SelectComponent
@@ -83,25 +169,8 @@ const Create = () => {
           name="type"
         />
 
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-4 col-span-2">
-          <SelectComponent
-            label="Grade"
-            placeholder="Select grade"
-            data={gradeData}
-            withAsterisk
-          />
-          <SelectComponent
-            label="Section"
-            placeholder="Select section"
-            data={sectionData}
-            withAsterisk
-          />
-          <SelectComponent
-            label="Subject"
-            placeholder="Select section"
-            data={sectionData}
-            withAsterisk
-          />
+        <div className="md:col-span-2 col-span-1">
+          <GradeSectionSubject form={form} />
         </div>
 
         {form.values.type == "8" && (
@@ -111,29 +180,35 @@ const Create = () => {
               placeholder="Select recurrence type"
               data={recurrenceType}
               withAsterisk
+              form={form}
+              name="recurrence_type"
             />
             <SelectComponent
               label="Recurrence Repeat Interval"
               placeholder="Select recurrence repeat interval ( in days )"
               data={recurrenceRepeactInterval}
               withAsterisk
+              form={form}
+              name="recurrence_repeat_interval"
             />
             <Radio.Group
               name="end_date_type"
               label="End Date Type"
               withAsterisk
-              {...form.getInputProps("end_date_type")}
+              {...form.getInputProps("recurrence_end_type")}
             >
               <Group mt="xs">
                 <Radio value="date" label="Date" />
                 <Radio value="count" label="Count" />
               </Group>
             </Radio.Group>
-            {form.values.end_date_type === "date" ? (
+            {form.values.recurrence_end_type === "date" ? (
               <DateTimeInputComponent
                 placeholder="Choose end date"
                 label="End Date"
                 withAsterisk
+                form={form}
+                name="recurrence_end_date_time"
               />
             ) : (
               <SelectComponent
@@ -141,6 +216,8 @@ const Create = () => {
                 placeholder="Select recurrence count"
                 data={recurrenceOccurence}
                 withAsterisk
+                form={form}
+                name="recurrence_end_time"
               />
             )}
           </>

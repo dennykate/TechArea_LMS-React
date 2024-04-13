@@ -16,7 +16,7 @@ const List = () => {
 
   const rows = useMemo(
     () =>
-      [0]?.map((element: any, i: number) => (
+      data?.map((element: any, i: number) => (
         <tr key={i}>
           <td className="m_td">1</td>
           <td className="m_td">LMS</td>
@@ -72,7 +72,7 @@ const List = () => {
           "Created By",
           "Created At",
         ]}
-        baseUrl="purchases"
+        baseUrl="zooms"
         setData={setData}
       />
     </TableLayout>
