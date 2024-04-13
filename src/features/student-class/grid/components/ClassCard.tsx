@@ -1,28 +1,39 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from "react-router-dom";
 
 import Heading from "@/components/typography/Heading";
 
-const AssignmentCard = () => {
+interface PropsType {
+  data: any;
+}
+
+const AssignmentCard: React.FC<PropsType> = ({ data }) => {
   return (
     <Link
-      to={"/student-classes/hello-world"}
+      to={`/student-classes/${data?.id}`}
       className="w-full border border-black border-opacity-20 rounded shadow-sm overflow-hidden
        hover:translate-y-[-2px] hover:shadow-md transition-all duration-300 ease-in-out bg-white
       relative "
     >
       <div className="w-full space-y-2  sm:p-3 p-2">
         <Heading tag="h6" className="line-clamp-2 sm:!text-base !text-sm">
-          Grade 10 Bio ( Chapter 10 )
+          {data?.topic}
         </Heading>
 
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
-          Tr. Thwe Thwe
+          Agenda - {data?.agenda}
         </p>
+
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
-          04 April 2024 11:00 AM
+          Start Time - {data?.start_time}
         </p>
+
         <p className="text-xs font-[300] text-gray-500 line-clamp-3">
-          Grade - 10 • Section - C
+          Tr. {data?.created_by}
+        </p>
+
+        <p className="text-xs font-[300] text-gray-500 line-clamp-3">
+          {data?.grade} • {data?.section}
         </p>
       </div>
 
