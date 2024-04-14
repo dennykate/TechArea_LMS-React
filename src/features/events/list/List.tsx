@@ -33,7 +33,10 @@ const List = () => {
           </td>
           <td className="m_td">{element?.title}</td>
           <td className="m_td">
-            <div dangerouslySetInnerHTML={{ __html: element?.description }} />
+            <div
+              className="line-clamp-1"
+              dangerouslySetInnerHTML={{ __html: element?.description }}
+            />
           </td>
 
           <td className="m_td">{element?.created_by}</td>

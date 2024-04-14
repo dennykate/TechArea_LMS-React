@@ -21,6 +21,7 @@ const FileUpload: React.FC<PropsType> = ({
   setSingleFile,
   setMultileFile,
   defaultImage = "",
+  multiple = false,
   ...props
 }) => {
   const theme = useMantineTheme();
@@ -53,6 +54,7 @@ const FileUpload: React.FC<PropsType> = ({
               ? IMAGE_MIME_TYPE
               : ["video/mp4"]
           }
+          multiple={multiple}
           {...props}
         >
           <Group
@@ -148,7 +150,7 @@ const FileUpload: React.FC<PropsType> = ({
                     prev.filter((file: any) => file?.name != dt?.name)
                   )
                 }
-                className=" bg-red-500 p-2 rounded-md hover:bg-red-700"
+                className=" bg-red-500 w-[32px] h-[32px] flex justify-center items-center rounded-md hover:bg-red-700"
               >
                 <IconTrashFilled color="white" size={12} />
 

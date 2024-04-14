@@ -83,6 +83,7 @@ const Submit = () => {
         <p className="text-2xl font-medium mb-2">Your work</p>
         <FileUpload
           type="all"
+          multiple
           setMultileFile={setFiles as any}
           setSingleFile={(file) => setFiles((prev: any) => [...prev, file])}
         />

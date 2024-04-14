@@ -10,6 +10,7 @@ import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { MdEdit } from "react-icons/md";
+import EventMemory from "./components/EventMemory";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -57,6 +58,8 @@ const Details = () => {
           <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         </p>
       </div>
+
+      <EventMemory data={data?.galleries}/>
     </DetailsLayout>
   );
 };

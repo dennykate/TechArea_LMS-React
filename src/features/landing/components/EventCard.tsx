@@ -8,7 +8,7 @@ interface PropsType {
   data: any;
 }
 
-const photos = [
+export const photos = [
   "https://i.postimg.cc/C1pdRzdR/meta-preview.jpg",
   "https://i.postimg.cc/DZcfm6tN/design-online-course-thumbnail-udemy-course-cover-image.webp",
   "https://i.postimg.cc/15dmgfjy/5a108056-a070-44ee-a123-1afd489077e0.jpg",
