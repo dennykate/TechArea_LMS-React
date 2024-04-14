@@ -1,9 +1,14 @@
-import { setCurrentChatData } from "@/redux/services/chatSlice";
+import {
+  selectCurrentChatData,
+  setCurrentChatData,
+} from "@/redux/services/chatSlice";
 import { Avatar, Badge, Flex, Text } from "@mantine/core";
-import { useDispatch } from "react-redux";
+import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
 interface Info {
-  partner: { role: string; name: string; profile: string };
+  partner: { role: string; name: string; profile: string; id: string };
   last_message: string;
+  id: string;
 }
 interface LayoutProps {
   justify: string;
@@ -11,14 +16,32 @@ interface LayoutProps {
   padding: string;
   data: Info;
 }
-const ChatMate: React.FC<LayoutProps> = ({ justify, gap, padding, data }) => {
+const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
   const dispatch = useDispatch();
+
+  // console.log(data);
+
+  const showMsgHandler = () => {
+    dispatch(setCurrentChatData(data));
+    Cookies.set("last_conversation", data.id);
+    Cookies.set("user_id", data.partner.id);
+  };
+
+  const isActive = Cookies.get("last_conversation");
+
+  // console.log(isActive);
+  // console.log(data.id);
+  const userData = useSelector(selectCurrentChatData);
   return (
     <div
-      onClick={() => dispatch(setCurrentChatData(data))}
-      className={`border hover:bg-slate-200 transition duration-75 cursor-pointer ${gap}  shadow-sm flex ${justify} items-center ${padding} bg-white w-full h-[10vh]`}
+      onClick={showMsgHandler}
+      className={`border ${
+        isActive === data.id || userData?.id === data.id
+          ? "bg-gray-300"
+          : "bg-white"
+      } hover:bg-slate-200 transition duration-75 cursor-pointer gap-5 shadow-sm flex ${justify} items-center p-3 bg-white w-full h-[15vh]`}
     >
-      <Avatar radius={"100%"} size={"lg"} src={`${data?.partner?.profile}`} />
+      <Avatar radius={"100%"} size={"xl"} src={`${data?.partner?.profile}`} />
       <Flex
         gap="sm"
         justify="flex-start"

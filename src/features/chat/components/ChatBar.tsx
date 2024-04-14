@@ -7,29 +7,39 @@ import { FaSquarePlus } from "react-icons/fa6";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import AddChatMate from "./AddChatMate";
-
-interface GetDataResponse {
-  data?: { data: [] };
-  error?: string;
-  isLoading: boolean;
-  url: string;
-  method: string;
-}
+import GroupChatMate from "./GroupChatMate";
+import { useDispatch } from "react-redux";
+import { clearGroupUsers } from "@/redux/services/chatSlice";
 
 interface Data {
-  partner: { role: string; name: string; profile: string };
+  partner: { role: string; name: string; profile: string; id: string };
   last_message: string;
+  id: string;
+  name: string;
+  image: string;
+  description: string;
 }
 
 const ChatBar: React.FC = () => {
-  const { data, error, isLoading } = useGetDataQuery<GetDataResponse>({
-    url: `conversations`,
-    method: "GET",
-  });
+  // for group conversation
+  const {
+    data: groupChatData,
+    // error: groupChatError,
+    // isLoading,
+  } = useGetDataQuery("group-chats");
+
+  console.log(groupChatData);
+
+  // for single conversation
+  const { data, error, isLoading } = useGetDataQuery(`conversations`);
 
   // console.log(data);
-
+  const dispatch = useDispatch();
   const [opened, { open, close }] = useDisclosure();
+  const handleClose = () => {
+    dispatch(clearGroupUsers());
+    close();
+  };
 
   if (isLoading)
     return (
@@ -37,7 +47,9 @@ const ChatBar: React.FC = () => {
         Loading...
       </div>
     );
-  if (error) return <div>Error: {error}</div>;
+
+  if (error) return <div>Error</div>;
+
   return (
     <div>
       <div className="h-[10vh] flex border rounded justify-around items-center">
@@ -52,6 +64,16 @@ const ChatBar: React.FC = () => {
         />
       </div>
       <div className=" h-[80vh] scrollbar-none bg-slate-100 overflow-y-scroll flex flex-col">
+        {/* for group chatting  */}
+        {groupChatData?.data?.map((el: Data, index: Key | null | undefined) => (
+          <GroupChatMate
+            close={close}
+            data={el}
+            key={index}
+            parent={"chat_bar"}
+          />
+        ))}
+        {/* for single chatting  */}
         {data?.data?.map((el: Data, index: Key | null | undefined) => (
           <ChatMate
             data={el}
@@ -65,8 +87,8 @@ const ChatBar: React.FC = () => {
       <div className="h-[10vh] flex">
         <Profile gap="gap-3" />
       </div>
-      <Modal size={"xl"} opened={opened} onClose={close}>
-        <AddChatMate />
+      <Modal size={"80%"} opened={opened} onClose={handleClose}>
+        <AddChatMate close={close} />
       </Modal>
     </div>
   );

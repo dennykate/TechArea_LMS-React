@@ -5,17 +5,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import Cookies from "js-cookie";
 
 import config from "@/config";
-import { EncryptStorage } from "use-encrypt-storage";
+import { EncryptStorage } from "@/utilities/encrypt-storage";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: config.baseUrl, // Your API base URL
   prepareHeaders: (headers) => {
-    const encryptStorage = new EncryptStorage(import.meta.env.VITE_SECRET_KEY);
+    const encryptStorage = new EncryptStorage(config.secretKey);
 
-    const token =
-      encryptStorage.get("token") ||
-      "21|PlRC16SqMqr2DsMFezRn6jqtAxmUgFnbIcUuZ1lK14484fd7";
-    console.log(token);
+    const token = encryptStorage.get("token") || "";
+    // console.log(token);
 
     headers.set("Authorization", `Bearer ${token}`);
     return headers;
@@ -55,7 +53,7 @@ export const chatApi = createApi({
           body,
         };
       },
-      invalidatesTags: [{ type: "getData", id: "all" }],
+      invalidatesTags: [{ type: "getData" }],
     }),
   }),
 });

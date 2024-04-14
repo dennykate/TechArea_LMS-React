@@ -30,7 +30,7 @@ export const formApi = createApi({
           body,
         };
       },
-      invalidatesTags: [{ type: "getData", id: "all" }],
+      invalidatesTags: [{ type: "getData" }],
     }),
   }),
 });
