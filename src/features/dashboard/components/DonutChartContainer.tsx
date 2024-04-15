@@ -11,24 +11,16 @@ const toggleTabs = [
   { name: "Yearly", slug: "yearly" },
 ];
 
-// const backgroundColor = [
-//   "#66ccff",
-//   "#6699ff",
-//   "#00cc99",
-//   "#8080ff",
-//   "#ffdb4d",
-//   "#ff6666",
-// ];
-
 interface DonutChartContainerProps {
   title: string;
+  baseURL: string
 }
 
-const DonutChartContainer = ({ title }: DonutChartContainerProps) => {
+const DonutChartContainer = ({ title,baseURL }: DonutChartContainerProps) => {
   const [activeSlug, setActiveSlug] = useState<string>("weekly");
   const [res, setRes] = useState<any>();
 
-  const { isLoading } = useQuery(`/dashboard/top-enroll-courses`, setRes);
+  const { isLoading } = useQuery(`${baseURL}`, setRes);
 
   const chartData = useMemo(() => {
     return {
@@ -45,12 +37,14 @@ const DonutChartContainer = ({ title }: DonutChartContainerProps) => {
 
   const items = useMemo(() => {
     return res?.map((dt: any) => (
-      <div className="flex items-center gap-[2px]">
+      <div className="flex items-center gap-1">
         <div
-          className={`w-[10px] h-[10px] rounded-full bg-transparent border-[1px] `}
-          style={{ borderColor: dt?.color }}
+          className={`min-w-[10px] h-[10px] rounded-full border-[1px] `}
+          style={{ background: dt?.color }}
         ></div>
-        <h1 className="text-sm text-gray-600 whitespace-pre-wrap">{dt.name}</h1>
+        <h1 className="text-sm text-gray-600 whitespace-pre-wrap line-clamp-1">
+          {dt.name}
+        </h1>
       </div>
     ));
   }, [res]);
