@@ -6,7 +6,12 @@ import { Avatar } from "@mantine/core";
 import { TableComponent } from "@/components/table";
 import useMutate from "@/hooks/useMutate";
 
-const TopQuizAnswerStudents = () => {
+interface PropsType {
+  title: string;
+  baseURL: string;
+}
+
+const TopStudents: React.FC<PropsType> = ({title,baseURL}) => {
   const navigate = useNavigate();
   const [onSubmit] = useMutate();
   const [data, setData] = useState<any>([]);
@@ -23,8 +28,7 @@ const TopQuizAnswerStudents = () => {
           <td className="m_td">{element?.gender}</td>
           <td className="m_td">{element?.grade?.name}</td>
           <td className="m_td">{element?.section?.name}</td>
-          <td className="m_td">{element?.complete_percentage} %</td>
-          <td className="m_td">{element?.latest_at}</td>
+          <td className="m_td">{element?.total_score} </td>
         </tr>
       )),
     [data, navigate, onSubmit]
@@ -33,7 +37,7 @@ const TopQuizAnswerStudents = () => {
   return (
     <div className="space-y-2">
       <p className="font-semibold sm:text-[20px] text-base text-gray-500">
-        Top Quiz Mark Students
+        {title}
       </p>
       <TableComponent
         actions={false}
@@ -52,7 +56,7 @@ const TopQuizAnswerStudents = () => {
           "Section",
           "Total Marks",
         ]}
-        baseUrl={`dashboard/top-answer-students`}
+        baseUrl={baseURL}
         setData={setData}
         limit={false}
       />
@@ -60,4 +64,4 @@ const TopQuizAnswerStudents = () => {
   );
 };
 
-export default TopQuizAnswerStudents;
+export default TopStudents;

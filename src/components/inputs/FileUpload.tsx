@@ -141,8 +141,8 @@ const FileUpload: React.FC<PropsType> = ({
  justify-center items-center p-2 relative mt-6  flex-col gap-1"
         >
           {files?.map((dt: File) => (
-            <div className="w-full flex gap-1 justify-between">
-              <p className="text-sm font-[400] ">{dt?.name}</p>
+            <div className="w-full flex gap-1 justify-between items-center">
+              <p className="text-sm font-[400] truncate w-[80%]">{dt?.name}</p>
 
               <button
                 onClick={() =>

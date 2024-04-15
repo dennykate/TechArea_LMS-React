@@ -20,8 +20,22 @@ const AnswerQuizInformation: React.FC<PropsType> = ({ data }) => {
 
       <p className="text-sm text-gray-500">
         Created by -{" "}
-        <Link to={""} className="underline text-gray-800">
+        <Link to={""} className=" text-gray-800">
           {data?.created_by}
+        </Link>
+      </p>
+
+      <p className="text-sm text-gray-500">
+        Answer Limit -{" "}
+        <Link to={""} className=" text-gray-800">
+          {data?.answer_limit}
+        </Link>
+      </p>
+
+      <p className="text-sm text-gray-500">
+        Answer Count -{" "}
+        <Link to={""} className=" text-gray-800">
+          {data?.answer_count}
         </Link>
       </p>
 
@@ -51,7 +65,7 @@ const AnswerQuizInformation: React.FC<PropsType> = ({ data }) => {
         <Alert
           color="brand"
           classNames={{
-            message: "text-white",
+            message: "text-black",
           }}
         >
           The last time you answered, you received{" "}

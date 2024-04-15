@@ -73,7 +73,7 @@ const AnswerQuiz = () => {
             <img
               src={data?.image}
               alt={data?.title}
-              className=" object-cover h-[240px]"
+              className=" object-cover h-[350px]"
             />
           </div>
 

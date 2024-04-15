@@ -1,7 +1,6 @@
 import DashCardContainer from "./components/DashCardContainer";
 import DonutChartContainer from "./components/DonutChartContainer";
-import TopAssignmentMarkStudents from "./components/TopAssignmentMarkStudents";
-import TopQuizAnswerStudents from "./components/TopQuizAnswerStudents";
+import TopAssignmentMarkStudents from "./components/TopStudents";
 
 const Dashboard = () => {
   return (
@@ -18,10 +17,16 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="w-full h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 shadow-md">
-        <TopAssignmentMarkStudents />
+        <TopAssignmentMarkStudents
+          title="Top Quiz Mark Students"
+          baseURL="dashboard/top-answer-students"
+        />
       </div>
       <div className="w-full h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 shadow-md">
-        <TopQuizAnswerStudents />
+        <TopAssignmentMarkStudents
+          title="Top Assignment Mark Students"
+          baseURL="dashboard/top-assignment-mark-students"
+        />
       </div>
     </main>
   );
