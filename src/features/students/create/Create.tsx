@@ -33,11 +33,7 @@ const Create = () => {
           withAsterisk
         />
 
-        <TextInputComponent
-          label="Email"
-          placeholder="Enter email"
-          withAsterisk
-        />
+        <TextInputComponent label="Email" placeholder="Enter email" />
 
         <TextInputComponent
           label="Phone Number"

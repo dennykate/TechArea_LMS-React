@@ -29,7 +29,7 @@ const Create = () => {
     validateInputOnBlur: true,
     validate: {
       name: (value: string) => (value.length > 0 ? null : "Name is required"),
-      email: (value: string) => (value.length > 0 ? null : "Email is required"),
+
       phone: (value: string) => (value.length > 0 ? null : "Phone is required"),
       gender: (value: string) =>
         value.length > 0 ? null : "Gender is required",
@@ -94,7 +94,6 @@ const Create = () => {
         <TextInputComponent
           label="Email"
           placeholder="Enter email"
-          withAsterisk
           form={form}
           name="email"
         />
