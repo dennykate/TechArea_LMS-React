@@ -69,11 +69,11 @@ const AnswerQuiz = () => {
     <>
       <NavLayout>
         <div className="max-w-3xl mx-auto mb-8">
-          <div className="w-full">
+          <div className="w-full flex justify-center items-center">
             <img
               src={data?.image}
               alt={data?.title}
-              className="w-full object-cover"
+              className=" object-cover h-[240px]"
             />
           </div>
 
