@@ -13,14 +13,14 @@ const toggleTabs = [
 
 interface DonutChartContainerProps {
   title: string;
-  baseURL: string
+  baseURL: string;
 }
 
-const DonutChartContainer = ({ title,baseURL }: DonutChartContainerProps) => {
+const DonutChartContainer = ({ title, baseURL }: DonutChartContainerProps) => {
   const [activeSlug, setActiveSlug] = useState<string>("weekly");
   const [res, setRes] = useState<any>();
 
-  const { isLoading } = useQuery(`${baseURL}`, setRes);
+  const { isLoading } = useQuery(`${baseURL}?type=${activeSlug}`, setRes);
 
   const chartData = useMemo(() => {
     return {
