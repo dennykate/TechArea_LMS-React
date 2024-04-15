@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,800;9..40,900&family=DM+Serif+Display&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "DM Sans", sans-serif;
+}
+
+th {
+  color: white !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.m_th {
+  @apply px-[9px] min-w-[120px] !text-start;
+}
+
+.m_td {
+  @apply !min-h-[50px];
+}
+
+.month {
+  color: black !important;
+}
+
+::placeholder {
+  font-size: 16px;
+}
+
+.custom-calendar .fc-header-toolbar {
+  @apply !flex-wrap !gap-2;
+}
+
+.custom-calendar .fc-toolbar-title {
+  @apply sm:!text-[1.75em]  !text-[22px];
+}
+
+.custom-calendar .fc-dayGridMonth-view {
+  @apply !overflow-x-auto;
+}
+
+.custom-calendar table {
+  @apply !min-w-[400px];
+}
+
+.custom-calendar .fc-day {
+  @apply sm:!h-auto !h-[50px] !w-auto flex-1;
+}
+
+.custom-calendar .fc-button-primary,
+.custom-calendar .fc-today-button {
+  background-color: #1cd6ab !important; /* Change to your desired color */
+  border-color: #1cd6ab !important; /* Change to your desired color */
+  color: #fff !important; /* Change text color if needed */
+}
+
+.custom-calendar .fc-button-primary:hover,
+.custom-calendar .fc-today-button:hover {
+  background-color: #16ab89 !important; /* Change to your desired hover color */
+  border-color: #16ab89 !important; /* Change to your desired hover color */
+}
+
+.custom-calendar .fc-button:focus {
+  box-shadow: none !important;
+}
+
+.custom-calendar .fc-button-primary:active,
+.custom-calendar .fc-button-primary.fc-button-active {
+  background-color: #118067 !important; /* Change to your desired active color */
+  border-color: #118067 !important; /* Change to your desired active color */
+}
+
+.custom-calendar .fc-col-header-cell-cushion {
+  color: black !important;
+}
+
+.custom-calendar .fc-day:hover {
+  background: #f5f5f5;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  @apply h-[200px];
+}
+
+.text-desc > ol {
+  @apply !list-decimal;
+}
+
+.text-desc > ul {
+  @apply !list-disc;
+}
