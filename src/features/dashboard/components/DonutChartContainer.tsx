@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import DoughnutChart from "./DonutChart";
-import { data } from "../data";
-// import useQuery from "@/hooks/useQuery";
-// import Loading from "@/components/Loading";
+import useQuery from "@/hooks/useQuery";
+import { Loader } from "@mantine/core";
 
 const toggleTabs = [
   { name: "Weekly", slug: "weekly" },
@@ -27,49 +26,34 @@ interface DonutChartContainerProps {
 
 const DonutChartContainer = ({ title }: DonutChartContainerProps) => {
   const [activeSlug, setActiveSlug] = useState<string>("weekly");
-  //   const [bestSellers, setBestSellers] = useState<any[]>([]);
+  const [res, setRes] = useState<any>();
 
-  //   const { isLoading } = useQuery(
-  //     `/dashboard/bestsellers?type=${activeSlug}`,
-  //     setBestSellers
-  //   );
+  const { isLoading } = useQuery(`/dashboard/top-enroll-courses`, setRes);
 
-  //   const parseData = (array: any[] | undefined, key: string) => {
-  //     return array?.map((dt) => ({ [key]: dt[key] }));
-  //   };
+  const chartData = useMemo(() => {
+    return {
+      labels: res?.map((dt: any) => dt?.name),
+      datasets: [
+        {
+          label: title,
+          data: res?.map((dt: any) => dt?.percentage),
+          backgroundColor: res?.map((dt: any) => dt?.color),
+        },
+      ],
+    };
+  }, [res]);
 
-  //   const data = useMemo(
-  //     () => ({
-  //       labels: parseData(bestSellers, "name")?.map((dt) => dt.name),
-  //       datasets: [
-  //         {
-  //           label: "Order",
-  //           data: parseData(bestSellers, "quantity")?.map((dt) => dt.quantity),
-  //           backgroundColor: backgroundColor.slice(0, bestSellers.length),
-  //           // hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-  //         },
-  //       ],
-  //     }),
-  //     [bestSellers]
-  //   );
-
-  //   const products = useMemo(
-  //     () =>
-  //       parseData(bestSellers, "name")?.map((data, index) => (
-  //         <div key={index} className="flex gap-[6px] items-center">
-  //           <div
-  //             className={`w-[10px] h-[10px] rounded-full bg-transparent border-[1px] `}
-  //             style={{ borderColor: backgroundColor[index] }}
-  //           ></div>
-  //           <h1 className="text-sm text-gray-600 whitespace-pre-wrap">
-  //             {data.name}
-  //           </h1>
-  //         </div>
-  //       )),
-  //     [bestSellers]
-  //   );
-
- 
+  const items = useMemo(() => {
+    return res?.map((dt: any) => (
+      <div className="flex items-center gap-[2px]">
+        <div
+          className={`w-[10px] h-[10px] rounded-full bg-transparent border-[1px] `}
+          style={{ borderColor: dt?.color }}
+        ></div>
+        <h1 className="text-sm text-gray-600 whitespace-pre-wrap">{dt.name}</h1>
+      </div>
+    ));
+  }, [res]);
 
   return (
     <div className="w-full flex flex-col h-auto ">
@@ -92,26 +76,32 @@ const DonutChartContainer = ({ title }: DonutChartContainerProps) => {
           </button>
         ))}
       </div>
-      {/* {isLoading ? (
+      {isLoading ? (
         <div className="w-full h-[300px] flex justify-center items-center">
-          <Loading />
+          <Loader />
         </div>
-      ) : products && products?.length > 0 ? ( */}
-      <div className="flex sm:gap-5 gap-3 sm:py-10 py-5 items-center px-2">
-        <div className="h-full sm:max-w-[70%] max-w-[60%]">
-          {activeSlug === "weekly" && <DoughnutChart data={data as any} />}
-          {activeSlug === "monthly" && <DoughnutChart data={data as any} />}
-          {activeSlug === "yearly" && <DoughnutChart data={data as any} />}
+      ) : items && items?.length > 0 ? (
+        <div className="flex sm:gap-5 gap-3 sm:py-10 py-5 items-center px-2">
+          <div className="h-full sm:max-w-[70%] max-w-[60%]">
+            {activeSlug === "weekly" && (
+              <DoughnutChart data={chartData as any} />
+            )}
+            {activeSlug === "monthly" && (
+              <DoughnutChart data={chartData as any} />
+            )}
+            {activeSlug === "yearly" && (
+              <DoughnutChart data={chartData as any} />
+            )}
+          </div>
+          <div className="">
+            <div className="flex flex-col gap-3">{items}</div>
+          </div>
         </div>
-        {/* <div className="">
-          <div className="flex flex-col gap-3">{products}</div>
-        </div> */}
-      </div>
-      {/* ) : (
+      ) : (
         <div className="w-full h-[300px] flex justify-center items-center">
-          <p className="text-sm">ပြသရန်မရှိပါ</p>
+          <p className="text-sm">No Records</p>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
