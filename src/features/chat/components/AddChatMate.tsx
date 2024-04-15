@@ -40,10 +40,6 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
   );
   // console.log(error)
 
-  const handleRoleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setSearch((prev) => ({ ...prev, role: parseInt(event.target.value, 10) }));
-  };
-
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch((prev) => ({ ...prev, name: event.target.value }));
   };
@@ -157,28 +153,30 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between mb-4">
+      <div className="flex md:flex-row flex-col gap-5 justify-between items-center mb-4">
         <input
           type="text"
           value={search.name}
           onChange={handleSearchChange}
           placeholder="Search by name"
-          className="p-2 border rounded"
+          className="h-[50px] w-full md:w-[300px] p-2 border border-gray-500 rounded placeholder:text-gray-500"
         />
         {/* <p>
           {error.message}
         </p> */}
-        <div className="flex items-center gap-5">
-          {!selectGroup.show && (
-            <Switch
-              onChange={(event: { currentTarget: { checked: boolean } }) =>
-                setAddUser(event.currentTarget.checked)
-              }
-              size="xl"
-              onLabel="Add user"
-              offLabel="Remove user"
-            />
-          )}
+        <div className="flex md:flex-row flex-col items-center h-full justify-around gap-5">
+          <div className="flex justify-around items-center h-full w-full">
+            {!selectGroup.show && (
+              <Switch
+                onChange={(event: { currentTarget: { checked: boolean } }) =>
+                  setAddUser(event.currentTarget.checked)
+                }
+                size="xl"
+                onLabel="Add user"
+                offLabel="Remove user"
+              />
+            )}
+          </div>
           {!selectGroup.show ? (
             addUser ? (
               <Button
@@ -206,6 +204,14 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
                 Confirm to remove person
               </Button>
             )
+          ) : createGroup ? (
+            <Button
+              onClick={() => setCreateGroup(!createGroup)}
+              color="blue"
+              variant="outline"
+            >
+              Back
+            </Button>
           ) : (
             <Button
               onClick={() => setCreateGroup(!createGroup)}
@@ -215,24 +221,13 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
               Create Group
             </Button>
           )}
-
-          <select
-            value={search.role}
-            onChange={handleRoleChange}
-            className="p-2 border rounded"
-          >
-            <option value="1">Role 1</option>
-            <option value="2">Role 2</option>
-            <option value="3">Role 3</option>
-            {/* Add more roles as needed */}
-          </select>
         </div>
       </div>
 
       {createGroup ? (
         <CreateGroup close={close} />
       ) : selectGroup?.show ? (
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
           {groupChatData?.data?.map(
             (el: Data, index: Key | null | undefined) => (
               <GroupChatMate
@@ -246,7 +241,7 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
           )}
         </div>
       ) : addUser ? (
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {data?.data?.map((el: Data) => (
             <UserProfile
               close={close}
@@ -257,7 +252,7 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
           ))}
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {groupUser?.data?.map((el: Data) => (
             <UserProfile
               close={close}

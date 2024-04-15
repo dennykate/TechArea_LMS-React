@@ -41,9 +41,9 @@ const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
           : "bg-white"
       } hover:bg-slate-200 transition duration-75 cursor-pointer gap-5 shadow-sm flex ${justify} items-center p-3 bg-white w-full h-[15vh]`}
     >
-      <Avatar radius={"100%"} size={"xl"} src={`${data?.partner?.profile}`} />
+      <Avatar radius={"100%"} size={"lg"} src={`${data?.partner?.profile}`} />
       <Flex
-        gap="sm"
+        gap={5}
         justify="flex-start"
         align="flex-start"
         direction={"column"}
@@ -57,7 +57,7 @@ const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
           </Badge>
         </Flex>
 
-        <Text c="dimmed" fz={14}>
+        <Text c="dimmed" className=" line-clamp-1" fz={14}>
           {data?.last_message}
         </Text>
       </Flex>

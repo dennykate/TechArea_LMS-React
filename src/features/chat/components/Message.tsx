@@ -16,7 +16,7 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
   const [deleteMsg, { isLoading }] = usePostDataMutation();
 
   const [opened, { open, close }] = useDisclosure();
-  console.log(msg);
+  // console.log(msg);
 
   const deleteMessageHandler = async () => {
     try {
@@ -51,9 +51,8 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
           src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
         />
       )}
-
       <div
-        className={`flex m-2 p-3 w-1/3 ${
+        className={`flex m-2 p-3 md:max-w-[600px] max-w-[250px] ${
           !msg.is_sender
             ? "bg-black text-white rounded-t-lg rounded-e-xl"
             : "bg-slate-300 text-gray-800 rounded-t-xl rounded-s-xl"

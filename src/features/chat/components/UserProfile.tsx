@@ -66,29 +66,13 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
 
   return (
     <div
-      className={`flex relative flex-col border hover:bg-slate-100 transition duration-75 cursor-pointer col-span-1 shadow-sm   bg-white w-full h-[25vh]`}
+      className={`flex relative flex-col border hover:bg-slate-100 transition duration-75 cursor-pointer col-span-1 shadow-sm bg-white w-full h-[20vh]`}
     >
-      {/* for adding group  */}
-      <div className="absolute bottom-2 right-2">
-        <Checkbox
-          onChange={(event) =>
-            handleCheckboxChange(event.currentTarget.checked)
-          }
-          label={`${parent === "add_user" ? "Add to group" : "Remove user"}`}
-          color={`${parent !== "add_user" && 'red'}`}
-          mt="md"
-        />
-      </div>
       {/* top information  */}
-      <div className="flex justify-around shadow-sm p-5">
-        <Avatar radius={"100%"} size={"lg"} src={`${data?.profile}`} />
-        <Flex
-          gap="sm"
-          justify="flex-start"
-          align="flex-start"
-          direction={"column"}
-        >
-          <Flex gap="md" direction={"column"} justify="center" align="center">
+      <div className="flex justify-between shadow-sm p-5">
+        <div className="flex gap-2">
+          <Avatar radius={"100%"} size={"lg"} src={`${data?.profile}`} />
+          <Flex gap="xs" direction={"column"} justify="center">
             <Text fz={16} fw={600}>
               {data?.name}
             </Text>
@@ -96,7 +80,18 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
               {data?.email || data?.role?.name}
             </Badge>
           </Flex>
-        </Flex>
+        </div>
+        {/* for adding group  */}
+        <div className="bottom-2 right-2">
+          <Checkbox
+            onChange={(event) =>
+              handleCheckboxChange(event.currentTarget.checked)
+            }
+            label={`${parent === "add_user" ? "Add to group" : "Remove user"}`}
+            color={`${parent !== "add_user" && "red"}`}
+            mt="md"
+          />
+        </div>
       </div>
       {/* start conversation  */}
       <div className="flex items-center justify-center h-full">
@@ -115,7 +110,7 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
             onClick={handleSendMessage}
             className="w-48 h-full rounded-full flex justify-center items-center bg-blue-500 hover:bg-blue-400 text-white"
           >
-            <IoIosSend size={28} />
+            <IoIosSend size={25} />
           </button>
         </div>
       </div>

@@ -1,16 +1,31 @@
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { Avatar, Flex, Text } from "@mantine/core";
 interface LayoutProps {
   gap: string;
 }
 const Profile: React.FC<LayoutProps> = ({ gap }) => {
+  const { get } = useEncryptStorage();
+  const userData: {
+    profile: null;
+    gender: string | null;
+    name: string;
+  } = JSON.parse(get("userInfo") as string);
+
+  console.log(userData);
   return (
     <div
-      className={`bg-blue-200 border cursor-pointer ${gap}  rounded shadow-sm flex items-center p-5 bg-white my-0.5 w-full`}
+      className={`bg-blue-200 h-full border cursor-pointer ${gap} shadow-sm flex items-center px-2 md:p-5 bg-white w-full`}
     >
       <Avatar
         radius={"100%"}
-        size={"lg"}
-        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
+        size={"md"}
+        src={
+          userData?.profile !== null
+            ? userData?.profile
+            : userData?.gender === "male" || userData?.gender === null
+            ? "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-1.png"
+            : "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-5.png"
+        }
       />
       <Flex
         gap="sm"
@@ -19,7 +34,7 @@ const Profile: React.FC<LayoutProps> = ({ gap }) => {
         direction={"column"}
       >
         <Text fz={16} fw={600}>
-          Jhon Doe
+          {userData?.name}
         </Text>
       </Flex>
     </div>

@@ -30,12 +30,7 @@ const ChatRoom: React.FC = () => {
     useMessageHandler();
   const [openEmoji, setOpenEmoji] = useState<boolean>(false);
 
-  const [
-    sendMessage,
-    {
-      isLoading: getMsgLoading,
-    },
-  ] = useSendMessageMutation();
+  const [sendMessage, { isLoading: getMsgLoading }] = useSendMessageMutation();
 
   const [opened, { open, close }] = useDisclosure();
 
@@ -133,7 +128,7 @@ const ChatRoom: React.FC = () => {
   }
 
   return (
-    <div className="relative h-full w-full flex flex-col">
+    <div className="relative h-[100vh] w-full flex flex-col">
       {/* <ChatMate
         data={userData}
         padding="p-5"
@@ -142,22 +137,28 @@ const ChatRoom: React.FC = () => {
       /> */}
 
       {/* for message showing  */}
-      <div className="w-full h-[calc(100vh-45px)] self-end p-5 flex flex-col-reverse overflow-y-scroll scrollbar-none">
-        {chatData?.data?.map((msg: MsgData, index: React.Key) => (
-          <Message key={index} msg={msg} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="h-[100vh] flex justify-center items-center">
+          Loading...
+        </div>
+      ) : (
+        <div className="w-full h-[calc(100vh-50px)] self-end md:p-5 py-5 flex flex-col-reverse overflow-y-scroll scrollbar-none">
+          {chatData?.data?.map((msg: MsgData, index: React.Key) => (
+            <Message key={index} msg={msg} />
+          ))}
+        </div>
+      )}
 
       {/* for message send  */}
-      <div className="absolute bottom-0 h-[45px] flex w-[100%] right-[50%] translate-x-[50%] border">
-        <div className="w-[5%] h-full flex justify-center items-center cursor-pointer">
+      <div className="absolute bottom-0 h-[50px] flex justify-between w-[100%] right-[50%] translate-x-[50%] border">
+        <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
           <MdOutlineEmojiEmotions
             onClick={() => setOpenEmoji(!openEmoji)}
             size={30}
           />
           {openEmoji && (
             <div
-              className="absolute bottom-10"
+              className="absolute md:right-0 right-5 bottom-10"
               onMouseLeave={() => setOpenEmoji(false)}
             >
               <EmojiPicker onEmojiClick={handleEmojiClick} />
@@ -165,7 +166,7 @@ const ChatRoom: React.FC = () => {
           )}
         </div>
         {/* for file sending  */}
-        <div className="w-[5%] h-full flex justify-center items-center cursor-pointer">
+        <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
           <MdAttachFile onClick={open} size={30} />
           <Modal
             opened={opened}
@@ -177,7 +178,7 @@ const ChatRoom: React.FC = () => {
           </Modal>
         </div>
 
-        <div className="flex w-[90%] h-full bg-slate-200 rounded-full overflow-hidden mx-5">
+        <div className="flex w-full md:w-[90%] h-full bg-slate-200 rounded-full overflow-hidden mx-1 md:mx-5">
           <input
             disabled={getMsgLoading}
             type="text"
@@ -185,14 +186,14 @@ const ChatRoom: React.FC = () => {
             onKeyDown={handleKeyDown}
             onChange={messageHandler}
             placeholder="Enter your message..."
-            className="outline-none p-2 px-5 w-full rounded-full h-full bg-slate-200"
+            className="outline-none text-sm p-2 md:px-5 w-full rounded-full h-full bg-slate-200"
           />
           <button
             disabled={getMsgLoading}
             onClick={handleSendMessage}
-            className="w-48 h-full rounded-full flex justify-center items-center bg-blue-500 hover:bg-blue-400 text-white"
+            className="md:w-48 w-20 h-full rounded-full flex justify-center items-center bg-primary hover:bg-primary-600 text-white"
           >
-            <IoIosSend size={28} />
+            <IoIosSend size={25} />
           </button>
         </div>
       </div>

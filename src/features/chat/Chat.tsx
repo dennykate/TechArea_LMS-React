@@ -1,17 +1,61 @@
-import ChatRom from "./components/ChatRom";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import ChatBar from "./components/ChatBar";
-import Cookies from "js-cookie";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import ChatRoom from "./components/ChatRom";
+
 const Chat = () => {
-  Cookies.set("token", "9|xcsix5iUp5ncJRXzHcT9JiV7TesHkcoBaB6LIFJ002ef3f92");
-  // console.log(token);
+  const [isOpen, setIsOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleChatRoom = () => {
+    if (windowWidth <= 768) {
+      console.log("Toggling chat room:", !isOpen);
+      setIsOpen(!isOpen);
+    } else {
+      console.log("Toggle disabled due to window width greater than 768px");
+    }
+  };
+
+  const variants = {
+    open: { right: "100vw" },
+    closed: { right: "0vw" },
+  };
+
   return (
-    <div className="flex overflow-hidden">
-      <div className=" w-3/12">
-        <ChatBar />
-      </div>
-      <div className="w-9/12">
-        <ChatRom />
-      </div>
+    <div className=" overflow-hidden w-[100vw] ">
+      <motion.div
+        className="flex relative w-[200vw] md:w-screen"
+        initial="closed"
+        animate={isOpen ? "open" : "closed"}
+        variants={variants}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="w-full md:w-3/12" >
+          <ChatBar toggleChatRoom={toggleChatRoom} />
+        </div>
+        <div className="w-full md:w-9/12 relative">
+          <div
+            onClick={toggleChatRoom}
+            className="absolute z-50 top-5 left-5 md:hidden"
+          >
+            <IoIosArrowRoundBack
+              size={20}
+              className="bg-primary hover:bg-primary-600 w-10 h-10 rounded-full text-white"
+            />
+          </div>
+          <ChatRoom />
+        </div>
+      </motion.div>
     </div>
   );
 };

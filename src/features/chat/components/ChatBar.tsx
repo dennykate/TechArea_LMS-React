@@ -19,8 +19,10 @@ interface Data {
   image: string;
   description: string;
 }
-
-const ChatBar: React.FC = () => {
+interface FunProps {
+  toggleChatRoom: () => void;
+}
+const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
   // for group conversation
   const {
     data: groupChatData,
@@ -52,18 +54,20 @@ const ChatBar: React.FC = () => {
 
   return (
     <div>
-      <div className="h-[10vh] flex border rounded justify-around items-center">
-        <p className="flex text-3xl items-center font-semibold gap-3">
+      <div className="h-[10vh] flex border rounded justify-between px-2 md:px-5 items-center">
+        <p className="flex text-2xl items-center font-semibold gap-3">
           Chat Room <IoChatbubbles />
         </p>
         <FaSquarePlus
           onClick={open}
-          className=" cursor-pointer"
+          className=" text-primary cursor-pointer"
           size={30}
-          color="blue"
         />
       </div>
-      <div className=" h-[80vh] scrollbar-none bg-slate-100 overflow-y-scroll flex flex-col">
+      <div
+        onClick={toggleChatRoom}
+        className=" h-[calc(90vh-50px)] scrollbar-none bg-slate-100 overflow-y-scroll flex flex-col py-2"
+      >
         {/* for group chatting  */}
         {groupChatData?.data?.map((el: Data, index: Key | null | undefined) => (
           <GroupChatMate
@@ -84,10 +88,10 @@ const ChatBar: React.FC = () => {
           />
         ))}
       </div>
-      <div className="h-[10vh] flex">
+      <div className="h-[50px] flex">
         <Profile gap="gap-3" />
       </div>
-      <Modal size={"80%"} opened={opened} onClose={handleClose}>
+      <Modal centered size={"100%"} opened={opened} onClose={handleClose}>
         <AddChatMate close={close} />
       </Modal>
     </div>

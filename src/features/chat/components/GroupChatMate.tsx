@@ -80,21 +80,28 @@ const GroupChatMate: React.FC<LayoutProps> = ({
         userData?.id === data.id
           ? "bg-gray-200"
           : "bg-white"
-      } transition duration-75 cursor-pointer gap-5 p-3 shadow-sm flex  items-center w-full h-[15vh]`}
+      } transition duration-75 cursor-pointer gap-5 col-span-1 p-3 shadow-sm flex  items-center w-full h-[15vh]`}
     >
-      <Avatar radius={"100%"} size={"xl"} src={`${data?.image}`} />
+      <Avatar radius={"100%"} size={"lg"} src={`${data?.image}`} />
       <Flex
-        gap="sm"
+        gap={5}
         justify="flex-start"
         align="flex-start"
         direction={"column"}
       >
-        <Text fz={16} fw={600}>
-          {data?.name}
-        </Text>
-        <Badge size="xs" color="blue">
-          {data?.description}
-        </Badge>
+        <div className="flex flex-col">
+          <Flex gap="sm" justify="flex-start" align="flex-start">
+            <Text fz={15} fw={600}>
+              {data?.name}
+            </Text>
+            <Badge size="xs" color="green">
+              group
+            </Badge>
+          </Flex>
+          <Text c="dimmed" className=" md:line-clamp-2 line-clamp-1" fz={14}>
+            {data?.description}
+          </Text>
+        </div>
         <Text c="dimmed" fz={14}>
           {data?.last_message || "There's no message."}
         </Text>

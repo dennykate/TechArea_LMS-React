@@ -29,7 +29,13 @@ const AddPost = () => {
       </div>
 
       {/* for post upload model  */}
-      <Modal size={"xl"} opened={opened} onClose={close} title="Post Upload">
+      <Modal
+        centered
+        size={"xl"}
+        opened={opened}
+        onClose={close}
+        title="Post Upload"
+      >
         <UploadField />
       </Modal>
     </div>
