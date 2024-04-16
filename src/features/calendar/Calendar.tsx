@@ -26,7 +26,7 @@ const Calendar = () => {
   const userInfo = useUserInfo();
 
   const { data } = useQuery(
-    `/academic-calendar-events?filter[for]=${
+    `/academic-calendar-events?filter[role_id]=${
       userInfo?.role_id
     }&limit=100&start_date=${moment(currentRange.start)
       .subtract(1, "month")
