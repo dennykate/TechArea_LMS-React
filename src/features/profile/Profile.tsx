@@ -70,8 +70,6 @@ const Profile = () => {
     onSubmit(`/users/${userInfo?.id}`, formData, "POST", true);
   };
 
-  console.log("user info => ", userInfo);
-
   useEffect(() => {
     if (userInfo) {
       if (userInfo?.profile) {
@@ -145,28 +143,24 @@ const Profile = () => {
         />
 
         <PasswordInputComponent
-          label="Password"
-          placeholder="Enter password"
+          label="New Password"
+          placeholder="Enter new password"
           form={form}
           name="password"
         />
 
         <PasswordInputComponent
-          label="Confirm Password"
-          placeholder="Enter confrim password"
+          label="Confirm New Password"
+          placeholder="Enter confrim new password"
           form={form}
           name="password_confirmation"
         />
 
-        <div className=" col-span-2">
-          <GradeSectionSubject
-            form={form}
-            usage={["grade", "section"]}
-            asterisk={{
-              grade: true,
-            }}
-          />
-        </div>
+        {["1", "2"].includes(userInfo?.role_id) && (
+          <div className=" col-span-2">
+            <GradeSectionSubject form={form} usage={["grade", "section"]} />
+          </div>
+        )}
 
         <div className="md:col-span-2 col-span-1">
           <DateInputComponent

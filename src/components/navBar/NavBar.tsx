@@ -2,7 +2,7 @@ import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { ActionIcon, Avatar } from "@mantine/core";
 import { useMemo } from "react";
 import { FaBarsStaggered } from "react-icons/fa6";
-import { IoSettings, IoChatboxEllipsesSharp } from "react-icons/io5";
+import { IoChatboxEllipsesSharp } from "react-icons/io5";
 import { RiArticleFill } from "react-icons/ri";
 import { IconType } from "react-icons/lib";
 import { Link } from "react-router-dom";

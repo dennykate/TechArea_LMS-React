@@ -7,6 +7,7 @@ import listPlugin from "@fullcalendar/list";
 import { useMemo, useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import moment from "moment";
+import useUserInfo from "@/hooks/use-user-info";
 
 type EventType = "exams" | "meetings" | "holidays" | "events";
 
@@ -22,8 +23,12 @@ const Calendar = () => {
     start: moment(),
     end: moment(),
   });
+  const userInfo = useUserInfo();
+
   const { data } = useQuery(
-    `/academic-calendar-events?limit=100&start_date=${moment(currentRange.start)
+    `/academic-calendar-events?filter[for]=${
+      userInfo?.role_id
+    }&limit=100&start_date=${moment(currentRange.start)
       .subtract(1, "month")
       .startOf("month")
       .format("YYYY-MM-DD")}&end_date=${moment(currentRange.end)
@@ -53,7 +58,6 @@ const Calendar = () => {
       end: dateInfo.endStr,
     });
   };
-
 
   return (
     <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar sm:overflow-x-hidden overflow-x-auto">
