@@ -5,6 +5,8 @@ import { useMemo, useState } from "react";
 import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
 import { MdOutlineMenuBook } from "react-icons/md";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -80,4 +82,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default withPermissions(List, banRoles.courses);

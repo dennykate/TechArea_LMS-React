@@ -8,6 +8,8 @@ import CourseContent from "./components/CourseContent";
 import useQuery from "@/hooks/useQuery";
 import { Tabs } from "@mantine/core";
 import LearningStudents from "./components/LearningStudents";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
   const { courseId } = useParams();
@@ -68,4 +70,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.courses);

@@ -1,6 +1,8 @@
+import withPermissions from "@/hocs/withPermissions";
 import DashCardContainer from "./components/DashCardContainer";
 import DonutChartContainer from "./components/DonutChartContainer";
 import TopAssignmentMarkStudents from "./components/TopStudents";
+import { banRoles } from "@/data/banRoles";
 
 const Dashboard = () => {
   return (
@@ -38,4 +40,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default withPermissions(Dashboard, banRoles.dashboard);

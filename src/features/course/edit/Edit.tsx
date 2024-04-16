@@ -10,6 +10,8 @@ import TextEditorInput from "@/components/inputs/TextEditorInput";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   const { courseId } = useParams();
@@ -112,4 +114,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.courses);

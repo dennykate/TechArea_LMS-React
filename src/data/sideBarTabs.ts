@@ -19,6 +19,7 @@ import { BiLogoZoom } from "react-icons/bi";
 import { SiGoogleclassroom } from "react-icons/si";
 import { HiSpeakerphone } from "react-icons/hi";
 import { TbTimelineEventFilled } from "react-icons/tb";
+import { banRoles } from "./banRoles";
 
 const sideBarTabs = [
   {
@@ -26,84 +27,98 @@ const sideBarTabs = [
     icon: MdDashboard,
     initiallyOpened: false,
     link: "/dashboard",
+    banRoles: banRoles.dashboard,
   },
   {
     label: "Courses",
     icon: MdOutlineMenuBook,
     initiallyOpened: false,
     link: "/courses",
+    banRoles: banRoles.courses,
   },
   {
     label: "Quizzes",
     icon: MdQuiz,
     initiallyOpened: false,
     link: "/quizzes",
+    banRoles: banRoles.quizzes,
   },
   {
     label: "Assignments",
     icon: MdAssignment,
     initiallyOpened: false,
     link: "/assignments",
+    banRoles: banRoles.assignments,
   },
   {
     label: "Announcements",
     icon: HiSpeakerphone,
     initiallyOpened: false,
     link: "/announcements",
+    banRoles: banRoles.announcements,
   },
   {
     label: "Events",
     icon: TbTimelineEventFilled,
     initiallyOpened: false,
     link: "/events",
+    banRoles: banRoles.events,
   },
   {
     label: "Grades",
     icon: MdSchool,
     initiallyOpened: false,
     link: "/grades",
+    banRoles: banRoles.grades,
   },
   {
     label: "Schedules",
     icon: AiFillSchedule,
     initiallyOpened: false,
     link: "/schedules",
+    banRoles: banRoles.schedules,
   },
   {
     label: "Zoom Meetings",
     icon: BiLogoZoom,
     initiallyOpened: false,
     link: "/zoom-meetings",
+    banRoles: banRoles.zoom_meetings,
   },
   {
     label: "Accounts",
     icon: MdPeople,
     initiallyOpened: false,
     link: undefined,
+    banRoles: banRoles.accounts.overall,
     links: [
       {
         icon: RiAdminLine,
         label: "Admins",
         link: "/accounts/admins/list",
         path: "/accounts/admins",
+        banRoles: banRoles.accounts.admins,
       },
       {
         icon: IoPeopleOutline,
         label: "Staffs",
         link: "/accounts/staffs/list",
         path: "/accounts/staffs",
+        banRoles: banRoles.accounts.staffs,
       },
       {
         icon: PiChalkboardTeacherLight,
         label: "Teachers",
         link: "/accounts/teachers/list",
         path: "/accounts/teachers",
+        banRoles: banRoles.accounts.teachers,
       },
       {
         icon: PiStudent,
         label: "Students",
         link: "/accounts/students/list",
         path: "/accounts/students",
+        banRoles: banRoles.accounts.students,
       },
     ],
   },
@@ -112,24 +127,28 @@ const sideBarTabs = [
     icon: FaBookReader,
     initiallyOpened: false,
     link: "/student-courses",
+    banRoles: banRoles.student_courses,
   },
   {
     label: "Student Quizzes",
     icon: MdQuestionAnswer,
     initiallyOpened: false,
     link: "/student-quizzes",
+    banRoles: banRoles.student_quizzes,
   },
   {
     label: "Student Assignments",
     icon: MdAssignmentTurnedIn,
     initiallyOpened: false,
     link: "/student-assignments",
+    banRoles: banRoles.student_assignments,
   },
   {
     label: "Student Classes",
     icon: SiGoogleclassroom,
     initiallyOpened: false,
     link: "/student-classes",
+    banRoles: banRoles.student_classes,
   },
   {
     label: "Calendar",

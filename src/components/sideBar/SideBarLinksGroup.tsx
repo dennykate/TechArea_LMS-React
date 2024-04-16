@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import SideBarLinkItem from "./SideBarLinkItem";
 import { LinkType } from "./type";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 interface LinksGroupProps {
   icon: React.FC<any>;
@@ -13,6 +14,7 @@ interface LinksGroupProps {
   initiallyOpened?: boolean;
   link?: string | undefined;
   links?: LinkType[];
+  banRoles?: number[];
 }
 
 export default function SideBarLinksGroup({
@@ -21,11 +23,20 @@ export default function SideBarLinksGroup({
   initiallyOpened,
   links,
   link,
+  banRoles,
 }: LinksGroupProps) {
   const navigate = useNavigate();
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
   const { pathname } = useLocation();
+  const { get } = useEncryptStorage();
+
+  const userInfo = JSON.parse(get("userInfo") as string);
+
+  const isBanUser = useMemo(
+    () => banRoles?.includes(userInfo?.role_id),
+    [userInfo, banRoles]
+  );
 
   const items = (hasLinks ? links : []).map((link) => (
     <SideBarLinkItem key={link.label} link={link} />
@@ -49,6 +60,8 @@ export default function SideBarLinksGroup({
       return false;
     }
   }, [pathname]);
+
+  if (isBanUser) return <></>;
 
   return (
     <Box>

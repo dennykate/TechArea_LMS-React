@@ -1,0 +1,22 @@
+export const banRoles = {
+  dashboard: ["1"],
+  courses: ["1"],
+  quizzes: ["1"],
+  assignments: ["1"],
+  announcements: ["1"],
+  events: ["1"],
+  grades: ["1"],
+  schedules: ["1"],
+  zoom_meetings: ["1"],
+  accounts: {
+    overall: ["1"],
+    admins: ["1", "2", "4"],
+    staffs: ["1", "2"],
+    teachers: ["1", "2"],
+    students: ["1"],
+  },
+  student_courses: ["2", "3", "4"],
+  student_quizzes: ["2", "3", "4"],
+  student_assignments: ["2", "3", "4"],
+  student_classes: ["2", "3", "4"],
+};

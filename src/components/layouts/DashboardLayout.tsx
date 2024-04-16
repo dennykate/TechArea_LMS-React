@@ -48,7 +48,7 @@ const DashboardLayout = ({ children }: PropsType) => {
 
         <div
           className="sm:h-[calc(100%-70px)] h-[calc(100%-50px)] w-full 
-        overflow-y-auto bg-gray-50/80 flex justify-between flex-col"
+        overflow-y-auto bg-gray-100 flex justify-between flex-col"
         >
           {children}
 
