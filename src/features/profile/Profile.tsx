@@ -13,8 +13,10 @@ import toast from "react-hot-toast";
 import dayjs from "dayjs";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [profile, setProfile] = useState<File | undefined>();
   const [defaultImage, setDefaultImage] = useState<string>("");
   const { get, remove, set } = useEncryptStorage();
@@ -44,6 +46,8 @@ const Profile = () => {
       remove("userInfo");
 
       set("userInfo", JSON.stringify(data));
+
+      navigate("/dashboard");
     },
   });
 

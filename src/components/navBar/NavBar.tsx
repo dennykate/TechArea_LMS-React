@@ -1,7 +1,10 @@
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { ActionIcon, Avatar } from "@mantine/core";
+import { useMemo } from "react";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoSettings } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
+import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 interface PropsType {
@@ -17,10 +20,15 @@ const NavBar = ({
   withShadow,
   wrapperClassName,
 }: PropsType) => {
+  const { get } = useEncryptStorage();
+
+  const userInfo = useMemo(() => JSON.parse(get("userInfo") as string), []);
+
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     toggle();
   };
+
   return (
     <div
       className={twMerge(
@@ -35,18 +43,20 @@ const NavBar = ({
 
       <div className="flex items-center lg:gap-4 gap-2">
         <button className="flex items-center gap-1">
-          <p className="lg:text-base text-sm ">Denny Kate</p>
+          <p className="lg:text-base text-sm ">{userInfo?.name}</p>
           <Avatar
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ6O8ojjcSZRioKmwtpHKVkfvOD-XXSlsdTg&usqp=CAU"
-            alt="Denny Kate"
+            src={userInfo?.profile}
+            alt={userInfo?.name}
             size="md"
             className="rounded-full"
           />
         </button>
 
-        <ActionIcon>
-          <IoSettings color="black" className="lg:text-xl text-lg" />
-        </ActionIcon>
+        <Link to="/profile">
+          <ActionIcon>
+            <IoSettings color="black" className="lg:text-xl text-lg" />
+          </ActionIcon>
+        </Link>
       </div>
     </div>
   );
