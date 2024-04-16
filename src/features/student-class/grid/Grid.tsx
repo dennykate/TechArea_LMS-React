@@ -1,5 +1,7 @@
 import Heading from "@/components/typography/Heading";
 import StudentClassFilterSearch from "./components/StudentClassFilterSearch";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Grid = () => {
   return (
@@ -10,4 +12,4 @@ const Grid = () => {
   );
 };
 
-export default Grid;
+export default withPermissions(Grid, banRoles.student_classes);
