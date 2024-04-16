@@ -6,6 +6,8 @@ import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Edit = () => {
   const { gradeId } = useParams();
@@ -59,4 +61,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default withPermissions(Edit, banRoles.grades);

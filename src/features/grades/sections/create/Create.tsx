@@ -5,10 +5,11 @@ import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import { useParams } from "react-router-dom";
-import useQuery from "@/hooks/useQuery";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
-const Edit = () => {
-  const { sectionId } = useParams();
+const Create = () => {
+  const { gradeId } = useParams();
 
   const form = useForm<any>({
     initialValues: {
@@ -23,26 +24,18 @@ const Edit = () => {
 
   const [onSubmit, { isLoading }] = useMutate();
 
-  const { isLoading: queryLoading } = useQuery(
-    `/sections/${sectionId}`,
-    (data) => {
-      form.setFieldValue("name", data.name);
-    }
-  );
-
   return (
     <FormLayout
-      title="Edit Section"
-      queryLoading={queryLoading}
+      title="Create Section"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) =>
-        onSubmit(`/sections/${sectionId}`, values, "PUT")
+        onSubmit("/sections", { ...values, grade_id: gradeId })
       )}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Grade List", link: "/grades" },
         { title: "Grade Details", link: "/grades/details/1" },
-        { title: "Edit Section", link: "" },
+        { title: "New Section", link: "" },
       ]}
       header={{
         image:
@@ -63,4 +56,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default withPermissions(Create, banRoles.grades);

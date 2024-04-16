@@ -8,6 +8,8 @@ import ScheduleInformation from "./components/ScheduleInformation";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -46,4 +48,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.schedules);

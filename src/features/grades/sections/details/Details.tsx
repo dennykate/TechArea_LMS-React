@@ -4,12 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import MyButton from "@/components/buttons/MyButton";
 import { IconPencilMinus } from "@tabler/icons-react";
 import useQuery from "@/hooks/useQuery";
-import SectionStudent from "./SectionStudent";
+import SectionStudent from "./components/SectionStudent";
 import { useState } from "react";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
-import AddTeacher from "./AddTeacher";
+import AddTeacher from "./components/AddTeacher";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const List = () => {
   const { sectionId, gradeId } = useParams();
@@ -146,4 +148,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default withPermissions(List, banRoles.grades);

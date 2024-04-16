@@ -5,6 +5,8 @@ import PasswordInputComponent from "@/components/inputs/PasswordInputComponent";
 import SelectComponent from "@/components/inputs/SelectComponent";
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   return (
@@ -83,4 +85,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.grades);

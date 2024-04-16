@@ -4,6 +4,8 @@ import FormLayout from "@/components/layouts/FormLayout";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   const form = useForm<any>({
@@ -20,7 +22,7 @@ const Create = () => {
   const [onSubmit, { isLoading }] = useMutate();
 
   return (
-    <FormLayout 
+    <FormLayout
       title="Create Grade"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmit("/grades", values))}
@@ -48,4 +50,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.grades);

@@ -12,6 +12,8 @@ import { roleData } from "@/data/roles";
 import { useState } from "react";
 import { Group, Switch, useMantineTheme } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   const theme = useMantineTheme();
@@ -154,4 +156,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.schedules);

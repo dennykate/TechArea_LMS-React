@@ -16,6 +16,8 @@ import { useForm } from "@mantine/form";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import useMutate from "@/hooks/useMutate";
 import dayjs from "dayjs";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   const form = useForm({
@@ -232,4 +234,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.zoom_meetings);

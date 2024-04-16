@@ -11,6 +11,8 @@ import dayjs from "dayjs";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
 import { roleData } from "@/data/roles";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Edit = () => {
   const { scheduleId } = useParams();
@@ -130,4 +132,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default withPermissions(Edit, banRoles.schedules);

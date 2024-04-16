@@ -5,6 +5,8 @@ import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 import StudentInformation from "./components/StudentInformation";
 import StudentCourseAndQuiz from "./components/StudentCourseAndQuiz";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
   return (
@@ -51,4 +53,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.grades);
