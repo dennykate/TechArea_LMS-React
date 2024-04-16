@@ -41,8 +41,8 @@ const NavBar = ({
         <Icon color="black" className="lg:text-lg text-base" />
       </ActionIcon>
 
-      <div className="flex items-center lg:gap-4 gap-2">
-        <button className="flex items-center gap-1">
+      <div className="flex items-center lg:gap-4 gap-2 ">
+        <div className="flex items-center gap-1 select-none">
           <p className="lg:text-base text-sm ">{userInfo?.name}</p>
           <Avatar
             src={userInfo?.profile}
@@ -50,7 +50,7 @@ const NavBar = ({
             size="md"
             className="rounded-full"
           />
-        </button>
+        </div>
 
         <Link to="/profile">
           <ActionIcon>
