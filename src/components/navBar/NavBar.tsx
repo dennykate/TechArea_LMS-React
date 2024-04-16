@@ -2,7 +2,8 @@ import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { ActionIcon, Avatar } from "@mantine/core";
 import { useMemo } from "react";
 import { FaBarsStaggered } from "react-icons/fa6";
-import { IoSettings } from "react-icons/io5";
+import { IoSettings, IoChatboxEllipsesSharp } from "react-icons/io5";
+import { RiArticleFill } from "react-icons/ri";
 import { IconType } from "react-icons/lib";
 import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
@@ -42,19 +43,30 @@ const NavBar = ({
       </ActionIcon>
 
       <div className="flex items-center lg:gap-4 gap-2 ">
-        <div className="flex items-center gap-1 select-none">
-          <p className="lg:text-base text-sm ">{userInfo?.name}</p>
-          <Avatar
-            src={userInfo?.profile}
-            alt={userInfo?.name}
-            size="md"
-            className="rounded-full"
-          />
-        </div>
-
         <Link to="/profile">
+          <div className="flex items-center gap-1 select-none">
+            <p className="lg:text-base text-sm ">{userInfo?.name}</p>
+            <Avatar
+              src={userInfo?.profile}
+              alt={userInfo?.name}
+              size="md"
+              className="rounded-full"
+            />
+          </div>
+        </Link>
+
+        <Link to="/new-feed">
           <ActionIcon>
-            <IoSettings color="black" className="lg:text-xl text-lg" />
+            <RiArticleFill color="black" className="lg:text-xl text-lg" />
+          </ActionIcon>
+        </Link>
+
+        <Link to="/chat">
+          <ActionIcon>
+            <IoChatboxEllipsesSharp
+              color="black"
+              className="lg:text-xl text-lg"
+            />
           </ActionIcon>
         </Link>
       </div>

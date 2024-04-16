@@ -47,7 +47,7 @@ const SideBar = ({ opened }: PropsType) => {
        border-t border-black border-opacity-20 "
         onClick={() =>
           alertActions(
-            () => onSubmit("auth/logout", {}, "POST"),
+            () => onSubmit("/logout", {}, "POST"),
             "Are your sure to logout!"
           )
         }
