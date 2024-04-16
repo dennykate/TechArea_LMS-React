@@ -1,5 +1,7 @@
 import Heading from "@/components/typography/Heading";
 import StudentQuizFilterSearch from "./components/StudentQuizFilterSearch";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const StudentQuiz = () => {
   return (
@@ -10,4 +12,4 @@ const StudentQuiz = () => {
   );
 };
 
-export default StudentQuiz;
+export default withPermissions(StudentQuiz, banRoles.student_quizzes);

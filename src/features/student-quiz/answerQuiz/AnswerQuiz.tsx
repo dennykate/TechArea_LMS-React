@@ -15,6 +15,8 @@ import MyButton from "@/components/buttons/MyButton";
 import { useDisclosure } from "@mantine/hooks";
 import QuizComplete from "./components/QuizComplete";
 import { IconAlertCircle } from "@tabler/icons-react";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const AnswerQuiz = () => {
   const { quizId } = useParams();
@@ -127,4 +129,4 @@ const AnswerQuiz = () => {
   );
 };
 
-export default AnswerQuiz;
+export default withPermissions(AnswerQuiz, banRoles.student_quizzes);
