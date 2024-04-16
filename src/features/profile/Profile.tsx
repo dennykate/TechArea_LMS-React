@@ -72,7 +72,9 @@ const Profile = () => {
 
   useEffect(() => {
     if (userInfo) {
-      setDefaultImage(userInfo?.profile);
+      if (userInfo?.profile) {
+        setDefaultImage(userInfo?.profile);
+      }
 
       form.setFieldValue("name", userInfo?.name);
       form.setFieldValue("email", userInfo?.email);
