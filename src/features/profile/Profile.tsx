@@ -80,7 +80,7 @@ const Profile = () => {
       form.setFieldValue("email", userInfo?.email);
       form.setFieldValue("phone", userInfo?.phone);
       form.setFieldValue("gender", userInfo?.gender);
-      form.setFieldValue("address", userInfo?.address);
+      form.setFieldValue("address", userInfo?.address ? userInfo?.address : "");
       form.setFieldValue("grade_id", userInfo?.grade_id);
       form.setFieldValue("section_id", userInfo?.section_id);
       form.setFieldValue(
