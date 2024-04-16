@@ -35,7 +35,7 @@ const AppProvider = ({ children }: PropsType) => {
             primaryColor: "brand",
           }}
         >
-          <PreventDevToolProvider>{children}</PreventDevToolProvider>
+          <PreventDevToolProvider enable>{children}</PreventDevToolProvider>
 
           <Toaster />
         </MantineProvider>

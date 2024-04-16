@@ -4,12 +4,14 @@ import React, { useState, useEffect } from "react";
 
 interface PropsType {
   children: React.ReactNode;
+  enable?: boolean;
 }
 
-const PreventDevToolProvider: React.FC<PropsType> = ({ children }) => {
+const PreventDevToolProvider: React.FC<PropsType> = ({ children, enable }) => {
   const [devToolsOpen, setDevToolsOpen] = useState<boolean>(false);
 
   useEffect(() => {
+    if (!enable) return;
     const originalLog: (...data: any[]) => void = console.log;
 
     const detectDevTools = () => {
@@ -44,6 +46,8 @@ const PreventDevToolProvider: React.FC<PropsType> = ({ children }) => {
   }, [devToolsOpen]);
 
   useEffect(() => {
+    if (!enable) return;
+
     const handleContextMenu = (event: any) => {
       event.preventDefault();
     };
