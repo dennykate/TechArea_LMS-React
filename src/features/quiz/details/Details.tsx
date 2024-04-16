@@ -11,6 +11,8 @@ import QuizQuestion from "./components/QuizQuestion";
 import AnswerStudents from "./components/AnswerStudents";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
   const { quizId } = useParams();
@@ -86,4 +88,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.quizzes);

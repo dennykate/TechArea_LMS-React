@@ -9,6 +9,8 @@ import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   const [file, setFile] = useState<File | null>();
@@ -104,4 +106,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.quizzes);

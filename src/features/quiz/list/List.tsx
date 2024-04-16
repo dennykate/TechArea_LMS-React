@@ -6,6 +6,8 @@ import { MdQuiz } from "react-icons/md";
 import { TableActions, TableComponent } from "@/components/table";
 import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -82,4 +84,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default withPermissions(List, banRoles.quizzes);

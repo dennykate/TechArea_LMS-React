@@ -10,6 +10,8 @@ import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Edit = () => {
   const { quizId } = useParams();
@@ -117,4 +119,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default withPermissions(Edit, banRoles.quizzes);
