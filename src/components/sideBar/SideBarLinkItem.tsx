@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import { LinkType } from "./type";
+import useUserInfo from "@/hooks/use-user-info";
 
 interface PropsType {
   link: LinkType;
@@ -9,10 +10,17 @@ interface PropsType {
 
 const SideBarLinkItem = ({ link }: PropsType) => {
   const { pathname } = useLocation();
+  const userInfo = useUserInfo();
 
   const isActiveTab = useMemo(() => pathname.includes(link.path), [pathname]);
+  const isBanUser = useMemo(
+    () => link?.banRoles?.includes(userInfo?.role_id),
+    [link]
+  );
 
   const Icon = useMemo(() => link.icon, [link]);
+
+  if (isBanUser) return <></>;
 
   return (
     <Link

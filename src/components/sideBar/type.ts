@@ -5,4 +5,5 @@ export type LinkType = {
   link: string;
   icon?: IconType;
   path: string;
+  banRoles?: string[];
 };
