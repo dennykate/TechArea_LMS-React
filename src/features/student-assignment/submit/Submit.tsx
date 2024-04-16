@@ -3,6 +3,8 @@
 import MyButton from "@/components/buttons/MyButton";
 import MediaViewer from "@/components/common/MediaViewer";
 import FileUpload from "@/components/inputs/FileUpload";
+import { banRoles } from "@/data/banRoles";
+import withPermissions from "@/hocs/withPermissions";
 import useMutate from "@/hooks/useMutate";
 import useQuery from "@/hooks/useQuery";
 import { Loader } from "@mantine/core";
@@ -103,4 +105,4 @@ const Submit = () => {
   );
 };
 
-export default Submit;
+export default withPermissions(Submit, banRoles.student_assignments);

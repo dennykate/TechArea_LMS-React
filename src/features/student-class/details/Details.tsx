@@ -1,7 +1,9 @@
 import DetailsLayout from "@/components/layouts/DetailsLayout";
-import StudentClassInformation from "./StudentClassInformation";
+import StudentClassInformation from "./components/StudentClassInformation";
 import { Navigate, useParams } from "react-router-dom";
 import useQuery from "@/hooks/useQuery";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
   const { classId } = useParams();
@@ -26,4 +28,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.student_classes);
