@@ -9,6 +9,8 @@ import { Skeleton } from "@mantine/core";
 import { RiAdminLine } from "react-icons/ri";
 import { IoPeopleOutline } from "react-icons/io5";
 import { PiChalkboardTeacherLight, PiStudent } from "react-icons/pi";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 // import Loading from "@/components/Loading";
 
 const DashCardContainer = () => {
@@ -70,4 +72,8 @@ const DashCardContainer = () => {
   );
 };
 
-export default DashCardContainer;
+export default withPermissions(
+  DashCardContainer,
+  banRoles.components.dashCards,
+  true
+);

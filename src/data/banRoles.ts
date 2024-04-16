@@ -3,10 +3,10 @@ export const banRoles = {
   courses: ["1"],
   quizzes: ["1"],
   assignments: ["1"],
-  announcements: ["1"],
-  events: ["1"],
+  announcements: ["1", "2"],
+  events: ["1", "2"],
   grades: ["1"],
-  schedules: ["1"],
+  schedules: ["1", "2"],
   zoom_meetings: ["1"],
   accounts: {
     overall: ["1"],
@@ -19,4 +19,8 @@ export const banRoles = {
   student_quizzes: ["2", "3", "4"],
   student_assignments: ["2", "3", "4"],
   student_classes: ["2", "3", "4"],
+
+  components: {
+    dashCards: ["1", "2"],
+  },
 };

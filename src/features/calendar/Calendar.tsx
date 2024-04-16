@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import moment from "moment";
 import useUserInfo from "@/hooks/use-user-info";
+import { Loader } from "@mantine/core";
 
 type EventType = "exams" | "meetings" | "holidays" | "events";
 
@@ -25,7 +26,7 @@ const Calendar = () => {
   });
   const userInfo = useUserInfo();
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     `/academic-calendar-events?filter[role_id]=${
       userInfo?.role_id
     }&limit=100&start_date=${moment(currentRange.start)
@@ -61,16 +62,26 @@ const Calendar = () => {
 
   return (
     <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar sm:overflow-x-hidden overflow-x-auto">
-      <div className="mb-4 flex items-center gap-4">
-        {Object.entries(typeObj)?.map(([key, val]) => (
-          <div key={key} className="flex items-center gap-1">
-            <div
-              style={{ background: val }}
-              className="w-[14px] h-[14px] rounded "
-            />
-            <p className="text-sm capitalize">{key}</p>
+      <div className="flex items-center justify-between mb-4 ">
+        <div className="flex items-center gap-4">
+          {Object.entries(typeObj)?.map(([key, val]) => (
+            <div key={key} className="flex items-center gap-1">
+              <div
+                style={{ background: val }}
+                className="w-[14px] h-[14px] rounded "
+              />
+              <p className="text-sm capitalize">{key}</p>
+            </div>
+          ))}
+        </div>
+
+        {isLoading && (
+          <div className="flex items-center gap-4">
+            <p>Loading ...</p>
+
+            <Loader size="xs" />
           </div>
-        ))}
+        )}
       </div>
 
       <div className="">
