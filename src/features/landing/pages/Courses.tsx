@@ -11,7 +11,7 @@ import config from "@/config";
 const Courses = () => {
   const [data, setData] = useState<any>();
   const [total, setTotal] = useState<number>(0);
-  const [page, setPage] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
 
   const form = useForm({
     initialValues: {

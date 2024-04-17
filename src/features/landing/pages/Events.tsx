@@ -9,7 +9,7 @@ import config from "@/config";
 const Events = () => {
   const [data, setData] = useState<any>();
   const [total, setTotal] = useState<number>(0);
-  const [page, setPage] = useState<number>(20);
+  const [page, setPage] = useState<number>(1);
 
   const getEvents = useCallback(async () => {
     const res = await fetch(config.baseUrl + `/public/events?page=${page}`);
