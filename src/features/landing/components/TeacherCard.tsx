@@ -16,7 +16,7 @@ interface PropsType {
 
 const TeacherCard: React.FC<PropsType> = ({ data }) => {
   return (
-    <div className="h-[300px] group relative overflow-hidden rounded-md ">
+    <div className="h-[450px] group relative overflow-hidden rounded-md ">
       <img
         src={data.profile}
         alt="teacher"

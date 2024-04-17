@@ -34,7 +34,7 @@ const Teacher = () => {
           Aurora has said its FirstLight.
         </p>
       </div>
-      <div className="my-14 grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 gap-10 sm:px-5 px-1">
+      <div className="my-14 grid lg:grid-cols-3 grid-cols-1 gap-10 sm:px-5 px-1">
         {data?.map((dt: any, index: number) => (
           <TeacherCard key={index} data={dt} />
         ))}

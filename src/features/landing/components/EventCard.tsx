@@ -2,9 +2,8 @@ import { Modal } from "@mantine/core";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { useDisclosure } from "@mantine/hooks";
-// import { useParams } from "react-router-dom";
-import useQuery from "@/hooks/useQuery";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import config from "@/config";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface PropsType {
@@ -15,7 +14,19 @@ const EventCard: React.FC<PropsType> = ({ data }) => {
   const [opened, { open, close }] = useDisclosure(false);
 
   const [fetchData, setFetchData] = useState<any>();
-  useQuery(`/event-galleries/${data?.id}/event`, setFetchData);
+
+  const getEvents = useCallback(async () => {
+    const res = await fetch(
+      config.baseUrl + `/public/event-galleries/${data?.id}`
+    );
+    const eventGalleries = await res?.json();
+
+    setFetchData(eventGalleries?.data);
+  }, []);
+
+  useEffect(() => {
+    getEvents();
+  }, [getEvents]);
 
   return (
     <>
