@@ -8,7 +8,7 @@ const Footer = () => {
     <div className="w-full pt-14 px-5 bg-gray-800">
       <div
         className="lg:w-full mx-auto grid lg:grid-cols-3 grid-cols-1 lg:gap-3 pb-16 
-      border-b-2 border-[#FFAB4A] md:gap-20 gap-8"
+      border-b-2 border-[/FFAB4A] md:gap-20 gap-8"
       >
         <div className="">
           <p className="sm:text-2xl text-xl font-semibold text-white sm:mb-6 mb-4">
@@ -53,7 +53,7 @@ const Footer = () => {
             <div className="flex flex-col gap-3">
               {footerInfoData.slice(0, 4).map((item, i) => (
                 <a
-                  href={"#" + item.toLowerCase()}
+                  href={"/#" + item.toLowerCase()}
                   key={i}
                   className=" text-white sm:text-base text-xs capitalize"
                 >
@@ -64,7 +64,7 @@ const Footer = () => {
             <div className="flex flex-col gap-3">
               {footerInfoData.slice(4, 7).map((item, i) => (
                 <a
-                  href={"#" + item.toLowerCase()}
+                  href={"/#" + item.toLowerCase()}
                   key={i}
                   className=" text-white sm:text-base text-xs capitalize"
                 >
