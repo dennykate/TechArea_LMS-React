@@ -2,6 +2,9 @@ import { Modal } from "@mantine/core";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 
 import { useDisclosure } from "@mantine/hooks";
+// import { useParams } from "react-router-dom";
+import useQuery from "@/hooks/useQuery";
+import { useState } from "react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface PropsType {
@@ -19,6 +22,11 @@ export const photos = [
 
 const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
   const [opened, { open, close }] = useDisclosure(false);
+  console.log(data);
+
+  const [fetchData, setFetchData] = useState<any>();
+  useQuery(`/event-galleries/${data?.id}/event`, setFetchData);
+  console.log(fetchData);
 
   return (
     <>
@@ -38,9 +46,10 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
         <div className="p-5">
           <p className=" font-poppins font-bold text-xl">{data?.title}</p>
 
-          <p className=" font-sans text-base mt-2">
-            <div dangerouslySetInnerHTML={{ __html: data?.description }} />
-          </p>
+          <div
+            dangerouslySetInnerHTML={{ __html: data?.description }}
+            className="font-sans text-base mt-2"
+          />
         </div>
 
         <div
@@ -52,24 +61,25 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
       <Modal opened={opened} onClose={close} fullScreen>
         <div className="max-w-2xl mx-auto ">
           <img
-            src="https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg"
+            src={
+              data.image ??
+              "https://i.postimg.cc/j5cskhjj/viber-image-2024-04-10-10-19-49-078.png"
+            }
             alt="announcement-thumbnail"
-            className="w-full h-[300px] object-cover"
+            className="w-full h-[400px] object-cover"
           />
 
           <div className="mt-5">
-            <h1 className=" font-poppins font-bold text-xl">{data.title}</h1>
-            <p className=" font-sans text-base mt-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis
-              fugiat eligendi repudiandae quidem doloribus ad maxime vitae.
-              Suscipit a dignissimos asperiores repellat voluptatibus maxime
-              autem ullam rerum quibusdam, tempore nulla!
+            <p className=" font-poppins font-bold text-xl">{data?.title}</p>
+            <div
+              dangerouslySetInnerHTML={{ __html: data?.description }}
+              className="font-sans text-base mt-2"
+            />
+            <p className="font-poppins text-sm mt-3 text-primary-500">
+              Created By - {data?.created_by}
             </p>
             <p className="font-poppins text-sm mt-3 text-primary-500">
-              Created By - Thwe Thwe
-            </p>
-            <p className="font-poppins text-sm mt-3 text-primary-500">
-              Created At - Dec 17, 2020
+              Created At - {data?.created_at}
             </p>
           </div>
 
@@ -81,8 +91,8 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
               columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 2 }}
             >
               <Masonry gutter="10px">
-                {photos?.map((photo, index) => (
-                  <img src={photo} alt="gallerires" key={index} />
+                {fetchData?.map((photo: any, index: number) => (
+                  <img src={photo?.image} alt="gallerires" key={index} />
                 ))}
               </Masonry>
             </ResponsiveMasonry>

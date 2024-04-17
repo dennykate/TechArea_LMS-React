@@ -1,17 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ClassCard from "./CourseCard";
-import { classData, paragraph, subTitle, title } from "../data";
+import { paragraph, subTitle, title } from "../data";
 import MoreButton from "./MoreButton";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { useForm } from "@mantine/form";
+import { useState } from "react";
+import useQuery from "@/hooks/useQuery";
 
 const Class = () => {
+  const [data, setData] = useState<any>();
   const form = useForm({
     initialValues: {
       grade_id: "",
       section_id: "",
     },
   });
-
+  useQuery(`/public/courses?limit=6`, setData);
   return (
     <div id="courses" className="w-full sm:py-20  py-5">
       <div className="md:w-2/3 w-11/12 mx-auto text-center py-5 flex justify-center items-center flex-col">
@@ -34,8 +38,8 @@ const Class = () => {
       </div>
 
       <div className="mt-10 grid lg:grid-cols-3 grid-cols-1 gap-10 sm:px-10 px-2">
-        {classData.map((data, index) => (
-          <ClassCard data={data} key={index} />
+        {data?.map((item: any, index: number) => (
+          <ClassCard data={item} key={index} />
         ))}
       </div>
 
