@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { FaChevronRight } from "react-icons/fa";
+import { FaCalendarAlt, FaChevronRight, FaUser } from "react-icons/fa";
 
 import { MdOutlineClass } from "react-icons/md";
 import { RiGraduationCapFill } from "react-icons/ri";
@@ -14,6 +15,10 @@ interface PropsType {
     grade: string;
     section: string;
     thumbnail: string;
+    created_at: string;
+    created_at_time: string;
+    created_by: string;
+    course_contents: any;
   };
 }
 const ClassCard = ({ data }: PropsType) => {
@@ -37,12 +42,14 @@ const ClassCard = ({ data }: PropsType) => {
           <h3 className="font-poppins font-bold text-gray-800 text-2xl">
             {data?.name}
           </h3>
+
           <div
             dangerouslySetInnerHTML={{ __html: data?.description }}
             className="sm:text-base text-sm mt-2"
           />
-          <div className="w-full mt-2 grid grid-cols-3">
-            <div className=" flex items-center gap-1">
+
+          <div className="w-full my-4 grid grid-cols-3">
+            <div className=" flex items-center gap-2">
               <RiGraduationCapFill size={20} className="text-gray-800" />
               <p className="sm:text-base text-sm">{data?.subject}</p>
             </div>
@@ -56,8 +63,20 @@ const ClassCard = ({ data }: PropsType) => {
             </div>
           </div>
 
-          <div className="sm:my-3 my-2 sm:pb-3 pb-0 cursor-pointer group relative">
-            <button className="font-bold text-[#FF564F] pb-2 relative">
+          <div className="flex items-center gap-4">
+            <div className="flex gap-2 items-center">
+              <FaCalendarAlt size={20} className="text-gray-800" />
+              <p className="sm:text-base text-sm">{data?.created_by}</p>
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <FaUser size={20} className="text-gray-800" />
+              <p className="sm:text-base text-sm">{data?.created_at}</p>
+            </div>
+          </div>
+
+          <div className="mt-4 cursor-pointer group relative">
+            <button className="font-bold text-[#FF564F] relative">
               Enroll Now{" "}
               <FaChevronRight
                 size={12}
@@ -72,26 +91,40 @@ const ClassCard = ({ data }: PropsType) => {
       <Modal fullScreen opened={opened} onClose={close}>
         <div className="max-w-2xl mx-auto ">
           <img
-            src={
-              data.image ??
-              "https://i.postimg.cc/j5cskhjj/viber-image-2024-04-10-10-19-49-078.png"
-            }
+            src={data.thumbnail}
             alt="announcement-thumbnail"
             className="w-full h-[400px] object-cover"
           />
 
-          <div className="mt-5">
-            <p className=" font-poppins font-bold text-xl">{data?.title}</p>
+          <div className="mt-5 space-y-2">
+            <p className=" font-poppins font-bold text-xl">{data?.name}</p>
             <div
               dangerouslySetInnerHTML={{ __html: data?.description }}
-              className="font-sans text-base mt-2"
+              className="font-sans text-base "
             />
-            <p className="font-poppins text-sm mt-3 text-primary-500">
+            <p className="font-poppins text-sm  text-primary-500">
               Created By - {data?.created_by}
             </p>
-            <p className="font-poppins text-sm mt-3 text-primary-500">
+            <p className="font-poppins text-sm  text-primary-500">
               Created At - {data?.created_at}
             </p>
+            <div className="!mt-4 w-full">
+              <p className=" font-poppins font-bold text-xl">Course Content</p>
+
+              <div className="mt-4 flex w-full flex-col gap-[2px]">
+                {data?.course_contents?.map((content: any) => (
+                  <div
+                    key={content?.name}
+                    className="py-4 px-2 w-full bg-primary-100 flex items-center justify-between"
+                  >
+                    <p className="text-sm">{content?.name}</p>
+                    <p className="text-sm capitalize">
+                      {content?.content_type} Course
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </Modal>
