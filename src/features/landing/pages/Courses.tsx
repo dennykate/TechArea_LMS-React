@@ -15,7 +15,7 @@ const Courses = () => {
 
   const form = useForm({
     initialValues: {
-      grade_id: "ce4d3be5-f739-4860-abd3-e8410f08b975",
+      grade_id: config.grade_10_id,
       section_id: "",
     },
   });
