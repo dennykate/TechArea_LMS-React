@@ -114,12 +114,12 @@ const Header = ({ setShowNavItems }: PropsType) => {
           ) : (
             <Link
               to={"/login"}
-              className="px-4 py-2 bg-primary-500 gap-3 items-center rounded-md
+              className="px-4 py-2 sm:bg-primary-500 gap-3 items-center rounded-md
              cursor-pointer 
             flex hover:-translate-y-1 transform transition-all duration-200 "
             >
               <FiLogIn className="text-2xl sm:text-white text-primary" />
-              <h6 className="text-white font-medium text-sm sm:text-lg font-poppins">
+              <h6 className="text-white sm:block hidden font-medium text-sm sm:text-lg font-poppins">
                 Login
               </h6>
             </Link>
