@@ -21,10 +21,10 @@ const Landing = () => {
       <Home />
       <About />
       <Contact />
-      <Class />
+      {/* <Class /> */}
       <Marketing />
       <Teacher />
-      <Announcement />
+      {/* <Announcement /> */}
       <Event />
       <Location />
       <TopButton />

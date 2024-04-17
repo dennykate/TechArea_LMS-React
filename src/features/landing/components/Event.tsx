@@ -1,16 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-irregular-whitespace */
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // import { FaCaretRight } from "react-icons/fa";
 import { subTitle, title } from "../data";
 import EventCard from "./EventCard";
 import MoreButton from "./MoreButton";
-import useQuery from "@/hooks/useQuery";
+import config from "@/config";
 
 const Event = () => {
   const [data, setData] = useState<any>();
 
-  useQuery(`/public/events?limit=4`, setData);
+  const getEvents = useCallback(async () => {
+    const res = await fetch(config.baseUrl + "/public/events?limit=4");
+    const events = await res?.json();
+
+    setData(events?.data);
+  }, []);
+
+  useEffect(() => {
+    getEvents();
+  }, [getEvents]);
+
   return (
     <div id="events" className="w-full pb-24">
       <div className="w-2/3 mx-auto text-center">

@@ -4,8 +4,8 @@ import { paragraph, subTitle, title } from "../data";
 import MoreButton from "./MoreButton";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { useForm } from "@mantine/form";
-import { useState } from "react";
-import useQuery from "@/hooks/useQuery";
+import { useCallback, useEffect, useState } from "react";
+import config from "@/config";
 
 const Class = () => {
   const [data, setData] = useState<any>();
@@ -15,7 +15,21 @@ const Class = () => {
       section_id: "",
     },
   });
-  useQuery(`/public/courses?limit=6`, setData);
+
+  const getCourses = useCallback(async () => {
+    const res = await fetch(
+      config.baseUrl +
+        `/public/events?limit=4?filter[grade_id]=${form.values.grade_id}&filter[section_id]=${form.values.section_id}`
+    );
+    const courses = await res?.json();
+
+    setData(courses?.data);
+  }, [form]);
+
+  useEffect(() => {
+    getCourses();
+  }, [getCourses]);
+
   return (
     <div id="courses" className="w-full sm:py-20  py-5">
       <div className="md:w-2/3 w-11/12 mx-auto text-center py-5 flex justify-center items-center flex-col">
