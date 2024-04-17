@@ -13,7 +13,7 @@ const CharRom: React.FC = () => {
   const handleEmojiClick = (emojiObject: { emoji: string }): void => {
     appendEmoji(emojiObject.emoji);
   };
-  console.log(inputValue);
+  
   return (
     <div className="relative h-full w-full flex">
       <div className="w-full h-[10vh]">

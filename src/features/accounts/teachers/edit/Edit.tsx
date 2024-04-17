@@ -65,7 +65,6 @@ const Edit = () => {
   };
 
   const { isLoading: queryLoading } = useQuery(`users/${teacherId}`, (data) => {
-    console.log(data);
     setDefaultImage(data?.profile);
 
     form.setFieldValue("name", data?.name);

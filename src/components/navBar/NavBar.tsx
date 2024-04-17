@@ -30,6 +30,7 @@ const NavBar = ({
     toggle();
   };
 
+
   return (
     <div
       className={twMerge(

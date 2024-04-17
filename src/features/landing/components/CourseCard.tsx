@@ -112,9 +112,9 @@ const ClassCard = ({ data }: PropsType) => {
               <p className=" font-poppins font-bold text-xl">Course Content</p>
 
               <div className="mt-4 flex w-full flex-col gap-[2px]">
-                {data?.course_contents?.map((content: any) => (
+                {data?.course_contents?.map((content: any, index: number) => (
                   <div
-                    key={content?.name}
+                    key={index}
                     className="py-4 px-2 w-full bg-primary-100 flex items-center justify-between"
                   >
                     <p className="text-sm">{content?.name}</p>

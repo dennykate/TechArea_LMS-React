@@ -83,7 +83,6 @@ const Edit = () => {
   const { isLoading: queryLoading } = useQuery(
     `/assignments/${assignmentId}`,
     (data) => {
-      // console.log("res => ", data);
       setDefaultImage(data?.file);
       setAttachments(data?.attachments);
 

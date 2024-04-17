@@ -42,14 +42,12 @@ const Edit = () => {
   const onSubmitHandler = (values: any) => {
     const formData = new FormData();
 
-    console.log("values => ", values);
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value as string);
     });
 
     if (file) formData.append("image", file as File);
 
-    console.log(formData);
 
     onSubmit(`/announcements/${announcementId}`, formData);
   };

@@ -16,8 +16,8 @@ interface PropsType {
 
 const SideBar = ({ opened }: PropsType) => {
   const logout = useLogout();
-  const links = sideBarTabs.map((item: any) => (
-    <SideBarLinksGroup {...item} key={item.label} />
+  const links = sideBarTabs.map((item: any, index: number) => (
+    <SideBarLinksGroup {...item} key={index} />
   ));
 
   const [onSubmit] = useMutate({

@@ -11,7 +11,6 @@ const List = () => {
   const [onSubmit] = useMutate();
 
   const [data, setData] = useState<any>();
-  console.log(data);
 
   const navigate = useNavigate();
 

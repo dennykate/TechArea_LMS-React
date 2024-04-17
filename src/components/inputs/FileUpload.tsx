@@ -104,7 +104,10 @@ const FileUpload: React.FC<PropsType> = ({
    justify-center items-center p-[2px] relative mt-6"
         >
           <button
-            onClick={() => setPreviewUrl(null)}
+            onClick={() => {
+              setPreviewUrl(null);
+              setFile && setFile(null);
+            }}
             className="absolute bottom-2 right-2 bg-red-500 p-2 rounded-md hover:bg-red-700"
           >
             <IconTrashFilled color="white" size={18} />
