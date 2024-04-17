@@ -54,7 +54,7 @@ const Footer = () => {
             <div className="flex flex-col gap-3">
               {footerInfoData.slice(0, 4).map((item, i) => (
                 <Link
-                  to={"#" + item.toLowerCase()}
+                  to={"/#" + item.toLowerCase()}
                   key={i}
                   className=" text-white sm:text-base text-xs capitalize"
                 >
@@ -65,7 +65,7 @@ const Footer = () => {
             <div className="flex flex-col gap-3">
               {footerInfoData.slice(4, 7).map((item, i) => (
                 <Link
-                  to={"#" + item.toLowerCase()}
+                  to={"/#" + item.toLowerCase()}
                   key={i}
                   className=" text-white sm:text-base text-xs capitalize"
                 >
