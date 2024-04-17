@@ -10,7 +10,6 @@ const Accouncements = () => {
   const [data, setData] = useState<any>();
 
   useQuery(`/announcements`, setData);
-  console.log(data);
   return (
     <>
       <Home />

@@ -1,22 +1,26 @@
 import { useState } from "react";
-import { FaBook, FaChevronRight } from "react-icons/fa";
-import { BsFillPersonFill } from "react-icons/bs";
+import { FaChevronRight } from "react-icons/fa";
+
+import { MdOutlineClass } from "react-icons/md";
+import { RiGraduationCapFill } from "react-icons/ri";
 // import { MdLocationOn } from "react-icons/md";
 
 interface PropsType {
   data: {
-    title: string;
-    price: string;
-    lessons: string;
-    students: string;
+    name: string;
+    subject: string;
+    description: string;
+    grade: string;
+    section: string;
     thumbnail: string;
   };
 }
 const ClassCard = ({ data }: PropsType) => {
   const [showDoubleCard, setShowDoubleCard] = useState(false);
+  console.log(data);
   return (
     <div
-      className={`bg-white flex flex-col rounded-md relative lg:w-full sm:w-2/3 w-full mx-auto
+      className={`bg-white flex flex-col rounded-md relative lg:w-full sm:w-2/3 w-full mx-auto 
       ${showDoubleCard ? "shadow-xl" : "shadow-md"}`}
       onMouseEnter={() => {
         setShowDoubleCard(true);
@@ -31,29 +35,30 @@ const ClassCard = ({ data }: PropsType) => {
           alt="class-image"
           className="w-full h-full object-cover"
         />
-        {/* <div
-          className="w-14 h-14 absolute right-10 -bottom-7 bg-primary-500 rounded-full
-          flex justify-center items-center font-bold text-white"
-        >
-          {data.price}
-        </div> */}
       </div>
       <div className="sm:px-6 px-3 sm:py-6 py-3">
-        <h3 className="font-poppins font-bold text-gray-800 text-2xl">{data.title}</h3>
-        <div className="sm:mt-6 mt-4 flex gap-3">
-          <div className="flex gap-2 items-center">
-            <FaBook size={20} className="text-gray-800" />
-            <p className="sm:text-base text-sm">{data.lessons}</p>
+        <h3 className="font-poppins font-bold text-gray-800 text-2xl">
+          {data?.name}
+        </h3>
+        <div
+          dangerouslySetInnerHTML={{ __html: data?.description }}
+          className="sm:text-base text-sm mt-2"
+        />
+        <div className="w-full mt-2 grid grid-cols-3">
+          <div className=" flex items-center gap-1">
+            <RiGraduationCapFill size={20} className="text-gray-800" />
+            <p className="sm:text-base text-sm">{data?.subject}</p>
           </div>
-          <div className="flex gap-2 items-center">
-            <BsFillPersonFill size={20} className="text-gray-800" />
-            <p className="sm:text-base text-sm">{data.students}</p>
+          <div className="flex gap-1 items-center">
+            <MdOutlineClass size={20} className="text-gray-800" />
+            <p className="sm:text-base text-sm">{data?.grade}</p>
+          </div>
+          <div className="flex gap-1 items-center">
+            <MdOutlineClass size={20} className="text-gray-800" />
+            <p className="sm:text-base text-sm">{data?.section}</p>
           </div>
         </div>
-        {/* <div className="flex gap-2 items-center mt-3">
-          <MdLocationOn size={20} color="black" />
-          <p className="sm:text-base text-sm">Alice Bohm , Linda Glendell</p>
-        </div> */}
+
         <div className="sm:my-3 my-2 sm:pb-3 pb-0 cursor-pointer group relative">
           <a href="" className="font-bold text-[#FF564F] pb-2 relative">
             Enroll Now{" "}

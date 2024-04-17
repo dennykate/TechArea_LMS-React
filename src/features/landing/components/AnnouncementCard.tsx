@@ -28,9 +28,12 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
           <h1 className=" font-poppins font-bold text-xl text-gray-800">
             {data.title}
           </h1>
-          <p className=" font-sans text-base mt-2">
-            <div dangerouslySetInnerHTML={{ __html: data?.description }} />
-          </p>
+
+          <div
+            dangerouslySetInnerHTML={{ __html: data?.description }}
+            className="font-sans text-base mt-2"
+          />
+
           <p className="font-poppins text-sm mt-2 text-primary-500">
             Created At - Dec 17, 2020
           </p>
@@ -45,24 +48,27 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
       <Modal opened={opened} onClose={close} fullScreen>
         <div className="max-w-2xl mx-auto ">
           <img
-            src="https://i.postimg.cc/vH311NbV/against-studio-background-1258-89269.jpg"
+            src={
+              data.image ??
+              "https://i.postimg.cc/j5cskhjj/viber-image-2024-04-10-10-19-49-078.png"
+            }
             alt="announcement-thumbnail"
-            className="w-full h-[300px] object-cover"
+            className="w-full h-[400px] object-cover"
           />
 
           <div className="mt-5">
-            <h1 className=" font-poppins font-bold text-xl">{data.title}</h1>
-            <p className=" font-sans text-base mt-2">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis
-              fugiat eligendi repudiandae quidem doloribus ad maxime vitae.
-              Suscipit a dignissimos asperiores repellat voluptatibus maxime
-              autem ullam rerum quibusdam, tempore nulla!
+            <p className=" font-poppins font-bold text-xl">{data?.title}</p>
+
+            <div
+              dangerouslySetInnerHTML={{ __html: data?.description }}
+              className="font-sans text-base mt-2"
+            />
+
+            <p className="font-poppins text-sm mt-3 text-primary-500">
+              Created By - {data?.created_by}
             </p>
             <p className="font-poppins text-sm mt-3 text-primary-500">
-              Created By - Thwe Thwe
-            </p>
-            <p className="font-poppins text-sm mt-3 text-primary-500">
-              Created At - Dec 17, 2020
+              Created At - {data?.created_at}
             </p>
           </div>
         </div>
