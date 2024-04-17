@@ -13,7 +13,7 @@ const Accouncements = () => {
 
   const getAnnouncements = useCallback(async () => {
     const res = await fetch(
-      config.baseUrl + `/public/announcements?limit=${page}`
+      config.baseUrl + `/public/announcements?page=${page}`
     );
     const announcements = await res?.json();
 

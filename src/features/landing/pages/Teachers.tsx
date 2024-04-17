@@ -13,7 +13,7 @@ const Teachers = () => {
   const [page, setPage] = useState<number>(20);
 
   const getTeachers = useCallback(async () => {
-    const res = await fetch(config.baseUrl + `/public/teachers?limit=${page}`);
+    const res = await fetch(config.baseUrl + `/public/teachers?page=${page}`);
     const teachers = await res?.json();
 
     setTotal(teachers?.meta?.last_page);

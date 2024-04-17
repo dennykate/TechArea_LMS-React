@@ -12,7 +12,7 @@ const Events = () => {
   const [page, setPage] = useState<number>(20);
 
   const getEvents = useCallback(async () => {
-    const res = await fetch(config.baseUrl + `/public/events?limit=${page}`);
+    const res = await fetch(config.baseUrl + `/public/events?page=${page}`);
     const events = await res?.json();
 
     setTotal(events?.meta?.last_page);

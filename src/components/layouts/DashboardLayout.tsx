@@ -15,7 +15,6 @@ interface PropsType {
 const DashboardLayout = ({ children }: PropsType) => {
   const matches = useMediaQuery("(max-width: 796px)");
 
-  console.log("matched => ", matches);
 
   const [opened, { toggle, close, open }] = useDisclosure(false);
 
