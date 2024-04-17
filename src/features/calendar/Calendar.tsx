@@ -47,8 +47,9 @@ const Calendar = () => {
           description: item?.description,
 
           start: item?.start_at,
-          
+
           end: item?.end_at,
+          
           color: typeObj[item?.type as EventType],
           display: "block",
         };
