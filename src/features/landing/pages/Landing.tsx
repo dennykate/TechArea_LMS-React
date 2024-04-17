@@ -24,7 +24,7 @@ const Landing = () => {
       {/* <Class /> */}
       <Marketing />
       <Teacher />
-      {/* <Announcement /> */}
+      <Announcement />
       <Event />
       <Location />
       <TopButton />

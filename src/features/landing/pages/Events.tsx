@@ -3,13 +3,27 @@ import MyPagination from "@/components/common/MyPagination";
 import { Footer, Home } from "../components";
 import EventCard from "../components/EventCard";
 import { subTitle, title } from "../data";
-import { useState } from "react";
-import useQuery from "@/hooks/useQuery";
+import { useCallback, useEffect, useState } from "react";
+import config from "@/config";
 
 const Events = () => {
   const [data, setData] = useState<any>();
+  const [total, setTotal] = useState<number>(0);
+  const [page, setPage] = useState<number>(20);
 
-  useQuery(`/announcements`, setData);
+  const getEvents = useCallback(async () => {
+    const res = await fetch(config.baseUrl + `/public/events?limit=${page}`);
+    const events = await res?.json();
+
+    setTotal(events?.meta?.last_page);
+
+    setData(events?.data);
+  }, [page]);
+
+  useEffect(() => {
+    getEvents();
+  }, [getEvents]);
+
   return (
     <>
       <Home />
@@ -26,7 +40,11 @@ const Events = () => {
         </div>
 
         <div className="w-full flex justify-end mt-12">
-          <MyPagination total={5} />
+          <MyPagination
+            total={total as number}
+            value={page}
+            onChange={setPage}
+          />
         </div>
       </div>
 
