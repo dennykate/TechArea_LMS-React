@@ -57,7 +57,7 @@ const Class = () => {
         ))}
       </div>
 
-      <MoreButton to="/courses" label="Discover More Courses" />
+      <MoreButton to="/pub-courses" label="Discover More Courses" />
     </div>
   );
 };
