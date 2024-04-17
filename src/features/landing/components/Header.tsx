@@ -70,8 +70,8 @@ const Header = ({ setShowNavItems }: PropsType) => {
       </div>
       {/* navbar */}
       <div
-        className={`w-full h-[70px] bg-white flex justify-between items-center px-5
-  ${scrollY ? "fixed" : "sticky"} top-0 left-0 right-0 z-[100] shadow-md `}
+        className={`w-full h-[70px] bg-white flex justify-between items-center px-5 sticky
+  top-0 left-0 right-0 z-[100] shadow-md `}
       >
         <Link to={"/"}>
           <img src={Logo} alt="logo" className="w-[170px]" />

@@ -22,7 +22,7 @@ const Announcement = () => {
   }, [getAnnouncements]);
 
   return (
-    <div id="announcements" className="w-full py-24">
+    <div id="announcements" className="w-full pt-24">
       <div className="w-2/3 mx-auto text-center">
         <h6 className={subTitle}>Together We Can Create</h6>
         <h1 className={title}>Accouncements Updated Daily</h1>

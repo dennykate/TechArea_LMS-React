@@ -2,7 +2,6 @@ import React from "react";
 import { FaPhone, FaHome, FaHourglass } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { footerInfoData, galleryData } from "../data";
-import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -53,24 +52,24 @@ const Footer = () => {
           <div className="grid grid-cols-2 ">
             <div className="flex flex-col gap-3">
               {footerInfoData.slice(0, 4).map((item, i) => (
-                <Link
-                  to={"/#" + item.toLowerCase()}
+                <a
+                  href={"#" + item.toLowerCase()}
                   key={i}
                   className=" text-white sm:text-base text-xs capitalize"
                 >
                   {item}
-                </Link>
+                </a>
               ))}
             </div>
             <div className="flex flex-col gap-3">
               {footerInfoData.slice(4, 7).map((item, i) => (
-                <Link
-                  to={"/#" + item.toLowerCase()}
+                <a
+                  href={"#" + item.toLowerCase()}
                   key={i}
                   className=" text-white sm:text-base text-xs capitalize"
                 >
                   {item}
-                </Link>
+                </a>
               ))}
             </div>
           </div>
@@ -103,7 +102,7 @@ const Footer = () => {
         className="py-5 text-center text-white font-light font-poppins xs:text-sm 
       text-xs flex justify-between items-center"
       >
-        <p>Tech Area LMS</p>
+        <p>Better Change</p>
         <p>©2024 All Right Reserved.</p>
       </div>
     </div>

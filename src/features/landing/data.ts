@@ -154,7 +154,7 @@ export const galleryData = [
 
 export const footerInfoData = [
   "about us",
-  "contact us",
+  "contact",
   "courses",
   "teachers",
   "announcements",

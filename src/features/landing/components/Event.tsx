@@ -22,7 +22,7 @@ const Event = () => {
   }, [getEvents]);
 
   return (
-    <div id="events" className="w-full pb-24">
+    <div id="events" className="w-full pt-24">
       <div className="w-2/3 mx-auto text-center">
         <h6 className={subTitle}>Together We Can Create</h6>
         <h1 className={title}>Events For Our Students</h1>
