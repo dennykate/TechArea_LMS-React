@@ -6,6 +6,7 @@ import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import NavBar from "../navBar/NavBar";
 import SideBar from "../sideBar/SideBar";
 import Footer from "../footers/Footer";
+import { useLocation } from "react-router-dom";
 
 interface PropsType {
   children: React.ReactNode;
@@ -13,11 +14,21 @@ interface PropsType {
 
 const DashboardLayout = ({ children }: PropsType) => {
   const matches = useMediaQuery("(max-width: 796px)");
-  const [opened, { toggle, close, open }] = useDisclosure(true);
+
+  console.log("matched => ", matches);
+
+  const [opened, { toggle, close, open }] = useDisclosure(false);
+
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    if (matches) close();
-    else open();
+    matches && close();
+  }, [pathname]);
+
+  useEffect(() => {
+    if (matches != undefined) {
+      if (!matches) open();
+    }
   }, [matches]);
 
   return (

@@ -6,7 +6,7 @@ import { banRoles } from "@/data/banRoles";
 
 const Dashboard = () => {
   return (
-    <main className="w-full p-5">
+    <main className="w-full md:p-8 sm:p-4 p-2 md:py-8 py-6">
       <div className="w-full grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-2 sm:gap-5 sm:mb-5 mb-2">
         <DashCardContainer />
       </div>
