@@ -7,6 +7,7 @@ import { RiArticleFill } from "react-icons/ri";
 import { IconType } from "react-icons/lib";
 import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
+import { useMediaQuery } from "@mantine/hooks";
 
 interface PropsType {
   toggle: () => void;
@@ -22,6 +23,7 @@ const NavBar = ({
   wrapperClassName,
 }: PropsType) => {
   const { get } = useEncryptStorage();
+  const matches = useMediaQuery("(max-width: 600px");
 
   const userInfo = useMemo(() => JSON.parse(get("userInfo") as string), []);
 
@@ -29,7 +31,6 @@ const NavBar = ({
     e.stopPropagation();
     toggle();
   };
-
 
   return (
     <div
@@ -43,14 +44,16 @@ const NavBar = ({
         <Icon color="black" className="lg:text-lg text-base" />
       </ActionIcon>
 
-      <div className="flex items-center lg:gap-4 gap-2 ">
+      <div className="flex items-center lg:gap-4 gap-2 sm:flex-row flex-row-reverse  sm:pr-0 pr-1">
         <Link to="/profile">
           <div className="flex items-center gap-1 select-none">
-            <p className="lg:text-base text-sm ">{userInfo?.name}</p>
+            <p className="lg:text-base text-sm sm:block hidden">
+              {userInfo?.name}
+            </p>
             <Avatar
               src={userInfo?.profile}
               alt={userInfo?.name}
-              size="md"
+              size={matches ? "sm" : "md"}
               className="rounded-full"
             />
           </div>
