@@ -11,15 +11,6 @@ interface PropsType {
   data: any;
 }
 
-export const photos = [
-  "https://i.postimg.cc/C1pdRzdR/meta-preview.jpg",
-  "https://i.postimg.cc/DZcfm6tN/design-online-course-thumbnail-udemy-course-cover-image.webp",
-  "https://i.postimg.cc/15dmgfjy/5a108056-a070-44ee-a123-1afd489077e0.jpg",
-  "https://i.postimg.cc/W4LsnxVK/1600w-w-K95f3-XNRa-M.webp",
-  "https://i.postimg.cc/KzQFmzTS/ccessful-600nw-521875054.webp",
-  "https://i.postimg.cc/RCs98W9w/istockphoto-1459390094-170667a.webp",
-];
-
 const EventCard: React.FC<PropsType> = ({ data }) => {
   const [opened, { open, close }] = useDisclosure(false);
 
