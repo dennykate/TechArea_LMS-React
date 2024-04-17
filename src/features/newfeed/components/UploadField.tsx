@@ -41,7 +41,6 @@ const UploadField = (props: Partial<DropzoneProps>) => {
       description,
       images: uploadedImage,
     };
-    console.log(formData);
     // Here you would typically send formData to your backend
     // Example: axios.post('your-endpoint', formData)
   };

@@ -10,8 +10,6 @@ const routes = () => {
 
   const isAuth = get("token");
 
-  console.log("token => ", isAuth);
-
   const routes = isAuth ? privateRoutes : publicRoutes;
 
   const element = useRoutes([...routes, ...commonRoutes]);

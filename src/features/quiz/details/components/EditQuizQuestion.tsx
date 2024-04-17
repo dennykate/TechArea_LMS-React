@@ -94,7 +94,6 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close, id }) => {
       }
 
       data?.options?.map((option: any) => {
-        console.log("option => ", option);
         option.is_correct && setCorrectAnswer(option.content);
       });
     }
