@@ -1,10 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-irregular-whitespace */
 // import { FaCaretRight } from "react-icons/fa";
 
-import { paragraph, subTitle, teacherData, title } from "../data";
+import { useCallback, useEffect, useState } from "react";
+import { paragraph, subTitle, title } from "../data";
 import TeacherCard from "./TeacherCard";
+import config from "@/config";
+import MoreButton from "./MoreButton";
 
 const Teacher = () => {
+  const [data, setData] = useState<any>();
+
+  const getTeachers = useCallback(async () => {
+    const res = await fetch(config.baseUrl + "/public/teachers?limit=4");
+    const teachers = await res?.json();
+
+    setData(teachers?.data);
+  }, []);
+
+  useEffect(() => {
+    getTeachers();
+  }, [getTeachers]);
+
   return (
     <div id="teachers" className="w-full pt-28 px-2">
       <div className="sm:w-2/3 w-full mx-auto text-center">
@@ -18,10 +35,11 @@ const Teacher = () => {
         </p>
       </div>
       <div className="my-14 grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-1 gap-10 sm:px-5 px-1">
-        {teacherData.map((data, index) => (
-          <TeacherCard key={index} data={data} />
+        {data?.map((dt: any, index: number) => (
+          <TeacherCard key={index} data={dt} />
         ))}
       </div>
+      <MoreButton to="/pub-teachers" label="Discover More Teachers" />
     </div>
   );
 };

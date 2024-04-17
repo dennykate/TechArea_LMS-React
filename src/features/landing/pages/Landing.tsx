@@ -2,7 +2,7 @@
 
 import {
   About,
-  Class,
+  Course,
   Contact,
   Announcement,
   Footer,
@@ -21,7 +21,7 @@ const Landing = () => {
       <Home />
       <About />
       <Contact />
-      {/* <Class /> */}
+      <Course />
       <Marketing />
       <Teacher />
       <Announcement />

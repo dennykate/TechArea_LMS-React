@@ -11,6 +11,7 @@ import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 interface PropsType {
   close: () => void;
@@ -43,6 +44,18 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
   });
 
   const onSubmitHandler = (values: any) => {
+    if (form.values.type == "image" || form.values.type == "video") {
+      if (!file) return toast.error("File is required");
+    }
+
+    if (form.values.type == "text") {
+      if (form.values.text == "") return toast.error("Text is required");
+    }
+
+    if (form.values.type == "youtube") {
+      if (form.values.youtubeURL == "") return toast.error("Youtube URL is required");
+    }
+
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value as string);

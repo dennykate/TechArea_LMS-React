@@ -11,7 +11,7 @@ const Class = () => {
   const [data, setData] = useState<any>();
   const form = useForm({
     initialValues: {
-      grade_id: "",
+      grade_id: "ce4d3be5-f739-4860-abd3-e8410f08b975",
       section_id: "",
     },
   });
@@ -19,12 +19,12 @@ const Class = () => {
   const getCourses = useCallback(async () => {
     const res = await fetch(
       config.baseUrl +
-        `/public/courses?limit=4?filter[grade_id]=${form.values.grade_id}&filter[section_id]=${form.values.section_id}`
+        `/public/courses?limit=4&filter[grade_id]=${form.values.grade_id}&filter[section_id]=${form.values.section_id}`
     );
     const courses = await res?.json();
 
     setData(courses?.data);
-  }, [form]);
+  }, [form.values.grade_id, form.values.section_id]);
 
   useEffect(() => {
     getCourses();

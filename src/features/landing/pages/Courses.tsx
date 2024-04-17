@@ -1,17 +1,36 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import MyPagination from "@/components/common/MyPagination";
 import { Footer, Home } from "../components";
 import CourseCard from "../components/CourseCard";
-import { classData, subTitle, title } from "../data";
+import { subTitle, title } from "../data";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { useForm } from "@mantine/form";
+import { useCallback, useEffect, useState } from "react";
+import config from "@/config";
 
-const Accouncements = () => {
+const Courses = () => {
+  const [data, setData] = useState<any>();
+
   const form = useForm({
     initialValues: {
-      grade_id: "",
+      grade_id: "ce4d3be5-f739-4860-abd3-e8410f08b975",
       section_id: "",
     },
   });
+
+  const getCourses = useCallback(async () => {
+    const res = await fetch(
+      config.baseUrl +
+        `/public/courses?limit=4&filter[grade_id]=${form.values.grade_id}&filter[section_id]=${form.values.section_id}`
+    );
+    const courses = await res?.json();
+
+    setData(courses?.data);
+  }, [form.values.grade_id, form.values.section_id]);
+
+  useEffect(() => {
+    getCourses();
+  }, [getCourses]);
 
   return (
     <>
@@ -32,13 +51,7 @@ const Accouncements = () => {
         </div>
 
         <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 mt-8">
-          {classData?.map((data, index) => (
-            <CourseCard key={index} data={data} />
-          ))}
-          {classData?.map((data, index) => (
-            <CourseCard key={index} data={data} />
-          ))}
-          {classData?.map((data, index) => (
+          {data?.map((data: any, index: number) => (
             <CourseCard key={index} data={data} />
           ))}
         </div>
@@ -53,4 +66,4 @@ const Accouncements = () => {
   );
 };
 
-export default Accouncements;
+export default Courses;

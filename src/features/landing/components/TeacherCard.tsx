@@ -8,7 +8,7 @@ import React from "react";
 
 interface PropsType {
   data: {
-    image: string;
+    profile: string;
     name: string;
     role: string;
   };
@@ -16,15 +16,16 @@ interface PropsType {
 
 const TeacherCard: React.FC<PropsType> = ({ data }) => {
   return (
-    <div className="lg:h-[370px] sm:h-[480px] h-[400px] lg:w-auto sm:w-[500px] mx-auto relative overflow-hidden rounded-md ">
+    <div className="h-[300px] group relative overflow-hidden rounded-md ">
       <img
-        src={data.image}
+        src={data.profile}
         alt="teacher"
-        className="w-full h-full object-cover hover:scale-105 transition-all duration-200 ease-in-out"
+        className="w-full h-full object-cover group-hover:scale-105 transition-all duration-200 ease-in-out"
       />
 
       <div
-        className="absolute sm:bottom-[80px] bottom-[50px] left-0 right-0 w-full z-10 flex
+        className="absolute bottom-[30px] group-hover:bottom-[50px] transition-all duration-300 ease-in-out
+         left-0 right-0 w-full z-10 flex
        justify-center"
       >
         <div

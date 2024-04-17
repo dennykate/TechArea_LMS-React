@@ -56,9 +56,9 @@ const Profile = () => {
 
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
-      if (key === "date_of_birth") {
-        if (!value) return;
+      if (!value) return;
 
+      if (key === "date_of_birth") {
         formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
         return;
       }
