@@ -10,6 +10,7 @@ import TextEditorInput from "@/components/inputs/TextEditorInput";
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
+import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 
 interface PropsType {
   close: () => void;
@@ -26,6 +27,7 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
       text: data?.content,
       name: data?.name,
       description: data?.description,
+      timmer: data?.timmer,
     },
     validateInputOnBlur: true,
     validate: {
@@ -33,6 +35,12 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
       name: (value: string) => (value.length > 0 ? null : "Name is required"),
       description: (value: string) =>
         value.length > 0 ? null : "Description is required",
+      timmer: (value: number, values: any) =>
+        values.type != "text" && values.type != "image"
+          ? null
+          : value > 0
+          ? null
+          : "Timmer is required",
     },
   });
 
@@ -114,6 +122,16 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
           form={form}
           name="description"
         />
+
+        {(form.values.type === "text" || form.values.type === "image") && (
+          <NumberInputComponent
+            label="Duration ( In Minutes )"
+            placeholder="Enter duration"
+            withAsterisk
+            form={form}
+            name="timmer"
+          />
+        )}
       </div>
     </FormLayout>
   );

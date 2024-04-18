@@ -12,6 +12,7 @@ import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 
 interface PropsType {
   close: () => void;
@@ -28,6 +29,7 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
       text: "",
       name: "",
       description: "",
+      timmer: 0,
     },
     validateInputOnBlur: true,
     validate: {
@@ -35,6 +37,12 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
       name: (value: string) => (value.length > 0 ? null : "Name is required"),
       description: (value: string) =>
         value.length > 0 ? null : "Description is required",
+      timmer: (value: number, values: any) =>
+        values.type != "text" && values.type != "image"
+          ? null
+          : value > 0
+          ? null
+          : "Timmer is required",
     },
   });
 
@@ -53,7 +61,8 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
     }
 
     if (form.values.type == "youtube") {
-      if (form.values.youtubeURL == "") return toast.error("Youtube URL is required");
+      if (form.values.youtubeURL == "")
+        return toast.error("Youtube URL is required");
     }
 
     const formData = new FormData();
@@ -128,6 +137,16 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
           form={form}
           name="description"
         />
+
+        {(form.values.type === "text" || form.values.type === "image") && (
+          <NumberInputComponent
+            label="Duration ( In Minutes )"
+            placeholder="Enter duration"
+            withAsterisk
+            form={form}
+            name="timmer"
+          />
+        )}
       </div>
     </FormLayout>
   );

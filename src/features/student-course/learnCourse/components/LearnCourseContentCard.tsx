@@ -28,7 +28,7 @@ const LearnCourseContentCard: React.FC<PropsType> = ({ data, onClose }) => {
     if (data?.content_type == "text" || data?.content_type == "image") {
       setTimeout(() => {
         setIsComplete(true);
-      }, 600000);
+      }, data?.timmer * 60000);
     }
   }, [data]);
 
@@ -63,24 +63,15 @@ const LearnCourseContentCard: React.FC<PropsType> = ({ data, onClose }) => {
         )}
       </div>
 
-      {/* {(data?.content_type == "video" || data?.content_type == "youtube") && (
-        <Alert
-          icon={<IconAlertCircle size="1rem" />}
-          title="Warnning!"
-          color="brand"
-          className="my-4"
-        >
-          You cann't skip the video
-        </Alert>
-      )} */}
-
       <div className=" space-y-2 px-[6px] mt-4">
         <Heading tag="h6">{data?.name}</Heading>
         <p className="text-sm text-gray-500">
+          Description
           <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         </p>
 
         <p className="text-sm text-gray-500">Created At - {data?.created_at}</p>
+
         <p className="text-sm text-gray-500">
           Status - {data?.is_complete ? "Completed" : " Not Complete"}
         </p>
@@ -95,7 +86,8 @@ const LearnCourseContentCard: React.FC<PropsType> = ({ data, onClose }) => {
               color="brand"
               className="my-4"
             >
-              Learning progress time should take at least 10 minutes.
+              Learning progress time should take at least {data?.timmer}{" "}
+              minute(s).
             </Alert>
           </div>
         )}

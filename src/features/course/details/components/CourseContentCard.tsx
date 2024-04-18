@@ -49,6 +49,11 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
           <p className="text-sm font-[300] text-gray-500">
             {data?.description}
           </p>
+          {data?.timmer && (
+            <p className="text-sm font-[300] text-gray-500">
+              Duration - {data?.timmer} minute(s)
+            </p>
+          )}
           <div className="flex flex-col gap-3 items-start !mt-4">
             {/* <Badge size="md" color="red" leftSection={<IconUser size={16} />}>
               {data?.created_by}

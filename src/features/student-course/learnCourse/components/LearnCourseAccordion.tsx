@@ -32,16 +32,22 @@ const LearnCourseAccordion: React.FC<PropsType> = ({
         <Accordion.Control
           disabled={isDisabled}
           className={twMerge(
-            " !bg-primary-100 bg-opacity-80  sm:!px-4 !px-2",
+            " !bg-primary-100 bg-opacity-80  sm:!px-4 !px-2 ",
             !isDisabled && "hover:!bg-primary-200"
           )}
         >
-          <div className="flex items-center gap-2">
-            <p>{data?.name}</p>
+          <div className="w-full flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <p>{data?.name}</p>
 
-            {data?.is_complete && (
-              <IoIosCheckmarkCircle size={20} className="text-primary-500" />
-            )}
+              {data?.is_complete && (
+                <IoIosCheckmarkCircle size={20} className="text-primary-500" />
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 capitalize">
+              <p>{data?.content_type}</p>
+            </div>
           </div>
         </Accordion.Control>
         <Accordion.Panel bg="white">
