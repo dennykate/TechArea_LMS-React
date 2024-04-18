@@ -37,7 +37,10 @@ const Profile = () => {
       section_id: "",
     },
     validateInputOnBlur: true,
-    validate: {},
+    validate: {
+      password_confirmation: (value: string, values) =>
+        value === values.password ? null : "Password doesn't match",
+    },
   });
 
   const [onSubmit, { isLoading }] = useMutate({
@@ -52,7 +55,7 @@ const Profile = () => {
   });
 
   const onSubmitHandler = (values: any) => {
-    if (!profile) return toast.error("Profile is required");
+    // if (!profile) return toast.error("Profile is required");
 
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
