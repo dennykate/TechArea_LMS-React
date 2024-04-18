@@ -24,7 +24,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      <div className="w-full h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 shadow-md">
+      <div className="w-full h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 mb-5 shadow-md">
         <TopAssignmentMarkStudents
           title="Top Quiz Mark Students"
           baseURL="dashboard/top-answer-students"
