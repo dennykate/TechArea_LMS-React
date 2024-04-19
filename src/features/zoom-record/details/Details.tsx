@@ -1,30 +1,32 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { IconPencilMinus } from "@tabler/icons-react";
+import { FaLink } from "react-icons/fa6";
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { MdEdit } from "react-icons/md";
 
 import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 
-import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
-import { useNavigate, useParams } from "react-router-dom";
-
-import { MdEdit } from "react-icons/md";
+import Heading from "@/components/typography/Heading";
 
 const Details = () => {
   const navigate = useNavigate();
-  const { announcementId } = useParams();
+  const { zoomRecordId } = useParams();
   const [data, setData] = useState<any>();
 
-  const { isLoading } = useQuery(`/announcements/${announcementId}`, setData);
+  const { isLoading } = useQuery(`/zoom-records/${zoomRecordId}`, setData);
 
   return (
     <DetailsLayout
       isLoading={isLoading}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Announcement List", link: "/announcements/list" },
-        { title: "Announcement Details", link: "" },
+        { title: "Zoom Record List", link: "/zoom-records/list" },
+        { title: "Zoom Record Details", link: "" },
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
@@ -34,7 +36,7 @@ const Details = () => {
 
         <div className="sm:w-auto w-full flex gap-3 items-center justify-end">
           <MyButton
-            onClick={() => navigate(`/announcements/edit/${announcementId}`)}
+            onClick={() => navigate(`/zoom-records/edit/${zoomRecordId}`)}
             leftIcon={<IconPencilMinus size={16} />}
           >
             Edit
@@ -56,6 +58,24 @@ const Details = () => {
         <p className="font-light">
           <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         </p>
+      </div>
+
+      <div className="sm:mt-6 mt-3 space-y-3">
+        <Heading tag="h2">Record Urls</Heading>
+
+        <div className="space-y-2">
+          {data?.urls?.map((dt: any) => (
+            <Link
+              to={dt?.url}
+              target="_blank"
+              className="flex items-center gap-2 cursor-pointer"
+            >
+              <p className="text-sm underline">{dt?.url}</p>
+
+              <FaLink className="text-gray-700" size={16} />
+            </Link>
+          ))}
+        </div>
       </div>
     </DetailsLayout>
   );

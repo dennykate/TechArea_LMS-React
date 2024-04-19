@@ -14,8 +14,6 @@ interface PropsType {
 const ZoomRecordURLs: React.FC<PropsType> = ({ urls, setUrls }) => {
   const [value, setValue] = useState<string | undefined>("");
 
-  console.log("urls => ", urls);
-
   const createNewUrl = useCallback(() => {
     if (!value || value == "") return toast.error("Url is required");
 
@@ -34,7 +32,11 @@ const ZoomRecordURLs: React.FC<PropsType> = ({ urls, setUrls }) => {
             key={item?.id}
             className="flex items-center justify-between gap-2 w-full"
           >
-            <Link to={item?.url} className="text-sm truncate underline">
+            <Link
+              to={item?.url}
+              target="_blank"
+              className="text-sm truncate underline"
+            >
               {item?.url}
             </Link>
             <button
@@ -59,13 +61,7 @@ const ZoomRecordURLs: React.FC<PropsType> = ({ urls, setUrls }) => {
           placeholder="Your URL"
           value={value}
           onChange={(e) => {
-            e.stopPropagation();
             setValue(e.target.value as string);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              createNewUrl();
-            }
           }}
           rightSection={
             <MyButton

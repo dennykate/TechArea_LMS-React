@@ -3,8 +3,8 @@ import { Navigate } from "react-router-dom";
 
 const ZoomRecordCreate = lazy(() => import("./create/Create"));
 const ZoomRecordEdit = lazy(() => import("./edit/Edit"));
-const  ZoomRecordList = lazy(() => import("./list/List"));
-const  ZoomRecordDetails = lazy(() => import("./details/Details"));
+const ZoomRecordList = lazy(() => import("./list/List"));
+const ZoomRecordDetails = lazy(() => import("./details/Details"));
 
 export const ZoomRecordRoutes = [
   {
@@ -16,11 +16,11 @@ export const ZoomRecordRoutes = [
     element: <ZoomRecordCreate />,
   },
   {
-    path: "details/:ZoomRecordId",
+    path: "details/:zoomRecordId",
     element: <ZoomRecordDetails />,
   },
   {
-    path: "edit/:ZoomRecordId",
+    path: "edit/:zoomRecordId",
     element: <ZoomRecordEdit />,
   },
   {
