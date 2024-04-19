@@ -165,6 +165,13 @@ const sideBarTabs = [
     link: "/student-classes",
     banRoles: banRoles.student_classes,
   },
+  {
+    label: "Zoom Records",
+    icon: SiGoogleclassroom,
+    initiallyOpened: false,
+    link: "/student-zoom-records",
+    banRoles: banRoles.zoom_records,
+  },
   // {
   //   label: "Chat",
   //   icon: MdChat,
