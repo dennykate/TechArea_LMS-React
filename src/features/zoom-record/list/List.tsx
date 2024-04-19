@@ -39,9 +39,11 @@ const List = () => {
           <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate(`/announcements/details/${element.id}`)}
-              destroyCb={() => onSubmit(`/announcements/${element.id}`, {}, "DELETE")}
-              editCb={() => navigate(`/announcements/edit/${element.id}`)}
+              detailCb={() => navigate(`/zoom-records/details/${element.id}`)}
+              destroyCb={() =>
+                onSubmit(`/zoom-records/${element.id}`, {}, "DELETE")
+              }
+              editCb={() => navigate(`/zoom-records/edit/${element.id}`)}
             />
           </td>
         </tr>
@@ -77,7 +79,7 @@ const List = () => {
           "Created By",
           "Created At",
         ]}
-        baseUrl={`announcements`}
+        baseUrl={`zoom-records`}
         filter=""
         setData={setData}
       />

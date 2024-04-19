@@ -10,9 +10,12 @@ import { useState } from "react";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import Heading from "@/components/typography/Heading";
 import ZoomRecordURLs from "../components/ZoomRecordURLs";
+import toast from "react-hot-toast";
 
 const Create = () => {
   const [file, setFile] = useState<File>();
+  const [urls, setUrls] = useState<any>([]);
+
   const form = useForm<any>({
     initialValues: {
       title: "",
@@ -38,6 +41,8 @@ const Create = () => {
 
   const [onSubmit, { isLoading }] = useMutate();
   const onSubmitHandler = (values: any) => {
+    if (urls?.length === 0) return toast.error("Record urls are required");
+
     const formData = new FormData();
 
     Object.entries(values).forEach(([key, value]) => {
@@ -45,6 +50,10 @@ const Create = () => {
     });
 
     if (file) formData.append("image", file as File);
+
+    urls?.forEach((item: any) => {
+      formData.append(`urls[]`, item.url as string);
+    });
 
     onSubmit("/zoom-records", formData);
   };
@@ -89,7 +98,7 @@ const Create = () => {
         <div className="space-y-2">
           <Heading tag="h2">Record URLS</Heading>
 
-          <ZoomRecordURLs />
+          <ZoomRecordURLs urls={urls} setUrls={setUrls} />
         </div>
       </div>
     </FormLayout>
