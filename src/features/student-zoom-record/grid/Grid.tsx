@@ -12,4 +12,4 @@ const Grid = () => {
   );
 };
 
-export default withPermissions(Grid, banRoles.zoom_records);
+export default withPermissions(Grid, banRoles.student_zoom_records);

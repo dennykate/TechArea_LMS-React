@@ -20,6 +20,7 @@ export const banRoles = {
   student_quizzes: ["2", "3", "4"],
   student_assignments: ["2", "3", "4"],
   student_classes: ["2", "3", "4"],
+  student_zoom_records: ["2", "3", "4"],
 
   components: {
     dashCards: ["1", "2"],

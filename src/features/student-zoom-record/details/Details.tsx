@@ -1,45 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { IconPencilMinus } from "@tabler/icons-react";
 import { FaLink } from "react-icons/fa6";
 import { useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { MdEdit } from "react-icons/md";
 
-import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 
 import useQuery from "@/hooks/useQuery";
 import Heading from "@/components/typography/Heading";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
-  const navigate = useNavigate();
   const { zoomRecordId } = useParams();
   const [data, setData] = useState<any>();
 
   const { isLoading } = useQuery(`/zoom-records/${zoomRecordId}`, setData);
 
   return (
-    <DetailsLayout
-      isLoading={isLoading}
-      linkItems={[
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Zoom Record List", link: "/zoom-records/list" },
-        { title: "Zoom Record Details", link: "" },
-      ]}
-    >
+    <DetailsLayout isLoading={isLoading} linkItems={[]}>
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
         <div className="flex items-center justify-center gap-4">
           <img src={data?.image} alt={data?.title} className="w-[200px]" />
-        </div>
-
-        <div className="sm:w-auto w-full flex gap-3 items-center justify-end">
-          <MyButton
-            onClick={() => navigate(`/zoom-records/edit/${zoomRecordId}`)}
-            leftIcon={<IconPencilMinus size={16} />}
-          >
-            Edit
-          </MyButton>
         </div>
       </div>
 
@@ -80,4 +63,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.student_zoom_records);

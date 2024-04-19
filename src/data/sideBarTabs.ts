@@ -11,7 +11,7 @@ import {
   // MdPodcasts,
 } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
-import { IoPeopleOutline } from "react-icons/io5";
+import { IoPeopleOutline, IoFilm } from "react-icons/io5";
 import { FaBookReader, FaCalendarAlt } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import { AiFillSchedule } from "react-icons/ai";
@@ -167,10 +167,10 @@ const sideBarTabs = [
   },
   {
     label: "Zoom Records",
-    icon: SiGoogleclassroom,
+    icon: IoFilm,
     initiallyOpened: false,
     link: "/student-zoom-records",
-    banRoles: banRoles.zoom_records,
+    banRoles: banRoles.student_zoom_records,
   },
   // {
   //   label: "Chat",
