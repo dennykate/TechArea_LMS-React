@@ -19,7 +19,7 @@ const Class = () => {
   const getCourses = useCallback(async () => {
     const res = await fetch(
       config.baseUrl +
-        `/public/courses?limit=4&filter[grade_id]=${form.values.grade_id}&filter[section_id]=${form.values.section_id}`
+        `/public/courses?limit=6&filter[grade_id]=${form.values.grade_id}&filter[section_id]=${form.values.section_id}`
     );
     const courses = await res?.json();
 

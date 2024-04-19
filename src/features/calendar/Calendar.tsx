@@ -9,6 +9,9 @@ import useQuery from "@/hooks/useQuery";
 import moment from "moment";
 import useUserInfo from "@/hooks/use-user-info";
 import { Loader } from "@mantine/core";
+import { useForm } from "@mantine/form";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
+import config from "@/config";
 
 type EventType = "exams" | "meetings" | "holidays" | "events";
 
@@ -26,6 +29,12 @@ const Calendar = () => {
   });
   const userInfo = useUserInfo();
 
+  const form = useForm({
+    initialValues: {
+      grade_id: config.grade_10_id,
+    },
+  });
+
   const { data, isLoading } = useQuery(
     `/academic-calendar-events?filter[role_id]=${
       userInfo?.role_id
@@ -35,7 +44,9 @@ const Calendar = () => {
       .format("YYYY-MM-DD")}&end_date=${moment(currentRange.end)
       .add(1, "month")
       .endOf("month")
-      .format("YYYY-MM-DD")}`
+      .format("YYYY-MM-DD")}${
+      userInfo?.role_id == 1 ? `&filter[grade_id]=${form.values.grade_id}` : ""
+    }`
   );
 
   const events = useMemo(
@@ -75,12 +86,18 @@ const Calendar = () => {
           ))}
         </div>
 
-        {isLoading && (
+        {isLoading ? (
           <div className="flex items-center gap-4">
             <p>Loading ...</p>
 
             <Loader size="xs" />
           </div>
+        ) : (
+          userInfo?.role_id == 1 && (
+            <div className="w-[200px]">
+              <GradeSectionSubject hideLabel form={form} usage={["grade"]} />
+            </div>
+          )
         )}
       </div>
 

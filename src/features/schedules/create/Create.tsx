@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
 
@@ -14,6 +15,7 @@ import { Group, Switch, useMantineTheme } from "@mantine/core";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 
 const Create = () => {
   const theme = useMantineTheme();
@@ -27,6 +29,7 @@ const Create = () => {
       end_date: new Date(),
       description: "",
       role_id: "",
+      grade_id: "",
     },
     validateInputOnBlur: true,
     validate: {
@@ -35,6 +38,8 @@ const Create = () => {
       start_date: (value: string) => (value ? null : "Start date is required"),
       end_date: (value: string) => (value ? null : "End date is required"),
       role_id: (value: string) => (value ? null : "Role is required"),
+      grade_id: (value: string, values: any) =>
+        values?.role_id != "1" ? null : value ? null : "Grade is required",
     },
   });
 
@@ -101,31 +106,37 @@ const Create = () => {
           name="role_id"
         />
 
-        <div className="pt-8">
-          <Group position="left">
-            <Switch
-              checked={isFullDay}
-              onChange={(event) => setIsFullDay(event.currentTarget.checked)}
-              color="teal"
-              size="md"
-              label="Set as full day"
-              thumbIcon={
-                isFullDay ? (
-                  <IconCheck
-                    size="0.8rem"
-                    color={theme.colors.teal[theme.fn.primaryShade()]}
-                    stroke={3}
-                  />
-                ) : (
-                  <IconX
-                    size="0.8rem"
-                    color={theme.colors.red[theme.fn.primaryShade()]}
-                    stroke={3}
-                  />
-                )
-              }
-            />
-          </Group>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="pt-10">
+            <Group position="left">
+              <Switch
+                checked={isFullDay}
+                onChange={(event) => setIsFullDay(event.currentTarget.checked)}
+                color="teal"
+                size="md"
+                label="Set as full day"
+                thumbIcon={
+                  isFullDay ? (
+                    <IconCheck
+                      size="0.8rem"
+                      color={theme.colors.teal[theme.fn.primaryShade()]}
+                      stroke={3}
+                    />
+                  ) : (
+                    <IconX
+                      size="0.8rem"
+                      color={theme.colors.red[theme.fn.primaryShade()]}
+                      stroke={3}
+                    />
+                  )
+                }
+              />
+            </Group>
+          </div>
+
+          {form.values?.role_id == "1" && (
+            <GradeSectionSubject form={form} usage={["grade"]} />
+          )}
         </div>
 
         <DateTimeInputComponent
@@ -135,7 +146,7 @@ const Create = () => {
           form={form}
           name="start_date"
         />
-        
+
         <DateTimeInputComponent
           placeholder="Choose end date"
           label="End Date"

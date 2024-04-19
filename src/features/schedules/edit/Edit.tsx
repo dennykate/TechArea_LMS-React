@@ -13,9 +13,16 @@ import { useParams } from "react-router-dom";
 import { roleData } from "@/data/roles";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import { Group, Switch, useMantineTheme } from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import GradeSectionSubject from "@/components/common/GradeSectionSubject";
+import { useState } from "react";
 
 const Edit = () => {
   const { scheduleId } = useParams();
+  const theme = useMantineTheme();
+  const [isFullDay, setIsFullDay] = useState<boolean>(false);
+
   const form = useForm<any>({
     initialValues: {
       title: "",
@@ -24,6 +31,7 @@ const Edit = () => {
       end_date: "",
       description: "",
       role_id: "",
+      grade_id: "",
     },
     validateInputOnBlur: true,
     validate: {
@@ -32,6 +40,8 @@ const Edit = () => {
       start_date: (value: string) => (value ? null : "Start date is required"),
       end_date: (value: string) => (value ? null : "End date is required"),
       role_id: (value: string) => (value ? null : "Role is required"),
+      grade_id: (value: string, values: any) =>
+        values?.role_id != "1" ? null : value ? null : "Grade is required",
     },
   });
 
@@ -51,8 +61,12 @@ const Edit = () => {
   const onSubmitHandler = (values: any) => {
     const newItem = {
       ...values,
-      start_date: dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
-      end_date: dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
+      start_date: isFullDay
+        ? dayjs(values.start_date).startOf("day").format("DD-MM-YYYY HH:mm")
+        : dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
+      end_date: isFullDay
+        ? dayjs(values.end_date).endOf("day").format("DD-MM-YYYY HH:mm")
+        : dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
     };
     onSubmit(`/academic-calendar-events/${scheduleId}`, newItem, "PUT");
   };
@@ -75,15 +89,14 @@ const Edit = () => {
       }}
     >
       <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
-        <div className="md:col-span-2 col-span-1">
-          <TextInputComponent
-            label="Title"
-            placeholder="Enter title"
-            withAsterisk
-            form={form}
-            name="title"
-          />
-        </div>
+        <TextInputComponent
+          label="Title"
+          placeholder="Enter title"
+          withAsterisk
+          form={form}
+          name="title"
+        />
+
         <SelectComponent
           label="Type"
           placeholder="Select type"
@@ -97,6 +110,7 @@ const Edit = () => {
           form={form}
           name="type"
         />
+
         <SelectComponent
           label="Role"
           placeholder="Select role"
@@ -105,6 +119,40 @@ const Edit = () => {
           form={form}
           name="role_id"
         />
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="pt-10">
+            <Group position="left">
+              <Switch
+                checked={isFullDay}
+                onChange={(event) => setIsFullDay(event.currentTarget.checked)}
+                color="teal"
+                size="md"
+                label="Set as full day"
+                thumbIcon={
+                  isFullDay ? (
+                    <IconCheck
+                      size="0.8rem"
+                      color={theme.colors.teal[theme.fn.primaryShade()]}
+                      stroke={3}
+                    />
+                  ) : (
+                    <IconX
+                      size="0.8rem"
+                      color={theme.colors.red[theme.fn.primaryShade()]}
+                      stroke={3}
+                    />
+                  )
+                }
+              />
+            </Group>
+          </div>
+
+          {form.values?.role_id == "1" && (
+            <GradeSectionSubject form={form} usage={["grade"]} />
+          )}
+        </div>
+
         <DateTimeInputComponent
           placeholder="Choose start date"
           label="Start Date"
@@ -112,6 +160,7 @@ const Edit = () => {
           form={form}
           name="start_date"
         />
+
         <DateTimeInputComponent
           placeholder="Choose end date"
           label="End Date"
@@ -119,6 +168,7 @@ const Edit = () => {
           form={form}
           name="end_date"
         />
+
         <div className="md:col-span-2 col-span-1">
           <TextAreaComponent
             label="Description"
