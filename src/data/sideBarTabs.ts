@@ -19,6 +19,8 @@ import { BiLogoZoom } from "react-icons/bi";
 import { SiGoogleclassroom } from "react-icons/si";
 import { HiSpeakerphone } from "react-icons/hi";
 import { TbTimelineEventFilled } from "react-icons/tb";
+import { FaHardDrive } from "react-icons/fa6";
+
 import { banRoles } from "./banRoles";
 
 const sideBarTabs = [
@@ -130,7 +132,7 @@ const sideBarTabs = [
   },
   {
     label: "Zoom Record",
-    icon: BiLogoZoom,
+    icon: FaHardDrive,
     initiallyOpened: false,
     link: "/zoom-records",
     banRoles: banRoles.zoom_records,

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
 import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
-import { HiOutlineSpeakerphone } from "react-icons/hi";
+import { FaHardDrive } from "react-icons/fa6";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -68,7 +68,7 @@ const List = () => {
         checkboxCol={false}
         dateRangePicker
         pagination
-        Icon={HiOutlineSpeakerphone}
+        Icon={FaHardDrive}
         addNewRoute="/zoom-records/create"
         rows={rows}
         title={"Zoom Record List"}
