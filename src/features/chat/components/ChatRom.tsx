@@ -75,6 +75,8 @@ const ChatRoom: React.FC = () => {
 
   // console.log(userData?.partner?.id);
 
+  // console.log(userId)
+  // console.log(lastConversation)
   // for send message
   const handleSendMessage = async () => {
     if (!userId || !lastConversation) {

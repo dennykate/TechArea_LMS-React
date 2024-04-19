@@ -5,7 +5,7 @@ import { useGetDataQuery } from "@/redux/api/queryApi";
 import { Key } from "react";
 import { FaSquarePlus } from "react-icons/fa6";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal } from "@mantine/core";
+import { Loader, Modal } from "@mantine/core";
 import AddChatMate from "./AddChatMate";
 import GroupChatMate from "./GroupChatMate";
 import { useDispatch } from "react-redux";
@@ -46,7 +46,7 @@ const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
   if (isLoading)
     return (
       <div className="h-[100vh] flex justify-center items-center">
-        Loading...
+        <Loader color="blue" />
       </div>
     );
 

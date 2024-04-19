@@ -4,9 +4,7 @@ import { useState } from "react";
 
 interface UploadProps {
   uploadedImage: string[];
-  setUploadedImage: (
-    value: string[] | ((prevState: string[]) => string[])
-  ) => void;
+  setUploadedImage: (value: File[] | ((prevState: File[]) => File[])) => void;
 }
 
 const UploadedImages: React.FC<UploadProps> = ({
@@ -48,6 +46,7 @@ const UploadedImages: React.FC<UploadProps> = ({
                 borderRadius: "50%",
               }}
               onClick={() => removeImage(index)}
+              aria-label="Remove image"
             >
               <IconX size={16} stroke={1.5} />
             </ActionIcon>

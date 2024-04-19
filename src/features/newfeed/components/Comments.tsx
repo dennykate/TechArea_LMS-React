@@ -1,8 +1,61 @@
+import { usePostDataMutation } from "@/redux/api/queryApi";
+import { Avatar } from "@mantine/core";
+import React, { Key } from "react";
+import toast from "react-hot-toast";
+import { BiTrash } from "react-icons/bi";
 
-const Comments = () => {
-  return (
-    <div>Comments</div>
-  )
+interface CommentProps {
+  data: {
+    content: string;
+    created_at: string;
+    created_at_time: string;
+    id: Key | null | undefined;
+    is_owner: boolean;
+    user_name: string;
+    user_profile: string;
+  };
 }
 
-export default Comments
+const Comments: React.FC<CommentProps> = ({ data }) => {
+  // console.log(data);
+  const [deleteComment] = usePostDataMutation();
+
+  const deleteCommentHandler = async () => {
+    try {
+      const response = await deleteComment({
+        url: `/comments/${data?.id}`,
+        method: "DELETE",
+      });
+      // console.log(response);
+      if (response?.data?.status === "success") {
+        toast.success("Your comment deleted successfully!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return (
+    <div className="flex group gap-3 items-center text-gray-500">
+      <Avatar radius={"100%"} size={"lg"} src={data?.user_profile} />
+      <div>
+        <div className="flex justify-between items-center ">
+          <h1 className="text-lg text-gray-800">{data?.user_name}</h1>
+          {data?.is_owner && (
+            <div
+              onClick={deleteCommentHandler}
+              className="group-hover:text-red-600 cursor-pointer transition duration-100 "
+            >
+              <BiTrash size={18} />
+            </div>
+          )}
+        </div>
+        <div className="flex gap-5 items-center">
+          <p className="text-md">{data?.content}</p>
+          <span className="text-xs">{data?.created_at}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Comments;

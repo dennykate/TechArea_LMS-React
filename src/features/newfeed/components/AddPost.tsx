@@ -1,13 +1,12 @@
 import { Avatar, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IoNewspaperSharp } from "react-icons/io5";
 import UploadField from "./UploadField";
 const AddPost = () => {
   const [opened, { open, close }] = useDisclosure();
 
   return (
-    <div className="mt-5 rounded bg-white w-full flex flex-col items-center justify-center gap-5">
-      <div className="flex justify-around w-full pt-5">
+    <div className="my-5 rounded shadow py-5 bg-white w-full flex flex-col items-center justify-center gap-5">
+      <div className="flex gap-5 w-full pt-5">
         <Avatar
           radius={"100%"}
           size={"lg"}
@@ -16,16 +15,10 @@ const AddPost = () => {
         <input
           onClick={open}
           disabled={opened}
-          className="py-2 px-5 outline-none border w-3/4 rounded-full bg-gray-200"
+          className="py-2 px-5 outline-none border w-11/12 rounded-full bg-gray-200"
           placeholder="What's on your mind..."
           type="text"
         />
-      </div>
-      <div
-        onClick={open}
-        className="text-blue-600 border-t w-full flex justify-center text-3xl p-3 hover:bg-gray-200 cursor-pointer"
-      >
-        <IoNewspaperSharp />
       </div>
 
       {/* for post upload model  */}
@@ -36,7 +29,7 @@ const AddPost = () => {
         onClose={close}
         title="Post Upload"
       >
-        <UploadField />
+        <UploadField close={close} />
       </Modal>
     </div>
   );

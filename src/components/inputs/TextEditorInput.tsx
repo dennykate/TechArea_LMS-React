@@ -16,7 +16,7 @@ const TextEditorInput = ({
   inputClassName,
 }: TextEditorInputProps) => {
   return (
-    <div className={twMerge(label ? "min-h-[160px]" : "min-h-[140px] ")}>
+    <div className={twMerge(label ? "min-h-[190px]" : "min-h-[140px] ")}>
       {label && (
         <label htmlFor="text-editor" className="font-medium">
           {label}

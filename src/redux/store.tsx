@@ -5,9 +5,11 @@ import { queryApi } from "./api/queryApi";
 import keySlice from "./services/keySlice";
 import { chatApi } from "./api/chatApi";
 import chatSlice from "./services/chatSlice";
+import postSlice from "./services/postSlice";
 
 export const store = configureStore({
   reducer: {
+    postSlice: postSlice,
     chat: chatSlice,
     key: keySlice,
     [formApi.reducerPath]: formApi.reducer,
