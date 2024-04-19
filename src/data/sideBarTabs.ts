@@ -129,6 +129,13 @@ const sideBarTabs = [
     banRoles: banRoles.zoom_meetings,
   },
   {
+    label: "Zoom Record",
+    icon: BiLogoZoom,
+    initiallyOpened: false,
+    link: "/zoom-records",
+    banRoles: banRoles.zoom_records,
+  },
+  {
     label: "Courses",
     icon: FaBookReader,
     initiallyOpened: false,

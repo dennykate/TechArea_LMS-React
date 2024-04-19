@@ -8,6 +8,7 @@ export const banRoles = {
   grades: ["1"],
   schedules: ["1", "2"],
   zoom_meetings: ["1"],
+  zoom_records: ["1"],
   accounts: {
     overall: ["1"],
     admins: ["1", "2", "4"],

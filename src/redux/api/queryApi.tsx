@@ -26,6 +26,7 @@ export const queryApi = createApi({
       keepUnusedDataFor: 3600,
       providesTags: ["Data"],
     }),
+    
     postData: builder.mutation<any, any>({
       query: ({ url, body, method }) => {
         return {

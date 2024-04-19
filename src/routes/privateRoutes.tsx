@@ -24,6 +24,7 @@ import NewFeed from "@/features/newfeed/NewFeed";
 import UploadField from "@/features/newfeed/components/UploadField";
 import { announcementRoutes } from "@/features/announcements/routes";
 import { eventRoutes } from "@/features/events/routes";
+import { ZoomRecordRoutes } from "@/features/zoom-record/routes";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
@@ -105,6 +106,10 @@ const privateRoutes = [
       {
         path: "/zoom-meetings/*",
         children: zoomMeetingRoutes,
+      },
+      {
+        path: "/zoom-records/*",
+        children: ZoomRecordRoutes,
       },
       {
         path: "/accounts/*",
