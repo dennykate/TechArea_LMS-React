@@ -15,7 +15,7 @@ const Home = () => {
   return (
     <>
       <Header setShowNavItems={setShowNavItems} />
-      <div className="w-full min-h-screen relative">
+      <div className="w-full  relative">
         <div id="home" className="w-full sm:py-20 py-8 relative bg-white z-10 ">
           <div className="flex justify-between items-center lg:flex-row flex-col-reverse">
             <div
