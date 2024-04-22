@@ -23,10 +23,11 @@ import { studentClassRoutes } from "@/features/student-class/routes";
 import NewFeed from "@/features/newfeed/NewFeed";
 import UploadField from "@/features/newfeed/components/UploadField";
 import { announcementRoutes } from "@/features/announcements/routes";
+import Chat from "@/features/chat/Chat";
 
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
-const Chat = lazy(() => import("@/features/chat/Chat"));
+
 const StudentCourse = lazy(
   () => import("@/features/student-course/StudentCourse")
 );

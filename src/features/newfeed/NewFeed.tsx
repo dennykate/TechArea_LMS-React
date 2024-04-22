@@ -12,7 +12,7 @@ const NewFeed = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
-
+  const [latest, setLatest] = useState(true);
   const {
     data: postData,
     isLoading,
@@ -21,17 +21,23 @@ const NewFeed = () => {
 
   console.log(posts);
 
+  const resetData = () => {
+    setPosts([]);
+    setPage(1);
+  };
+
   useEffect(() => {
     if (postData?.data) {
       setPosts((prevPosts: any[]) => {
         const newPosts = postData.data.filter(
-          (post: { id: any; }) => !prevPosts.some((prevPost) => prevPost.id === post.id)
+          (post: { id: any }) =>
+            !prevPosts.some((prevPost) => prevPost.id === post.id)
         );
         return [...prevPosts, ...newPosts];
       });
       setHasMore(postData.meta.current_page < postData.meta.last_page);
     }
-  }, [postData]);
+  }, [postData, latest]);
 
   const fetchMoreData = () => {
     if (!isLoading && hasMore) {
@@ -64,16 +70,24 @@ const NewFeed = () => {
             </h4>
           }
           endMessage={
-            <p className="text-gray-500/40 my-5" style={{ textAlign: "center" }}>
+            <p
+              className="text-gray-500/40 my-5"
+              style={{ textAlign: "center" }}
+            >
               <b>-end-</b>
             </p>
           }
           scrollableTarget="scrollableDiv"
         >
           <div className="flex flex-col gap-5 items-center">
-            <AddPost />
+            <AddPost latest={latest} setLatest={setLatest} />
             {posts.map((el: any) => (
-              <Post key={el.id} data={el} parent="newfeed" />
+              <Post
+                resetData={resetData}
+                key={el.id}
+                data={el}
+                parent="newfeed"
+              />
             ))}
           </div>
         </InfiniteScroll>

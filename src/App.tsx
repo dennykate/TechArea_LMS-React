@@ -1,11 +1,14 @@
 import AppProvider from "./providers/AppProvider";
 import Routes from "./routes";
+import ErrorBoundary from "./routes/ErrorBoundary";
 
 const App = () => {
   return (
-    <AppProvider>
-      <Routes />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <Routes />
+      </AppProvider>
+    </ErrorBoundary>
   );
 };
 

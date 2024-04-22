@@ -1,4 +1,4 @@
-import { Avatar, Button, Modal } from "@mantine/core";
+import { Avatar, Button, Modal, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import toast from "react-hot-toast";
 import { usePostDataMutation } from "@/redux/api/formApi";
@@ -9,6 +9,7 @@ interface MsgProps {
     message: string;
     id: string;
     attachment: null | string;
+    created_at_time: string;
   };
 }
 
@@ -21,7 +22,11 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
   const deleteMessageHandler = async () => {
     try {
       const response = await deleteMsg({
-        url: `${msg?.attachment === null ? `/messages/${msg.id}` : `/group-chat-messages/${msg.id}`}`,
+        url: `${
+          msg?.attachment === null
+            ? `/messages/${msg.id}`
+            : `/group-chat-messages/${msg.id}`
+        }`,
         method: "DELETE",
       }).unwrap();
       console.log(response);
@@ -40,7 +45,7 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
   return (
     <div
       onDoubleClick={() => msg.is_sender && open()}
-      className={`w-full flex items-center ${
+      className={`w-full h-[10vh] flex items-center ${
         !msg.is_sender ? "justify-start" : "justify-end"
       }`}
     >
@@ -52,13 +57,14 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
         />
       )}
       <div
-        className={`flex m-2 p-3 md:max-w-[600px] max-w-[250px] ${
+        className={`flex flex-col items-end m-2 p-3 md:max-w-[600px] max-w-[250px] ${
           !msg.is_sender
             ? "bg-black text-white rounded-t-lg rounded-e-xl"
-            : "bg-slate-300 text-gray-800 rounded-t-xl rounded-s-xl"
+            : "bg-slate-200 text-gray-800 rounded-t-xl rounded-s-xl"
         }`}
       >
         {msg.message}
+        <Text size={'xs'} color="dimmed">{msg.created_at_time}</Text>
       </div>
 
       <Modal title="Delete Message" onClose={close} opened={opened}>

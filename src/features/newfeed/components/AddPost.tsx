@@ -1,7 +1,11 @@
 import { Avatar, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import UploadField from "./UploadField";
-const AddPost = () => {
+interface StateProps {
+  latest: boolean;
+  setLatest: (latest: boolean) => void;
+}
+const AddPost: React.FC<StateProps> = ({ latest, setLatest }) => {
   const [opened, { open, close }] = useDisclosure();
 
   return (
@@ -29,7 +33,7 @@ const AddPost = () => {
         onClose={close}
         title="Post Upload"
       >
-        <UploadField close={close} />
+        <UploadField latest={latest} setLatest={setLatest} close={close} />
       </Modal>
     </div>
   );

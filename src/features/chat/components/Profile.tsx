@@ -11,7 +11,7 @@ const Profile: React.FC<LayoutProps> = ({ gap }) => {
     name: string;
   } = JSON.parse(get("userInfo") as string);
 
-  console.log(userData);
+  // console.log(userData);
   return (
     <div
       className={`bg-blue-200 h-full border cursor-pointer ${gap} shadow-sm flex items-center px-2 md:p-5 bg-white w-full`}

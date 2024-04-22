@@ -1,7 +1,7 @@
 import { useState, ChangeEvent, Key } from "react";
 import UserProfile from "./UserProfile";
 import { useGetDataQuery } from "@/redux/api/queryApi";
-import { Button, Switch } from "@mantine/core";
+import { Button, Pagination, Select, Switch } from "@mantine/core";
 import GroupChatMate from "./GroupChatMate";
 import { useDispatch, useSelector } from "react-redux";
 import { clearGroupUsers, selectUsers } from "@/redux/services/chatSlice";
@@ -31,17 +31,30 @@ interface SelectGroupState {
   show: boolean;
   groupId: string | null;
 }
+const ITEMS_PER_PAGE = 16;
 
 const AddChatMate: React.FC<ModelProps> = ({ close }) => {
-  const [search, setSearch] = useState<SearchProps>({ role: 1, name: "" });
   // all users
+  const [search, setSearch] = useState<SearchProps>({ role: 0, name: "" });
+  const [currentPage, setCurrentPage] = useState(1);
+
   const { data, isLoading, error } = useGetDataQuery(
-    `/users?filter[role_id]=${search.role}&search=${search.name}`
+    `/users?filter[role_id]=${search.role}&search=${search.name}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`
   );
-  // console.log(error)
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+  console.log(data);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch((prev) => ({ ...prev, name: event.target.value }));
+    setSearch({ role: 1, name: event.target.value });
+    setCurrentPage(1); // Reset to first page on new search
+  };
+
+  const handleRoleChange = (value: string) => {
+    setSearch({ ...search, role: Number(value) });
+    setCurrentPage(1);
   };
 
   // adding to group chat
@@ -154,6 +167,17 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
   return (
     <div className="w-full">
       <div className="flex md:flex-row flex-col gap-5 justify-between items-center mb-4">
+        <Select
+        size="lg"
+          placeholder="Select role"
+          value={search.role.toString()}
+          onChange={handleRoleChange}
+          data={[
+            { value: "1", label: "Student" },
+            { value: "2", label: "Teacher" },
+          ]}
+          className="w-full md:w-[300px]"
+        />
         <input
           type="text"
           value={search.name}
@@ -241,15 +265,23 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
           )}
         </div>
       ) : addUser ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {data?.data?.map((el: Data) => (
-            <UserProfile
-              close={close}
-              parent="add_user"
-              data={el}
-              key={el.id}
-            />
-          ))}
+        <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {data?.data?.map((el: Data) => (
+              <UserProfile
+                close={close}
+                parent="add_user"
+                data={el}
+                key={el.id}
+              />
+            ))}
+          </div>
+          <Pagination
+            page={currentPage}
+            // onLastPage={}
+            onChange={handlePageChange}
+            total={data?.meta?.total}
+          />
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

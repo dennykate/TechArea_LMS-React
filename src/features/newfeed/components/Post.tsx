@@ -10,6 +10,7 @@ import {
   Avatar,
   Menu,
   rem,
+  Modal,
 } from "@mantine/core";
 import { IconThumbUp, IconMessageCircle } from "@tabler/icons-react";
 import PostModal from "./PostModal";
@@ -20,6 +21,9 @@ import { useGetDataQuery, usePostDataMutation } from "@/redux/api/queryApi";
 import { BiDotsHorizontal, BiEdit } from "react-icons/bi";
 import toast from "react-hot-toast";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
+import { useDispatch } from "react-redux";
+import { editPost } from "@/redux/services/postSlice";
+import UpdateField from "./UpdateField";
 
 interface Reaction {
   id: string;
@@ -48,11 +52,12 @@ interface ParentProps {
     id: string;
     is_reactor: ReactProps;
   };
+  resetData: () => void;
 }
 
-const Post: React.FC<ParentProps> = ({ parent, data }) => {
-  // const [reaction, setReaction] = useState<Reaction | null>(null);
-  const [opened, { open, close }] = useDisclosure();
+const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
+  const [commentModalOpen, commentModalControls] = useDisclosure();
+  const [editModalOpen, editModalControls] = useDisclosure();
   const [postReaction] = usePostDataMutation();
 
   const { get } = useEncryptStorage();
@@ -87,7 +92,6 @@ const Post: React.FC<ParentProps> = ({ parent, data }) => {
   };
 
   const handleReactionSelect = (r: Reaction) => {
-    // setReaction(r);
     postReactionHandler(r);
   };
 
@@ -110,22 +114,9 @@ const Post: React.FC<ParentProps> = ({ parent, data }) => {
   };
 
   // for single fetch
-  const {
-    data: fetchedData,
-    isLoading,
-    refetch,
-  } = useGetDataQuery(`/posts/${data?.id}`, {
-    skip: !data?.id, // Start with skip depending on the availability of data.id
+  const { data: fetchedData } = useGetDataQuery(`/posts/${data?.id}`, {
+    skip: !data?.id,
   });
-
-  const handleCommentButtonClick = () => {
-    if (!data?.id) {
-      console.log("No post ID available to fetch data.");
-      return;
-    }
-    refetch();
-    open();
-  };
 
   const [deleteReact, { isLoading: reactLoading, error }] =
     usePostDataMutation();
@@ -139,7 +130,20 @@ const Post: React.FC<ParentProps> = ({ parent, data }) => {
       toast.success("Unreact successfully");
     }
   };
-  // if (isLoading) return <div>Loading...</div>;
+
+  const dispatch = useDispatch();
+  const handleEditButtonClick = () => {
+    if (data) {
+      dispatch(editPost(data));
+      editModalControls.open();
+    }
+  };
+
+  const handleCommentButtonClick = () => {
+    if (data?.id) {
+      commentModalControls.open();
+    }
+  };
 
   return (
     <div className="w-full flex justify-center items-center cursor-default">
@@ -166,7 +170,7 @@ const Post: React.FC<ParentProps> = ({ parent, data }) => {
             <div className=" absolute top-5 right-5 z-10">
               <Menu width={200} shadow="md">
                 <Menu.Target>
-                  <button className=" text-white text-xl border rounded p-1 hover:bg-white/10 hover:backdrop-blur-md">
+                  <button className="bg-primary text-white text-xl border rounded p-1 hover:bg-primary/70 hover:backdrop-blur-md">
                     <BiDotsHorizontal />
                   </button>
                 </Menu.Target>
@@ -179,7 +183,12 @@ const Post: React.FC<ParentProps> = ({ parent, data }) => {
                     Delete
                   </Menu.Item>
 
-                  <Menu.Item icon={<BiEdit size={rem(14)} />}>Edit</Menu.Item>
+                  <Menu.Item
+                    onClick={() => handleEditButtonClick()}
+                    icon={<BiEdit size={rem(14)} />}
+                  >
+                    Edit
+                  </Menu.Item>
                 </Menu.Dropdown>
               </Menu>
             </div>
@@ -276,8 +285,26 @@ const Post: React.FC<ParentProps> = ({ parent, data }) => {
         </div>
       </Card>
 
-      {/* modal for comment  */}
-      <PostModal opened={opened} close={close} fetchedData={fetchedData} />
+      {/* modal for comment and edit */}
+      <Modal
+        opened={editModalOpen}
+        onClose={editModalControls.close}
+        size={"xl"}
+        centered
+        title="Edit Post"
+      >
+        <UpdateField
+          resetData={resetData}
+          close={editModalControls.close}
+          initialContent={data}
+        />
+      </Modal>
+
+      <PostModal
+        fetchedData={fetchedData}
+        opened={commentModalOpen}
+        close={commentModalControls.close}
+      />
     </div>
   );
 };

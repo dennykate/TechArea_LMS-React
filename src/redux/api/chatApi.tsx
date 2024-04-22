@@ -1,62 +1,32 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-// import { EncryptStorage } from "use-encrypt-storage";
-// import Cookies from "js-cookie";
-
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import config from "@/config";
 import { EncryptStorage } from "@/utilities/encrypt-storage";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: config.baseUrl, // Your API base URL
+  baseUrl: config.baseUrl,
   prepareHeaders: (headers) => {
     const encryptStorage = new EncryptStorage(config.secretKey);
-
-    const token = encryptStorage.get("token") || "";
-    // console.log(token);
-
-    headers.set("Authorization", `Bearer ${token}`);
+    const token = encryptStorage.get("token");
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
     return headers;
   },
 });
 
 export const chatApi = createApi({
-  reducerPath: "chatApi",
+  reducerPath: 'chatApi',
   baseQuery,
-  tagTypes: ["getData"],
   endpoints: (builder) => ({
-    getData: builder.query<any, any>({
-      query: ({ url, body, method }) => {
-        return {
-          url,
-          method,
-          body,
-        };
-      },
-      providesTags: [{ type: "getData", id: "all" }],
+    getMessages: builder.query<MsgData[], { conversationId: string, page: number }>({
+      query: ({ conversationId, page }) => 
+        `/messages?conversation_id=${conversationId}&limit=5&page=${page}`,
     }),
-    getChatData: builder.query<any, any>({
-      query: ({ url, body, method }) => {
-        return {
-          url,
-          method,
-          body,
-        };
-      },
-      providesTags: [{ type: "getData", id: "all" }],
-    }),
-    sendMessage: builder.mutation<any, any>({
-      query: ({ url, body, method }) => {
-        return {
-          url,
-          method,
-          body,
-        };
-      },
-      invalidatesTags: [{ type: "getData" }],
+    getGroupChatMessages: builder.query<MsgData[], { groupId: string, page: number }>({
+      query: ({ groupId, page }) => 
+        `/group-chat-messages?group_chat_id=${groupId}&limit=5&page=${page}`,
     }),
   }),
 });
 
-export const { useSendMessageMutation, useGetDataQuery, useGetChatDataQuery } =
-  chatApi;
+export const { useGetMessagesQuery, useGetGroupChatMessagesQuery } = chatApi;

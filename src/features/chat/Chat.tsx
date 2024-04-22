@@ -40,7 +40,7 @@ const Chat = () => {
         variants={variants}
         transition={{ duration: 0.5 }}
       >
-        <div className="w-full md:w-3/12" >
+        <div className="w-full md:w-3/12">
           <ChatBar toggleChatRoom={toggleChatRoom} />
         </div>
         <div className="w-full md:w-9/12 relative">

@@ -5,12 +5,17 @@ import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import UploadedImages from "./UploadedImages";
 import TextEditorInput from "@/components/inputs/TextEditorInput";
 import { usePostDataMutation } from "@/redux/api/queryApi";
+import toast from "react-hot-toast";
 
 interface ModalProps {
   close?: () => void;
+  latest: boolean;
+  setLatest: (latest: boolean) => void;
 }
 
 const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
+  latest,
+  setLatest,
   close,
   ...dropzoneProps
 }) => {
@@ -48,9 +53,13 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
         body: formData,
       });
       console.log(response);
-      setUploadedImage([]);
-      setContent("");
-      if (close) close();
+      if (response?.data?.status === "success") {
+        setUploadedImage([]);
+        setContent("");
+        if (close) close();
+        toast.success("Upload post Successfully!");
+        setLatest(!latest);
+      }
     } catch (error) {
       console.error("Failed to upload data:", error);
     }
