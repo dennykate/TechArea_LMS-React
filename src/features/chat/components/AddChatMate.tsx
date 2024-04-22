@@ -277,8 +277,6 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
             ))}
           </div>
           <Pagination
-            page={currentPage}
-            // onLastPage={}
             onChange={handlePageChange}
             total={data?.meta?.total}
           />

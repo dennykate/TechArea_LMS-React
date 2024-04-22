@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { Group, Text, useMantineTheme } from "@mantine/core";
+import { Text, Button } from "@mantine/core";
 import { Dropzone } from "@mantine/dropzone";
-import {
-  IconUpload,
-  IconPhoto,
-  IconX,
-  IconFileText,
-  IconFile,
-} from "@tabler/icons-react";
+import { IconFileText } from "@tabler/icons-react";
+import { usePostDataMutation } from "@/redux/api/formApi";
+import { useSelector } from "react-redux";
+import { selectCurrentChatData } from "@/redux/services/chatSlice";
 
 const ACCEPTED_MIME_TYPES = [
   "image/png",
@@ -18,29 +15,59 @@ const ACCEPTED_MIME_TYPES = [
 ];
 
 interface UploadedFile extends File {
-  preview?: string | undefined;
-  path?: string;
+  path: string;
+  preview: string;
+}
+interface PropData {
+  close: () => void;
 }
 
-const FileSend = () => {
-  const theme = useMantineTheme();
+const FileSend: React.FC<PropData> = ({ close }) => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
+  const [sendReport, { isLoading }] = usePostDataMutation();
+  const userData = useSelector(selectCurrentChatData);
+  const [postFile, setPostFile] = useState<File[] | null>(null);
 
-  // drop
   const handleDrop = (acceptedFiles: File[]) => {
-    console.log("Accepted files:", acceptedFiles);
     const mappedFiles: UploadedFile[] = acceptedFiles.map((file) => ({
       ...file,
-      preview: file.type.includes("image/")
+      preview: file.type.startsWith("image")
         ? URL.createObjectURL(file)
         : undefined,
     }));
-
+    setPostFile(acceptedFiles);
     setUploadedFiles(mappedFiles);
   };
 
-  // Ensure to revoke the data uris to avoid memory leaks
-  console.log(uploadedFiles);
+  const handleSubmit = async () => {
+    if (!userData || !userData.partner || !userData.partner.id) {
+      console.error("Receiver ID is undefined");
+      return;
+    }
+
+    const formData = new FormData();
+    postFile?.forEach((file) => {
+      formData.append("attachment", file);
+    });
+
+    formData.append("partner_id", userData.partner.id.toString());
+    formData.append("message", "Sending file");
+
+    try {
+      const result = await sendReport({
+        url: "/messages",
+        method: "POST",
+        body: formData,
+      }).unwrap();
+      console.log("Success:", result);
+      setUploadedFiles([]);
+      setPostFile(null);
+      close(); 
+    } catch (apiError) {
+      console.error("Error submitting files:", apiError);
+    }
+  };
+
   const thumbs = uploadedFiles.map((file) => (
     <div className="border rounded p-3 flex items-center gap-5" key={file.path}>
       <div>
@@ -49,11 +76,7 @@ const FileSend = () => {
             src={file.preview}
             alt="Preview"
             style={{ width: "100px", height: "100px" }}
-            onLoad={() => {
-              if (file.preview) {
-                URL.revokeObjectURL(file.preview);
-              }
-            }}
+            onLoad={() => URL.revokeObjectURL(file.preview)}
           />
         ) : (
           <IconFileText size={48} />
@@ -66,52 +89,29 @@ const FileSend = () => {
   return (
     <div>
       {uploadedFiles.length > 0 ? (
-        <div>{thumbs}</div>
+        <div className="my-2 flex flex-col gap-4">
+          {thumbs}
+          <Button
+            variant="outline"
+            onClick={handleSubmit}
+            disabled={uploadedFiles.length === 0 || isLoading}
+          >
+            {isLoading ? "Sending..." : "Send Files"}
+          </Button>
+        </div>
       ) : (
         <Dropzone
           onDrop={handleDrop}
-          onReject={(files) => console.log("Rejected files", files)}
+          onReject={(files) => console.error("Rejected files", files)}
           maxSize={5 * 1024 ** 2}
           accept={ACCEPTED_MIME_TYPES}
         >
-          <Group
-            position="center"
-            spacing="xl"
-            style={{ minHeight: "220px", pointerEvents: "none" }}
-          >
-            <Dropzone.Accept>
-              <IconUpload
-                size={32}
-                stroke={1.5}
-                color={
-                  theme.colors[theme.primaryColor][
-                    theme.colorScheme === "dark" ? 4 : 6
-                  ]
-                }
-              />
-            </Dropzone.Accept>
-            <Dropzone.Reject>
-              <IconX
-                size={32}
-                stroke={1.5}
-                color={theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]}
-              />
-            </Dropzone.Reject>
-            <Dropzone.Idle>
-              <IconFile size={32} stroke={1.5} />
-              <IconPhoto size={32} stroke={1.5} />
-            </Dropzone.Idle>
-
-            <div>
-              <Text size="xl" inline>
-                Drag files here or click to select files
-              </Text>
-              <Text size="sm" color="dimmed" inline mt={7}>
-                Attach as many files as you like, each file should not exceed
-                5MB
-              </Text>
-            </div>
-          </Group>
+          <Text size="xl" inline>
+            Drag files here or click to select files
+          </Text>
+          <Text size="sm" color="dimmed" inline mt={7}>
+            Attach as many files as you like, each file should not exceed 5MB
+          </Text>
         </Dropzone>
       )}
     </div>

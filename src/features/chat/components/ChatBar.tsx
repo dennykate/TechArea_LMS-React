@@ -26,11 +26,9 @@ const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
   // for group conversation
   const {
     data: groupChatData,
-    // error: groupChatError,
-    // isLoading,
   } = useGetDataQuery("group-chats");
 
-  console.log(groupChatData);
+  // console.log(groupChatData);
 
   // for single conversation
   const { data, error, isLoading } = useGetDataQuery(`conversations`);

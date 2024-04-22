@@ -13,6 +13,7 @@ import Message from "./Message";
 import { useGetDataQuery, usePostDataMutation } from "@/redux/api/queryApi";
 import Cookies from "js-cookie";
 import InfiniteScroll from "react-infinite-scroll-component";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 interface ApiError {
   status: number;
@@ -28,6 +29,13 @@ const ChatRoom: React.FC = () => {
 
   const [opened, { open, close }] = useDisclosure();
 
+  // for report
+  const { get } = useEncryptStorage();
+  const selfData: {
+    role_id: string;
+  } = JSON.parse(get("userInfo") as string);
+
+  // console.log(selfData.role_id)
   // console.log(sendMsgError);
   // for user data
   const userData = useSelector(selectCurrentChatData);
@@ -78,7 +86,7 @@ const ChatRoom: React.FC = () => {
 
       const moreDataAvailable = chatData.data.length === 10;
       setHasMore(moreDataAvailable);
-      console.log("More data available: ", moreDataAvailable);
+      // console.log("More data available: ", moreDataAvailable);
     }
   }, [chatData, userData?.last_message]);
 
@@ -87,11 +95,14 @@ const ChatRoom: React.FC = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  if (isLoading)
+    return (
+      <div className="h-[100vh] flex justify-center items-center">
+        <Loader color="blue" />
+      </div>
+    );
 
-  console.log(chatData);
+  // console.log(chatData);
 
   // for press enter key
   const handleKeyDown = (event: {
@@ -214,17 +225,19 @@ const ChatRoom: React.FC = () => {
           )}
         </div>
         {/* for file sending  */}
-        <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
-          <MdAttachFile onClick={open} size={30} />
-          <Modal
-            opened={opened}
-            onClose={close}
-            title="Drop your file here"
-            centered
-          >
-            <FileSend />
-          </Modal>
-        </div>
+        {selfData?.role_id !== "2" && (
+          <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
+            <MdAttachFile onClick={open} size={30} />
+            <Modal
+              opened={opened}
+              onClose={close}
+              title="Drop your file here"
+              centered
+            >
+              <FileSend close={close} />
+            </Modal>
+          </div>
+        )}
 
         <div className="flex w-full md:w-[90%] h-full bg-slate-200 rounded-full overflow-hidden mx-1 md:mx-5">
           <input
