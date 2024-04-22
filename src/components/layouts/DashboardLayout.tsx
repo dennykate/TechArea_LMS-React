@@ -52,7 +52,6 @@ const DashboardLayout = ({ children }: PropsType) => {
         className={twMerge(
           "h-full transition-all duration-300 ease-in-out",
           opened && !matches ? "w-[calc(100%-260px)]" : "w-full"
-          
         )}
       >
         <NavBar toggle={toggle} />
