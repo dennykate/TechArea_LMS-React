@@ -25,7 +25,7 @@ export default function DateInputComponent({
     <DateInput
       valueFormat={format ? format : "YYYY/MM/DD"}
       label={label}
-      placeholder={placeholder}
+      placeholder={`${placeholder} ( Format - 2023/01/09 )`}
       classNames={{
         label: `sm:text-[16px] text-[14px] mb-1`,
         weekday: "!text-black",

@@ -97,7 +97,7 @@ const List = () => {
         </div>
       </div>
 
-      {gradeId && sectionId && (
+      {(gradeId || sectionId) && (
         <TableComponent
           checkboxCol={false}
           dateRangePicker
@@ -117,7 +117,9 @@ const List = () => {
             "Created At",
           ]}
           baseUrl={`users`}
-          filter={`&filter[role_id]=1&filter[grade_id]=${gradeId}&filter[section_id]=${sectionId}`}
+          filter={`&filter[role_id]=1&filter[grade_id]=${gradeId}${
+            sectionId ? `&filter[section_id]=${sectionId}` : ""
+          }`}
           setData={setData}
         />
       )}
