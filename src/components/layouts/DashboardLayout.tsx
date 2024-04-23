@@ -44,6 +44,7 @@ const DashboardLayout = ({ children }: PropsType) => {
         >
           <SideBar opened={opened} />
         </Drawer>
+        
       )}
 
       {!matches && <SideBar opened={opened} />}
