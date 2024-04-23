@@ -42,8 +42,9 @@ const DashboardLayout = ({ children }: PropsType) => {
             body: "p-0 ",
           }}
         >
-          <SideBar opened={opened} />
           
+          <SideBar opened={opened} />
+
         </Drawer>
       )}
 
