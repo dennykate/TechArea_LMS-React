@@ -135,7 +135,7 @@ const ChatRoom: React.FC = () => {
   // console.log(inputValue);
 
   // console.log(userData?.partner?.id);
-  console.log(userData);
+  // console.log(userData);
 
   // console.log(userId)
   // console.log(lastConversation)

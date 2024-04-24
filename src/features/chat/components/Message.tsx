@@ -3,7 +3,6 @@ import { Avatar, Button, Modal, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import toast from "react-hot-toast";
 import { usePostDataMutation } from "@/redux/api/formApi";
-import { IconFileText } from "@tabler/icons-react"; // Make sure you import the necessary icon
 import { BiDownload } from "react-icons/bi";
 
 interface MsgProps {
@@ -49,8 +48,8 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
       console.error(err);
     }
   };
-  const openInNewTab = (url:string|null) => {
-    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+  const openInNewTab = (url: string | null) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
   };
   // console.log(msg);
@@ -81,22 +80,34 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
             : "bg-slate-200 text-gray-800 rounded-t-xl rounded-s-xl"
         }`}
       >
-        {msg?.attachment === null ? (
+        {msg.attachment ? (
+          msg?.attachment === null ? (
+            <div className="flex flex-col">
+              <p>{msg.message}</p>
+              <Text size={"xs"} color="dimmed">
+                {msg.created_at_time}
+              </Text>
+            </div>
+          ) : isImage(msg.attachment) ? (
+            <img className="w-[250px] h-[250px]" src={msg.attachment} alt="" />
+          ) : isDocument(msg.attachment) ? (
+            <div
+              onClick={() => openInNewTab(msg.attachment)}
+              className="flex cursor-pointer gap-2 items-center"
+            >
+              <BiDownload size={28} />
+              <Text size="sm">{getFileName(msg.attachment)}</Text>
+            </div>
+          ) : (
+            <Text>Unsupported file type</Text>
+          )
+        ) : (
           <div className="flex flex-col">
             <p>{msg.message}</p>
             <Text size={"xs"} color="dimmed">
               {msg.created_at_time}
             </Text>
           </div>
-        ) : isImage(msg.attachment) ? (
-          <img className="w-[250px] h-[250px]" src={msg.attachment} alt="" />
-        ) : isDocument(msg.attachment) ? (
-          <div onClick={() => openInNewTab(msg.attachment)} className="flex cursor-pointer gap-2 items-center">
-            <BiDownload size={28} />
-            <Text size="sm">{getFileName(msg.attachment)}</Text>
-          </div>
-        ) : (
-          <Text>Unsupported file type</Text>
         )}
       </div>
 

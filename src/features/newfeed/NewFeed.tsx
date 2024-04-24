@@ -61,7 +61,7 @@ const NewFeed = () => {
         className="h-[100%] overflow-scroll scrollbar-none w-[90%] md:w-[60%]"
       >
         <InfiniteScroll
-          dataLength={posts.length}
+          dataLength={posts?.length}
           next={fetchMoreData}
           hasMore={hasMore}
           loader={
