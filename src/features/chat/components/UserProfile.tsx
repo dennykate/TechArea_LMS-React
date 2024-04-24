@@ -1,4 +1,4 @@
-import { usePostDataMutation } from "@/redux/api/formApi";
+import { usePostDataMutation } from "@/redux/api/queryApi";
 import { addGroupUser, removeGroupUser } from "@/redux/services/chatSlice";
 import { useMessageHandler } from "@/utilities/messageHandler";
 import { Avatar, Badge, Checkbox, Flex, Text } from "@mantine/core";
@@ -82,16 +82,20 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
           </Flex>
         </div>
         {/* for adding group  */}
-        <div className="bottom-2 right-2">
-          <Checkbox
-            onChange={(event) =>
-              handleCheckboxChange(event.currentTarget.checked)
-            }
-            label={`${parent === "add_user" ? "Add to group" : "Remove user"}`}
-            color={`${parent !== "add_user" && "red"}`}
-            mt="md"
-          />
-        </div>
+        {parent !== "single_chat" && (
+          <div className="bottom-2 right-2">
+            <Checkbox
+              onChange={(event) =>
+                handleCheckboxChange(event.currentTarget.checked)
+              }
+              label={`${
+                parent === "add_user" ? "Add to group" : "Remove user"
+              }`}
+              color={`${parent !== "add_user" && "red"}`}
+              mt="md"
+            />
+          </div>
+        )}
       </div>
       {/* start conversation  */}
       <div className="flex items-center justify-center h-full">

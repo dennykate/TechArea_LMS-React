@@ -210,7 +210,6 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
                 mb="xs"
               >
                 <Text weight={500}>{data?.created_by}</Text>
-                <Badge color="pink">On Sale</Badge>
               </Group>
 
               <div className="text-[12px] text-gray-500">
@@ -218,9 +217,6 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
                   {moment(data?.created_at, "DD MMM YYYY hh:mm A").format(
                     "MMMM Do YYYY, h:mm:ss a"
                   )}
-                </p>
-                <p>
-                  {moment(data?.created_at, "DD MMM YYYY hh:mm A").fromNow()}
                 </p>
               </div>
             </div>

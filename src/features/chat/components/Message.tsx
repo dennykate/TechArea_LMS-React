@@ -21,9 +21,9 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
   const [opened, { open, close }] = useDisclosure();
 
   const isImage = (url: string) =>
-    /\.(jpeg|jpg|gif|png)$/.test(url.toLowerCase());
+    /\.(jpeg|jpg|gif|png)$/.test(url?.toLowerCase());
   const isDocument = (url: string) =>
-    /\.(pdf|doc|docx)$/.test(url.toLowerCase());
+    /\.(pdf|doc|docx)$/.test(url?.toLowerCase());
 
   const getFileName = (url: string) => url.split("/").pop() || "Unknown file";
 
@@ -58,16 +58,16 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
     <div
       onDoubleClick={() => msg.is_sender && open()}
       className={`w-full ${
-        msg.attachment === null
+        msg?.attachment === null
           ? "h-[10vh]"
           : isImage(msg.attachment)
           ? "h-[300px]"
           : isDocument(msg.attachment)
-          ? "h-[130px]"
+          ? "h-[70px]"
           : "h-[10vh]"
       } flex items-center ${!msg.is_sender ? "justify-start" : "justify-end"}`}
     >
-      {!msg.is_sender && (
+      {!msg?.is_sender && (
         <Avatar
           radius="100%"
           size="md"
@@ -76,12 +76,12 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
       )}
       <div
         className={`flex flex-col items-end m-2 p-3 md:max-w-[600px] max-w-[250px] ${
-          !msg.is_sender
+          !msg?.is_sender
             ? "bg-black text-white rounded-t-lg rounded-e-xl"
             : "bg-slate-200 text-gray-800 rounded-t-xl rounded-s-xl"
         }`}
       >
-        {msg.attachment === null ? (
+        {msg?.attachment === null ? (
           <div className="flex flex-col">
             <p>{msg.message}</p>
             <Text size={"xs"} color="dimmed">
@@ -91,7 +91,7 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
         ) : isImage(msg.attachment) ? (
           <img className="w-[250px] h-[250px]" src={msg.attachment} alt="" />
         ) : isDocument(msg.attachment) ? (
-          <div onClick={() => openInNewTab(msg.attachment)} className="flex cursor-pointer flex-col items-center">
+          <div onClick={() => openInNewTab(msg.attachment)} className="flex cursor-pointer gap-2 items-center">
             <BiDownload size={28} />
             <Text size="sm">{getFileName(msg.attachment)}</Text>
           </div>

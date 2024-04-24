@@ -10,10 +10,10 @@ import FileSend from "./FileSend";
 import { useSelector } from "react-redux";
 import { selectCurrentChatData } from "@/redux/services/chatSlice";
 import Message from "./Message";
-import { useGetDataQuery, usePostDataMutation } from "@/redux/api/queryApi";
 import Cookies from "js-cookie";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
+import { useGetDataQuery, usePostDataMutation } from "@/redux/api/queryApi";
 
 interface ApiError {
   status: number;
@@ -50,8 +50,8 @@ const ChatRoom: React.FC = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const endpoint = userData?.partner
-    ? `/messages?conversation_id=${lastConversation}&limit=10&page=${page}`
-    : `/group-chat-messages?group_chat_id=${lastConversation}&limit=10&page=${page}`;
+    ? `/messages?conversation_id=${lastConversation}&limit=20&page=${page}`
+    : `/group-chat-messages?group_chat_id=${lastConversation}&limit=20&page=${page}`;
 
   const { data: chatData, error, isLoading } = useGetDataQuery(endpoint);
 
@@ -84,11 +84,27 @@ const ChatRoom: React.FC = () => {
         return combinedMessages;
       });
 
-      const moreDataAvailable = chatData.data.length === 10;
+      const moreDataAvailable = chatData.data.length === 20;
       setHasMore(moreDataAvailable);
       // console.log("More data available: ", moreDataAvailable);
     }
-  }, [chatData, userData?.last_message]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chatData]);
+
+  useEffect(() => {
+    const scrollableDiv = document?.getElementById('scrollableDiv');
+    const scrollToBottom = () => {
+      scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
+    };
+  
+    if (scrollableDiv) {
+      scrollToBottom();
+      const observer = new MutationObserver(scrollToBottom);
+      observer.observe(scrollableDiv, { childList: true, subtree: true });
+      return () => observer.disconnect();
+    }
+  }, [userData]);
+  
 
   const fetchMoreMessages = () => {
     console.log("Attempting to fetch more messages");
@@ -119,6 +135,7 @@ const ChatRoom: React.FC = () => {
   // console.log(inputValue);
 
   // console.log(userData?.partner?.id);
+  console.log(userData);
 
   // console.log(userId)
   // console.log(lastConversation)
@@ -139,7 +156,6 @@ const ChatRoom: React.FC = () => {
       }
 
       formData.append("message", inputValue);
-
       const payload = {
         url: `${userData?.partner ? "/messages" : "/group-chat-messages"}`,
         method: "POST",
@@ -187,7 +203,7 @@ const ChatRoom: React.FC = () => {
           className="w-full h-[calc(100vh-50px)] self-end md:p-5 py-5 flex flex-col overflow-y-scroll scrollbar-none"
         >
           <InfiniteScroll
-            dataLength={messages.length}
+            dataLength={messages?.length}
             next={fetchMoreMessages}
             hasMore={hasMore}
             loader={
@@ -225,19 +241,21 @@ const ChatRoom: React.FC = () => {
           )}
         </div>
         {/* for file sending  */}
-        {selfData?.role_id !== "2" && (
-          <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
-            <MdAttachFile onClick={open} size={30} />
-            <Modal
-              opened={opened}
-              onClose={close}
-              title="Drop your file here"
-              centered
-            >
-              <FileSend close={close} />
-            </Modal>
-          </div>
-        )}
+        {selfData?.role_id !== "2" &&
+          !userData?.description &&
+          userData?.partner?.role === "Teacher" && (
+            <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
+              <MdAttachFile onClick={open} size={30} />
+              <Modal
+                opened={opened}
+                onClose={close}
+                title="Drop your file here"
+                centered
+              >
+                <FileSend close={close} />
+              </Modal>
+            </div>
+          )}
 
         <div className="flex w-full md:w-[90%] h-full bg-slate-200 rounded-full overflow-hidden mx-1 md:mx-5">
           <input

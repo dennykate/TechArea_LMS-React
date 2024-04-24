@@ -74,12 +74,14 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
         />
         <div className="md:w-1/2 h-full md:p-5">
           {uploadedImage.length > 0 ? (
-            <UploadedImages
-              uploadedImage={uploadedImage.map((file) =>
-                URL.createObjectURL(file)
-              )}
-              setUploadedImage={setUploadedImage}
-            />
+            <div className=" h-[40vh] overflow-hidden object-cover ">
+              <UploadedImages
+                uploadedImage={uploadedImage.map((file) =>
+                  URL.createObjectURL(file)
+                )}
+                setUploadedImage={setUploadedImage}
+              />
+            </div>
           ) : (
             <Dropzone
               onDrop={handleDrop}

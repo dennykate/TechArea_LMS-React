@@ -51,7 +51,7 @@ const FileSend: React.FC<PropData> = ({ close }) => {
     });
 
     formData.append("partner_id", userData.partner.id.toString());
-    formData.append("message", "Sending file");
+    formData.append("message", "Send file");
 
     try {
       const result = await sendReport({
