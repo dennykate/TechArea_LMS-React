@@ -18,7 +18,7 @@ type ReturnType = {
 
 const useQuery = (
   url: string,
-  callback?: (value: any) => void,
+  callback?: (value: any, meta: any) => void,
   kill: boolean = false
 ): ReturnType => {
   if (kill) return { isLoading: false };
@@ -37,7 +37,7 @@ const useQuery = (
 
   useEffect(() => {
     if (data && callback) {
-      callback(data?.data);
+      callback(data?.data, data?.meta);
       setIsLoading(false);
     }
   }, [data]);

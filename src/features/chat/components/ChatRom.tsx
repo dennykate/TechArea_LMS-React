@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { IoIosSend } from "react-icons/io";
 import { useMessageHandler } from "@/utilities/messageHandler";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
@@ -11,114 +12,82 @@ import { useSelector } from "react-redux";
 import { selectCurrentChatData } from "@/redux/services/chatSlice";
 import Message from "./Message";
 import Cookies from "js-cookie";
-import InfiniteScroll from "react-infinite-scroll-component";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
-import { useGetDataQuery, usePostDataMutation } from "@/redux/api/queryApi";
-
-interface ApiError {
-  status: number;
-  message: string;
-}
+import { useSendMessageMutation } from "@/redux/api/queryApi";
+import useQuery from "@/hooks/useQuery";
+import InfiniteScrollObserver from "./InfiniteScrollObserver";
 
 const ChatRoom: React.FC = () => {
+  const messagesEndRef = useRef<any>(null);
   const { messageHandler, inputValue, appendEmoji, setInputValue } =
     useMessageHandler();
   const [openEmoji, setOpenEmoji] = useState<boolean>(false);
 
-  const [sendMessage, { isLoading: getMsgLoading }] = usePostDataMutation();
+  const [sendMessage, { isLoading: getMsgLoading }] = useSendMessageMutation();
 
   const [opened, { open, close }] = useDisclosure();
 
   // for report
   const { get } = useEncryptStorage();
+
   const selfData: {
     role_id: string;
   } = JSON.parse(get("userInfo") as string);
 
-  // console.log(selfData.role_id)
-  // console.log(sendMsgError);
-  // for user data
   const userData = useSelector(selectCurrentChatData);
-  // console.log(userData);
 
-  // for get message
-  const userId: string | undefined = Cookies.get("user_id");
-  const lastConversation: string | undefined = Cookies.get("last_conversation");
+  const userId: string | undefined = useMemo(
+    () => Cookies.get("user_id"),
+    [userData]
+  );
+  const lastConversation: string | undefined = useMemo(
+    () => Cookies.get("last_conversation"),
+    [userData]
+  );
+  const chatType = useMemo(() => Cookies.get("chat_type"), [userData]);
 
   const [page, setPage] = useState(1);
-  const [messages, setMessages] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [messages, setMessages] = useState<any[]>([]);
+  const [total, setTotal] = useState<number>(0);
+  const [finalPage, setFinalPage] = useState<number>(0);
 
-  const endpoint = userData?.partner
-    ? `/messages?conversation_id=${lastConversation}&limit=20&page=${page}`
-    : `/group-chat-messages?group_chat_id=${lastConversation}&limit=20&page=${page}`;
+  console.log("chatType => ", chatType);
 
-  const { data: chatData, error, isLoading } = useGetDataQuery(endpoint);
+  const endpoint = useMemo(
+    () =>
+      chatType && lastConversation
+        ? chatType === "single-chat"
+          ? `/messages?conversation_id=${lastConversation}&limit=20&page=${page}`
+          : `/group-chat-messages?group_chat_id=${lastConversation}&limit=20&page=${page}`
+        : "",
+    [chatType, lastConversation, page]
+  );
 
   useEffect(() => {
-    setMessages([]);
-    setPage(1);
-    setHasMore(true);
-  }, [userData]);
+    console.log("endpoint => ", endpoint);
+  }, [endpoint]);
 
-  useEffect(() => {
-    if (chatData?.data) {
-      const newMessages = chatData.data.filter(
-        (newMsg: { id: string }) =>
-          !messages.some((existingMsg) => existingMsg.id === newMsg.id)
-      );
+  const { isLoading } = useQuery(
+    endpoint,
+    (data, meta) => {
+      setTotal(meta?.total);
+      setFinalPage(meta?.last_page);
 
-      setMessages((prevMessages) => {
-        // Check if any new message matches the last message from userData
-        const hasSpecialMessage = newMessages.some(
-          (newMsg) => newMsg.message === userData.last_message
-        );
-
-        // eslint-disable-next-line prefer-const
-        let combinedMessages = hasSpecialMessage
-          ? [...newMessages, ...prevMessages]
-          : [...prevMessages, ...newMessages];
-
-        combinedMessages.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        return combinedMessages;
+      setMessages((prev: any[]) => {
+        return [...prev, ...data];
       });
-
-      const moreDataAvailable = chatData.data.length === 20;
-      setHasMore(moreDataAvailable);
-      // console.log("More data available: ", moreDataAvailable);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatData]);
+    },
+    endpoint === ""
+  );
 
   useEffect(() => {
-    const scrollableDiv = document?.getElementById('scrollableDiv');
-    const scrollToBottom = () => {
-      scrollableDiv.scrollTop = scrollableDiv.scrollHeight;
-    };
-  
-    if (scrollableDiv) {
-      scrollToBottom();
-      const observer = new MutationObserver(scrollToBottom);
-      observer.observe(scrollableDiv, { childList: true, subtree: true });
-      return () => observer.disconnect();
-    }
-  }, [userData]);
-  
+    if (page === 1) messagesEndRef.current?.scrollIntoView();
+  }, [messages]);
 
-  const fetchMoreMessages = () => {
-    console.log("Attempting to fetch more messages");
-    setPage((prevPage) => prevPage + 1);
-  };
-
-  if (isLoading)
-    return (
-      <div className="h-[100vh] flex justify-center items-center">
-        <Loader color="blue" />
-      </div>
-    );
-
-  // console.log(chatData);
+  // useEffect(() => {
+  //   setMessages([]);
+  //   setPage(1);
+  // }, [userData]);
 
   // for press enter key
   const handleKeyDown = (event: {
@@ -132,14 +101,6 @@ const ChatRoom: React.FC = () => {
     }
   };
 
-  // console.log(inputValue);
-
-  // console.log(userData?.partner?.id);
-  // console.log(userData);
-
-  // console.log(userId)
-  // console.log(lastConversation)
-  // for send message
   const handleSendMessage = async () => {
     if (!userId || !lastConversation) {
       console.error("User ID or last conversation ID is undefined.");
@@ -149,21 +110,28 @@ const ChatRoom: React.FC = () => {
     try {
       const formData = new URLSearchParams();
 
-      if (userData?.partner) {
+      if (chatType === "single-chat") {
         formData.append("partner_id", userId);
       } else {
         formData.append("group_chat_id", lastConversation);
       }
 
       formData.append("message", inputValue);
+
       const payload = {
-        url: `${userData?.partner ? "/messages" : "/group-chat-messages"}`,
+        url: chatType === "single-chat" ? "/messages" : "/group-chat-messages",
         method: "POST",
         body: formData,
       };
 
-      await sendMessage(payload);
+      const res = (await sendMessage(payload)) as any;
       setInputValue("");
+
+      if (res?.data) {
+        setMessages((prev) => [res?.data, ...prev]);
+
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+      }
     } catch (error) {
       console.error("Failed to send message:", error);
     }
@@ -173,59 +141,42 @@ const ChatRoom: React.FC = () => {
     appendEmoji(emojiObject.emoji);
   };
 
-  if (isLoading) {
-    return (
-      <div className="h-[100vh] flex justify-center items-center">
-        <Loader color="blue" />
-      </div>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className="h-[100vh] flex justify-center items-center">
+  //       <Loader color="blue" />
+  //     </div>
+  //   );
+  // }
 
-  const apiError = error as ApiError;
-  if (apiError?.status) {
-    return (
-      <div className="w-full h-full text-xl text-blue-500 font-bold flex justify-center items-center">
-        Select chat
-      </div>
-    );
-  }
+  console.log("messages => ",messages)
 
   return (
     <div className="relative h-[100vh] w-full flex flex-col">
-      {/* for message showing  */}
-      {isLoading ? (
-        <div className="h-[100vh] flex justify-center items-center">
-          <Loader color="blue" />
-        </div>
-      ) : (
-        <div
-          id="scrollableDiv"
-          className="w-full h-[calc(100vh-50px)] self-end md:p-5 py-5 flex flex-col overflow-y-scroll scrollbar-none"
+      <div
+        className="w-full h-[calc(100vh-50px)] md:p-5 py-5 flex flex-col-reverse  
+        overflow-y-scroll scrollbar-none "
+      >
+        <InfiniteScrollObserver
+          isLoading={isLoading as boolean}
+          onFetch={() => {
+            if (!isLoading && page < finalPage) setPage((prev) => prev + 1);
+          }}
         >
-          <InfiniteScroll
-            dataLength={messages?.length}
-            next={fetchMoreMessages}
-            hasMore={hasMore}
-            loader={
-              <h4 className=" w-full justify-center flex">
-                <Loader color="blue" />
-              </h4>
-            }
-            scrollThreshold={0.9}
-            scrollableTarget="scrollableDiv"
-            style={{ display: "flex", flexDirection: "column-reverse" }}
-          >
-            <div className="flex flex-col-reverse items-start">
-              {messages.map((msg, index) => (
-                <Message key={index} msg={msg} />
-              ))}
-            </div>
-          </InfiniteScroll>
-        </div>
-      )}
+          <div ref={messagesEndRef} />
+          <div className="flex flex-col-reverse w-full ">
+            {messages.map((msg, index) => (
+              <Message key={index} msg={msg} />
+            ))}
+          </div>
+        </InfiniteScrollObserver>
+      </div>
 
       {/* for message send  */}
-      <div className="absolute bottom-0 h-[50px] flex justify-between w-[100%] right-[50%] translate-x-[50%] border">
+      <div
+        className="absolute bottom-0 h-[50px] flex justify-between w-[100%] right-[50%] translate-x-[50%] 
+      border"
+      >
         <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
           <MdOutlineEmojiEmotions
             onClick={() => setOpenEmoji(!openEmoji)}

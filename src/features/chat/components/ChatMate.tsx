@@ -19,10 +19,11 @@ interface LayoutProps {
 const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
   const dispatch = useDispatch();
 
-  // console.log(data);
-
   const showMsgHandler = () => {
     dispatch(setCurrentChatData(data));
+
+    Cookies.set("chat_type", "single-chat");
+
     Cookies.set("last_conversation", data.id);
     Cookies.set("user_id", data.partner.id);
   };
@@ -32,6 +33,7 @@ const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
   // console.log(isActive);
   // console.log(data.id);
   const userData = useSelector(selectCurrentChatData);
+
   return (
     <div
       onClick={showMsgHandler}

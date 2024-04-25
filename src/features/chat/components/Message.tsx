@@ -58,12 +58,12 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
       onDoubleClick={() => msg.is_sender && open()}
       className={`w-full ${
         msg?.attachment === null
-          ? "h-[10vh]"
+          ? "min-h-[10vh]"
           : isImage(msg.attachment)
-          ? "h-[300px]"
+          ? "min-h-[300px]"
           : isDocument(msg.attachment)
-          ? "h-[70px]"
-          : "h-[10vh]"
+          ? "min-h-[70px]"
+          : "min-h-[10vh]"
       } flex items-center ${!msg.is_sender ? "justify-start" : "justify-end"}`}
     >
       {!msg?.is_sender && (
@@ -104,9 +104,11 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
         ) : (
           <div className="flex flex-col">
             <p>{msg.message}</p>
-            <Text size={"xs"} color="dimmed">
-              {msg.created_at_time}
-            </Text>
+            <div className="flex justify-end">
+              <Text size={"xs"} color="dimmed">
+                {msg.created_at_time}
+              </Text>
+            </div>
           </div>
         )}
       </div>

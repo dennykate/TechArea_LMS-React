@@ -4,7 +4,6 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import config from "@/config";
 import { EncryptStorage } from "@/utilities/encrypt-storage";
 
-
 const baseQuery = fetchBaseQuery({
   baseUrl: config.baseUrl, // Your API base URL
   prepareHeaders: (headers) => {
@@ -37,7 +36,17 @@ export const queryApi = createApi({
       },
       invalidatesTags: ["Data"],
     }),
+    sendMessage: builder.mutation<any, any>({
+      query: ({ url, body, method }) => {
+        return {
+          url,
+          method,
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetDataQuery, usePostDataMutation } = queryApi;
+export const { useGetDataQuery, usePostDataMutation, useSendMessageMutation } =
+  queryApi;

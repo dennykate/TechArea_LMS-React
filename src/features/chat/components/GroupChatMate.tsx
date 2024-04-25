@@ -34,7 +34,9 @@ const GroupChatMate: React.FC<LayoutProps> = ({
 
   const showMsgHandler = () => {
     dispatch(setCurrentChatData(data));
+    
     Cookies.set("last_conversation", data.id);
+    Cookies.set("chat_type", "group-chat");
     Cookies.set("user_id", data.id);
     Cookies.set("profile", data.image);
   };
