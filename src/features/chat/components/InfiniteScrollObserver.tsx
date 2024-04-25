@@ -6,12 +6,14 @@ interface PropsType {
   children: React.ReactNode;
   onFetch: () => void;
   isLoading: boolean;
+  onLoad: () => void;
 }
 
 const InfiniteScrollObserver: React.FC<PropsType> = ({
   children,
   onFetch,
   isLoading,
+  onLoad,
 }) => {
   const observerRef = useRef<any>(null);
 
@@ -19,6 +21,7 @@ const InfiniteScrollObserver: React.FC<PropsType> = ({
     const target = entries[0];
 
     if (target.isIntersecting && !isLoading) {
+      onLoad();
       onFetch();
     }
   };
@@ -41,9 +44,12 @@ const InfiniteScrollObserver: React.FC<PropsType> = ({
   return (
     <>
       {children}
-      <div id="scrollObserver" className="w-full flex justify-center ">
-        {isLoading && <Loader size="md" />}
-      </div>
+      {isLoading && (
+        <div className="w-full flex justify-center mb-4 mt-4">
+          <Loader size="md" />
+        </div>
+      )}
+      <div id="scrollObserver" />
     </>
   );
 };

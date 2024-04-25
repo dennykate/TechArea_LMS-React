@@ -7,8 +7,7 @@ import {
   selectCurrentChatData,
 } from "@/redux/services/chatSlice";
 import { useDisclosure } from "@mantine/hooks";
-import { usePostDataMutation } from "@/redux/api/formApi";
-import toast from "react-hot-toast";
+import useMutate from "@/hooks/useMutate";
 
 interface Info {
   name: string;
@@ -33,11 +32,12 @@ const GroupChatMate: React.FC<LayoutProps> = ({
   const dispatch = useDispatch();
 
   const showMsgHandler = () => {
-    dispatch(setCurrentChatData(data));
-    
+    dispatch(setCurrentChatData({ ...data, chatType: "group-chat" }));
+
     Cookies.set("last_conversation", data.id);
     Cookies.set("chat_type", "group-chat");
     Cookies.set("user_id", data.id);
+    Cookies.set("user_role", "");
     Cookies.set("profile", data.image);
   };
 
@@ -54,25 +54,10 @@ const GroupChatMate: React.FC<LayoutProps> = ({
 
   // for delete group
   const [opened, { open, close }] = useDisclosure();
-  const [deleteMsg, { isLoading }] = usePostDataMutation();
+  const [deleteMsg, { isLoading }] = useMutate({ navigateBack: false });
 
-  const deleteGroupHandler = async () => {
-    try {
-      const response = await deleteMsg({
-        url: `group-chats/${data.id}`,
-        method: "DELETE",
-      }).unwrap();
-      console.log(response);
-      if (response.status === "success") {
-        toast.success("Group deleted successfully!");
-        close();
-      } else {
-        close();
-        toast.error(`Your group was deleted!`);
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  const deleteGroupHandler = () => {
+    deleteMsg(`group-chats/${data.id}`, {}, "DELETE");
   };
   return (
     <div
@@ -101,7 +86,11 @@ const GroupChatMate: React.FC<LayoutProps> = ({
               group
             </Badge>
           </Flex>
-          <Text c="dimmed" className=" md:line-clamp-2 line-clamp-1" fz={14}>
+          <Text
+            c="dimmed"
+            className=" md:line-clamp-2 line-clamp-1 opacity-90"
+            fz={12}
+          >
             {data?.description}
           </Text>
         </div>
@@ -109,7 +98,7 @@ const GroupChatMate: React.FC<LayoutProps> = ({
           {data?.last_message || "There's no message."}
         </Text>
       </Flex>
-      <Modal title="Delete Message" onClose={close} opened={opened}>
+      <Modal title="Delete Message" onClose={close} opened={opened} centered>
         <div className="flex flex-col text-lg justify-center w-full items-center gap-5">
           <p>Are you sure you want to delete this message?</p>
           <Button

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { Avatar, Button, Modal, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -13,9 +14,10 @@ interface MsgProps {
     attachment: null | string;
     created_at_time: string;
   };
+  setMessages: any;
 }
 
-const Message: React.FC<MsgProps> = ({ msg }) => {
+const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
   const [deleteMsg, { isLoading }] = usePostDataMutation();
   const [opened, { open, close }] = useDisclosure();
 
@@ -44,12 +46,20 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
         close();
         toast.error(`Your message was deleted!`);
       }
+
+      setMessages((prev: any[]) => {
+        return prev?.filter((item) => item?.id != msg?.id);
+      });
     } catch (err) {
       console.error(err);
     }
   };
   const openInNewTab = (url: string | null) => {
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    const newWindow = window.open(
+      url as string,
+      "_blank",
+      "noopener,noreferrer"
+    );
     if (newWindow) newWindow.opener = null;
   };
   // console.log(msg);
@@ -113,7 +123,7 @@ const Message: React.FC<MsgProps> = ({ msg }) => {
         )}
       </div>
 
-      <Modal title="Delete Message" onClose={close} opened={opened}>
+      <Modal title="Delete Message" onClose={close} opened={opened} centered>
         <div className="flex flex-col text-lg justify-center w-full items-center gap-5">
           <p>Are you sure you want to delete this message?</p>
           <Button

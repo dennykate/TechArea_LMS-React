@@ -19,9 +19,11 @@ type ReturnType = {
 const useQuery = (
   url: string,
   callback?: (value: any, meta: any) => void,
-  kill: boolean = false
+  kill: boolean = false,
+  useRegenerate: boolean = false
 ): ReturnType => {
   if (kill) return { isLoading: false };
+
   const logout = useLogout();
   const { pathname } = useLocation();
   const code = useAppSelector((state) => state.key.value);
@@ -29,7 +31,9 @@ const useQuery = (
 
   const queryUrl = useMemo(() => parseUrl(url), [pathname, url, code]);
 
-  const { data, error } = useGetDataQuery(url) as any;
+  const { data, error } = useGetDataQuery(
+    useRegenerate ? queryUrl : url
+  ) as any;
 
   const initLoading = useCallback(() => setIsLoading(true), [queryUrl]);
 
@@ -51,7 +55,9 @@ const useQuery = (
         logout();
       }
 
-      toast.error("Something wrong");
+      if (url != "") {
+        toast.error("Something wrong");
+      }
     }
   }, [error]);
 

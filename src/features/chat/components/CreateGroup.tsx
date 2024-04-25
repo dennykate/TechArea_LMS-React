@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { ChangeEvent } from "react";
-import { TextInput, Textarea, Button, Group } from "@mantine/core";
+import { Button, Group } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { usePostDataMutation } from "@/redux/api/formApi";
-import toast from "react-hot-toast";
+import TextInputComponent from "@/components/inputs/TextInputComponent";
+import TextAreaComponent from "@/components/inputs/TextAreaComponent";
+import useMutate from "@/hooks/useMutate";
 
 interface DataProps {
   name: string;
@@ -25,7 +27,12 @@ const CreateGroup: React.FC<Props> = ({ close }) => {
     },
   });
 
-  const [createGroup] = usePostDataMutation();
+  const [createGroup, { isLoading }] = useMutate({
+    callback: () => {
+      close();
+    },
+    navigateBack: false,
+  });
 
   const handleSubmit = async (values: typeof form.values) => {
     const { name, description, image } = values;
@@ -36,40 +43,25 @@ const CreateGroup: React.FC<Props> = ({ close }) => {
       formData.append("image", image);
     }
 
-    try {
-      const response = await createGroup({
-        url: "/group-chats",
-        method: "POST",
-        body: formData,
-      });
-
-      if (response?.data?.status === "success") {
-        toast.success("Group created successfully!");
-        close();
-        form.reset();
-      } else {
-        console.error("Failed to create group");
-      }
-      console.log(response);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
+    createGroup("/group-chats", formData, "POST", true);
   };
 
   return (
     <div className="p-5">
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput
-          label="name"
+      <form className="space-y-4" onSubmit={form.onSubmit(handleSubmit)}>
+        <TextInputComponent
+          label="Name"
           placeholder="Enter group name"
-          {...form.getInputProps("name")}
+          form={form}
+          name="name"
         />
-        <Textarea
+        <TextAreaComponent
           label="Description"
           placeholder="Describe your group"
-          {...form.getInputProps("description")}
+          form={form}
+          name="description"
         />
-        <TextInput
+        <TextInputComponent
           size="lg"
           type="file"
           label="Group Image"
@@ -82,7 +74,7 @@ const CreateGroup: React.FC<Props> = ({ close }) => {
           }
         />
         <Group position="right" mt="md">
-          <Button variant="outline" color="blue" type="submit">
+          <Button loading={isLoading} color="blue" type="submit">
             Create
           </Button>
         </Group>

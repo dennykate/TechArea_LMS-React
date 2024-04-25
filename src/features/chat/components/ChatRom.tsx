@@ -16,16 +16,31 @@ import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { useSendMessageMutation } from "@/redux/api/queryApi";
 import useQuery from "@/hooks/useQuery";
 import InfiniteScrollObserver from "./InfiniteScrollObserver";
+import toast from "react-hot-toast";
+import { useAppDispatch } from "@/redux/hook";
+import { regenrate } from "@/redux/services/keySlice";
 
 const ChatRoom: React.FC = () => {
+  const dispatch = useAppDispatch();
   const messagesEndRef = useRef<any>(null);
   const { messageHandler, inputValue, appendEmoji, setInputValue } =
     useMessageHandler();
-  const [openEmoji, setOpenEmoji] = useState<boolean>(false);
-
   const [sendMessage, { isLoading: getMsgLoading }] = useSendMessageMutation();
 
   const [opened, { open, close }] = useDisclosure();
+  const [openEmoji, setOpenEmoji] = useState<boolean>(false);
+  const [userId, setUserId] = useState<any>(
+    Cookies.get("user_id") ?? undefined
+  );
+  const [userRole, setUserRole] = useState<any>(
+    Cookies.get("user_role") ?? undefined
+  );
+  const [lastConversation, setLastConservation] = useState<any>(
+    Cookies.get("last_conversation") ?? undefined
+  );
+  const [chatType, setChatType] = useState<any>(
+    Cookies.get("chat_type") ?? undefined
+  );
 
   // for report
   const { get } = useEncryptStorage();
@@ -34,60 +49,64 @@ const ChatRoom: React.FC = () => {
     role_id: string;
   } = JSON.parse(get("userInfo") as string);
 
-  const userData = useSelector(selectCurrentChatData);
-
-  const userId: string | undefined = useMemo(
-    () => Cookies.get("user_id"),
-    [userData]
-  );
-  const lastConversation: string | undefined = useMemo(
-    () => Cookies.get("last_conversation"),
-    [userData]
-  );
-  const chatType = useMemo(() => Cookies.get("chat_type"), [userData]);
+  const currentChat = useSelector(selectCurrentChatData);
 
   const [page, setPage] = useState(1);
   const [messages, setMessages] = useState<any[]>([]);
-  const [total, setTotal] = useState<number>(0);
   const [finalPage, setFinalPage] = useState<number>(0);
-
-  console.log("chatType => ", chatType);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const endpoint = useMemo(
     () =>
       chatType && lastConversation
         ? chatType === "single-chat"
-          ? `/messages?conversation_id=${lastConversation}&limit=20&page=${page}`
-          : `/group-chat-messages?group_chat_id=${lastConversation}&limit=20&page=${page}`
+          ? `/messages?conversation_id=${lastConversation}&limit=50&page=${page}`
+          : `/group-chat-messages?group_chat_id=${lastConversation}&limit=50&page=${page}`
         : "",
-    [chatType, lastConversation, page]
+    [lastConversation, page]
   );
 
-  useEffect(() => {
-    console.log("endpoint => ", endpoint);
-  }, [endpoint]);
-
-  const { isLoading } = useQuery(
+  const { isLoading, isError } = useQuery(
     endpoint,
     (data, meta) => {
-      setTotal(meta?.total);
       setFinalPage(meta?.last_page);
+
+      console.log(`page - ${page} data => `, data);
 
       setMessages((prev: any[]) => {
         return [...prev, ...data];
       });
+
+      setTimeout(() => {
+        setIsFetching(false);
+      }, 3000);
     },
-    endpoint === ""
+    false,
+    true
   );
 
   useEffect(() => {
     if (page === 1) messagesEndRef.current?.scrollIntoView();
   }, [messages]);
 
-  // useEffect(() => {
-  //   setMessages([]);
-  //   setPage(1);
-  // }, [userData]);
+  useEffect(() => {
+    if (currentChat?.id) {
+      setMessages([]);
+      setPage(1);
+      setFinalPage(1);
+      setIsFetching(true);
+      setChatType(currentChat?.chatType);
+      setLastConservation(currentChat?.id);
+
+      if (currentChat?.chatType === "single-chat") {
+        setUserId(currentChat?.partner?.id);
+        setUserRole(currentChat?.partner?.role);
+      } else if (currentChat?.chatType === "group-chat")
+        setUserId(currentChat?.id);
+
+      dispatch(regenrate());
+    }
+  }, [currentChat]);
 
   // for press enter key
   const handleKeyDown = (event: {
@@ -103,7 +122,7 @@ const ChatRoom: React.FC = () => {
 
   const handleSendMessage = async () => {
     if (!userId || !lastConversation) {
-      console.error("User ID or last conversation ID is undefined.");
+      toast.error("User ID or last conversation ID is undefined.");
       return;
     }
 
@@ -128,9 +147,11 @@ const ChatRoom: React.FC = () => {
       setInputValue("");
 
       if (res?.data) {
-        setMessages((prev) => [res?.data, ...prev]);
-
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+
+        setTimeout(() => {
+          setMessages((prev) => [res?.data?.data, ...prev]);
+        }, 100);
       }
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -141,15 +162,24 @@ const ChatRoom: React.FC = () => {
     appendEmoji(emojiObject.emoji);
   };
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="h-[100vh] flex justify-center items-center">
-  //       <Loader color="blue" />
-  //     </div>
-  //   );
-  // }
+  if (!userId || !lastConversation || isError) {
+    return (
+      <div className="h-[100vh] w-full flex justify-center items-center bg-white">
+        <p className="text-base underline font-[400]">Please Select Chat</p>
+      </div>
+    );
+  }
 
-  console.log("messages => ",messages)
+  if (isLoading && page === 1) {
+    return (
+      <div className="h-[100vh] flex justify-center items-center">
+        <Loader color="blue" />
+      </div>
+    );
+  }
+
+  console.log("selfData => ", selfData);
+  console.log("currentChat => ", currentChat);
 
   return (
     <div className="relative h-[100vh] w-full flex flex-col">
@@ -158,15 +188,20 @@ const ChatRoom: React.FC = () => {
         overflow-y-scroll scrollbar-none "
       >
         <InfiniteScrollObserver
-          isLoading={isLoading as boolean}
+          isLoading={isFetching as boolean}
+          onLoad={() => {
+            if (page < finalPage) {
+              setIsFetching(true);
+            }
+          }}
           onFetch={() => {
-            if (!isLoading && page < finalPage) setPage((prev) => prev + 1);
+            if (!isFetching && page < finalPage) setPage((prev) => prev + 1);
           }}
         >
           <div ref={messagesEndRef} />
           <div className="flex flex-col-reverse w-full ">
-            {messages.map((msg, index) => (
-              <Message key={index} msg={msg} />
+            {messages?.map((msg, index) => (
+              <Message key={index} msg={msg} setMessages={setMessages} />
             ))}
           </div>
         </InfiniteScrollObserver>
@@ -174,28 +209,27 @@ const ChatRoom: React.FC = () => {
 
       {/* for message send  */}
       <div
-        className="absolute bottom-0 h-[50px] flex justify-between w-[100%] right-[50%] translate-x-[50%] 
-      border"
+        className="absolute bottom-0 h-[50px] flex justify-center gap-4 w-[100%] right-[50%] translate-x-[50%] 
+      border md:px-5 px-1"
       >
-        <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
-          <MdOutlineEmojiEmotions
-            onClick={() => setOpenEmoji(!openEmoji)}
-            size={30}
-          />
-          {openEmoji && (
-            <div
-              className="absolute md:right-0 right-5 bottom-10"
-              onMouseLeave={() => setOpenEmoji(false)}
-            >
-              <EmojiPicker onEmojiClick={handleEmojiClick} />
-            </div>
-          )}
-        </div>
-        {/* for file sending  */}
-        {selfData?.role_id !== "2" &&
-          !userData?.description &&
-          userData?.partner?.role === "Teacher" && (
-            <div className="md:w-[5%] w-[10%] h-full flex justify-center items-center cursor-pointer">
+        <div className="w-[10%] flex justify-center items-center gap-4">
+          <div className=" h-full flex justify-center items-center cursor-pointer relative">
+            <MdOutlineEmojiEmotions
+              onClick={() => setOpenEmoji(!openEmoji)}
+              size={30}
+            />
+            {openEmoji && (
+              <div
+                className="absolute md:left-0 left-5 bottom-10"
+                onMouseLeave={() => setOpenEmoji(false)}
+              >
+                <EmojiPicker onEmojiClick={handleEmojiClick} />
+              </div>
+            )}
+          </div>
+          {/* for file sending  */}
+          {selfData?.role_id !== "2" && userRole === "Teacher" && (
+            <div className="h-full flex justify-center items-center cursor-pointer">
               <MdAttachFile onClick={open} size={30} />
               <Modal
                 opened={opened}
@@ -206,9 +240,10 @@ const ChatRoom: React.FC = () => {
                 <FileSend close={close} />
               </Modal>
             </div>
-          )}
+          )}{" "}
+        </div>
 
-        <div className="flex w-full md:w-[90%] h-full bg-slate-200 rounded-full overflow-hidden mx-1 md:mx-5">
+        <div className="flex w-full md:w-[90%] h-full bg-slate-200 rounded-full overflow-hidden ">
           <input
             disabled={getMsgLoading}
             type="text"
