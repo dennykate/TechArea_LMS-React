@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Avatar, Badge, Button, Flex, Modal, Text } from "@mantine/core";
+import { ActionIcon, Avatar, Badge, Flex, Menu, Text } from "@mantine/core";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,6 +9,9 @@ import {
 } from "@/redux/services/chatSlice";
 import { useDisclosure } from "@mantine/hooks";
 import useMutate from "@/hooks/useMutate";
+import { IconDotsVertical, IconTrash } from "@tabler/icons-react";
+import alertActions from "@/utilities/alertActions";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 interface Info {
   name: string;
@@ -30,6 +34,9 @@ const GroupChatMate: React.FC<LayoutProps> = ({
   setSelectGroup,
 }) => {
   const dispatch = useDispatch();
+  const { get } = useEncryptStorage();
+
+  const userInfo = JSON.parse(get("userInfo") as any);
 
   const showMsgHandler = () => {
     dispatch(setCurrentChatData({ ...data, chatType: "group-chat" }));
@@ -54,14 +61,10 @@ const GroupChatMate: React.FC<LayoutProps> = ({
 
   // for delete group
   const [opened, { open, close }] = useDisclosure();
-  const [deleteMsg, { isLoading }] = useMutate({ navigateBack: false });
+  const [onDelete] = useMutate({ navigateBack: false });
 
-  const deleteGroupHandler = () => {
-    deleteMsg(`group-chats/${data.id}`, {}, "DELETE");
-  };
   return (
     <div
-      onDoubleClick={open}
       onClick={handleClick}
       className={`border hover:bg-slate-200 ${
         (parent === "chat_bar" && isActive === data.id) ||
@@ -76,15 +79,56 @@ const GroupChatMate: React.FC<LayoutProps> = ({
         justify="flex-start"
         align="flex-start"
         direction={"column"}
+        className="w-full"
       >
-        <div className="flex flex-col">
-          <Flex gap="sm" justify="flex-start" align="flex-start">
-            <Text fz={15} fw={600}>
-              {data?.name}
-            </Text>
-            <Badge size="xs" color="green">
-              group
-            </Badge>
+        <div className="flex flex-col w-full">
+          <Flex gap="sm" justify="space-between" align="center">
+            <div className="flex items-center gap-4">
+              <Text fz={15} fw={600}>
+                {data?.name}
+              </Text>
+              <Badge size="xs" color="green">
+                group
+              </Badge>
+            </div>
+
+            {userInfo?.id === data?.created_by && (
+              <Menu
+                opened={opened}
+                onClose={close}
+                shadow="md"
+                width={200}
+                position="bottom-end"
+              >
+                <Menu.Target>
+                  <ActionIcon
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      open();
+                    }}
+                    className="hover:bg-transparent opacity-50 hover:opacity-100"
+                  >
+                    <IconDotsVertical size={20} color="black" />
+                  </ActionIcon>
+                </Menu.Target>
+
+                <Menu.Dropdown>
+                  <Menu.Item
+                    onClick={(e) => {
+                      e.stopPropagation()
+
+                      alertActions(() => {
+                        onDelete(`/group-chats/${data.id}`, {}, "DELETE");
+                      }, "Are you sure to delete this chat");
+                    }}
+                    color="red"
+                    icon={<IconTrash size={14} />}
+                  >
+                    Delete
+                  </Menu.Item>
+                </Menu.Dropdown>
+              </Menu>
+            )}
           </Flex>
           <Text
             c="dimmed"
@@ -98,20 +142,6 @@ const GroupChatMate: React.FC<LayoutProps> = ({
           {data?.last_message || "There's no message."}
         </Text>
       </Flex>
-      <Modal title="Delete Message" onClose={close} opened={opened} centered>
-        <div className="flex flex-col text-lg justify-center w-full items-center gap-5">
-          <p>Are you sure you want to delete this message?</p>
-          <Button
-            onClick={deleteGroupHandler}
-            fullWidth
-            variant="outline"
-            color="red"
-            loading={isLoading}
-          >
-            Confirm
-          </Button>
-        </div>
-      </Modal>
     </div>
   );
 };

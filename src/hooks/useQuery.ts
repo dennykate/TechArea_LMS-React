@@ -20,7 +20,8 @@ const useQuery = (
   url: string,
   callback?: (value: any, meta: any) => void,
   kill: boolean = false,
-  useRegenerate: boolean = false
+  useRegenerate: boolean = false,
+  showError: boolean = true
 ): ReturnType => {
   if (kill) return { isLoading: false };
 
@@ -47,7 +48,7 @@ const useQuery = (
   }, [data]);
 
   useEffect(() => {
-    if (error) {
+    if (error && showError) {
       setIsLoading(false);
       if (error.status === 401) {
         toast.error("You're Unauthorized");

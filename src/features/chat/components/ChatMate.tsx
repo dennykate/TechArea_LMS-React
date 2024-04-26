@@ -1,8 +1,12 @@
+import useMutate from "@/hooks/useMutate";
 import {
   selectCurrentChatData,
   setCurrentChatData,
 } from "@/redux/services/chatSlice";
-import { Avatar, Badge, Flex, Text } from "@mantine/core";
+import alertActions from "@/utilities/alertActions";
+import { ActionIcon, Avatar, Badge, Flex, Menu, Text } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconDotsVertical, IconTrash } from "@tabler/icons-react";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
 interface Info {
@@ -17,7 +21,10 @@ interface LayoutProps {
   data: Info;
 }
 const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
+  const [opened, { open, close }] = useDisclosure();
   const dispatch = useDispatch();
+
+  const [onDelete] = useMutate({ navigateBack: false });
 
   const showMsgHandler = () => {
     dispatch(setCurrentChatData({ ...data, chatType: "single-chat" }));
@@ -25,7 +32,7 @@ const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
     Cookies.set("chat_type", "single-chat");
     Cookies.set("last_conversation", data.id);
     Cookies.set("user_id", data.partner.id);
-    Cookies.set("user_role", data.partner.role );
+    Cookies.set("user_role", data.partner.role);
   };
 
   const isActive = Cookies.get("last_conversation");
@@ -49,14 +56,59 @@ const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
         justify="flex-start"
         align="flex-start"
         direction={"column"}
+        className="w-full"
       >
-        <Flex gap="md" justify="center" align="center">
-          <Text fz={16} fw={600}>
-            {data?.partner?.name}
-          </Text>
-          <Badge size="xs" color="blue">
-            {data?.partner?.role}
-          </Badge>
+        <Flex
+          gap="md"
+          justify="space-between"
+          align="center"
+          className="w-full "
+        >
+          <div className="flex items-center gap-4">
+            <Text fz={16} fw={600}>
+              {data?.partner?.name}
+            </Text>
+            <Badge size="xs" color="blue">
+              {data?.partner?.role}
+            </Badge>
+          </div>
+
+          <Menu
+            opened={opened}
+            onClose={close}
+            shadow="md"
+            width={200}
+            position="bottom-end"
+            classNames={{}}
+          >
+            <Menu.Target>
+              <ActionIcon
+                onClick={(e) => {
+                  e.stopPropagation();
+                  open();
+                }}
+                className="hover:bg-transparent opacity-50 hover:opacity-100"
+              >
+                <IconDotsVertical size={20} color="black" />
+              </ActionIcon>
+            </Menu.Target>
+
+            <Menu.Dropdown>
+              <Menu.Item
+                onClick={(e) => {
+                  e.stopPropagation();
+
+                  alertActions(() => {
+                    onDelete(`/conversations/${data?.id}`, {}, "DELETE");
+                  }, "Are you sure to delete this chat");
+                }}
+                color="red"
+                icon={<IconTrash size={14} />}
+              >
+                Delete
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
         </Flex>
 
         <Text c="dimmed" className=" line-clamp-1" fz={14}>

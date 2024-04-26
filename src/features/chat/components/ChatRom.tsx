@@ -82,7 +82,8 @@ const ChatRoom: React.FC = () => {
       }, 3000);
     },
     false,
-    true
+    true,
+    false
   );
 
   useEffect(() => {
@@ -146,6 +147,8 @@ const ChatRoom: React.FC = () => {
       const res = (await sendMessage(payload)) as any;
       setInputValue("");
 
+      console.log("response => ", res);
+
       if (res?.data) {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
 
@@ -177,9 +180,6 @@ const ChatRoom: React.FC = () => {
       </div>
     );
   }
-
-  console.log("selfData => ", selfData);
-  console.log("currentChat => ", currentChat);
 
   return (
     <div className="relative h-[100vh] w-full flex flex-col">
@@ -237,7 +237,13 @@ const ChatRoom: React.FC = () => {
                 title="Drop your file here"
                 centered
               >
-                <FileSend close={close} />
+                <FileSend
+                  close={close}
+                  receiverId={userId}
+                  onSuccess={(data) => {
+                    setMessages((prev) => [data, ...prev]);
+                  }}
+                />
               </Modal>
             </div>
           )}{" "}

@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { Text, Button } from "@mantine/core";
 import { Dropzone } from "@mantine/dropzone";
 import { IconFileText } from "@tabler/icons-react";
 import { usePostDataMutation } from "@/redux/api/formApi";
-import { useSelector } from "react-redux";
-import { selectCurrentChatData } from "@/redux/services/chatSlice";
+import toast from "react-hot-toast";
 
 const ACCEPTED_MIME_TYPES = [
   "image/png",
@@ -18,14 +18,16 @@ interface UploadedFile extends File {
   path: string;
   preview: string;
 }
+
 interface PropData {
   close: () => void;
+  receiverId: string;
+  onSuccess: (data: any) => void;
 }
 
-const FileSend: React.FC<PropData> = ({ close }) => {
+const FileSend: React.FC<PropData> = ({ close, receiverId, onSuccess }) => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [sendReport, { isLoading }] = usePostDataMutation();
-  const userData = useSelector(selectCurrentChatData);
   const [postFile, setPostFile] = useState<File[] | null>(null);
 
   const handleDrop = (acceptedFiles: File[]) => {
@@ -40,18 +42,23 @@ const FileSend: React.FC<PropData> = ({ close }) => {
   };
 
   const handleSubmit = async () => {
-    if (!userData || !userData.partner || !userData.partner.id) {
+    if (!receiverId) {
       console.error("Receiver ID is undefined");
       return;
     }
 
-    const formData = new FormData();
-    postFile?.forEach((file) => {
-      formData.append("attachment", file);
-    });
+    if (!postFile || postFile?.length === 0) {
+      return toast.error("File is required");
+    }
 
-    formData.append("partner_id", userData.partner.id.toString());
-    formData.append("message", "Send file");
+    const file = postFile[0];
+
+    const formData = new FormData();
+
+    formData.append("attachment", file);
+
+    formData.append("partner_id", receiverId);
+    formData.append("message", file.name);
 
     try {
       const result = await sendReport({
@@ -59,10 +66,12 @@ const FileSend: React.FC<PropData> = ({ close }) => {
         method: "POST",
         body: formData,
       }).unwrap();
-      console.log("Success:", result);
+
+      onSuccess(result?.data);
+
       setUploadedFiles([]);
       setPostFile(null);
-      close(); 
+      close();
     } catch (apiError) {
       console.error("Error submitting files:", apiError);
     }

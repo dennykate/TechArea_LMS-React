@@ -66,7 +66,7 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
   return (
     <div
       onDoubleClick={() => msg.is_sender && open()}
-      className={`w-full ${
+      className={`w-full cursor-default ${
         msg?.attachment === null
           ? "min-h-[10vh]"
           : isImage(msg.attachment)
@@ -94,22 +94,65 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
           msg?.attachment === null ? (
             <div className="flex flex-col">
               <p>{msg.message}</p>
-              <Text size={"xs"} color="dimmed">
-                {msg.created_at_time}
-              </Text>
+              <div className="w-full flex items-center justify-end mt-1">
+                <Text size={"xs"} color="dimmed">
+                  {msg.created_at_time}
+                </Text>
+              </div>
             </div>
           ) : isImage(msg.attachment) ? (
-            <img className="w-[250px] h-[250px]" src={msg.attachment} alt="" />
+            <>
+              <img
+                className="w-[250px] h-[250px]"
+                src={msg.attachment}
+                alt=""
+              />
+              <div className="w-full flex items-center justify-end mt-1">
+                <Text size={"xs"} color="dimmed">
+                  {msg.created_at_time}
+                </Text>
+              </div>
+            </>
           ) : isDocument(msg.attachment) ? (
             <div
               onClick={() => openInNewTab(msg.attachment)}
-              className="flex cursor-pointer gap-2 items-center"
+              className="flex cursor-pointer gap-2 items-center group flex-col"
             >
-              <BiDownload size={28} />
-              <Text size="sm">{getFileName(msg.attachment)}</Text>
+              <div className="flex items-center gap-2">
+                <div className="min-w-[50px] flex justify-center items-center">
+                  <BiDownload size={28} />
+                </div>
+                <Text size="sm" className="group-hover:underline">
+                  {getFileName(msg.attachment)}
+                </Text>
+              </div>
+
+              <div className="w-full flex items-center justify-end mt-1">
+                <Text size={"xs"} color="dimmed">
+                  {msg.created_at_time}
+                </Text>
+              </div>
             </div>
           ) : (
-            <Text>Unsupported file type</Text>
+            <div
+              onClick={() => openInNewTab(msg.attachment)}
+              className="flex cursor-pointer gap-2 items-center group flex-col"
+            >
+              <div className="flex items-center gap-2">
+                <div className="min-w-[50px] flex justify-center items-center">
+                  <BiDownload size={28} />
+                </div>
+                <Text size="sm" className="group-hover:underline">
+                  {getFileName(msg.attachment)}
+                </Text>
+              </div>
+
+              <div className="w-full flex items-center justify-end mt-1">
+                <Text size={"xs"} color="dimmed">
+                  {msg.created_at_time}
+                </Text>
+              </div>
+            </div>
           )
         ) : (
           <div className="flex flex-col">
