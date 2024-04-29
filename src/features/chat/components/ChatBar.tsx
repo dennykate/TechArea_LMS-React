@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ChatMate from "./ChatMate";
 import Profile from "./Profile";
 import { IoChatbubbles } from "react-icons/io5";
@@ -11,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { clearGroupUsers } from "@/redux/services/chatSlice";
 import { FaUserPlus } from "react-icons/fa6";
 import { useGetDataQuery } from "@/redux/api/queryApi";
-import CreateGroupChat from "./CreateGroupChat";
+import CreateGroupChat from "./group-chats/CreateGroupChat";
 
 interface Data {
   partner: { role: string; name: string; profile: string; id: string };
@@ -82,7 +83,7 @@ const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
         {groupChatData?.data?.map((el: Data, index: Key | null | undefined) => (
           <GroupChatMate
             close={closeGroupModal}
-            data={el}
+            data={el as any}
             key={index}
             parent={"chat_bar"}
           />
