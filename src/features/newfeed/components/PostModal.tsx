@@ -73,7 +73,6 @@ const PostModal: React.FC<ModalProps> = ({ opened, close, fetchedData }) => {
     <Modal
       opened={opened}
       onClose={close}
-      title={`Post of someone...`}
       size={"md:55% 100%"}
       radius={0}
       centered
