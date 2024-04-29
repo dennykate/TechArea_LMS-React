@@ -8,6 +8,9 @@ import { clearGroupUsers, selectUsers } from "@/redux/services/chatSlice";
 import { usePostDataMutation } from "@/redux/api/formApi";
 import toast from "react-hot-toast";
 import CreateGroup from "./CreateGroup";
+import TextInputComponent from "@/components/inputs/TextInputComponent";
+import SelectComponent from "@/components/inputs/SelectComponent";
+import useQuery from "@/hooks/useQuery";
 
 interface SearchProps {
   role: number;
@@ -45,7 +48,6 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-  console.log(data);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch({ role: 1, name: event.target.value });
@@ -71,7 +73,7 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
   } = useGetDataQuery("/group-chats");
 
   //in group's users
-  const { data: groupUser } = useGetDataQuery(
+  const { data: groupUser } = useQuery(
     `/group-chats/get-group-chat-users/${selectGroup.groupId}`
   );
 
@@ -167,24 +169,26 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
   return (
     <div className="w-full">
       <div className="flex md:flex-row flex-col gap-5 justify-between items-center mb-4">
-        <Select
-        size="lg"
-          placeholder="Select role"
-          value={search.role.toString()}
-          onChange={handleRoleChange}
-          data={[
-            { value: "1", label: "Student" },
-            { value: "2", label: "Teacher" },
-          ]}
-          className="w-full md:w-[300px]"
-        />
-        <input
-          type="text"
-          value={search.name}
-          onChange={handleSearchChange}
-          placeholder="Search by name"
-          className="h-[50px] w-full md:w-[300px] p-2 border border-gray-500 rounded placeholder:text-gray-500"
-        />
+        <div className="flex items-center gap-5">
+          <SelectComponent
+            placeholder="Select role"
+            value={search.role.toString()}
+            onChangeHandler={handleRoleChange}
+            data={[
+              { value: "1", label: "Student" },
+              { value: "2", label: "Teacher" },
+            ]}
+            searchInputClassName="w-full md:w-[100px]"
+          />
+          <TextInputComponent
+            value={search.name}
+            onChange={handleSearchChange}
+            placeholder="Search by name"
+            classNames={{
+              root: "w-full md:w-[300px]",
+            }}
+          />
+        </div>
         {/* <p>
           {error.message}
         </p> */}
@@ -276,10 +280,7 @@ const AddChatMate: React.FC<ModelProps> = ({ close }) => {
               />
             ))}
           </div>
-          <Pagination
-            onChange={handlePageChange}
-            total={data?.meta?.total}
-          />
+          <Pagination onChange={handlePageChange} total={data?.meta?.total} />
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

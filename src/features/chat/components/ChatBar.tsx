@@ -5,13 +5,13 @@ import { Key } from "react";
 import { FaSquarePlus } from "react-icons/fa6";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { Loader, Modal } from "@mantine/core";
-import AddChatMate from "./AddChatMate";
 import GroupChatMate from "./GroupChatMate";
 import AddSingleChat from "./AddSingleChat";
 import { useDispatch } from "react-redux";
 import { clearGroupUsers } from "@/redux/services/chatSlice";
 import { FaUserPlus } from "react-icons/fa6";
 import { useGetDataQuery } from "@/redux/api/queryApi";
+import CreateGroupChat from "./CreateGroupChat";
 
 interface Data {
   partner: { role: string; name: string; profile: string; id: string };
@@ -100,14 +100,17 @@ const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
       <div className="h-[50px] flex">
         <Profile gap="gap-3" />
       </div>
+
       <Modal
         centered
-        size={"100%"}
+        size={"xl"}
         opened={groupModalOpened}
         onClose={handleCloseGroup}
+        title="Create New Group"
       >
-        <AddChatMate close={closeGroupModal} />
+        <CreateGroupChat onClose={handleCloseGroup} />
       </Modal>
+
       <Modal
         centered
         fullScreen={isMobile}
