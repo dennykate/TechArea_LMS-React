@@ -3,14 +3,13 @@ import ChatMate from "./ChatMate";
 import Profile from "./Profile";
 import { IoChatbubbles } from "react-icons/io5";
 import { Key } from "react";
-import { FaSquarePlus } from "react-icons/fa6";
 import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { Loader, Modal } from "@mantine/core";
 import GroupChatMate from "./GroupChatMate";
 import AddSingleChat from "./AddSingleChat";
 import { useDispatch } from "react-redux";
 import { clearGroupUsers } from "@/redux/services/chatSlice";
-import { FaUserPlus } from "react-icons/fa6";
+import { FaUserPlus, FaUserGroup } from "react-icons/fa6";
 import { useGetDataQuery } from "@/redux/api/queryApi";
 import CreateGroupChat from "./group-chats/CreateGroupChat";
 
@@ -63,16 +62,16 @@ const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
         <p className="flex text-2xl items-center font-semibold gap-3">
           Chat Room <IoChatbubbles />
         </p>
-        <div className="flex gap-3">
-          <FaSquarePlus
+        <div className="flex gap-4">
+          <FaUserGroup
             onClick={openGroupModal}
             className="text-primary cursor-pointer"
-            size={30}
+            size={22}
           />
           <FaUserPlus
             onClick={openSingleModal}
             className="text-primary cursor-pointer"
-            size={30}
+            size={22}
           />
         </div>
       </div>

@@ -18,7 +18,7 @@ const GroupChatUserManagement: React.FC<PropsType> = ({
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2 sm:flex-row flex-col">
         <Heading tag="h4">
           Group Chat User Management ( {value ? "Add" : "Remove"} )
         </Heading>

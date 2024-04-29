@@ -15,7 +15,7 @@ import {
   setCurrentChatData,
   selectCurrentChatData,
 } from "@/redux/services/chatSlice";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import useMutate from "@/hooks/useMutate";
 import {
   IconDotsVertical,
@@ -27,6 +27,7 @@ import alertActions from "@/utilities/alertActions";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import EditGroupChat from "./group-chats/EditGroupChat";
 import GroupChatUserManagement from "./group-chats/GroupChatUserManagement";
+import textTruncate from "@/utilities/text-truncate";
 
 interface Info {
   created_by: any;
@@ -51,6 +52,7 @@ const GroupChatMate: React.FC<LayoutProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { get } = useEncryptStorage();
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   const userInfo = JSON.parse(get("userInfo") as any);
 
@@ -170,12 +172,8 @@ const GroupChatMate: React.FC<LayoutProps> = ({
                 </Menu>
               )}
             </Flex>
-            <Text
-              c="dimmed"
-              className=" md:line-clamp-2 line-clamp-1 opacity-90"
-              fz={12}
-            >
-              {data?.description}
+            <Text c="dimmed" className="opacity-90" fz={12}>
+              {textTruncate(data?.description, 27)}
             </Text>
           </div>
           <Text c="dimmed" fz={14}>
@@ -199,6 +197,7 @@ const GroupChatMate: React.FC<LayoutProps> = ({
         onClose={managementClose}
         centered
         size={"lg"}
+        fullScreen={isMobile ? true : false}
       >
         <GroupChatUserManagement
           groupChatId={data?.id}

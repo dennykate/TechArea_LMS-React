@@ -7,6 +7,7 @@ import useQuery from "@/hooks/useQuery";
 import { Avatar, Badge, Checkbox, Text } from "@mantine/core";
 import { useDebouncedValue } from "@mantine/hooks";
 import React, { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface PropsType {
   groupChatId: string;
@@ -17,6 +18,7 @@ const AddUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
   const [searchParams, setSearchParams] = useState({ role: "1", name: "" });
   const [users, setUsers] = useState<any[]>([]);
   const [data, setData] = useState<any[]>([]);
+  const [filteredData, setFilteredData] = useState<any[]>([]);
   const [debouncedName] = useDebouncedValue(searchParams.name, 300);
 
   useQuery(
@@ -40,6 +42,9 @@ const AddUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
   });
 
   const onClickHandler = useCallback(() => {
+    if (users.length === 0)
+      return toast.error("Please select students or teacher");
+
     const data = {
       users,
     };
@@ -60,22 +65,18 @@ const AddUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
   };
 
   useEffect(() => {
-    if (groupChatUsers && groupChatUsers?.length > 0) {
-      setData((prev: any[]) => {
-        return prev
-          ?.map((prevDt: any) => {
-            const isExistInGroup = groupChatUsers?.find(
-              (user: any) => user.id === prevDt?.id
-            );
+    setFilteredData(() => {
+      return data
+        ?.map((prevDt: any) => {
+          const isExistInGroup = groupChatUsers?.find(
+            (user: any) => user.id === prevDt?.id
+          );
 
-            if (!isExistInGroup) return prevDt;
-          })
-          .filter((prevDt: any) => prevDt !== undefined);
-      });
-    }
-  }, [groupChatUsers]);
-
-  console.log("users => ", data);
+          if (!isExistInGroup) return prevDt;
+        })
+        .filter((prevDt: any) => prevDt !== undefined);
+    });
+  }, [data, groupChatUsers]);
 
   return (
     <div className="w-full">
@@ -101,9 +102,9 @@ const AddUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
         />
       </div>
 
-      <div className="mt-4 flex flex-col items-center gap-2 max-h-[55vh] overflow-y-auto">
-        {data?.length > 0 ? (
-          data?.map((dt: any) => (
+      <div className="mt-4 flex flex-col items-center gap-2 sm:max-h-[55vh] h-[70vh] overflow-y-auto">
+        {filteredData?.length > 0 ? (
+          filteredData?.map((dt: any) => (
             <button
               key={dt?.id}
               className="flex items-center gap-4 w-full hover:bg-gray-100 p-4"

@@ -7,7 +7,6 @@ import useMutate from "@/hooks/useMutate";
 import useQuery from "@/hooks/useQuery";
 import { useForm } from "@mantine/form";
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 interface PropsType {
   onClose: () => void;
@@ -47,13 +46,13 @@ const EditGroupChat: React.FC<PropsType> = ({ onClose, id }) => {
   });
 
   const onSubmitHandler = (data: any) => {
-    if (!file) return toast.error("Image is required");
-
     const formData = new FormData();
 
     formData.append("name", data.name);
     formData.append("description", data.description);
-    formData.append("image", file as File);
+    if (file) {
+      formData.append("image", file as File);
+    }
 
     return onSubmit(`/group-chats/${id}`, formData, "POST", true);
   };

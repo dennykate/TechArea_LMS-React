@@ -4,6 +4,7 @@ import useMutate from "@/hooks/useMutate";
 import useQuery from "@/hooks/useQuery";
 import { Avatar, Badge, Checkbox, Text } from "@mantine/core";
 import React, { useCallback, useState } from "react";
+import toast from "react-hot-toast";
 
 interface PropsType {
   groupChatId: string;
@@ -23,6 +24,9 @@ const RemoveUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
   });
 
   const onClickHandler = useCallback(() => {
+    if (users.length === 0)
+      return toast.error("Please select students or teacher");
+
     const data = {
       users,
     };
@@ -44,7 +48,7 @@ const RemoveUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
 
   return (
     <div className="w-full">
-      <div className="mt-4 flex flex-col items-center gap-2 max-h-[55vh] overflow-y-auto">
+      <div className="mt-4 flex flex-col items-center gap-2 sm:max-h-[55vh] h-[70vh] overflow-y-auto">
         {data?.length > 0 ? (
           data?.map((dt: any) => (
             <button
@@ -62,7 +66,9 @@ const RemoveUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
               <div className="flex flex-col gap-1">
                 <div className="flex items-center gap-2">
                   <Text variant="text">{dt?.name}</Text>
-                  {/* <Badge>{dt?.role}</Badge> */}
+                  <Badge>{dt?.role?.name}</Badge>
+
+                  {dt?.isAdmin && <Badge color="red">Admin</Badge>}
                 </div>
 
                 <Text color="dimmed" size={"sm"}>
