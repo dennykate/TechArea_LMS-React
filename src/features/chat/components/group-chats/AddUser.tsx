@@ -1,9 +1,82 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import MyButton from "@/components/buttons/MyButton";
 import SelectComponent from "@/components/inputs/SelectComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
+import useMutate from "@/hooks/useMutate";
+import useQuery from "@/hooks/useQuery";
 import { Avatar, Badge, Checkbox, Text } from "@mantine/core";
+import { useDebouncedValue } from "@mantine/hooks";
+import React, { useCallback, useEffect, useState } from "react";
 
-const AddUser = () => {
-    
+interface PropsType {
+  groupChatId: string;
+  onSuccess: () => void;
+}
+
+const AddUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
+  const [searchParams, setSearchParams] = useState({ role: "1", name: "" });
+  const [users, setUsers] = useState<any[]>([]);
+  const [data, setData] = useState<any[]>([]);
+  const [debouncedName] = useDebouncedValue(searchParams.name, 300);
+
+  useQuery(
+    `/users?filter[role_id]=${searchParams.role}&limit=1000${
+      debouncedName !== "" ? `&search=${debouncedName}` : ""
+    }`,
+    setData
+  );
+
+  const { data: groupChatUsers } = useQuery(
+    `/group-chats/get-group-chat-users/${groupChatId}`
+  );
+
+  console.log("groupChatUsers => ", groupChatUsers);
+
+  const [mutate, { isLoading }] = useMutate({
+    navigateBack: false,
+    callback: () => {
+      onSuccess();
+    },
+  });
+
+  const onClickHandler = useCallback(() => {
+    const data = {
+      users,
+    };
+
+    return mutate(`/group-chats/${groupChatId}/add-user`, data);
+  }, [groupChatId, users]);
+
+  const onUserSelect = (dt: any) => {
+    setUsers((prev: any[]) => {
+      const isExist = prev?.find((prevDt: any) => prevDt?.user_id === dt?.id);
+
+      if (isExist) {
+        return prev?.filter((prevDt: any) => prevDt?.user_id !== dt?.id);
+      }
+
+      return [...prev, { user_id: dt?.id }];
+    });
+  };
+
+  useEffect(() => {
+    if (groupChatUsers && groupChatUsers?.length > 0) {
+      setData((prev: any[]) => {
+        return prev
+          ?.map((prevDt: any) => {
+            const isExistInGroup = groupChatUsers?.find(
+              (user: any) => user.id === prevDt?.id
+            );
+
+            if (!isExistInGroup) return prevDt;
+          })
+          .filter((prevDt: any) => prevDt !== undefined);
+      });
+    }
+  }, [groupChatUsers]);
+
+  console.log("users => ", data);
+
   return (
     <div className="w-full">
       <div className="flex items-center gap-2 w-full">
@@ -14,20 +87,64 @@ const AddUser = () => {
             { value: "2", label: "Teacher" },
           ]}
           searchInputClassName="w-[100px] sm:w-[150px]"
+          value={searchParams.role}
+          onChangeHandler={(e) => {
+            setSearchParams((prev) => ({ ...prev, role: e }));
+          }}
         />
-        <TextInputComponent placeholder="Enter name" />
+        <TextInputComponent
+          placeholder="Enter name"
+          value={searchParams.name}
+          onChange={(e) => {
+            setSearchParams((prev) => ({ ...prev, name: e.target.value }));
+          }}
+        />
       </div>
 
-      <div className="mt-4 flex flex-col items-center gap-2">
-        <button className="flex items-center gap-4 w-full hover:bg-gray-100 px-2 py-4">
-          <Checkbox />
+      <div className="mt-4 flex flex-col items-center gap-2 max-h-[55vh] overflow-y-auto">
+        {data?.length > 0 ? (
+          data?.map((dt: any) => (
+            <button
+              key={dt?.id}
+              className="flex items-center gap-4 w-full hover:bg-gray-100 p-4"
+              onClick={() => onUserSelect(dt)}
+            >
+              <Checkbox
+                checked={users?.find((user) => user?.user_id === dt?.id)}
+                onChange={() => {}}
+              />
 
-          <div className="flex items-center gap-2">
-            <Avatar size="md" />
-            <Text variant="text">Mg Mg</Text>
-            <Badge>Student</Badge>
+              <Avatar size="md" src={dt?.profile} />
+
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <Text variant="text">{dt?.name}</Text>
+                  <Badge>{dt?.role}</Badge>
+                </div>
+
+                <Text color="dimmed" size={"sm"}>
+                  {dt?.section && dt?.section?.name},{" "}
+                  {dt?.grade && dt?.grade?.name}
+                </Text>
+              </div>
+            </button>
+          ))
+        ) : (
+          <div className="w-full text-center">
+            <Text>There is no data.</Text>
           </div>
-        </button>
+        )}
+      </div>
+
+      <div className="mt-4 w-full">
+        <MyButton
+          className="w-full"
+          size="lg"
+          loading={isLoading}
+          onClick={onClickHandler}
+        >
+          Add To My Group
+        </MyButton>
       </div>
     </div>
   );

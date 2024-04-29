@@ -200,7 +200,10 @@ const GroupChatMate: React.FC<LayoutProps> = ({
         centered
         size={"lg"}
       >
-        <GroupChatUserManagement />
+        <GroupChatUserManagement
+          groupChatId={data?.id}
+          onClose={managementClose}
+        />
       </Modal>
     </>
   );
