@@ -65,16 +65,9 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
   // console.log(msg);
   return (
     <div
-      onDoubleClick={() => msg.is_sender && open()}
-      className={`w-full cursor-default ${
-        msg?.attachment === null
-          ? "min-h-[10vh]"
-          : isImage(msg.attachment)
-          ? "min-h-[300px]"
-          : isDocument(msg.attachment)
-          ? "min-h-[70px]"
-          : "min-h-[10vh]"
-      } flex items-center ${!msg.is_sender ? "justify-start" : "justify-end"}`}
+      className={`w-full cursor-default flex items-center ${
+        !msg.is_sender ? "justify-start" : "justify-end"
+      }`}
     >
       {!msg?.is_sender && (
         <Avatar
@@ -84,7 +77,8 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
         />
       )}
       <div
-        className={`flex flex-col items-end m-2 p-3 md:max-w-[600px] max-w-[250px] ${
+        onDoubleClick={() => msg.is_sender && open()}
+        className={`flex flex-col items-end p-3 md:max-w-[600px] sm:max-w-[500px] max-w-[250px] ${
           !msg?.is_sender
             ? "bg-black text-white rounded-t-lg rounded-e-xl"
             : "bg-slate-200 text-gray-800 rounded-t-xl rounded-s-xl"
@@ -102,11 +96,7 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
             </div>
           ) : isImage(msg.attachment) ? (
             <>
-              <img
-                className="w-[250px] h-[250px]"
-                src={msg.attachment}
-                alt=""
-              />
+              <img className="w-[250px] " src={msg.attachment} alt="" />
               <div className="w-full flex items-center justify-end mt-1">
                 <Text size={"xs"} color="dimmed">
                   {msg.created_at_time}
@@ -116,13 +106,13 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
           ) : isDocument(msg.attachment) ? (
             <div
               onClick={() => openInNewTab(msg.attachment)}
-              className="flex cursor-pointer gap-2 items-center group flex-col"
+              className="flex cursor-pointer gap-2 w-full items-center group flex-col"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 w-full">
                 <div className="min-w-[50px] flex justify-center items-center">
                   <BiDownload size={28} />
                 </div>
-                <Text size="sm" className="group-hover:underline">
+                <Text size="sm" className="group-hover:underline truncate">
                   {getFileName(msg.attachment)}
                 </Text>
               </div>

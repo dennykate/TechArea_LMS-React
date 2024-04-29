@@ -1,7 +1,9 @@
 import { useState, ChangeEvent } from "react";
 import UserProfile from "./UserProfile";
 import { useGetDataQuery } from "@/redux/api/queryApi";
-import { Pagination, Select } from "@mantine/core";
+import { Pagination, Text } from "@mantine/core";
+import SelectComponent from "@/components/inputs/SelectComponent";
+import TextInputComponent from "@/components/inputs/TextInputComponent";
 
 interface SearchProps {
   role: number;
@@ -16,6 +18,7 @@ interface Data {
   description: string;
   image: string;
   last_message: string;
+  role: string;
 }
 
 interface ModelProps {
@@ -25,7 +28,7 @@ const ITEMS_PER_PAGE = 16;
 
 const AddSingleChat: React.FC<ModelProps> = ({ close }) => {
   // all users
-  const [search, setSearch] = useState<SearchProps>({ role: 0, name: "" });
+  const [search, setSearch] = useState<SearchProps>({ role: 1, name: "" });
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, error } = useGetDataQuery(
@@ -35,7 +38,6 @@ const AddSingleChat: React.FC<ModelProps> = ({ close }) => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-  console.log(data);
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch({ role: 1, name: event.target.value });
@@ -57,32 +59,50 @@ const AddSingleChat: React.FC<ModelProps> = ({ close }) => {
 
   return (
     <div className="w-full">
-      <div className="flex md:flex-row flex-col gap-5 justify-between items-center mb-4">
-        <Select
-          size="lg"
+      <div className="flex flex-row sm:gap-5 gap-2 justify-between items-center mb-4 w-full">
+        <SelectComponent
           placeholder="Select role"
           value={search.role.toString()}
-          onChange={handleRoleChange}
+          onChangeHandler={handleRoleChange}
           data={[
             { value: "1", label: "Student" },
             { value: "2", label: "Teacher" },
+            { value: "3", label: "Admin" },
+            { value: "4", label: "Staff" },
           ]}
-          className="w-full md:w-[300px]"
+          searchInputClassName="w-[100px] md:w-[200px]"
         />
-        <input
+        <TextInputComponent
           type="text"
           value={search.name}
           onChange={handleSearchChange}
           placeholder="Search by name"
-          className="h-[50px] w-full md:w-[300px] p-2 border border-gray-500 rounded placeholder:text-gray-500"
+          classNames={{
+            root: "!w-[300px]",
+          }}
         />
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {data?.data?.map((el: Data) => (
-          <UserProfile close={close} parent="single_chat" data={el} key={el.id} />
-        ))}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+        {data?.data?.length > 0 ? (
+          data?.data?.map((el: Data) => (
+            <UserProfile
+              close={close}
+              parent="single_chat"
+              data={el}
+              key={el.id}
+            />
+          ))
+        ) : (
+          <div className="h-[100px] col-span-2 flex justify-center items-center">
+            <Text size="sm" color="dimmed">
+              There is no students
+            </Text>
+          </div>
+        )}
       </div>
-      <Pagination onChange={handlePageChange} total={data?.meta?.total} />
+      <div className="mt-10 mb-5 flex w-full justify-end">
+        <Pagination onChange={handlePageChange} total={data?.meta?.last_page} />
+      </div>
     </div>
   );
 };

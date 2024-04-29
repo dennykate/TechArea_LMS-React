@@ -60,7 +60,7 @@ const ChatRoom: React.FC = () => {
     () =>
       chatType && lastConversation
         ? chatType === "single-chat"
-          ? `/messages?conversation_id=${lastConversation}&limit=50&page=${page}`
+          ? `/messages?partner_id=${userId}&limit=50&page=${page}`
           : `/group-chat-messages?group_chat_id=${lastConversation}&limit=50&page=${page}`
         : "",
     [lastConversation, page]
@@ -175,16 +175,19 @@ const ChatRoom: React.FC = () => {
 
   if (isLoading && page === 1) {
     return (
-      <div className="h-[100vh] flex justify-center items-center">
+      <div className="h-[100vh] w-full flex justify-center items-center">
         <Loader color="blue" />
       </div>
     );
   }
 
   return (
-    <div className="relative h-[100vh] w-full flex flex-col">
+    <div
+      onClick={() => setOpenEmoji(false)}
+      className="relative h-[100vh] w-full flex flex-col"
+    >
       <div
-        className="w-full h-[calc(100vh-50px)] md:p-5 py-5 flex flex-col-reverse  
+        className="w-full h-[calc(100vh-50px)] sm:p-5 px-2 py-4  flex flex-col-reverse  
         overflow-y-scroll scrollbar-none "
       >
         <InfiniteScrollObserver
@@ -199,7 +202,7 @@ const ChatRoom: React.FC = () => {
           }}
         >
           <div ref={messagesEndRef} />
-          <div className="flex flex-col-reverse w-full ">
+          <div className="flex flex-col-reverse w-full gap-3">
             {messages?.map((msg, index) => (
               <Message key={index} msg={msg} setMessages={setMessages} />
             ))}
@@ -209,19 +212,25 @@ const ChatRoom: React.FC = () => {
 
       {/* for message send  */}
       <div
-        className="absolute bottom-0 h-[50px] flex justify-center gap-4 w-[100%] right-[50%] translate-x-[50%] 
+        className="absolute bottom-0 h-[50px] flex justify-center gap-4 w-full
       border md:px-5 px-1"
       >
-        <div className="w-[10%] flex justify-center items-center gap-4">
+        <div className="sm:w-[10%] w-[20%] flex justify-center items-center gap-4">
           <div className=" h-full flex justify-center items-center cursor-pointer relative">
             <MdOutlineEmojiEmotions
-              onClick={() => setOpenEmoji(!openEmoji)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenEmoji(!openEmoji);
+              }}
               size={30}
             />
             {openEmoji && (
               <div
                 className="absolute md:left-0 left-5 bottom-10"
-                onMouseLeave={() => setOpenEmoji(false)}
+                onMouseLeave={(e) => {
+                  e.stopPropagation();
+                  setOpenEmoji(false);
+                }}
               >
                 <EmojiPicker onEmojiClick={handleEmojiClick} />
               </div>
@@ -246,10 +255,10 @@ const ChatRoom: React.FC = () => {
                 />
               </Modal>
             </div>
-          )}{" "}
+          )}
         </div>
 
-        <div className="flex w-full md:w-[90%] h-full bg-slate-200 rounded-full overflow-hidden ">
+        <div className="flex sm:w-[90%] w-[80%] h-full bg-slate-200 rounded-full overflow-hidden ">
           <input
             disabled={getMsgLoading}
             type="text"
@@ -257,7 +266,7 @@ const ChatRoom: React.FC = () => {
             onKeyDown={handleKeyDown}
             onChange={messageHandler}
             placeholder="Enter your message..."
-            className="outline-none text-sm p-2 md:px-5 w-full rounded-full h-full bg-slate-200"
+            className="outline-none text-sm px-4 md:px-5 w-full rounded-full h-full bg-slate-200"
           />
           <button
             disabled={getMsgLoading}

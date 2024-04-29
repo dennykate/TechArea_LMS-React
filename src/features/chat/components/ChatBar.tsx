@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import { IoChatbubbles } from "react-icons/io5";
 import { Key } from "react";
 import { FaSquarePlus } from "react-icons/fa6";
-import { useDisclosure } from "@mantine/hooks";
+import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { Loader, Modal } from "@mantine/core";
 import AddChatMate from "./AddChatMate";
 import GroupChatMate from "./GroupChatMate";
@@ -26,9 +26,9 @@ interface FunProps {
 }
 
 const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
-  const { data: groupChatData } = useGetDataQuery("group-chats");
-
   const { data, error, isLoading } = useGetDataQuery(`conversations`);
+  const { data: groupChatData } = useGetDataQuery("group-chats");
+  const isMobile = useMediaQuery("(max-width: 600px)");
 
   const dispatch = useDispatch();
   const [groupModalOpened, { open: openGroupModal, close: closeGroupModal }] =
@@ -110,7 +110,8 @@ const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
       </Modal>
       <Modal
         centered
-        size={"100%"}
+        fullScreen={isMobile}
+        size={"xl"}
         opened={singleModalOpened}
         onClose={handleCloseSingle}
       >

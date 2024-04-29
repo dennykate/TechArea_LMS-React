@@ -1,7 +1,12 @@
 import { usePostDataMutation } from "@/redux/api/queryApi";
-import { addGroupUser, removeGroupUser } from "@/redux/services/chatSlice";
+import {
+  addGroupUser,
+  removeGroupUser,
+  setCurrentChatData,
+} from "@/redux/services/chatSlice";
 import { useMessageHandler } from "@/utilities/messageHandler";
 import { Avatar, Badge, Checkbox, Flex, Text } from "@mantine/core";
+import Cookies from "js-cookie";
 import { IoIosSend } from "react-icons/io";
 import { useDispatch } from "react-redux";
 interface Info {
@@ -9,7 +14,7 @@ interface Info {
   profile: string;
   name: string;
   email: string;
-  role?: { name: string };
+  role: string;
 }
 interface LayoutProps {
   data: Info;
@@ -58,6 +63,20 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
 
       await sendMessage(payload);
       setInputValue("");
+      dispatch(
+        setCurrentChatData({
+          ...data,
+          chatType: "single-chat",
+          partner: {
+            id: data.id,
+            role: data.role,
+          },
+        })
+      );
+      Cookies.set("chat_type", "single-chat");
+      Cookies.set("last_conversation", data.id);
+      Cookies.set("user_id", data.id);
+      Cookies.set("user_role", data.role);
       close();
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -66,7 +85,8 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
 
   return (
     <div
-      className={`flex relative flex-col border hover:bg-slate-100 transition duration-75 cursor-pointer col-span-1 shadow-sm bg-white w-full h-[20vh]`}
+      className={`flex relative flex-col border hover:bg-slate-100 transition duration-75 
+      cursor-pointer col-span-1 shadow-sm bg-white w-full min-h-[20vh]  pb-5`}
     >
       {/* top information  */}
       <div className="flex justify-between shadow-sm p-5">
@@ -76,9 +96,14 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
             <Text fz={16} fw={600}>
               {data?.name}
             </Text>
-            <Badge size="xs" color="blue">
-              {data?.email || data?.role?.name}
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Badge size="xs" color="blue">
+                {data?.role}
+              </Badge>
+              <Badge size="xs" color="blue">
+                {data?.email}
+              </Badge>
+            </div>
           </Flex>
         </div>
         {/* for adding group  */}

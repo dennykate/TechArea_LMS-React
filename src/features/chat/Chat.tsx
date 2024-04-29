@@ -3,22 +3,14 @@ import { motion } from "framer-motion";
 import ChatBar from "./components/ChatBar";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import ChatRoom from "./components/ChatRom";
+import { useMediaQuery } from "@mantine/hooks";
 
 const Chat = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowWidth(window.innerWidth);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  const matches = useMediaQuery("(max-width: 768px)");
 
   const toggleChatRoom = () => {
-    if (windowWidth <= 768) {
+    if (matches) {
       console.log("Toggling chat room:", !isOpen);
       setIsOpen(!isOpen);
     } else {
@@ -31,19 +23,25 @@ const Chat = () => {
     closed: { right: "0vw" },
   };
 
+  useEffect(() => {
+    if (matches) {
+      setIsOpen(true);
+    }
+  }, [matches]);
+
   return (
     <div className=" overflow-hidden w-[100vw] ">
       <motion.div
-        className="flex relative w-[200vw] md:w-screen"
+        className="flex relative w-[200vw] md:w-screen "
         initial="closed"
         animate={isOpen ? "open" : "closed"}
         variants={variants}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.2 }}
       >
         <div className="w-full md:w-3/12">
           <ChatBar toggleChatRoom={toggleChatRoom} />
         </div>
-        <div className="w-full md:w-9/12 relative">
+        <div className="w-full md:w-9/12 relative ">
           <div
             onClick={toggleChatRoom}
             className="absolute z-50 top-5 left-5 md:hidden"
