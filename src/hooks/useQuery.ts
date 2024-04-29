@@ -48,6 +48,12 @@ const useQuery = (
   }, [data]);
 
   useEffect(() => {
+    if (data) {
+      setIsLoading(false);
+    }
+  }, [data]);
+
+  useEffect(() => {
     if (error && showError) {
       setIsLoading(false);
       if (error.status === 401) {

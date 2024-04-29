@@ -8,6 +8,7 @@ import { BiDownload } from "react-icons/bi";
 
 interface MsgProps {
   msg: {
+    sender: any;
     is_sender: boolean;
     message: string;
     id: string;
@@ -65,16 +66,12 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
   // console.log(msg);
   return (
     <div
-      className={`w-full cursor-default flex items-center ${
+      className={`w-full cursor-default flex gap-3 items-start ${
         !msg.is_sender ? "justify-start" : "justify-end"
       }`}
     >
       {!msg?.is_sender && (
-        <Avatar
-          radius="100%"
-          size="md"
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
-        />
+        <Avatar radius="100%" size="md" src={msg?.sender?.profile} />
       )}
       <div
         onDoubleClick={() => msg.is_sender && open()}
