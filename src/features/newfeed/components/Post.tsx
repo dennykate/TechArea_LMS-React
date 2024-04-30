@@ -212,7 +212,9 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
                 mt="md"
                 mb="xs"
               >
-                <p className=" font-medium md:text-md text-sm">{data?.created_by}</p>
+                <p className=" font-medium md:text-md text-sm">
+                  {data?.created_by}
+                </p>
               </Group>
 
               <div className=" text-[11px] md:text-[12px] text-gray-500">
@@ -232,7 +234,11 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
 
         {/* reaction count and comment cout  */}
         <div className=" p-2 my-2 text-[13px] text-gray-500 flex justify-end gap-5">
-          <span>{data?.reaction_count} Like</span>
+          <span>{data?.reactions?.good} Good</span>
+          <span>{data?.reactions?.best} Best</span>
+          <span>{data?.reactions?.not_bad} Not Bad</span>
+          <span>{data?.reactions?.bad} Bad</span>
+
           <span>{data?.comment_count} Comment</span>
         </div>
 

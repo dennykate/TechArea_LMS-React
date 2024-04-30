@@ -1,4 +1,4 @@
-import { Avatar, Modal } from "@mantine/core";
+import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import UploadField from "./UploadField";
 interface StateProps {
