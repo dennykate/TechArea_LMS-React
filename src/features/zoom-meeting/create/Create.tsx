@@ -162,7 +162,7 @@ const Create = () => {
           label="Type"
           placeholder="Select type"
           data={[
-            { label: "Instant", value: "1" },
+            // { label: "Instant", value: "1" },
             { label: "Schedule", value: "2" },
             { label: "Recurrence", value: "8" },
           ]}

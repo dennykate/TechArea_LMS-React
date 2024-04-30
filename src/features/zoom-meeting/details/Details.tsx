@@ -3,11 +3,18 @@ import { IconPencilMinus } from "@tabler/icons-react";
 import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 
-import ScheduleInformation from "./components/ScheduleInformation";
+import ZoomInformation from "./components/ZoomInformation";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import { useNavigate, useParams } from "react-router-dom";
+import useQuery from "@/hooks/useQuery";
 
 const Details = () => {
+  const navigate = useNavigate();
+  const { zoomMeetingId } = useParams();
+
+  const { data } = useQuery(`/zooms/${zoomMeetingId}`);
+
   return (
     <DetailsLayout
       linkItems={[
@@ -17,11 +24,16 @@ const Details = () => {
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3 relative">
-        <ScheduleInformation />
+        <ZoomInformation data={data} />
 
         <div className="absolute top-0 right-0">
           <div>
-            <MyButton leftIcon={<IconPencilMinus size={16} />}>Edit</MyButton>
+            <MyButton
+              onClick={() => navigate(`/zoom-meetings/edit/${zoomMeetingId}`)}
+              leftIcon={<IconPencilMinus size={16} />}
+            >
+              Edit
+            </MyButton>
           </div>
         </div>
       </div>
