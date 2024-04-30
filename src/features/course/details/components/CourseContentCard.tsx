@@ -6,6 +6,8 @@ import { useDisclosure } from "@mantine/hooks";
 import { IconCalendarMonth, IconPencilMinus } from "@tabler/icons-react";
 import EditCourseContent from "./EditCourseContent";
 import React from "react";
+import useMutate from "@/hooks/useMutate";
+import alertActions from "@/utilities/alertActions";
 
 interface PropsType {
   data: any;
@@ -13,6 +15,10 @@ interface PropsType {
 
 const CourseContentCard: React.FC<PropsType> = ({ data }) => {
   const [opened, { open, close }] = useDisclosure(false);
+
+  const [onSubmit] = useMutate({
+    navigateBack: false,
+  });
 
   return (
     <>
@@ -51,7 +57,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
           </p>
           {data?.timmer && (
             <p className="text-sm font-[300] text-gray-500">
-              Duration - {data?.timmer} minute(s)
+              duration - {data?.timmer} minute(s)
             </p>
           )}
           <div className="flex flex-col gap-3 items-start !mt-4">
@@ -68,7 +74,20 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
           </div>
         </div>
 
-        <div className="absolute top-2 right-2">
+        <div className="absolute top-2 right-2 flex items-center gap-2">
+          <MyButton
+            onClick={() => {
+              alertActions(() => {
+                onSubmit(`/course-contents/${data?.id}`, {}, "DELETE");
+              }, "Are you sure to delete!");
+            }}
+            size="xs"
+            variant="outline"
+            color="red"
+          >
+            Delete
+          </MyButton>
+
           <MyButton
             onClick={open}
             size="xs"
