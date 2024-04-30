@@ -55,7 +55,7 @@ const Create = () => {
 
   const onSubmitHandler = (values: any) => {
     if (values.description == "") return toast.error("Description is requried");
-    if (!file) return toast.error("File is requried");
+    // if (!file) return toast.error("File is requried");
 
     const formData = new FormData();
 
