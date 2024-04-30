@@ -13,15 +13,16 @@ import { useParams } from "react-router-dom";
 import { roleData } from "@/data/roles";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
-import { Group, Switch, useMantineTheme } from "@mantine/core";
-import { IconCheck, IconX } from "@tabler/icons-react";
+// import { Group, Switch, useMantineTheme } from "@mantine/core";
+// import { IconCheck, IconX } from "@tabler/icons-react";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
-import { useState } from "react";
+import { twMerge } from "tailwind-merge";
+// import { useState } from "react";
 
 const Edit = () => {
   const { scheduleId } = useParams();
-  const theme = useMantineTheme();
-  const [isFullDay, setIsFullDay] = useState<boolean>(false);
+  // const theme = useMantineTheme();
+  // const [isFullDay, setIsFullDay] = useState<boolean>(false);
 
   const form = useForm<any>({
     initialValues: {
@@ -59,15 +60,21 @@ const Edit = () => {
     }
   );
   const onSubmitHandler = (values: any) => {
+    // const newItem = {
+    //   ...values,
+    //   start_date: isFullDay
+    //     ? dayjs(values.start_date).startOf("day").format("DD-MM-YYYY HH:mm")
+    //     : dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
+    //   end_date: isFullDay
+    //     ? dayjs(values.end_date).endOf("day").format("DD-MM-YYYY HH:mm")
+    //     : dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
+    // };
     const newItem = {
       ...values,
-      start_date: isFullDay
-        ? dayjs(values.start_date).startOf("day").format("DD-MM-YYYY HH:mm")
-        : dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
-      end_date: isFullDay
-        ? dayjs(values.end_date).endOf("day").format("DD-MM-YYYY HH:mm")
-        : dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
+      start_date: dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
+      end_date: dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
     };
+
     onSubmit(`/academic-calendar-events/${scheduleId}`, newItem, "PUT");
   };
 
@@ -111,16 +118,22 @@ const Edit = () => {
           name="type"
         />
 
-        <SelectComponent
-          label="Role"
-          placeholder="Select role"
-          data={roleData}
-          withAsterisk
-          form={form}
-          name="role_id"
-        />
+        <div
+          className={twMerge(
+            form.values?.role_id != "1" ? "col-span-2" : "col-span-1"
+          )}
+        >
+          <SelectComponent
+            label="Role"
+            placeholder="Select role"
+            data={roleData}
+            withAsterisk
+            form={form}
+            name="role_id"
+          />
+        </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        {/* <div className="grid grid-cols-2 gap-4">
           <div className="pt-10">
             <Group position="left">
               <Switch
@@ -151,7 +164,11 @@ const Edit = () => {
           {form.values?.role_id == "1" && (
             <GradeSectionSubject form={form} usage={["grade"]} />
           )}
-        </div>
+        </div> */}
+
+        {form.values?.role_id == "1" && (
+          <GradeSectionSubject form={form} usage={["grade"]} />
+        )}
 
         <DateTimeInputComponent
           placeholder="Choose start date"
