@@ -93,7 +93,7 @@ const Edit = () => {
     },
   });
 
-  const [onSubmit, { isLoading }] = useMutate();
+  const [onSubmit, { isLoading }] = useMutate({ navigateBack: true });
 
   const onSubmitHandler = (data: any) => {
     onSubmit(
@@ -121,8 +121,8 @@ const Edit = () => {
       form.setFieldValue("subject_id", data?.subject_id);
       form.setFieldValue("type", data?.meeting_type);
       form.setFieldValue(
-        "start_time",
-        dayjs(data?.start_time, "DD-MM-YYYY HH:mm").toDate()
+        "start_date",
+        dayjs(data?.start_time, "DD MMM YYYY hh:mm A").toDate()
       );
       form.setFieldValue("recurrence_type", data?.recurrence_type);
       form.setFieldValue(

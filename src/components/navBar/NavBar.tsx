@@ -46,7 +46,7 @@ const NavBar = ({
 
       <div className="flex items-center lg:gap-4 gap-2 sm:flex-row flex-row-reverse  sm:pr-0 pr-1">
         <Link to="/profile">
-          <div className="flex items-center gap-1 select-none">
+          <div className="flex items-center gap-2 select-none">
             <p className="lg:text-base text-sm sm:block hidden">
               {userInfo?.name}
             </p>
