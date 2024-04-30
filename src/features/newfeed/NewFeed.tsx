@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Loader, Tooltip } from "@mantine/core";
+import { Loader, Modal, Tooltip } from "@mantine/core";
 import { TbTextPlus } from "react-icons/tb";
-import { Link } from "react-router-dom";
 import AddPost from "./components/AddPost";
 import { useGetDataQuery } from "@/redux/api/queryApi";
 import Post from "./components/Post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
+import UploadField from "./components/UploadField";
+import { useDisclosure } from "@mantine/hooks";
 
 const NewFeed = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
   const [latest, setLatest] = useState(true);
+  const [opened, { open, close }] = useDisclosure();
   const {
     data: postData,
     isLoading,
@@ -58,7 +60,7 @@ const NewFeed = () => {
     <div className="w-full flex h-[calc(100vh-120px)] justify-center items-center relative">
       <div
         id="scrollableDiv"
-        className="h-[100%] overflow-scroll scrollbar-none w-[90%] md:w-[60%]"
+        className="h-[100%] overflow-scroll overflow-x-hidden scrollbar-none w-[90%] md:w-[60%]"
       >
         <InfiniteScroll
           dataLength={posts?.length}
@@ -81,7 +83,7 @@ const NewFeed = () => {
         >
           <div className="flex flex-col gap-5 items-center">
             <AddPost latest={latest} setLatest={setLatest} />
-            {posts.map((el: any) => (
+            {posts?.map((el: any) => (
               <Post
                 resetData={resetData}
                 key={el.id}
@@ -93,13 +95,23 @@ const NewFeed = () => {
         </InfiniteScroll>
       </div>
       <Tooltip label="post upload">
-        <Link
-          to={"/upload"}
+        <div
+          onClick={open}
           className="text-3xl hidden cursor-pointer w-16 h-16 hover:bg-blue-400 bg-blue-500 text-white font-bold md:flex justify-center items-center rounded-full absolute right-10 bottom-10"
         >
           <TbTextPlus />
-        </Link>
+        </div>
       </Tooltip>
+      {/* for post upload model  */}
+      <Modal
+        centered
+        size={"lg"}
+        opened={opened}
+        onClose={close}
+        title="Post Upload"
+      >
+        <UploadField latest={latest} setLatest={setLatest} close={close} />
+      </Modal>
     </div>
   );
 };

@@ -1,13 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  Badge,
   Button,
   Card,
   Group,
-  Image,
   Text,
   ActionIcon,
   HoverCard,
-  Avatar,
   Menu,
   rem,
   Modal,
@@ -24,6 +22,7 @@ import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { useDispatch } from "react-redux";
 import { editPost } from "@/redux/services/postSlice";
 import UpdateField from "./UpdateField";
+import { BiTrash } from "react-icons/bi";
 
 interface Reaction {
   id: string;
@@ -31,10 +30,10 @@ interface Reaction {
 }
 
 const reactions: Reaction[] = [
-  { id: "bad", emoji: "👍" },
-  { id: "not bad", emoji: "❤️" },
-  { id: "good", emoji: "😂" },
-  { id: "best", emoji: "😮" },
+  { id: "good", emoji: "👍" },
+  { id: "best", emoji: "❤️" },
+  { id: "not bad", emoji: "🙂" },
+  { id: "bad", emoji: "👎" },
 ];
 interface ReactProps {
   user_id: string;
@@ -51,6 +50,7 @@ interface ParentProps {
     created_at: string;
     id: string;
     is_reactor: ReactProps;
+    reactions: any;
   };
   resetData: () => void;
 }
@@ -75,15 +75,15 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         type: selectedReaction.id,
         post_id: data?.id,
       };
-      const response = await postReaction({
+      const response = (await postReaction({
         url: "/reactions",
         method: "POST",
         body: payload,
-      });
+      })) as any;
       console.log(response);
       if (response?.data?.status === "success") {
         toast.success("Reaction posted successfully!");
-        window.location.reload();
+        resetData();
       }
     } catch (error) {
       console.error(error);
@@ -100,13 +100,14 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
 
   const deletePostHandler = async (postId: string) => {
     try {
-      const response = await deletePost({
+      const response = (await deletePost({
         url: `/posts/${postId}`,
         method: "DELETE",
-      });
+      })) as any;
       console.log(response);
       if (response?.data?.status === "success") {
         toast.success(`${response?.data?.message}`);
+        resetData();
       }
     } catch (error) {
       console.log(error);
@@ -121,13 +122,14 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
   const [deleteReact, { isLoading: reactLoading, error }] =
     usePostDataMutation();
   const deleteReactHandler = async () => {
-    const response = await deleteReact({
+    const response = (await deleteReact({
       url: `/reactions/${data?.id}`,
       method: "DELETE",
-    });
+    })) as any;
     console.log(response, error);
     if (response?.data?.status === "success") {
       toast.success("Unreact successfully");
+      resetData();
     }
   };
 
@@ -154,15 +156,16 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         withBorder={parent === "newfeed"}
       >
         <Card.Section className="relative">
-          <Image
+          <img
             src={`${
               data?.image === null
                 ? "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
                 : data?.image
             }`}
-            width={700}
-            height={500}
-            alt="Norway"
+            alt=""
+            className={` object-cover h-[300px] md:h-[500px]  ${
+              parent === "newfeed" ? "w-[700px]" : "w-[500px]"
+            }`}
           />
 
           {/* for delete and edit  */}
@@ -177,8 +180,11 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
 
                 <Menu.Dropdown>
                   <Menu.Item
-                    onClick={() => deletePostHandler(data.id)}
+                    onClick={() => {
+                      if (data) deletePostHandler(data.id);
+                    }}
                     color="red"
+                    icon={<BiTrash size={rem(14)} />}
                   >
                     Delete
                   </Menu.Item>
@@ -197,10 +203,9 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
 
         {/* post info  */}
         <div className="flex gap-3 flex-col ">
-          <div className="flex gap-5 items-center my-5">
-            <Avatar
-              radius={"100%"}
-              size={"lg"}
+          <div className="flex gap-3 items-center my-5">
+            <img
+              className=" rounded-full w-10 h-10 md:w-12 md:h-12"
               src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
             />
             <div className="flex items-center justify-between w-full">
@@ -209,10 +214,12 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
                 mt="md"
                 mb="xs"
               >
-                <Text weight={500}>{data?.created_by}</Text>
+                <p className=" font-medium md:text-md text-sm">
+                  {data?.created_by}
+                </p>
               </Group>
 
-              <div className="text-[12px] text-gray-500">
+              <div className=" text-[11px] md:text-[12px] text-gray-500">
                 <p>
                   {moment(data?.created_at, "DD MMM YYYY hh:mm A").format(
                     "MMMM Do YYYY, h:mm:ss a"
@@ -229,7 +236,11 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
 
         {/* reaction count and comment cout  */}
         <div className=" p-2 my-2 text-[13px] text-gray-500 flex justify-end gap-5">
-          <span>{data?.reaction_count} Like</span>
+          <span>{data?.reactions?.good} Good</span>
+          <span>{data?.reactions?.best} Best</span>
+          <span>{data?.reactions?.not_bad} Not Bad</span>
+          <span>{data?.reactions?.bad} Bad</span>
+
           <span>{data?.comment_count} Comment</span>
         </div>
 
@@ -242,10 +253,26 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
                 onClick={deleteReactHandler}
                 fullWidth
                 color={
-                  data.is_reactor?.user_id === userData.id ? "blue" : "gray"
+                  data && data.is_reactor?.user_id === userData.id
+                    ? "blue"
+                    : "gray"
                 }
                 variant="outline"
-                leftIcon={<IconThumbUp size={16} />}
+                leftIcon={
+                  data?.is_reactor === null ? (
+                    <IconThumbUp size={16} />
+                  ) : (
+                    `${
+                      data?.is_reactor?.type === "good"
+                        ? "👍"
+                        : data?.is_reactor?.type === "best"
+                        ? "❤️"
+                        : data?.is_reactor?.type === "not bad"
+                        ? "🙂"
+                        : data?.is_reactor?.type === "bad" && "👎"
+                    }`
+                  )
+                }
               >
                 {data?.is_reactor
                   ? data.is_reactor?.user_id === userData.id
@@ -262,7 +289,7 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
                     size="xl"
                     onClick={() => handleReactionSelect(r)}
                   >
-                    <span>{r.id}</span>
+                    <span>{r.emoji}</span>
                   </ActionIcon>
                 ))}
               </div>
@@ -285,14 +312,14 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
       <Modal
         opened={editModalOpen}
         onClose={editModalControls.close}
-        size={"xl"}
+        size={"lg"}
         centered
         title="Edit Post"
       >
         <UpdateField
           resetData={resetData}
           close={editModalControls.close}
-          initialContent={data}
+          initialContent={data as any}
         />
       </Modal>
 

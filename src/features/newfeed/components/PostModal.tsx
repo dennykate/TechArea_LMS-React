@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input, Modal } from "@mantine/core";
 import Post from "./Post";
 import Comments from "./Comments";
@@ -47,11 +48,11 @@ const PostModal: React.FC<ModalProps> = ({ opened, close, fetchedData }) => {
         content: inputValue,
         post_id: fetchedData?.data?.id,
       };
-      const response = await comment({
+      const response = (await comment({
         url: "/comments",
         method: "POST",
         body: payload,
-      });
+      })) as any;
       // console.log(response);
       if (response?.data?.status === "success") {
         setInputValue("");
@@ -73,18 +74,21 @@ const PostModal: React.FC<ModalProps> = ({ opened, close, fetchedData }) => {
     <Modal
       opened={opened}
       onClose={close}
-      title={`Post of someone...`}
       size={"md:55% 100%"}
       radius={0}
       centered
       transitionProps={{ transition: "fade", duration: 200 }}
     >
-      <Post data={fetchedData?.data} parent="comment" />
+      <Post
+        resetData={() => {}}
+        data={fetchedData?.data as any}
+        parent="comment"
+      />
       {/* comments  */}
       <div className="flex flex-col gap-3 my-3">
         {fetchedData?.data?.comments?.map(
           (el: { id: Key | null | undefined }) => (
-            <Comments key={el?.id} data={el} />
+            <Comments key={el?.id} data={el as any} />
           )
         )}
       </div>

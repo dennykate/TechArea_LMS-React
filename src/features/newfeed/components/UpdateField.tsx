@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import {
   Button,
@@ -55,11 +56,11 @@ const UpdateField: React.FC<DataProps> = ({
     uploadedImage.forEach((file) => formData.append("image", file));
 
     try {
-      const response = await updatePost({
+      const response = (await updatePost({
         url: `/posts/${initialContent.id}`,
         method: "POST",
         body: formData,
-      });
+      })) as any;
       console.log("Update response:", response);
       if (response?.data?.status === "success") {
         setUploadedImage([]);
@@ -74,13 +75,13 @@ const UpdateField: React.FC<DataProps> = ({
 
   return (
     <form onSubmit={handleUpdate} className="md:p-10 flex flex-col">
-      <div className="flex flex-col-reverse md:flex-row h-full items-center mb-5 gap-5">
+      <div className="flex flex-col h-full items-center mb-5 gap-5">
         <TextEditorInput
           label="Content"
           value={content}
           onChange={(e) => setContent(e)}
         />
-        <div className="md:w-1/2 h-full md:p-5">
+        <div className="w-full h-full md:p-5">
           {isCancel ? (
             uploadedImage.length > 0 ? (
               <UploadedImages
