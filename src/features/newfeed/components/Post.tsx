@@ -22,6 +22,7 @@ import { useDispatch } from "react-redux";
 import { editPost } from "@/redux/services/postSlice";
 import UpdateField from "./UpdateField";
 import { BiTrash } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 interface Reaction {
   id: string;
@@ -102,19 +103,32 @@ const Post: React.FC<ParentProps> = ({
   const [deletePost] = usePostDataMutation();
 
   const deletePostHandler = async (postId: string) => {
-    try {
-      const response = await deletePost({
-        url: `/posts/${postId}`,
-        method: "DELETE",
-      });
-      console.log(response);
-      if (response?.data?.status === "success") {
-        toast.success(`${response?.data?.message}`);
-        resetData();
+    // Display SweetAlert confirmation dialog
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await deletePost({
+            url: `/posts/${postId}`,
+            method: "DELETE",
+          });
+          console.log(response);
+          if (response?.data?.status === "success") {
+            toast.success(`${response?.data?.message}`);
+            resetData();
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
 
   // for single fetch
@@ -124,6 +138,7 @@ const Post: React.FC<ParentProps> = ({
 
   const [deleteReact, { isLoading: reactLoading, error }] =
     usePostDataMutation();
+    
   const deleteReactHandler = async () => {
     const response = await deleteReact({
       url: `/reactions/${data?.id}`,
@@ -172,7 +187,7 @@ const Post: React.FC<ParentProps> = ({
           />
 
           {/* for delete and edit  */}
-          {parent === "newfeed" && (
+          {parent === "newfeed" && userData?.name === data?.created_by && (
             <div className=" absolute top-5 right-5 z-10">
               <Menu width={200} shadow="md">
                 <Menu.Target>
@@ -207,7 +222,7 @@ const Post: React.FC<ParentProps> = ({
           <div className="flex gap-3 items-center my-5">
             <img
               className=" rounded-full w-10 h-10 md:w-12 md:h-12"
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
+              src={userData?.profile}
             />
             <div className="flex items-center justify-between w-full">
               <Group
@@ -223,7 +238,7 @@ const Post: React.FC<ParentProps> = ({
               <div className=" text-[11px] md:text-[12px] text-gray-500">
                 <p>
                   {moment(data?.created_at, "DD MMM YYYY hh:mm A").format(
-                    "MMMM Do YYYY, h:mm:ss a"
+                    "MMMM Do YYYY"
                   )}
                 </p>
               </div>
