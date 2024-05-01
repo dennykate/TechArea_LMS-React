@@ -8,6 +8,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
 import UploadField from "./components/UploadField";
 import { useDisclosure } from "@mantine/hooks";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 const NewFeed = () => {
   const [page, setPage] = useState(1);
@@ -25,9 +26,8 @@ const NewFeed = () => {
 
   const resetData = () => {
     setPosts([]);
-    setPage(1);
+    setPage(0);
   };
-
   useEffect(() => {
     if (postData?.data) {
       setPosts((prevPosts: any[]) => {
@@ -40,6 +40,45 @@ const NewFeed = () => {
       setHasMore(postData.meta.current_page < postData.meta.last_page);
     }
   }, [postData, latest]);
+
+  const { get } = useEncryptStorage();
+  const userData: {
+    id: string;
+    profile: null;
+    gender: string | null;
+    name: string;
+  } = JSON.parse(get("userInfo") as string);
+
+  const directChangeReaction = (postId: string, newReactType: any) => {
+    setPosts((prevPosts: any) => {
+      const postIndex = prevPosts.findIndex((post: any) => post.id === postId);
+
+      if (postIndex === -1) return prevPosts;
+
+      const newPosts = [...prevPosts];
+      const updatedPost = { ...newPosts[postIndex] };
+
+      // Create a new is_reactor object instead of mutating the existing one
+      updatedPost.is_reactor = {
+        ...updatedPost.is_reactor,
+        type: newReactType,
+        post_id: postId,
+        user_id: userData.id,
+      };
+
+      const reactions = { ...updatedPost.reactions };
+
+      delete updatedPost.reactions;
+
+      updatedPost["reactions"] = {
+        ...reactions,
+        [`${newReactType}`]: reactions[`${newReactType}`] + 1,
+      };
+
+      newPosts[postIndex] = updatedPost;
+      return newPosts;
+    });
+  };
 
   const fetchMoreData = () => {
     if (!isLoading && hasMore) {
@@ -85,6 +124,7 @@ const NewFeed = () => {
             <AddPost latest={latest} setLatest={setLatest} />
             {posts?.map((el: any) => (
               <Post
+                directChangeReaction={directChangeReaction}
                 resetData={resetData}
                 key={el.id}
                 data={el}

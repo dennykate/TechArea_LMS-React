@@ -9,13 +9,13 @@ import {
   Menu,
   rem,
   Modal,
+  Avatar,
 } from "@mantine/core";
 import { IconThumbUp, IconMessageCircle } from "@tabler/icons-react";
 import PostModal from "./PostModal";
 import { useDisclosure } from "@mantine/hooks";
-import moment from "moment";
 import { Interweave } from "interweave";
-import { useGetDataQuery, usePostDataMutation } from "@/redux/api/queryApi";
+import { usePostDataMutation } from "@/redux/api/queryApi";
 import { BiDotsHorizontal, BiEdit } from "react-icons/bi";
 import toast from "react-hot-toast";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import { editPost } from "@/redux/services/postSlice";
 import UpdateField from "./UpdateField";
 import { BiTrash } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 interface Reaction {
   id: string;
@@ -53,14 +54,21 @@ interface ParentProps {
     reactions: any;
   };
   resetData: () => void;
+  directChangeReaction?: any;
 }
 
-const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
+const Post: React.FC<ParentProps> = ({
+  parent,
+  data,
+  resetData,
+  directChangeReaction,
+}) => {
   const [commentModalOpen, commentModalControls] = useDisclosure();
   const [editModalOpen, editModalControls] = useDisclosure();
   const [postReaction] = usePostDataMutation();
 
   const { get } = useEncryptStorage();
+
   const userData: {
     id: string;
     profile: null;
@@ -80,10 +88,11 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         method: "POST",
         body: payload,
       })) as any;
-      console.log(response);
+
       if (response?.data?.status === "success") {
         toast.success("Reaction posted successfully!");
-        resetData();
+        // Call the directChangeReaction function with the new reaction type
+        data && directChangeReaction(data.id, selectedReaction.id);
       }
     } catch (error) {
       console.error(error);
@@ -99,28 +108,42 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
   const [deletePost] = usePostDataMutation();
 
   const deletePostHandler = async (postId: string) => {
-    try {
-      const response = (await deletePost({
-        url: `/posts/${postId}`,
-        method: "DELETE",
-      })) as any;
-      console.log(response);
-      if (response?.data?.status === "success") {
-        toast.success(`${response?.data?.message}`);
-        resetData();
+    // Display SweetAlert confirmation dialog
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = (await deletePost({
+            url: `/posts/${postId}`,
+            method: "DELETE",
+          })) as any;
+
+          if (response?.data?.status === "success") {
+            toast.success(`${response?.data?.message}`);
+            resetData();
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
 
-  // for single fetch
-  const { data: fetchedData } = useGetDataQuery(`/posts/${data?.id}`, {
-    skip: !data?.id,
-  });
+  // // for single fetch
+  // const { data: fetchedData } = useGetDataQuery(`/posts/${data?.id}`, {
+  //   skip: !data?.id,
+  // });
 
   const [deleteReact, { isLoading: reactLoading, error }] =
     usePostDataMutation();
+
   const deleteReactHandler = async () => {
     const response = (await deleteReact({
       url: `/reactions/${data?.id}`,
@@ -148,28 +171,31 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center cursor-default">
+    <div className="w-full flex justify-center items-center cursor-default ">
       <Card
         shadow={`${parent === "newfeed" ? "md" : ""}`}
-        padding="lg"
         radius="md"
         withBorder={parent === "newfeed"}
+        padding={parent === "newfeed" ? 30 : 0}
+        w={"100%"}
       >
         <Card.Section className="relative">
-          <img
-            src={`${
-              data?.image === null
-                ? "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
-                : data?.image
-            }`}
-            alt=""
-            className={` object-cover h-[300px] md:h-[500px]  ${
-              parent === "newfeed" ? "w-[700px]" : "w-[500px]"
-            }`}
-          />
+          <div className="w-full flex justify-center">
+            <img
+              src={`${
+                data?.image === null
+                  ? "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
+                  : data?.image
+              }`}
+              alt=""
+              className={` object-cover h-[300px] md:h-[500px]  ${
+                parent === "newfeed" ? "w-[700px]" : "w-[500px]"
+              }`}
+            />
+          </div>
 
           {/* for delete and edit  */}
-          {parent === "newfeed" && (
+          {parent === "newfeed" && userData?.name === data?.created_by && (
             <div className=" absolute top-5 right-5 z-10">
               <Menu width={200} shadow="md">
                 <Menu.Target>
@@ -204,9 +230,10 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         {/* post info  */}
         <div className="flex gap-3 flex-col ">
           <div className="flex gap-3 items-center my-5">
-            <img
-              className=" rounded-full w-10 h-10 md:w-12 md:h-12"
-              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
+            <Avatar
+              className=" rounded-full"
+              size={"lg"}
+              src={userData?.profile}
             />
             <div className="flex items-center justify-between w-full">
               <Group
@@ -220,11 +247,7 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
               </Group>
 
               <div className=" text-[11px] md:text-[12px] text-gray-500">
-                <p>
-                  {moment(data?.created_at, "DD MMM YYYY hh:mm A").format(
-                    "MMMM Do YYYY, h:mm:ss a"
-                  )}
-                </p>
+                <p>{data?.created_at}</p>
               </div>
             </div>
           </div>
@@ -238,7 +261,7 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         <div className=" p-2 my-2 text-[13px] text-gray-500 flex justify-end gap-5">
           <span>{data?.reactions?.good} Good</span>
           <span>{data?.reactions?.best} Best</span>
-          <span>{data?.reactions?.not_bad} Not Bad</span>
+          <span>{data?.reactions["not bad"]} Not Bad</span>
           <span>{data?.reactions?.bad} Bad</span>
 
           <span>{data?.comment_count} Comment</span>
@@ -323,11 +346,13 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         />
       </Modal>
 
-      <PostModal
-        fetchedData={fetchedData}
-        opened={commentModalOpen}
-        close={commentModalControls.close}
-      />
+      {data && commentModalOpen && (
+        <PostModal
+          id={data.id}
+          opened={commentModalOpen}
+          close={commentModalControls.close}
+        />
+      )}
     </div>
   );
 };

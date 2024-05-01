@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, FormEvent, useEffect } from "react";
 import { Button, Group, Text, useMantineTheme, rem } from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
@@ -39,6 +40,7 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    if (content == "") return toast.error("Content is required");
 
     const formData = new FormData();
     formData.append("content", content);
@@ -47,41 +49,43 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
     });
 
     try {
-      const response = await uploadPost({
+      const response = (await uploadPost({
         method: "POST",
         url: "/posts",
         body: formData,
-      });
-      console.log(response);
+      })) as any;
       if (response?.data?.status === "success") {
         setUploadedImage([]);
         setContent("");
         if (close) close();
         toast.success("Upload post Successfully!");
         setLatest(!latest);
+      } else {
+        toast.error(response.data.error.message ?? "Error");
       }
     } catch (error) {
       console.error("Failed to upload data:", error);
     }
   };
+
   return (
     <form onSubmit={handleSubmit} className="md:p-10 flex flex-col">
-      <div className="flex flex-col h-full items-center mb-5 gap-10">
-        <TextEditorInput
-          label="Content"
-          value={content}
-          onChange={(e) => setContent(e)}
-        />
-        <div className="w-full h-full md:p-5 ">
+      <div className="flex flex-col h-full items-center mb-5 gap-5">
+        <div className="w-full">
+          <TextEditorInput
+            label="Content"
+            value={content}
+            onChange={(e) => setContent(e)}
+          />
+        </div>
+        <div className="w-full h-full ">
           {uploadedImage.length > 0 ? (
-            <div className=" h-[40vh] overflow-hidden object-cover ">
-              <UploadedImages
-                uploadedImage={uploadedImage.map((file) =>
-                  URL.createObjectURL(file)
-                )}
-                setUploadedImage={setUploadedImage}
-              />
-            </div>
+            <UploadedImages
+              uploadedImage={uploadedImage.map((file) =>
+                URL.createObjectURL(file)
+              )}
+              setUploadedImage={setUploadedImage}
+            />
           ) : (
             <Dropzone
               onDrop={handleDrop}
@@ -132,9 +136,13 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
           )}
         </div>
       </div>
-      <button className="bg-primary text-white py-2 rounded" type="submit" disabled={isLoading}>
+      <Button
+        className="bg-primary text-white py-2 rounded mt-2"
+        type="submit"
+        loading={isLoading}
+      >
         Post
-      </button>
+      </Button>
     </form>
   );
 };
