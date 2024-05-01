@@ -2,11 +2,9 @@ import {
   Button,
   Card,
   Group,
-  Image,
   Text,
   ActionIcon,
   HoverCard,
-  Avatar,
   Menu,
   rem,
   Modal,
@@ -55,7 +53,12 @@ interface ParentProps {
   resetData: () => void;
 }
 
-const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
+const Post: React.FC<ParentProps> = ({
+  parent,
+  data,
+  resetData,
+  directChangeReaction,
+}) => {
   const [commentModalOpen, commentModalControls] = useDisclosure();
   const [editModalOpen, editModalControls] = useDisclosure();
   const [postReaction] = usePostDataMutation();
@@ -80,10 +83,10 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         method: "POST",
         body: payload,
       });
-      console.log(response);
       if (response?.data?.status === "success") {
         toast.success("Reaction posted successfully!");
-        resetData();
+        // Call the directChangeReaction function with the new reaction type
+        directChangeReaction(data.id, selectedReaction.id);
       }
     } catch (error) {
       console.error(error);

@@ -1,5 +1,12 @@
 import React, { useState, FormEvent, useEffect } from "react";
-import { Button, Group, Text, useMantineTheme, rem } from "@mantine/core";
+import {
+  Button,
+  Group,
+  Text,
+  useMantineTheme,
+  rem,
+  Loader,
+} from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import UploadedImages from "./UploadedImages";
@@ -74,14 +81,12 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
         />
         <div className="w-full h-full md:p-5 ">
           {uploadedImage.length > 0 ? (
-            <div className=" h-[40vh] overflow-hidden object-cover ">
-              <UploadedImages
-                uploadedImage={uploadedImage.map((file) =>
-                  URL.createObjectURL(file)
-                )}
-                setUploadedImage={setUploadedImage}
-              />
-            </div>
+            <UploadedImages
+              uploadedImage={uploadedImage.map((file) =>
+                URL.createObjectURL(file)
+              )}
+              setUploadedImage={setUploadedImage}
+            />
           ) : (
             <Dropzone
               onDrop={handleDrop}
@@ -132,9 +137,13 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
           )}
         </div>
       </div>
-      <button className="bg-primary text-white py-2 rounded" type="submit" disabled={isLoading}>
+      <Button
+        className="bg-primary text-white py-2 rounded"
+        type="submit"
+        loading={isLoading}
+      >
         Post
-      </button>
+      </Button>
     </form>
   );
 };

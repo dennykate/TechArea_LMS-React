@@ -129,7 +129,10 @@ const UpdateField: React.FC<DataProps> = ({
             )
           ) : (
             <div className="relative">
-              <Image radius="md" h={300} src={initialContent.image} />
+              <img
+                className=" h-[40vh] overflow-hidden object-cover"
+                src={initialContent.image}
+              />
               <ActionIcon
                 variant="outline"
                 color="red"
