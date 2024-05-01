@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Button,
   Card,
   Group,
+  Image,
   Text,
   ActionIcon,
   HoverCard,
+  Avatar,
   Menu,
   rem,
   Modal,
@@ -50,7 +51,6 @@ interface ParentProps {
     created_at: string;
     id: string;
     is_reactor: ReactProps;
-    reactions: any;
   };
   resetData: () => void;
 }
@@ -75,11 +75,11 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         type: selectedReaction.id,
         post_id: data?.id,
       };
-      const response = (await postReaction({
+      const response = await postReaction({
         url: "/reactions",
         method: "POST",
         body: payload,
-      })) as any;
+      });
       console.log(response);
       if (response?.data?.status === "success") {
         toast.success("Reaction posted successfully!");
@@ -100,10 +100,10 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
 
   const deletePostHandler = async (postId: string) => {
     try {
-      const response = (await deletePost({
+      const response = await deletePost({
         url: `/posts/${postId}`,
         method: "DELETE",
-      })) as any;
+      });
       console.log(response);
       if (response?.data?.status === "success") {
         toast.success(`${response?.data?.message}`);
@@ -122,10 +122,10 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
   const [deleteReact, { isLoading: reactLoading, error }] =
     usePostDataMutation();
   const deleteReactHandler = async () => {
-    const response = (await deleteReact({
+    const response = await deleteReact({
       url: `/reactions/${data?.id}`,
       method: "DELETE",
-    })) as any;
+    });
     console.log(response, error);
     if (response?.data?.status === "success") {
       toast.success("Unreact successfully");
@@ -180,9 +180,7 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
 
                 <Menu.Dropdown>
                   <Menu.Item
-                    onClick={() => {
-                      if (data) deletePostHandler(data.id);
-                    }}
+                    onClick={() => deletePostHandler(data.id)}
                     color="red"
                     icon={<BiTrash size={rem(14)} />}
                   >
@@ -253,9 +251,7 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
                 onClick={deleteReactHandler}
                 fullWidth
                 color={
-                  data && data.is_reactor?.user_id === userData.id
-                    ? "blue"
-                    : "gray"
+                  data.is_reactor?.user_id === userData.id ? "blue" : "gray"
                 }
                 variant="outline"
                 leftIcon={
@@ -319,7 +315,7 @@ const Post: React.FC<ParentProps> = ({ parent, data, resetData }) => {
         <UpdateField
           resetData={resetData}
           close={editModalControls.close}
-          initialContent={data as any}
+          initialContent={data}
         />
       </Modal>
 
