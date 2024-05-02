@@ -60,6 +60,8 @@ const NewFeed = () => {
     }
   });
 
+  console.log("hasMore => ", hasMore);
+
   const resetData = () => {
     setPosts([]);
     setPage(0);
