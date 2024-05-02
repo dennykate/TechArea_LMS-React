@@ -5,7 +5,7 @@ import {
   Group,
   useMantineTheme,
   rem,
-  Image,
+  // Image,
   ActionIcon,
 } from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
@@ -27,12 +27,14 @@ interface DataProps {
   };
   close: () => void;
   resetData: () => void;
+  setPosts?: any;
 }
 
 const UpdateField: React.FC<DataProps> = ({
   initialContent,
   close,
-  resetData,
+  // resetData,
+  setPosts,
 }) => {
   const theme = useMantineTheme();
   const [content, setContent] = useState<string>(initialContent.content);
@@ -61,12 +63,22 @@ const UpdateField: React.FC<DataProps> = ({
         method: "POST",
         body: formData,
       })) as any;
-      console.log("Update response:", response);
-      if (response?.data?.status === "success") {
+
+      if (response?.data?.data) {
         setUploadedImage([]);
         setContent("");
         close();
-        resetData();
+        // resetData();
+        setPosts((posts: any) => {
+          return posts?.map((post: any) => {
+            if (post?.id === response?.data?.data?.id) {
+              return response?.data?.data;
+            }
+
+            return post;
+          });
+        });
+
       }
     } catch (error) {
       console.error("Failed to update post:", error);
@@ -76,11 +88,13 @@ const UpdateField: React.FC<DataProps> = ({
   return (
     <form onSubmit={handleUpdate} className="md:p-10 flex flex-col">
       <div className="flex flex-col h-full items-center mb-5 gap-5">
-        <TextEditorInput
-          label="Content"
-          value={content}
-          onChange={(e) => setContent(e)}
-        />
+        <div className="w-full">
+          <TextEditorInput
+            label="Content"
+            value={content}
+            onChange={(e) => setContent(e)}
+          />
+        </div>
         <div className="w-full h-full md:p-5">
           {isCancel ? (
             uploadedImage.length > 0 ? (

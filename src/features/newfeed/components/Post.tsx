@@ -56,6 +56,7 @@ interface ParentProps {
   };
   resetData: () => void;
   directChangeReaction?: any;
+  setPosts?: any;
 }
 
 const Post: React.FC<ParentProps> = ({
@@ -63,6 +64,7 @@ const Post: React.FC<ParentProps> = ({
   data,
   resetData,
   directChangeReaction,
+  setPosts,
 }) => {
   const [commentModalOpen, commentModalControls] = useDisclosure();
   const [editModalOpen, editModalControls] = useDisclosure();
@@ -138,6 +140,10 @@ const Post: React.FC<ParentProps> = ({
           if (response?.data?.status === "success") {
             toast.success(`${response?.data?.message}`);
             // resetData();
+
+            setPosts((posts: any) => {
+              return posts?.filter((post: any) => post?.id !== data?.id);
+            });
           }
         } catch (error) {
           console.log(error);
@@ -146,24 +152,8 @@ const Post: React.FC<ParentProps> = ({
     });
   };
 
-  // // for single fetch
-  // const { data: fetchedData } = useGetDataQuery(`/posts/${data?.id}`, {
-  //   skip: !data?.id,
-  // });
-
-  // const [deleteReact, { isLoading: reactLoading, error }] =
-  //   usePostDataMutation();
-
   const deleteReactHandler = async () => {
-    // const response = (await deleteReact({
-    //   url: `/reactions/${data?.id}`,
-    //   method: "DELETE",
-    // })) as any;
-    // console.log(response, error);
-    // if (response?.data?.status === "success") {
-    // toast.success("Unreact successfully");
-    // resetData();
-    // }
+    if (data?.is_reactor === null) return;
 
     onSubmit(`/reactions/${data?.id}`, {}, "DELETE");
   };
@@ -192,23 +182,21 @@ const Post: React.FC<ParentProps> = ({
         w={"100%"}
       >
         <Card.Section className="relative">
-          <div className="w-full flex justify-center">
-            <img
-              src={`${
-                data?.image === null
-                  ? "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
-                  : data?.image
-              }`}
-              alt=""
-              className={` object-cover h-[300px] md:h-[500px]  ${
-                parent === "newfeed" ? "w-[700px]" : "w-[500px]"
-              }`}
-            />
-          </div>
+          {data?.image && (
+            <div className="w-full flex justify-center">
+              <img
+                src={`${data?.image}`}
+                alt=""
+                className={` object-cover h-[300px] md:h-[500px]  ${
+                  parent === "newfeed" ? "w-[700px]" : "w-[500px]"
+                }`}
+              />
+            </div>
+          )}
 
           {/* for delete and edit  */}
           {parent === "newfeed" && userData?.name === data?.created_by && (
-            <div className=" absolute top-5 right-5 z-10">
+            <div className=" absolute top-3 right-3 z-10">
               <Menu width={200} shadow="md">
                 <Menu.Target>
                   <button className="bg-primary text-white text-xl border rounded p-1 hover:bg-primary/70 hover:backdrop-blur-md">
@@ -355,6 +343,7 @@ const Post: React.FC<ParentProps> = ({
           resetData={resetData}
           close={editModalControls.close}
           initialContent={data as any}
+          setPosts={setPosts}
         />
       </Modal>
 
@@ -363,6 +352,8 @@ const Post: React.FC<ParentProps> = ({
           id={data.id}
           opened={commentModalOpen}
           close={commentModalControls.close}
+          directChangeReaction={directChangeReaction}
+          setPosts={setPosts}
         />
       )}
     </div>

@@ -4,13 +4,15 @@ import { TbTextPlus } from "react-icons/tb";
 import AddPost from "./components/AddPost";
 import Post from "./components/Post";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import UploadField from "./components/UploadField";
 import { useDisclosure } from "@mantine/hooks";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
-import { usePostGetDataQuery } from "@/redux/api/postApi";
+// import { usePostGetDataQuery } from "@/redux/api/postApi";
+import useQuery from "@/hooks/useQuery";
 
 const NewFeed = () => {
+  const postContainerRef = useRef<any>();
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState<any>([]);
   const [hasMore, setHasMore] = useState(true);
@@ -18,29 +20,46 @@ const NewFeed = () => {
   const [opened, { open, close }] = useDisclosure();
 
   const {
-    data: postData,
+    // data: postData,
     isLoading,
-    isFetching,
-  } = usePostGetDataQuery(`/posts?limit=3&page=${page}`);
+    // isFetching,
+  } = useQuery(`/posts?limit=10&page=${page}`, (data: any, meta: any) => {
+    if (data) {
+      // console.log("response => ", data);
 
+      // setPosts((prev: any[]) => {
+      //   const newData = data.filter(
+      //     (newItem: any) => !prev.some((prevItem) => prevItem.id === newItem.id)
+      //   );
+
+      //   return [...prev, ...newData];
+      // });
+
+      setPosts((prev: any[]) => {
+        const prevItemsMap = new Map(prev.map((item) => [item.id, item]));
+
+        data.forEach((newItem: any) => {
+          if (!prevItemsMap.has(newItem.id)) {
+            prevItemsMap.set(newItem.id, newItem);
+          }
+        });
+
+        // Convert the map back to an array
+        return Array.from(prevItemsMap.values());
+      });
+
+      if (page < meta.last_page) {
+        setHasMore(true);
+      } else {
+        setHasMore(false);
+      }
+    }
+  });
 
   const resetData = () => {
     setPosts([]);
     setPage(0);
   };
-
-  useEffect(() => {
-    if (postData?.data) {
-      setPosts((prevPosts: any[]) => {
-        const newPosts = postData.data.filter(
-          (post: { id: any }) =>
-            !prevPosts.some((prevPost) => prevPost.id === post.id)
-        );
-        return [...prevPosts, ...newPosts];
-      });
-      setHasMore(postData.meta.current_page < postData.meta.last_page);
-    }
-  }, [postData, latest]);
 
   const { get } = useEncryptStorage();
   const userData: {
@@ -107,7 +126,11 @@ const NewFeed = () => {
     });
   };
 
+  console.log("page => ", page);
+
   const fetchMoreData = () => {
+    console.log("isLoading => ", isLoading);
+    console.log("hasMore => ", hasMore);
     if (!isLoading && hasMore) {
       setPage((prevPage) => prevPage + 1);
     }
@@ -115,7 +138,7 @@ const NewFeed = () => {
 
   // console.log(postData);
   // Loading indicator
-  if (isLoading && !isFetching && posts.length === 0)
+  if (isLoading && posts.length === 0)
     return (
       <div className="w-full h-full flex justify-center items-center">
         <Loader color="blue" />
@@ -126,6 +149,7 @@ const NewFeed = () => {
     <div className="w-full flex h-[calc(100vh-120px)] justify-center items-center relative">
       <div
         id="scrollableDiv"
+        ref={postContainerRef}
         className="h-[100%] overflow-scroll overflow-x-hidden scrollbar-none w-[90%] md:w-[60%]"
       >
         <InfiniteScroll
@@ -148,7 +172,11 @@ const NewFeed = () => {
           scrollableTarget="scrollableDiv"
         >
           <div className="flex flex-col gap-5 items-center">
-            <AddPost latest={latest} setLatest={setLatest} />
+            <AddPost
+              latest={latest}
+              setLatest={setLatest}
+              setPosts={setPosts}
+            />
             {posts?.map((el: any) => (
               <Post
                 directChangeReaction={directChangeReaction}
@@ -156,6 +184,7 @@ const NewFeed = () => {
                 key={el.id}
                 data={el}
                 parent="newfeed"
+                setPosts={setPosts}
               />
             ))}
           </div>
@@ -177,7 +206,18 @@ const NewFeed = () => {
         onClose={close}
         title="Post Upload"
       >
-        <UploadField latest={latest} setLatest={setLatest} close={close} />
+        <UploadField
+          latest={latest}
+          setLatest={setLatest}
+          close={() => {
+            close();
+            
+            if (postContainerRef.current) {
+              postContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
+          setPosts={setPosts}
+        />
       </Modal>
     </div>
   );

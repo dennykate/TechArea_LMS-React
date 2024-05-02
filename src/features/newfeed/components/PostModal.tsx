@@ -36,9 +36,17 @@ interface ModalProps {
   close: () => void;
   opened: boolean;
   id: string;
+  directChangeReaction?: any;
+  setPosts?: any;
 }
 
-const PostModal: React.FC<ModalProps> = ({ opened, close, id }) => {
+const PostModal: React.FC<ModalProps> = ({
+  opened,
+  close,
+  id,
+  directChangeReaction,
+  setPosts,
+}) => {
   const { messageHandler, inputValue, setInputValue } = useMessageHandler();
   const [comment, { isLoading }] = usePostDataMutation();
 
@@ -95,6 +103,8 @@ const PostModal: React.FC<ModalProps> = ({ opened, close, id }) => {
             resetData={() => {}}
             data={fetchedData?.data as any}
             parent="comment"
+            directChangeReaction={directChangeReaction}
+            setPosts={setPosts}
           />
           {/* comments  */}
           <div className="flex flex-col gap-3 my-3">

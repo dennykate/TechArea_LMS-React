@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Avatar, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import UploadField from "./UploadField";
@@ -5,8 +6,9 @@ import useEncryptStorage from "@/hooks/use-encrypt-storage";
 interface StateProps {
   latest: boolean;
   setLatest: (latest: boolean) => void;
+  setPosts?: any;
 }
-const AddPost: React.FC<StateProps> = ({ latest, setLatest }) => {
+const AddPost: React.FC<StateProps> = ({ latest, setLatest, setPosts }) => {
   const [opened, { open, close }] = useDisclosure();
   const { get } = useEncryptStorage();
   const userData: {
@@ -37,7 +39,12 @@ const AddPost: React.FC<StateProps> = ({ latest, setLatest }) => {
         onClose={close}
         title="Post Upload"
       >
-        <UploadField latest={latest} setLatest={setLatest} close={close} />
+        <UploadField
+          latest={latest}
+          setLatest={setLatest}
+          close={close}
+          setPosts={setPosts}
+        />
       </Modal>
     </div>
   );
