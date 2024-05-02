@@ -45,8 +45,21 @@ export const queryApi = createApi({
         };
       },
     }),
+    deleteData: builder.mutation<any, any>({
+      query: ({ url, body, method }) => {
+        return {
+          url,
+          method,
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetDataQuery, usePostDataMutation, useSendMessageMutation } =
-  queryApi;
+export const {
+  useGetDataQuery,
+  usePostDataMutation,
+  useSendMessageMutation,
+  useDeleteDataMutation,
+} = queryApi;

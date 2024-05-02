@@ -1,20 +1,27 @@
-import { Modal } from "@mantine/core";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Avatar, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import UploadField from "./UploadField";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 interface StateProps {
   latest: boolean;
   setLatest: (latest: boolean) => void;
+  setPosts?: any;
 }
-const AddPost: React.FC<StateProps> = ({ latest, setLatest }) => {
+const AddPost: React.FC<StateProps> = ({ latest, setLatest, setPosts }) => {
   const [opened, { open, close }] = useDisclosure();
+  const { get } = useEncryptStorage();
+  const userData: {
+    id: string;
+    profile: null;
+    gender: string | null;
+    name: string;
+  } = JSON.parse(get("userInfo") as string);
 
   return (
     <div className="my-5 rounded shadow md:p-5 p-3 w-full bg-white flex flex-col items-center justify-center gap-5">
       <div className="flex gap-5 w-full pt-5">
-        <img
-          className=" rounded-full w-10 h-10 md:w-12 md:h-12"
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=250&q=80"
-        />
+        <Avatar className=" rounded-full" size={"lg"} src={userData?.profile} />
         <input
           onClick={open}
           disabled={opened}
@@ -32,7 +39,12 @@ const AddPost: React.FC<StateProps> = ({ latest, setLatest }) => {
         onClose={close}
         title="Post Upload"
       >
-        <UploadField latest={latest} setLatest={setLatest} close={close} />
+        <UploadField
+          latest={latest}
+          setLatest={setLatest}
+          close={close}
+          setPosts={setPosts}
+        />
       </Modal>
     </div>
   );

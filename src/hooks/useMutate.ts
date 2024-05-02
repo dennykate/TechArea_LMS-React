@@ -23,10 +23,16 @@ type ParamsType = {
   callback?: (value: any, navigate: NavigateFunction) => void;
   navigateBack?: boolean;
   disableAlert?: boolean;
+  disableInvalidate?: boolean;
 };
 
 const useMutate = (params: ParamsType = {}): ReturnType => {
-  const { callback, navigateBack = true, disableAlert = false } = params;
+  const {
+    callback,
+    navigateBack = true,
+    disableAlert = false,
+    disableInvalidate = false,
+  } = params;
 
   const logout = useLogout();
   const navigate = useNavigate();
@@ -57,7 +63,7 @@ const useMutate = (params: ParamsType = {}): ReturnType => {
     if (data?.message) {
       if (!disableAlert) toast.success(data?.message);
 
-      if (method === "DELETE") {
+      if (method === "DELETE" && !disableInvalidate) {
         dispatch(regenrate());
       }
     }

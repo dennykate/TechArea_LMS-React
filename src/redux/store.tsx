@@ -5,6 +5,7 @@ import { queryApi } from "./api/queryApi";
 import keySlice from "./services/keySlice";
 import chatSlice from "./services/chatSlice";
 import postSlice from "./services/postSlice";
+import { postApi } from "./api/postApi";
 
 export const store = configureStore({
   reducer: {
@@ -13,9 +14,14 @@ export const store = configureStore({
     key: keySlice,
     [formApi.reducerPath]: formApi.reducer,
     [queryApi.reducerPath]: queryApi.reducer,
+    [postApi.reducerPath]: postApi.reducer,
   },
   middleware: (getDefaultMiddleware: any) =>
-    getDefaultMiddleware().concat(formApi.middleware, queryApi.middleware),
+    getDefaultMiddleware().concat(
+      formApi.middleware,
+      queryApi.middleware,
+      postApi.middleware
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
