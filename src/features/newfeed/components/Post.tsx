@@ -25,6 +25,7 @@ import UpdateField from "./UpdateField";
 import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
 import useMutate from "@/hooks/useMutate";
+import { twMerge } from "tailwind-merge";
 
 interface Reaction {
   id: string;
@@ -180,7 +181,9 @@ const Post: React.FC<ParentProps> = ({
         shadow={`${parent === "newfeed" ? "md" : ""}`}
         radius="md"
         withBorder={parent === "newfeed"}
-        padding={parent === "newfeed" ? 30 : 0}
+        className={twMerge(
+          parent === "newfeed" ? "sm:p-[30px] p-[20px]" : "p-0"
+        )}
         w={"100%"}
       >
         <Card.Section className="relative">
@@ -189,7 +192,7 @@ const Post: React.FC<ParentProps> = ({
               <img
                 src={`${data?.image}`}
                 alt=""
-                className={` object-cover h-[300px] md:h-[500px]  ${
+                className={` object-cover h-[200px] sm:h-[300px] lg:h-[500px]  ${
                   parent === "newfeed" ? "w-[700px]" : "w-[500px]"
                 }`}
               />
@@ -232,11 +235,11 @@ const Post: React.FC<ParentProps> = ({
         </Card.Section>
 
         {/* post info  */}
-        <div className="flex gap-3 flex-col ">
-          <div className="flex gap-3 items-center my-5">
+        <div className="flex gap-3 flex-col w-full mb-2">
+          <div className="flex sm:gap-3 gap-2 items-center my-5">
             <Avatar
               className=" rounded-full"
-              size={"lg"}
+              size={"md"}
               src={userData?.profile}
             />
             <div className="flex items-center justify-between w-full">
@@ -250,7 +253,7 @@ const Post: React.FC<ParentProps> = ({
                 </p>
               </Group>
 
-              <div className=" text-[11px] md:text-[12px] text-gray-500">
+              <div className=" text-[11px] md:text-[12px] text-gray-500 sm:block hidden">
                 <p>{data?.created_at}</p>
               </div>
             </div>
@@ -261,8 +264,15 @@ const Post: React.FC<ParentProps> = ({
           </Text>
         </div>
 
+        <div className=" text-[11px] md:text-[12px] text-gray-500 w-full flex justify-end">
+          <p>{data?.created_at}</p>
+        </div>
+
         {/* reaction count and comment cout  */}
-        <div className=" p-2 my-2 text-[13px] text-gray-500 flex justify-end gap-5">
+        <div
+          className=" p-2 sm:my-2 mb-2 sm:text-[13px] text-[11px] text-gray-500 flex justify-end 
+        sm:gap-5 gap-2"
+        >
           <span>{data?.reactions?.good} Good</span>
           <span>{data?.reactions?.best} Best</span>
           <span>{data?.reactions["not bad"]} Not Bad</span>

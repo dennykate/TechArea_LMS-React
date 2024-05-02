@@ -5,6 +5,7 @@ import { Avatar } from "@mantine/core";
 import React, { Key } from "react";
 import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
+import { twMerge } from "tailwind-merge";
 interface CommentProps {
   data: {
     content: string;
@@ -66,18 +67,23 @@ const Comments: React.FC<CommentProps> = ({ data, setPosts, postId }) => {
   };
 
   return (
-    <div className="flex w-full justify-between gap-3 items-center text-gray-500">
-      <div className="flex gap-3 justify-between items-center ">
+    <div
+      className={twMerge(
+        "flex w-full  gap-3 items-center text-gray-500 ",
+        data?.content?.length > 50 ? "justify-end flex-wrap" : "justify-between"
+      )}
+    >
+      <div className="flex sm:gap-3 gap-2 justify-between items-start ">
         <Avatar radius={"100%"} size={"lg"} src={data?.user_profile} />
 
         <div className="flex flex-col">
-          <h1 className="text-base text-gray-800 font-[500]">
+          <h1 className="sm:text-base text-sm text-gray-800 font-[500]">
             {data?.user_name}
           </h1>
-          <p className="text-sm">{data?.content}</p>
+          <p className="sm:text-sm text-xs">{data?.content}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-3 items-center pt-4">
+      <div className="flex flex-col gap-3 items-center pt-4 ">
         {data?.is_owner || userData.role_id == "3" ? (
           <div
             onClick={deleteCommentHandler}
@@ -88,7 +94,7 @@ const Comments: React.FC<CommentProps> = ({ data, setPosts, postId }) => {
         ) : (
           <div />
         )}
-        <span className="text-xs">{data?.created_at}</span>
+        <span className="sm:text-xs text-[10px]">{data?.created_at}</span>
       </div>
     </div>
   );

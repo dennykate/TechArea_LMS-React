@@ -19,13 +19,16 @@ const AddPost: React.FC<StateProps> = ({ latest, setLatest, setPosts }) => {
   } = JSON.parse(get("userInfo") as string);
 
   return (
-    <div className="my-5 rounded shadow md:p-5 p-3 w-full bg-white flex flex-col items-center justify-center gap-5">
-      <div className="flex gap-5 w-full pt-5">
+    <div
+      className="rounded shadow md:p-5 p-3 w-full bg-white flex flex-col 
+    items-center justify-center gap-5"
+    >
+      <div className="flex items-center gap-2 sm:gap-5 w-full">
         <Avatar className=" rounded-full" size={"lg"} src={userData?.profile} />
         <input
           onClick={open}
           disabled={opened}
-          className="py-1 px-5 outline-none border w-11/12 rounded-full bg-gray-200"
+          className="sm:h-[50px] h-[40px] px-5 outline-none border w-11/12 rounded-full bg-gray-200"
           placeholder="What's on your mind..."
           type="text"
         />

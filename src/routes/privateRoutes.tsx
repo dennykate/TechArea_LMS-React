@@ -156,10 +156,6 @@ const privateRoutes = [
         path: "/grades/details/:gradeId/sections/details/:sectionId/students/*",
         children: sectionStudentRoutes,
       },
-      {
-        path: "/new-feed",
-        element: <NewFeed />,
-      },
     ],
   },
   {
@@ -180,7 +176,19 @@ const privateRoutes = [
   },
   {
     path: "chat",
-    element: <Chat />,
+    element: (
+      <Wrapper>
+        <Chat />
+      </Wrapper>
+    ),
+  },
+  {
+    path: "/new-feed",
+    element: (
+      <Wrapper>
+        <NewFeed />
+      </Wrapper>
+    ),
   },
   {
     path: "*",

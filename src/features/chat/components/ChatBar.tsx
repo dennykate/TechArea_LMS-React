@@ -12,6 +12,7 @@ import { clearGroupUsers } from "@/redux/services/chatSlice";
 import { FaUserPlus, FaUserGroup } from "react-icons/fa6";
 import { useGetDataQuery } from "@/redux/api/queryApi";
 import CreateGroupChat from "./group-chats/CreateGroupChat";
+import { Link } from "react-router-dom";
 
 interface Data {
   partner: { role: string; name: string; profile: string; id: string };
@@ -59,9 +60,12 @@ const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
   return (
     <div>
       <div className="h-[10vh] flex border rounded justify-between px-2 md:px-5 items-center">
-        <p className="flex text-2xl items-center font-semibold gap-3">
+        <Link
+          to="/dashboard"
+          className="flex text-2xl items-center font-semibold gap-3"
+        >
           Chat Room <IoChatbubbles />
-        </p>
+        </Link>
         <div className="flex gap-4">
           <FaUserGroup
             onClick={openGroupModal}

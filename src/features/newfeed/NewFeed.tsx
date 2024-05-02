@@ -10,6 +10,10 @@ import { useDisclosure } from "@mantine/hooks";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
 // import { usePostGetDataQuery } from "@/redux/api/postApi";
 import useQuery from "@/hooks/useQuery";
+import { Logo } from "@/components";
+import MyButton from "@/components/buttons/MyButton";
+import { Link } from "react-router-dom";
+import { MdHome } from "react-icons/md";
 
 const NewFeed = () => {
   const postContainerRef = useRef<any>();
@@ -140,85 +144,109 @@ const NewFeed = () => {
   // Loading indicator
   if (isLoading && posts.length === 0)
     return (
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="w-full h-screen flex justify-center items-center">
         <Loader color="blue" />
       </div>
     );
 
   return (
-    <div className="w-full flex h-[calc(100vh-120px)] justify-center items-center relative">
+    <div>
       <div
-        id="scrollableDiv"
-        ref={postContainerRef}
-        className="h-[100%] overflow-scroll overflow-x-hidden scrollbar-none w-[90%] md:w-[60%]"
+        className="w-full h-[60px] sticky top-0 px-4 flex items-center 
+      border-b shadow-md bg-white z-[100] flex justify-between items-center"
       >
-        <InfiniteScroll
-          dataLength={posts?.length}
-          next={fetchMoreData}
-          hasMore={hasMore}
-          loader={
-            <h4 className=" w-full flex justify-center my-5">
-              <Loader color="blue" />
-            </h4>
-          }
-          endMessage={
-            <p
-              className="text-gray-500/40 my-5"
-              style={{ textAlign: "center" }}
-            >
-              <b>-end-</b>
-            </p>
-          }
-          scrollableTarget="scrollableDiv"
+        <Logo />
+
+        <Link to={"/dashboard"}>
+          <MyButton size="sm">
+            <span className="sm:block hidden">Back To Dashboard</span>
+
+            <MdHome size={23} />
+          </MyButton>
+        </Link>
+      </div>
+
+      <div className="w-full flex justify-center items-center ">
+        <div
+          id="scrollableDiv"
+          ref={postContainerRef}
+          className="overflow-scroll overflow-x-hidden scrollbar-none
+          w-[95%] lg:w-[50%] sm:w-[80%]"
         >
-          <div className="flex flex-col gap-5 items-center">
-            <AddPost
-              latest={latest}
-              setLatest={setLatest}
-              setPosts={setPosts}
-            />
-            {posts?.map((el: any) => (
-              <Post
-                directChangeReaction={directChangeReaction}
-                resetData={resetData}
-                key={el.id}
-                data={el}
-                parent="newfeed"
+          <InfiniteScroll
+            dataLength={posts?.length}
+            next={fetchMoreData}
+            hasMore={hasMore}
+            loader={
+              <h4 className=" w-full flex justify-center my-5">
+                <Loader color="blue" />
+              </h4>
+            }
+            endMessage={
+              <p
+                className="text-gray-500/40 my-5"
+                style={{ textAlign: "center" }}
+              >
+                <b>-end-</b>
+              </p>
+            }
+            scrollableTarget="scrollableDiv"
+          >
+            <div className="flex flex-col gap-5 items-center">
+              <AddPost
+                latest={latest}
+                setLatest={setLatest}
                 setPosts={setPosts}
               />
-            ))}
-          </div>
-        </InfiniteScroll>
-      </div>
-      <Tooltip label="post upload">
-        <div
-          onClick={open}
-          className="text-3xl hidden cursor-pointer w-16 h-16 hover:bg-blue-400 bg-blue-500 text-white font-bold md:flex justify-center items-center rounded-full absolute right-10 bottom-10"
-        >
-          <TbTextPlus />
+              {posts?.map((el: any) => (
+                <Post
+                  directChangeReaction={directChangeReaction}
+                  resetData={resetData}
+                  key={el.id}
+                  data={el}
+                  parent="newfeed"
+                  setPosts={setPosts}
+                />
+              ))}
+            </div>
+          </InfiniteScroll>
         </div>
-      </Tooltip>
-      {/* for post upload model  */}
-      <Modal
-        centered
-        size={"lg"}
-        opened={opened}
-        onClose={close}
-        title="Post Upload"
-      >
-        <UploadField
-          latest={latest}
-          setLatest={setLatest}
-          close={() => {
-            close();
-            
-            if (postContainerRef.current) {
-              postContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
-            }
-          }}
-          setPosts={setPosts}
-        />
-      </Modal>
+
+        <Tooltip label="post upload">
+          <div
+            onClick={open}
+            className="text-3xl hidden cursor-pointer w-16 h-16 hover:bg-blue-400 
+            bg-blue-500 text-white font-bold md:flex justify-center items-center
+             rounded-full fixed right-10 bottom-10"
+          >
+            <TbTextPlus />
+          </div>
+        </Tooltip>
+        {/* for post upload model  */}
+        <Modal
+          centered
+          size={"lg"}
+          opened={opened}
+          onClose={close}
+          title="Post Upload"
+        >
+          <UploadField
+            latest={latest}
+            setLatest={setLatest}
+            close={() => {
+              close();
+
+              if (postContainerRef.current) {
+                postContainerRef.current.scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+              }
+            }}
+            setPosts={setPosts}
+          />
+        </Modal>
+      </div>
     </div>
   );
 };
