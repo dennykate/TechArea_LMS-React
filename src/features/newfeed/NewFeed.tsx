@@ -60,8 +60,6 @@ const NewFeed = () => {
     }
   });
 
-  console.log("hasMore => ", hasMore);
-
   const resetData = () => {
     setPosts([]);
     setPage(0);
@@ -152,28 +150,25 @@ const NewFeed = () => {
     );
 
   return (
-    <div>
-      <div
-        className="w-full h-[60px] sticky top-0 px-4 flex items-center 
-      border-b shadow-md bg-white z-[100] flex justify-between items-center"
-      >
+    <div className="w-full">
+      <div className="w-full h-[60px] flex justify-between items-center px-4 border-b shadow-md">
         <Logo />
 
-        <Link to={"/dashboard"}>
+        <Link to="/dashboard">
           <MyButton size="sm">
             <span className="sm:block hidden">Back To Dashboard</span>
 
-            <MdHome size={23} />
+            <MdHome size={24} className="sm:hidden block" />
           </MyButton>
         </Link>
       </div>
 
-      <div className="w-full flex justify-center items-center ">
+      <div className="w-full flex h-[calc(100vh-60px)] justify-center items-center relative">
         <div
           id="scrollableDiv"
           ref={postContainerRef}
-          className="overflow-scroll overflow-x-hidden scrollbar-none
-          w-[95%] lg:w-[50%] sm:w-[80%]"
+          className="h-[100%] overflow-scroll overflow-x-hidden scrollbar-none w-[95%] 
+        sm:w-[80%] lg:w-[50%]"
         >
           <InfiniteScroll
             dataLength={posts?.length}
@@ -213,13 +208,10 @@ const NewFeed = () => {
             </div>
           </InfiniteScroll>
         </div>
-
         <Tooltip label="post upload">
           <div
             onClick={open}
-            className="text-3xl hidden cursor-pointer w-16 h-16 hover:bg-blue-400 
-            bg-blue-500 text-white font-bold md:flex justify-center items-center
-             rounded-full fixed right-10 bottom-10"
+            className="text-3xl hidden cursor-pointer w-16 h-16 hover:bg-blue-400 bg-blue-500 text-white font-bold md:flex justify-center items-center rounded-full absolute right-10 bottom-10"
           >
             <TbTextPlus />
           </div>

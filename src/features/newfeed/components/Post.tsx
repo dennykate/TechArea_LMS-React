@@ -10,6 +10,7 @@ import {
   rem,
   Modal,
   Avatar,
+  Popover,
 } from "@mantine/core";
 import { IconThumbUp, IconMessageCircle } from "@tabler/icons-react";
 import PostModal from "./PostModal";
@@ -26,6 +27,7 @@ import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
 import useMutate from "@/hooks/useMutate";
 import { twMerge } from "tailwind-merge";
+import { useState } from "react";
 
 interface Reaction {
   id: string;
@@ -68,6 +70,7 @@ const Post: React.FC<ParentProps> = ({
   directChangeReaction,
   setPosts,
 }) => {
+  const [opened, setOpened] = useState(false);
   const [commentModalOpen, commentModalControls] = useDisclosure();
   const [editModalOpen, editModalControls] = useDisclosure();
   const [postReaction] = usePostDataMutation();
@@ -236,7 +239,7 @@ const Post: React.FC<ParentProps> = ({
 
         {/* post info  */}
         <div className="flex gap-3 flex-col w-full mb-2">
-          <div className="flex sm:gap-3 gap-2 items-center my-5">
+          <div className="flex sm:gap-3 gap-2 items-center sm:my-5 mb-2 mt-5">
             <Avatar
               className=" rounded-full"
               size={"md"}
@@ -282,7 +285,7 @@ const Post: React.FC<ParentProps> = ({
         </div>
 
         {/* for comment and reaction  */}
-        <div className="flex w-full justify-around gap-1">
+        <div className="hidden w-full justify-around gap-1 lg:flex">
           <HoverCard shadow="md" openDelay={50}>
             <HoverCard.Target>
               <Button
@@ -332,6 +335,74 @@ const Post: React.FC<ParentProps> = ({
               </div>
             </HoverCard.Dropdown>
           </HoverCard>
+          {parent === "newfeed" && (
+            <Button
+              fullWidth
+              variant="outline"
+              leftIcon={<IconMessageCircle size={16} />}
+              onClick={handleCommentButtonClick}
+            >
+              Comment
+            </Button>
+          )}
+        </div>
+
+        <div className="flex w-full justify-around gap-1 lg:hidden">
+          <Popover shadow="md" opened={opened} onChange={setOpened}>
+            <Popover.Target>
+              <Button
+                disabled={reactLoading}
+                onClick={() => {
+                  if (data?.is_reactor) deleteReactHandler();
+                  else setOpened(true);
+                }}
+                fullWidth
+                color={
+                  data && data.is_reactor?.user_id === userData.id
+                    ? "blue"
+                    : "gray"
+                }
+                variant="outline"
+                leftIcon={
+                  data?.is_reactor === null ? (
+                    <IconThumbUp size={16} />
+                  ) : (
+                    `${
+                      data?.is_reactor?.type === "good"
+                        ? "👍"
+                        : data?.is_reactor?.type === "best"
+                        ? "❤️"
+                        : data?.is_reactor?.type === "not bad"
+                        ? "🙂"
+                        : data?.is_reactor?.type === "bad" && "👎"
+                    }`
+                  )
+                }
+              >
+                {data?.is_reactor
+                  ? data.is_reactor?.user_id === userData.id
+                    ? data?.is_reactor?.type
+                    : null
+                  : "Like"}
+              </Button>
+            </Popover.Target>
+            <Popover.Dropdown>
+              <div className="flex justify-center gap-2">
+                {reactions.map((r) => (
+                  <ActionIcon
+                    key={r.id}
+                    size="xl"
+                    onClick={() => {
+                      handleReactionSelect(r);
+                      setOpened(false);
+                    }}
+                  >
+                    <span>{r.emoji}</span>
+                  </ActionIcon>
+                ))}
+              </div>
+            </Popover.Dropdown>
+          </Popover>
           {parent === "newfeed" && (
             <Button
               fullWidth
