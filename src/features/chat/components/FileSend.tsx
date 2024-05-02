@@ -31,7 +31,7 @@ const FileSend: React.FC<PropData> = ({ close, receiverId, onSuccess }) => {
   const [postFile, setPostFile] = useState<File[] | null>(null);
 
   const handleDrop = (acceptedFiles: File[]) => {
-    const mappedFiles: UploadedFile[] = acceptedFiles.map((file) => ({
+    const mappedFiles: any[] = acceptedFiles.map((file) => ({
       ...file,
       preview: file.type.startsWith("image")
         ? URL.createObjectURL(file)
