@@ -2,13 +2,13 @@
 import { Loader, Modal, Tooltip } from "@mantine/core";
 import { TbTextPlus } from "react-icons/tb";
 import AddPost from "./components/AddPost";
-import { useGetDataQuery } from "@/redux/api/queryApi";
 import Post from "./components/Post";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useEffect, useState } from "react";
 import UploadField from "./components/UploadField";
 import { useDisclosure } from "@mantine/hooks";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
+import { usePostGetDataQuery } from "@/redux/api/postApi";
 
 const NewFeed = () => {
   const [page, setPage] = useState(1);
@@ -16,18 +16,19 @@ const NewFeed = () => {
   const [hasMore, setHasMore] = useState(true);
   const [latest, setLatest] = useState(true);
   const [opened, { open, close }] = useDisclosure();
+
   const {
     data: postData,
     isLoading,
     isFetching,
-  } = useGetDataQuery(`/posts?limit=3&page=${page}`);
+  } = usePostGetDataQuery(`/posts?limit=3&page=${page}`);
 
-  console.log(posts);
 
   const resetData = () => {
     setPosts([]);
     setPage(0);
   };
+
   useEffect(() => {
     if (postData?.data) {
       setPosts((prevPosts: any[]) => {
@@ -49,7 +50,11 @@ const NewFeed = () => {
     name: string;
   } = JSON.parse(get("userInfo") as string);
 
-  const directChangeReaction = (postId: string, newReactType: any) => {
+  const directChangeReaction = (
+    postId: string,
+    newReactType: any,
+    type: string = "add"
+  ) => {
     setPosts((prevPosts: any) => {
       const postIndex = prevPosts.findIndex((post: any) => post.id === postId);
 
@@ -58,24 +63,46 @@ const NewFeed = () => {
       const newPosts = [...prevPosts];
       const updatedPost = { ...newPosts[postIndex] };
 
-      // Create a new is_reactor object instead of mutating the existing one
-      updatedPost.is_reactor = {
-        ...updatedPost.is_reactor,
-        type: newReactType,
-        post_id: postId,
-        user_id: userData.id,
-      };
-
       const reactions = { ...updatedPost.reactions };
 
       delete updatedPost.reactions;
 
-      updatedPost["reactions"] = {
-        ...reactions,
-        [`${newReactType}`]: reactions[`${newReactType}`] + 1,
-      };
+      if (type === "add") {
+        // Create a new is_reactor object instead of mutating the existing one
+        updatedPost.is_reactor = {
+          ...updatedPost.is_reactor,
+          type: newReactType,
+          post_id: postId,
+          user_id: userData.id,
+        };
+
+        if (updatedPost.is_reactor) {
+          updatedPost["reactions"] = {
+            ...reactions,
+            [`${updatedPost.is_reactor.type}`]:
+              reactions[`${updatedPost.is_reactor.type}`] - 1,
+            [`${newReactType}`]: reactions[`${newReactType}`] + 1,
+          };
+        } else {
+          updatedPost["reactions"] = {
+            ...reactions,
+            [`${newReactType}`]: reactions[`${newReactType}`] + 1,
+          };
+        }
+      } else {
+        // Create a new is_reactor object instead of mutating the existing one
+
+        updatedPost["reactions"] = {
+          ...reactions,
+          [`${updatedPost.is_reactor.type}`]:
+            reactions[`${updatedPost.is_reactor.type}`] - 1,
+        };
+
+        updatedPost.is_reactor = null;
+      }
 
       newPosts[postIndex] = updatedPost;
+
       return newPosts;
     });
   };

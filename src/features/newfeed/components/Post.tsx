@@ -24,6 +24,7 @@ import { editPost } from "@/redux/services/postSlice";
 import UpdateField from "./UpdateField";
 import { BiTrash } from "react-icons/bi";
 import Swal from "sweetalert2";
+import useMutate from "@/hooks/useMutate";
 
 interface Reaction {
   id: string;
@@ -68,6 +69,15 @@ const Post: React.FC<ParentProps> = ({
   const [postReaction] = usePostDataMutation();
 
   const { get } = useEncryptStorage();
+  const [onSubmit, { isLoading: reactLoading }] = useMutate({
+    navigateBack: false,
+    callback: () => {
+      toast.success("Unreact successfully");
+      // resetData();
+      data && directChangeReaction(data.id, data.is_reactor.type, "remove");
+    },
+    disableInvalidate: true,
+  });
 
   const userData: {
     id: string;
@@ -127,7 +137,7 @@ const Post: React.FC<ParentProps> = ({
 
           if (response?.data?.status === "success") {
             toast.success(`${response?.data?.message}`);
-            resetData();
+            // resetData();
           }
         } catch (error) {
           console.log(error);
@@ -141,19 +151,21 @@ const Post: React.FC<ParentProps> = ({
   //   skip: !data?.id,
   // });
 
-  const [deleteReact, { isLoading: reactLoading, error }] =
-    usePostDataMutation();
+  // const [deleteReact, { isLoading: reactLoading, error }] =
+  //   usePostDataMutation();
 
   const deleteReactHandler = async () => {
-    const response = (await deleteReact({
-      url: `/reactions/${data?.id}`,
-      method: "DELETE",
-    })) as any;
-    console.log(response, error);
-    if (response?.data?.status === "success") {
-      toast.success("Unreact successfully");
-      resetData();
-    }
+    // const response = (await deleteReact({
+    //   url: `/reactions/${data?.id}`,
+    //   method: "DELETE",
+    // })) as any;
+    // console.log(response, error);
+    // if (response?.data?.status === "success") {
+    // toast.success("Unreact successfully");
+    // resetData();
+    // }
+
+    onSubmit(`/reactions/${data?.id}`, {}, "DELETE");
   };
 
   const dispatch = useDispatch();
