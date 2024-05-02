@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   Group,
-  Image,
   Text,
   ActionIcon,
   HoverCard,
@@ -53,6 +52,8 @@ interface ParentProps {
     created_at: string;
     id: string;
     is_reactor: ReactProps;
+    reactions: any;
+    creator: any;
   };
   resetData: () => void;
   directChangeReaction?: any;
@@ -86,6 +87,7 @@ const Post: React.FC<ParentProps> = ({
     profile: null;
     gender: string | null;
     name: string;
+    role_id: string;
   } = JSON.parse(get("userInfo") as string);
   // console.log(data);
 
@@ -100,7 +102,7 @@ const Post: React.FC<ParentProps> = ({
         method: "POST",
         body: payload,
       })) as any;
-      console.log(response);
+
       if (response?.data?.status === "success") {
         toast.success("Reaction posted successfully!");
         // Call the directChangeReaction function with the new reaction type
@@ -120,34 +122,42 @@ const Post: React.FC<ParentProps> = ({
   const [deletePost] = usePostDataMutation();
 
   const deletePostHandler = async (postId: string) => {
-    try {
-      const response = (await deletePost({
-        url: `/posts/${postId}`,
-        method: "DELETE",
-      })) as any;
-      console.log(response);
-      if (response?.data?.status === "success") {
-        toast.success(`${response?.data?.message}`);
-        resetData();
+    // Display SweetAlert confirmation dialog
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = (await deletePost({
+            url: `/posts/${postId}`,
+            method: "DELETE",
+          })) as any;
+
+          if (response?.data?.status === "success") {
+            toast.success(`${response?.data?.message}`);
+            // resetData();
+
+            setPosts((posts: any) => {
+              return posts?.filter((post: any) => post?.id !== data?.id);
+            });
+          }
+        } catch (error) {
+          console.log(error);
+        }
       }
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
 
-
-  const [deleteReact, { isLoading: reactLoading, error }] =
-    usePostDataMutation();
   const deleteReactHandler = async () => {
-    const response = (await deleteReact({
-      url: `/reactions/${data?.id}`,
-      method: "DELETE",
-    })) as any;
-    console.log(response, error);
-    if (response?.data?.status === "success") {
-      toast.success("Unreact successfully");
-      resetData();
-    }
+    if (data?.is_reactor === null) return;
+
+    onSubmit(`/reactions/${data?.id}`, {}, "DELETE");
   };
 
   const dispatch = useDispatch();
@@ -187,34 +197,38 @@ const Post: React.FC<ParentProps> = ({
           )}
 
           {/* for delete and edit  */}
-          {parent === "newfeed" && userData?.name === data?.created_by && (
-            <div className=" absolute top-3 right-3 z-10">
-              <Menu width={200} shadow="md">
-                <Menu.Target>
-                  <button className="bg-primary text-white text-xl border rounded p-1 hover:bg-primary/70 hover:backdrop-blur-md">
-                    <BiDotsHorizontal />
-                  </button>
-                </Menu.Target>
+          {parent === "newfeed" &&
+            (userData?.id === data?.creator?.id ||
+              userData?.role_id == "3") && (
+              <div className=" absolute top-3 right-3 z-10">
+                <Menu width={200} shadow="md">
+                  <Menu.Target>
+                    <button className="bg-primary text-white text-xl border rounded p-1 hover:bg-primary/70 hover:backdrop-blur-md">
+                      <BiDotsHorizontal />
+                    </button>
+                  </Menu.Target>
 
-                <Menu.Dropdown>
-                  <Menu.Item
-                    onClick={() => deletePostHandler(data.id)}
-                    color="red"
-                    icon={<BiTrash size={rem(14)} />}
-                  >
-                    Delete
-                  </Menu.Item>
+                  <Menu.Dropdown>
+                    <Menu.Item
+                      onClick={() => {
+                        if (data) deletePostHandler(data.id);
+                      }}
+                      color="red"
+                      icon={<BiTrash size={rem(14)} />}
+                    >
+                      Delete
+                    </Menu.Item>
 
-                  <Menu.Item
-                    onClick={() => handleEditButtonClick()}
-                    icon={<BiEdit size={rem(14)} />}
-                  >
-                    Edit
-                  </Menu.Item>
-                </Menu.Dropdown>
-              </Menu>
-            </div>
-          )}
+                    <Menu.Item
+                      onClick={() => handleEditButtonClick()}
+                      icon={<BiEdit size={rem(14)} />}
+                    >
+                      Edit
+                    </Menu.Item>
+                  </Menu.Dropdown>
+                </Menu>
+              </div>
+            )}
         </Card.Section>
 
         {/* post info  */}
@@ -266,7 +280,9 @@ const Post: React.FC<ParentProps> = ({
                 onClick={deleteReactHandler}
                 fullWidth
                 color={
-                  data.is_reactor?.user_id === userData.id ? "blue" : "gray"
+                  data && data.is_reactor?.user_id === userData.id
+                    ? "blue"
+                    : "gray"
                 }
                 variant="outline"
                 leftIcon={
@@ -331,6 +347,7 @@ const Post: React.FC<ParentProps> = ({
           resetData={resetData}
           close={editModalControls.close}
           initialContent={data as any}
+          setPosts={setPosts}
         />
       </Modal>
 

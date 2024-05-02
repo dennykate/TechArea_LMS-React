@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { usePostDataMutation } from "@/redux/api/queryApi";
 import { Avatar } from "@mantine/core";
 import React, { Key } from "react";
@@ -14,11 +15,16 @@ interface CommentProps {
     user_name: string;
     user_profile: string;
   };
+  setPosts: any;
+  postId: string;
 }
 
-const Comments: React.FC<CommentProps> = ({ data }) => {
+const Comments: React.FC<CommentProps> = ({ data, setPosts, postId }) => {
   // console.log(data);
+  const { get } = useEncryptStorage();
   const [deleteComment] = usePostDataMutation();
+
+  const userData = JSON.parse(get("userInfo") as any);
 
   const deleteCommentHandler = async () => {
     const willDelete = await Swal.fire({
@@ -41,6 +47,16 @@ const Comments: React.FC<CommentProps> = ({ data }) => {
         if (response?.data?.status === "success") {
           Swal.fire("Deleted!", "Your comment has been deleted.", "success");
           // Optionally reset state or fetch new comments here
+
+          setPosts((posts: any) => {
+            return posts?.map((post: any) => {
+              if (post.id == postId) {
+                return { ...post, comment_count: post.comment_count - 1 };
+              }
+
+              return post;
+            });
+          });
         }
       } catch (error) {
         console.error(error);
@@ -55,18 +71,22 @@ const Comments: React.FC<CommentProps> = ({ data }) => {
         <Avatar radius={"100%"} size={"lg"} src={data?.user_profile} />
 
         <div className="flex flex-col">
-          <h1 className="text-lg text-gray-800">{data?.user_name}</h1>
-          <p className="text-md">{data?.content}</p>
+          <h1 className="text-base text-gray-800 font-[500]">
+            {data?.user_name}
+          </h1>
+          <p className="text-sm">{data?.content}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-5 items-center">
-        {data?.is_owner && (
+      <div className="flex flex-col gap-3 items-center pt-4">
+        {data?.is_owner || userData.role_id == "3" ? (
           <div
             onClick={deleteCommentHandler}
             className="text-red-600 self-end cursor-pointer transition duration-100 "
           >
             <BiTrash size={18} />
           </div>
+        ) : (
+          <div />
         )}
         <span className="text-xs">{data?.created_at}</span>
       </div>

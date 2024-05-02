@@ -70,6 +70,16 @@ const PostModal: React.FC<ModalProps> = ({
       if (response?.data?.status === "success") {
         setInputValue("");
         toast.success("Comment successfully!");
+
+        setPosts((posts: any) => {
+          return posts?.map((post: any) => {
+            if (post.id == id) {
+              return { ...post, comment_count: post.comment_count + 1 };
+            }
+
+            return post;
+          });
+        });
       }
     } catch (error) {
       console.log(error);
@@ -110,7 +120,12 @@ const PostModal: React.FC<ModalProps> = ({
           <div className="flex flex-col gap-3 my-3">
             {fetchedData?.data?.comments?.map(
               (el: { id: Key | null | undefined }) => (
-                <Comments key={el?.id} data={el as any} />
+                <Comments
+                  key={el?.id}
+                  data={el as any}
+                  setPosts={setPosts}
+                  postId={id}
+                />
               )
             )}
           </div>
@@ -130,6 +145,9 @@ const PostModal: React.FC<ModalProps> = ({
             onChange={messageHandler}
             value={inputValue}
             disabled={isLoading}
+            classNames={{
+              input: "text-sm",
+            }}
           />
         </>
       )}
