@@ -4,9 +4,9 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import MyButton from "@/components/buttons/MyButton";
 import Heading from "@/components/typography/Heading";
 import { useDisclosure } from "@mantine/hooks";
-import LearnCourseContentCard from "./LearnCourseContentCard";
 import React, { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
+import LearnCourseContentCard from "./LearnCourseContentCard";
 
 interface PropsType {
   data: any;

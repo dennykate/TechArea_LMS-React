@@ -20,7 +20,6 @@ const Details = () => {
     `/academic-calendar-events/${scheduleId}`,
     setData
   );
-
   return (
     <DetailsLayout
       isLoading={isLoading}

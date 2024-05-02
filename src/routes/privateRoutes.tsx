@@ -21,7 +21,6 @@ import { zoomMeetingRoutes } from "@/features/zoom-meeting/routes";
 import { studentClassRoutes } from "@/features/student-class/routes";
 
 import NewFeed from "@/features/newfeed/NewFeed";
-import UploadField from "@/features/newfeed/components/UploadField";
 import { announcementRoutes } from "@/features/announcements/routes";
 import { eventRoutes } from "@/features/events/routes";
 import { ZoomRecordRoutes } from "@/features/zoom-record/routes";
@@ -160,10 +159,6 @@ const privateRoutes = [
       {
         path: "/new-feed",
         element: <NewFeed />,
-      },
-      {
-        path: "/upload",
-        element: <UploadField />,
       },
     ],
   },

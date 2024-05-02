@@ -26,7 +26,6 @@ export const queryApi = createApi({
       keepUnusedDataFor: 3600,
       providesTags: ["Data"],
     }),
-    
     postData: builder.mutation<any, any>({
       query: ({ url, body, method }) => {
         return {
@@ -37,7 +36,30 @@ export const queryApi = createApi({
       },
       invalidatesTags: ["Data"],
     }),
+    sendMessage: builder.mutation<any, any>({
+      query: ({ url, body, method }) => {
+        return {
+          url,
+          method,
+          body,
+        };
+      },
+    }),
+    deleteData: builder.mutation<any, any>({
+      query: ({ url, body, method }) => {
+        return {
+          url,
+          method,
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetDataQuery, usePostDataMutation } = queryApi;
+export const {
+  useGetDataQuery,
+  usePostDataMutation,
+  useSendMessageMutation,
+  useDeleteDataMutation,
+} = queryApi;

@@ -31,7 +31,6 @@ const NavBar = ({
     e.stopPropagation();
     toggle();
   };
-
   return (
     <div
       className={twMerge(
