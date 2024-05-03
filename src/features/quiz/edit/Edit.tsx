@@ -64,7 +64,7 @@ const Edit = () => {
     form.setFieldValue("section_id", data?.section_id);
     form.setFieldValue("subject_id", data?.subject_id);
     form.setFieldValue("description", data?.description);
-    form.setFieldValue("answer_limit", data?.answer_limit);
+    form.setFieldValue("answer_limit", parseInt(data?.answer_limit));
   });
 
   return (
