@@ -37,7 +37,9 @@ const List = () => {
             <TableActions
               detailCb={() => navigate(`/courses/details/${element?.id}`)}
               editCb={() => navigate(`/courses/edit/${element?.id}`)}
-              destroyCb={() => {}}
+              destroyCb={() =>
+                onSubmit(`/courses/${element?.id}`, {}, "DELETE")
+              }
             />
           </td>
         </tr>

@@ -27,7 +27,7 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
       text: data?.content,
       name: data?.name,
       description: data?.description,
-      timmer: data?.timmer,
+      timmer: parseInt(data?.timmer),
     },
     validateInputOnBlur: true,
     validate: {
