@@ -46,6 +46,8 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close, id }) => {
       return toast.error("Sorry, maximun answers limit exceeded");
 
     setOptions((prev: string[]) => {
+      if (prev?.includes(optionalAnswer)) return prev;
+
       return [...prev, optionalAnswer];
     });
 
