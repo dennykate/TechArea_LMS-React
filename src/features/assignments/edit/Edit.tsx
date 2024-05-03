@@ -91,7 +91,7 @@ const Edit = () => {
       form.setFieldValue("grade_id", data?.grade_id);
       form.setFieldValue("subject_id", data?.subject_id);
       form.setFieldValue("section_id", data?.section_id);
-      form.setFieldValue("marks", data?.marks);
+      form.setFieldValue("marks", parseInt(data?.marks));
       form.setFieldValue(
         "deadline",
         dayjs(data?.deadline, "DD-MM-YYYY HH:mm").toDate()
