@@ -13,37 +13,37 @@ const AssignmentInformation: React.FC<PropsType> = ({ data }) => {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Grade</p>
+          <p className="font-[500]">Grade</p>
           <p>{data?.grade}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Section</p>
+          <p className="font-[500]">Section</p>
           <p>{data?.section}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Subject</p>
+          <p className="font-[500]">Subject</p>
           <p>{data?.subject}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Created By</p>
+          <p className="font-[500]">Created By</p>
           <Link to="/" className="underline">
             Tr. {data?.created_by}
           </Link>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Created At</p>
+          <p className="font-[500]">Created At</p>
           <p>{data?.created_at}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Deadline</p>
+          <p className="font-[500]">Deadline</p>
           <p>{data?.deadline}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Marks</p>
+          <p className="font-[500]">Marks</p>
           <p>{data?.marks}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Description</p>
+          <p className="font-[500]">Description</p>
           <div
             className="line-clamp-1 truncate"
             dangerouslySetInnerHTML={{ __html: data?.description }}
