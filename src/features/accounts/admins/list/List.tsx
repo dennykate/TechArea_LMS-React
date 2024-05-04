@@ -28,7 +28,7 @@ const List = () => {
             <a href={`tel:09964470356`}>{element?.phone}</a>
           </td>
           <td className="m_td">{element?.gender}</td>
-          <td className="m_td">{element?.date_of_birth}</td>
+          {/* <td className="m_td">{element?.date_of_birth}</td> */}
           <td className="m_td">{element?.created_by}</td>
           <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
@@ -71,7 +71,7 @@ const List = () => {
           "Name",
           "Phone No",
           "Gender",
-          "D.O.B",
+          // "D.O.B",
           "Created By",
           "Created At",
         ]}

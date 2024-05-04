@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
-import DateInputComponent from "@/components/inputs/DateInputComponent";
+// import DateInputComponent from "@/components/inputs/DateInputComponent";
 import ImageUpload from "@/components/inputs/ImageUpload";
 import PasswordInputComponent from "@/components/inputs/PasswordInputComponent";
 import SelectComponent from "@/components/inputs/SelectComponent";
@@ -9,7 +9,7 @@ import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import useQuery from "@/hooks/useQuery";
 
@@ -18,7 +18,7 @@ const Edit = () => {
   const [profile, setProfile] = useState<File | undefined>();
   const [defaultImage, setDefaultImage] = useState<string | undefined>();
 
-  const form = useForm<any>({
+  const form = useForm({
     initialValues: {
       name: "",
       email: "",
@@ -26,7 +26,7 @@ const Edit = () => {
       gender: "",
       password: "",
       password_confirmation: "",
-      date_of_birth: "",
+      // date_of_birth: "",
       address: "",
     },
     validateInputOnBlur: true,
@@ -36,8 +36,8 @@ const Edit = () => {
       gender: (value: string) =>
         value.length > 0 ? null : "Gender is required",
 
-      date_of_birth: (value: string) =>
-        value ? null : "Date of Birth is required",
+      // date_of_birth: (value: string) =>
+      //   value ? null : "Date of Birth is required",
       address: (value: string) =>
         value.length > 0 ? null : "Address is required",
     },
@@ -51,10 +51,10 @@ const Edit = () => {
     Object.entries(values).forEach(([key, value]) => {
       if (value === "") return;
 
-      if (key === "date_of_birth") {
-        formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
-        return;
-      }
+      // if (key === "date_of_birth") {
+      //   formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
+      //   return;
+      // }
       formData.append(key, value as string);
     });
 
@@ -71,12 +71,12 @@ const Edit = () => {
     form.setFieldValue("phone", data?.phone);
     form.setFieldValue("gender", data?.gender);
     form.setFieldValue("address", data?.address);
-    form.setFieldValue(
-      "date_of_birth",
-      data?.date_of_birth
-        ? dayjs(data?.date_of_birth, "DD-MM-YYYY").toDate()
-        : ""
-    );
+    // form.setFieldValue(
+    //   "date_of_birth",
+    //   data?.date_of_birth
+    //     ? dayjs(data?.date_of_birth, "DD-MM-YYYY").toDate()
+    //     : ""
+    // );
   });
 
   return (
@@ -153,7 +153,7 @@ const Edit = () => {
           name="password_confirmation"
         />
 
-        <div className="md:col-span-2 col-span-1">
+        {/* <div className="md:col-span-2 col-span-1">
           <DateInputComponent
             placeholder="Choose date"
             label="Date of birth"
@@ -161,7 +161,7 @@ const Edit = () => {
             form={form}
             name="date_of_birth"
           />
-        </div>
+        </div> */}
 
         <div className="md:col-span-2 col-span-1">
           <TextAreaComponent

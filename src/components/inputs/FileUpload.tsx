@@ -141,11 +141,9 @@ const FileUpload: React.FC<PropsType> = ({
       )}
 
       {(files as any)?.length > 0 && (
-        <div
- className=" justify-center items-center p-2 relative mt-6  flex-col gap-1"
-        >
+        <div className=" justify-center items-center p-2 relative mt-6  flex-col gap-1">
           {files?.map((dt: File) => (
-            <div className="w-full flex gap-1 justify-between items-center">
+            <div className="w-full flex gap-1 justify-between items-center mt-2">
               <p className="text-sm font-[400] truncate w-[80%]">{dt?.name}</p>
 
               <button
@@ -165,5 +163,6 @@ const FileUpload: React.FC<PropsType> = ({
         </div>
       )}
     </>
-  )};
+  );
+};
 export default FileUpload;
