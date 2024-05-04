@@ -35,7 +35,7 @@ const AssignmentCard: React.FC<PropsType> = ({ data }) => {
                 <Center>
                   {data?.my_assignment_report?.marks ? (
                     <p className="text-sm font-[400] ">
-                      {data?.my_assignment_report?.marks}
+                      {parseInt(data?.my_assignment_report?.marks)}
                     </p>
                   ) : (
                     <IconCheck size={20} color="teal" />

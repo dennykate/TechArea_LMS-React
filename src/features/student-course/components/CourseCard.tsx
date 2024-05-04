@@ -30,7 +30,7 @@ const CourseCard: React.FC<PropsType> = ({ data }) => {
               thickness={4}
               label={
                 <p className="text-primary-500 text-center text-[10px]">
-                  {data?.complete_percentage}%
+                  {parseInt(data?.complete_percentage)}%
                 </p>
               }
             />

@@ -32,7 +32,7 @@ const QuizCard: React.FC<PropsType> = ({ data }) => {
               thickness={4}
               label={
                 <p className="text-primary-500 text-center text-[10px]">
-                  {data?.is_answered?.score_percentage}%
+                  {parseInt(data?.is_answered?.score_percentage)}%
                 </p>
               }
             />

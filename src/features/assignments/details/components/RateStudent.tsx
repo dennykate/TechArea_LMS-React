@@ -18,7 +18,7 @@ const RateStudent: React.FC<PropsType> = ({
 }) => {
   const form = useForm({
     initialValues: {
-      marks: report?.marks || 0,
+      marks: parseInt(report?.marks) || 0,
     },
     validateInputOnBlur: true,
     validate: {
