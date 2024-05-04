@@ -119,28 +119,28 @@ const Edit = () => {
       form.setFieldValue("section_id", data?.section_id);
       form.setFieldValue("subject_id", data?.subject_id);
       form.setFieldValue("type", data?.meeting_type);
-      form.setFieldValue(
-        "start_date",
-        dayjs(data?.start_time, "DD MMM YYYY hh:mm A").toDate()
-      );
-      form.setFieldValue("recurrence_type", data?.recurrence_type);
-      form.setFieldValue(
-        "recurrence_repeat_interval",
-        data?.recurrence_repeat_interval
-      );
-      form.setFieldValue("recurrence_end_type", data?.recurrence_end_type);
-      form.setFieldValue("recurrence_end_times", data?.recurrence_end_times);
-      form.setFieldValue(
-        "recurrence_end_date_time",
-        dayjs(data?.recurrence_end_date_time, "DD-MM-YYYY HH:mm").toDate()
-      );
-      form.setFieldValue("recurrence_end_time", data?.recurrence_end_time);
+      // form.setFieldValue(
+      //   "start_date",
+      //   dayjs(data?.start_time, "DD MMM YYYY hh:mm A").toDate()
+      // );
+      // form.setFieldValue("recurrence_type", data?.recurrence_type);
+      // form.setFieldValue(
+      //   "recurrence_repeat_interval",
+      //   data?.recurrence_repeat_interval
+      // );
+      // form.setFieldValue("recurrence_end_type", data?.recurrence_end_type);
+      // form.setFieldValue("recurrence_end_times", data?.recurrence_end_times);
+      // form.setFieldValue(
+      //   "recurrence_end_date_time",
+      //   dayjs(data?.recurrence_end_date_time, "DD-MM-YYYY HH:mm").toDate()
+      // );
+      // form.setFieldValue("recurrence_end_time", data?.recurrence_end_time);
     }
   );
 
   return (
     <FormLayout
-      title="Edit Schedule"
+      title="Edit Zoom Meeting"
       queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}

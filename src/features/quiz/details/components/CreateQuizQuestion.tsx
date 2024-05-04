@@ -185,7 +185,7 @@ const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
 
           <div className="mt-4 space-y-1">
             <Alert icon={<IconAlertCircle size={18} />} color="orange">
-              Plese press the correct answer
+              Please press the correct answer
             </Alert>
             {form.values.type === "multiple-choice" && (
               <Alert icon={<IconAlertCircle size={18} />} color="orange">

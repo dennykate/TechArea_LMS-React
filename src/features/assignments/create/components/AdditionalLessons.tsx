@@ -5,6 +5,7 @@ import SelectComponent from "@/components/inputs/SelectComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { IoCloseCircle } from "react-icons/io5";
 
 interface PropsType {
   additonalFiles: any;
@@ -15,7 +16,7 @@ const AdditionalLessons: React.FC<PropsType> = ({
   additonalFiles,
   setAdditionalFiles,
 }) => {
-  const [type, setType] = useState<string | undefined>("");
+  const [type, setType] = useState<string | undefined>("youtube");
 
   const onClickHandler = () => {
     if (additonalFiles.length >= 6) return toast.error("Maximum limit is 6");
@@ -28,32 +29,47 @@ const AdditionalLessons: React.FC<PropsType> = ({
         file: "",
       },
     ]);
-    setType("");
+    setType("youtube");
   };
 
   return (
-    <div className="w-full space-y-4">
+    <div className="w-full space-y-4 !mt-6">
       <label htmlFor="text-editor" className="font-medium mb-2">
         Additional Lessons ( Optional )
       </label>
 
-      <div className="border-t border-black/10 flex flex-col gap-4">
+      <div className="border-t border-black/10 flex flex-col gap-4 pt-4">
         {additonalFiles?.map((additonalFile: any) => {
           if (additonalFile.type === "file")
             return (
-              <FileUpload
-                type="all"
-                setSingleFile={(val) => {
-                  setAdditionalFiles((prev: any) =>
-                    prev?.map((item: any) => {
-                      if (item.id == additonalFile.id) {
-                        item["file"] = val;
-                      }
-                      return item;
+              <div className="w-full relative">
+                <FileUpload
+                  type="all"
+                  setSingleFile={(val) => {
+                    setAdditionalFiles((prev: any) =>
+                      prev?.map((item: any) => {
+                        if (item.id == additonalFile.id) {
+                          item["file"] = val;
+                        }
+                        return item;
+                      })
+                    );
+                  }}
+                />
+
+                <button
+                  onClick={() =>
+                    setAdditionalFiles((prev: any[]) => {
+                      return prev?.filter(
+                        (item: any) => item?.id !== additonalFile?.id
+                      );
                     })
-                  );
-                }}
-              />
+                  }
+                  className="absolute top-2 right-2"
+                >
+                  <IoCloseCircle color="red" size={24} />
+                </button>
+              </div>
             );
           else
             return (
@@ -70,23 +86,39 @@ const AdditionalLessons: React.FC<PropsType> = ({
                     })
                   )
                 }
+                rightSection={
+                  <button
+                    onClick={() =>
+                      setAdditionalFiles((prev: any[]) => {
+                        return prev?.filter(
+                          (item: any) => item?.id !== additonalFile?.id
+                        );
+                      })
+                    }
+                  >
+                    <IoCloseCircle color="red" size={24} />
+                  </button>
+                }
               />
             );
         })}
       </div>
 
-      <div className="w-full flex justify-start items-center">
-        <SelectComponent
-          label="Select Type"
-          placeholder="Select File or Youtube"
-          data={[
-            { value: "file", label: "File" },
-            { value: "youtube", label: "Youtube" },
-          ]}
-          value={type}
-          onChange={(val: string) => setType(val as string)}
-          rightSection={<MyButton onClick={onClickHandler}>Add</MyButton>}
-        />
+      <div className="w-full flex sm:justify-start items-center">
+        <div className="sm:w-[300px] w-[95%]">
+          <SelectComponent
+            label="Select Type"
+            placeholder="Select File or Youtube"
+            data={[
+              { value: "file", label: "File" },
+              { value: "youtube", label: "Youtube" },
+            ]}
+            value={type}
+            onChange={(val: string) => setType(val as string)}
+            rightSection={<MyButton onClick={onClickHandler}>Add</MyButton>}
+            w={"100%"}
+          />
+        </div>
       </div>
     </div>
   );

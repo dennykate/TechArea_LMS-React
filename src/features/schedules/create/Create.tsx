@@ -80,7 +80,7 @@ const Create = () => {
         title: "Loream Ispum",
       }}
     >
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
+      <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-7 gap-3">
         <TextInputComponent
           label="Title"
           placeholder="Enter title"
@@ -104,7 +104,7 @@ const Create = () => {
 
         <div
           className={twMerge(
-            form.values?.role_id != "1" ? "col-span-2" : "col-span-1"
+            form.values?.role_id != "1" ? "sm:col-span-2 col-span-1" : "col-span-1"
           )}
         >
           <SelectComponent

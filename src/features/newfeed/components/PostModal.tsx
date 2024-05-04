@@ -117,7 +117,7 @@ const PostModal: React.FC<ModalProps> = ({
             setPosts={setPosts}
           />
           {/* comments  */}
-          <div className="flex flex-col gap-3 my-3">
+          <div className="flex flex-col gap-3 mb-3 mt-[2px]">
             {fetchedData?.data?.comments?.map(
               (el: { id: Key | null | undefined }) => (
                 <Comments

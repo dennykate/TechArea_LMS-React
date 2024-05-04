@@ -195,7 +195,7 @@ const Post: React.FC<ParentProps> = ({
               <img
                 src={`${data?.image}`}
                 alt=""
-                className={` object-cover h-[200px] sm:h-[300px] lg:h-[500px]  ${
+                className={` object-cover h-[250px] sm:h-[300px] lg:h-[500px]  ${
                   parent === "newfeed" ? "w-[700px]" : "w-[500px]"
                 }`}
               />
@@ -239,7 +239,7 @@ const Post: React.FC<ParentProps> = ({
 
         {/* post info  */}
         <div className="flex gap-3 flex-col w-full mb-2">
-          <div className="flex sm:gap-3 gap-2 items-center sm:my-5 mb-2 mt-5">
+          <div className="flex sm:gap-3 gap-2 items-center sm:my-5 mb-2 mt-3">
             <Avatar
               className=" rounded-full"
               size={"md"}
@@ -276,8 +276,8 @@ const Post: React.FC<ParentProps> = ({
           className=" p-2 sm:my-2 mb-2 sm:text-[13px] text-[11px] text-gray-500 flex justify-end 
         sm:gap-5 gap-2"
         >
-          <span>{data?.reactions?.good} Good</span>
           <span>{data?.reactions?.best} Best</span>
+          <span>{data?.reactions?.good} Good</span>
           <span>{data?.reactions["not bad"]} Not Bad</span>
           <span>{data?.reactions?.bad} Bad</span>
 
@@ -378,6 +378,8 @@ const Post: React.FC<ParentProps> = ({
                     }`
                   )
                 }
+                mb={2}
+              
               >
                 {data?.is_reactor
                   ? data.is_reactor?.user_id === userData.id

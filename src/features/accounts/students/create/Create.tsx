@@ -89,7 +89,7 @@ const Create = () => {
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
         <TextInputComponent
           label="Name"
-          placeholder="Enter namee"
+          placeholder="Enter name"
           withAsterisk
           form={form}
           name="name"

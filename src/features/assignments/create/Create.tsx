@@ -63,8 +63,10 @@ const Create = () => {
 
     if (additionalFiles.length > 0) {
       additionalFiles?.map((additionalFile: any, index: number) => {
-        formData.append(`additionals[${index}][type]`, additionalFile.type);
-        formData.append(`additionals[${index}][file]`, additionalFile.file);
+        if (additionalFile.file != "") {
+          formData.append(`additionals[${index}][type]`, additionalFile.type);
+          formData.append(`additionals[${index}][file]`, additionalFile.file);
+        }
       });
     }
 
@@ -98,7 +100,7 @@ const Create = () => {
           name="title"
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
           <NumberInputComponent
             label="Marks"
             placeholder="Enter marks"

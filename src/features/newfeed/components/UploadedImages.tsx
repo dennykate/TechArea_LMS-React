@@ -21,7 +21,7 @@ const UploadedImages: React.FC<UploadProps> = ({
 
   return (
     <div className="flex gap-4 justify-center items-center">
-      {uploadedImage.map((image, index) => (
+      {uploadedImage?.map((image, index) => (
         <div
           onMouseEnter={() => setHoverIndex(index)}
           onMouseLeave={() => setHoverIndex(null)}
@@ -32,9 +32,10 @@ const UploadedImages: React.FC<UploadProps> = ({
             maxHeight: "300px",
             width: "auto",
             height: "auto",
+            overflow: "hidden",
           }}
         >
-          <Image src={image} alt={`Uploaded ${index + 1}`} fit="contain" />
+          <Image src={image} alt={`Uploaded ${index + 1}`} fit="cover" />
           {hoverIndex === index && (
             <ActionIcon
               variant="outline"

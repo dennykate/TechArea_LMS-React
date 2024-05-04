@@ -21,7 +21,7 @@ const AddPost: React.FC<StateProps> = ({ latest, setLatest, setPosts }) => {
   return (
     <div
       className="rounded shadow md:p-5 p-3 w-full bg-white flex flex-col 
-    items-center justify-center gap-5"
+    items-center justify-center gap-5 mt-6"
     >
       <div className="flex items-center gap-2 sm:gap-5 w-full">
         <Avatar className=" rounded-full" size={"lg"} src={userData?.profile} />

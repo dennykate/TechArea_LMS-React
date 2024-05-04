@@ -3,7 +3,11 @@ import MyButton from "@/components/buttons/MyButton";
 import Heading from "@/components/typography/Heading";
 import { Badge, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconCalendarMonth, IconPencilMinus } from "@tabler/icons-react";
+import {
+  IconCalendarMonth,
+  IconPencilMinus,
+  IconTrash,
+} from "@tabler/icons-react";
 import EditCourseContent from "./EditCourseContent";
 import React from "react";
 import useMutate from "@/hooks/useMutate";
@@ -74,7 +78,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
           </div>
         </div>
 
-        <div className="absolute top-2 right-2 flex items-center gap-2">
+        <div className="absolute sm:top-2 sm:right-2 top-3 right-3 flex items-center gap-2">
           <MyButton
             onClick={() => {
               alertActions(() => {
@@ -82,8 +86,10 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
               }, "Are you sure to delete!");
             }}
             size="xs"
-            variant="outline"
-            color="red"
+            classNames={{
+              root: "bg-red-500 hover:bg-red-800",
+            }}
+            leftIcon={<IconTrash size={16} />}
           >
             Delete
           </MyButton>

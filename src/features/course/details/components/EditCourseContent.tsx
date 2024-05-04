@@ -69,6 +69,48 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
       onCancel={close}
     >
       <div className="space-y-4">
+        <TextInputComponent
+          label="Name"
+          placeholder="Enter Name"
+          withAsterisk
+          form={form}
+          name="name"
+        />
+
+        <TextAreaComponent
+          label="Description"
+          placeholder="Enter Description"
+          withAsterisk
+          form={form}
+          name="description"
+        />
+
+        {(form.values.type === "text" || form.values.type === "image") && (
+          <NumberInputComponent
+            label="Course Duration ( In Minutes )"
+            placeholder="Enter duration"
+            withAsterisk
+            form={form}
+            name="timmer"
+          />
+        )}
+
+        <SelectComponent
+          data={courseContentType}
+          label="Content Type"
+          withAsterisk
+          placeholder="Select Content Type"
+          // form={form}
+          // name="type"
+          value={form.values.type}
+          onChangeHandler={(val: string) => {
+            form.setFieldValue("type", val as string);
+            form.setFieldValue("text", "");
+            form.setFieldValue("youtubeURL", "");
+            setFile(null);
+          }}
+        />
+
         {(form.values.type === "image" || form.values.type === "video") && (
           <FileUpload
             defaultImage={data?.content_type == "image" && data?.content}
@@ -95,41 +137,6 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
           <TextEditorInput
             value={form.values.text}
             onChange={(val) => form.setFieldValue("text", val)}
-          />
-        )}
-
-        <TextInputComponent
-          label="Name"
-          placeholder="Enter Name"
-          withAsterisk
-          form={form}
-          name="name"
-        />
-
-        <SelectComponent
-          data={courseContentType}
-          label="Content Type"
-          withAsterisk
-          placeholder="Select Content Type"
-          form={form}
-          name="type"
-        />
-
-        <TextAreaComponent
-          label="Description"
-          placeholder="Enter Description"
-          withAsterisk
-          form={form}
-          name="description"
-        />
-
-        {(form.values.type === "text" || form.values.type === "image") && (
-          <NumberInputComponent
-            label="Duration ( In Minutes )"
-            placeholder="Enter duration"
-            withAsterisk
-            form={form}
-            name="timmer"
           />
         )}
       </div>
