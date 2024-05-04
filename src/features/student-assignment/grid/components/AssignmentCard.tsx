@@ -29,7 +29,7 @@ const AssignmentCard: React.FC<PropsType> = ({ data }) => {
           <div className="absolute bottom-[-9px] right-[-6px] p-[4px] bg-white rounded-full">
             <RingProgress
               sections={[{ value: 100, color: "teal" }]}
-              size={50}
+              size={60}
               thickness={4}
               label={
                 <Center>

@@ -28,7 +28,7 @@ const QuizCard: React.FC<PropsType> = ({ data }) => {
               sections={[
                 { value: data?.is_answered?.score_percentage, color: "brand" },
               ]}
-              size={50}
+              size={60}
               thickness={4}
               label={
                 <p className="text-primary-500 text-center text-[10px]">
