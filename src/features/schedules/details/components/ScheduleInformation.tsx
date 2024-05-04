@@ -7,6 +7,7 @@ export interface ScheduleType {
     type: string;
     created_by: string;
     created_at: string;
+    role: string;
   };
 }
 const ScheduleInformation = ({ data }: ScheduleType) => {
@@ -42,6 +43,12 @@ const ScheduleInformation = ({ data }: ScheduleType) => {
               End Date
             </p>
             <span className="sm:text-sm text-xs">- {data?.end_date}</span>
+          </div>
+          <div className="flex gap-1">
+            <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
+              Role
+            </p>
+            <span className="sm:text-sm text-xs">- {data?.role}</span>
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">

@@ -55,7 +55,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
           <p className="text-sm font-[300] text-gray-500">
             {data?.description}
           </p>
-          {data?.timmer && (
+          {data?.timmer !== 0 && (
             <p className="text-sm font-[300] text-gray-500">
               duration - {data?.timmer} minute(s)
             </p>

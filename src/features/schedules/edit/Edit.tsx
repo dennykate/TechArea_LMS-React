@@ -53,7 +53,7 @@ const Edit = () => {
     (data) => {
       form.setValues({
         ...data,
-        role_id: JSON.stringify(data?.role_id),
+        role_id: data?.role_id,
         start_date: dayjs(data?.start_date, "DD MMM YYYY hh:mm A").toDate(),
         end_date: dayjs(data?.end_date, "DD MMM YYYY hh:mm A").toDate(),
       });

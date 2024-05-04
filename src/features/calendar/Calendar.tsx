@@ -36,9 +36,9 @@ const Calendar = () => {
   });
 
   const { data, isLoading } = useQuery(
-    `/academic-calendar-events?filter[role_id]=${
-      userInfo?.role_id
-    }&limit=100&start_date=${moment(currentRange.start)
+    `/academic-calendar-events?${
+      userInfo.role_id == 3 ? "" : `filter[role_id]=${userInfo?.role_id}&`
+    }limit=100&start_date=${moment(currentRange.start)
       .subtract(1, "month")
       .startOf("month")
       .format("YYYY-MM-DD")}&end_date=${moment(currentRange.end)
