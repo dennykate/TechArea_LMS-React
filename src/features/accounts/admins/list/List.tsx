@@ -71,7 +71,6 @@ const List = () => {
           "Name",
           "Phone No",
           "Gender",
-          // "D.O.B",
           "Created By",
           "Created At",
         ]}
