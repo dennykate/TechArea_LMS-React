@@ -15,7 +15,7 @@ const withPermissions = <P extends object>(
 
     useEffect(() => {
       if (pathname === "/dashboard" && userInfo?.role_id == "1") {
-        return navigate("/calendar");
+        return navigate("/student-courses");
       }
     }, [pathname]);
 
