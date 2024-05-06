@@ -5,7 +5,7 @@ import {
   Group,
   Text,
   ActionIcon,
-  HoverCard,
+  // HoverCard,
   Menu,
   rem,
   Modal,
@@ -93,7 +93,6 @@ const Post: React.FC<ParentProps> = ({
     name: string;
     role_id: string;
   } = JSON.parse(get("userInfo") as string);
-  // console.log(data);
 
   const postReactionHandler = async (selectedReaction: Reaction) => {
     try {
@@ -122,7 +121,6 @@ const Post: React.FC<ParentProps> = ({
     postReactionHandler(r);
   };
 
-  // console.log(data);
   const [deletePost] = usePostDataMutation();
 
   const deletePostHandler = async (postId: string) => {
@@ -152,7 +150,7 @@ const Post: React.FC<ParentProps> = ({
             });
           }
         } catch (error) {
-          console.log(error);
+          //
         }
       }
     });
@@ -285,7 +283,7 @@ const Post: React.FC<ParentProps> = ({
         </div>
 
         {/* for comment and reaction  */}
-        <div className="hidden w-full justify-around gap-1 lg:flex">
+        {/* <div className="hidden w-full justify-around gap-1 lg:flex">
           <HoverCard shadow="md" openDelay={50}>
             <HoverCard.Target>
               <Button
@@ -345,9 +343,9 @@ const Post: React.FC<ParentProps> = ({
               Comment
             </Button>
           )}
-        </div>
+        </div> */}
 
-        <div className="flex w-full justify-around gap-1 lg:hidden">
+        <div className="flex w-full justify-around gap-1 ">
           <Popover shadow="md" opened={opened} onChange={setOpened}>
             <Popover.Target>
               <Button

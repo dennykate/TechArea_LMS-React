@@ -24,8 +24,6 @@ const FileUpload: React.FC<PropsType> = ({
   multiple = false,
   ...props
 }) => {
-  console.log("defaultImage => ", defaultImage);
-
   const theme = useMantineTheme();
   const [file, setFile] = useState<File | null>(null);
   const [files, setFiles] = useState<File[] | null>(null);

@@ -66,7 +66,6 @@ const PostModal: React.FC<ModalProps> = ({
         method: "POST",
         body: payload,
       })) as any;
-      // console.log(response);
       if (response?.data?.status === "success") {
         setInputValue("");
         toast.success("Comment successfully!");
@@ -82,7 +81,7 @@ const PostModal: React.FC<ModalProps> = ({
         });
       }
     } catch (error) {
-      console.log(error);
+      //
     }
   };
 
@@ -92,7 +91,6 @@ const PostModal: React.FC<ModalProps> = ({
     }
   };
 
-  // console.log(fetchedData);
   return (
     <Modal
       opened={opened}

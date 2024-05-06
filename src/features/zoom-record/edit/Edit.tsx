@@ -59,7 +59,6 @@ const Edit = () => {
       formData.append(`urls[]`, item.url as string);
     });
 
-    console.log("formData => ", formData);
     onSubmit(`/zoom-records/${zoomRecordId}`, formData, "POST", true);
   };
 

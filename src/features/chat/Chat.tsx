@@ -11,10 +11,9 @@ const Chat = () => {
 
   const toggleChatRoom = () => {
     if (matches) {
-      console.log("Toggling chat room:", !isOpen);
       setIsOpen(!isOpen);
     } else {
-      console.log("Toggle disabled due to window width greater than 768px");
+      // console.log("Toggle disabled due to window width greater than 768px");
     }
   };
 

@@ -32,8 +32,6 @@ const AddUser: React.FC<PropsType> = ({ groupChatId, onSuccess }) => {
     `/group-chats/get-group-chat-users/${groupChatId}`
   );
 
-  console.log("groupChatUsers => ", groupChatUsers);
-
   const [mutate, { isLoading }] = useMutate({
     navigateBack: false,
     callback: () => {

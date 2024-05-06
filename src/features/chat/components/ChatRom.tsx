@@ -71,8 +71,6 @@ const ChatRoom: React.FC = () => {
     (data, meta) => {
       setFinalPage(meta?.last_page);
 
-      console.log(`page - ${page} data => `, data);
-
       setMessages((prev: any[]) => {
         return [...prev, ...data];
       });
@@ -145,9 +143,8 @@ const ChatRoom: React.FC = () => {
       };
 
       const res = (await sendMessage(payload)) as any;
-      setInputValue("");
 
-      console.log("response => ", res);
+      setInputValue("");
 
       if (res?.data) {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

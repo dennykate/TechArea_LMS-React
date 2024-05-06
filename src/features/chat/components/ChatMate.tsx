@@ -37,8 +37,6 @@ const ChatMate: React.FC<LayoutProps> = ({ justify, data }) => {
 
   const isActive = Cookies.get("last_conversation");
 
-  // console.log(isActive);
-  // console.log(data.id);
   const userData = useSelector(selectCurrentChatData);
 
   return (

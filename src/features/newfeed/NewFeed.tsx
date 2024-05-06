@@ -29,7 +29,6 @@ const NewFeed = () => {
     // isFetching,
   } = useQuery(`/posts?limit=10&page=${page}`, (data: any, meta: any) => {
     if (data) {
-      // console.log("response => ", data);
 
       // setPosts((prev: any[]) => {
       //   const newData = data.filter(
@@ -130,17 +129,13 @@ const NewFeed = () => {
     });
   };
 
-  console.log("page => ", page);
 
   const fetchMoreData = () => {
-    console.log("isLoading => ", isLoading);
-    console.log("hasMore => ", hasMore);
     if (!isLoading && hasMore) {
       setPage((prevPage) => prevPage + 1);
     }
   };
 
-  // console.log(postData);
   // Loading indicator
   if (isLoading && posts.length === 0)
     return (

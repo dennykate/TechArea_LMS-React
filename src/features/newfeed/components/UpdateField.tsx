@@ -50,7 +50,6 @@ const UpdateField: React.FC<DataProps> = ({
     setUploadedImage(files);
   };
 
-  console.log(content);
   const handleUpdate = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData();

@@ -39,7 +39,6 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
         }`,
         method: "DELETE",
       }).unwrap();
-      console.log(response);
       if (response.status === "success") {
         toast.success("Message deleted successfully!");
         close();
@@ -63,7 +62,6 @@ const Message: React.FC<MsgProps> = ({ msg, setMessages }) => {
     );
     if (newWindow) newWindow.opener = null;
   };
-  // console.log(msg);
   return (
     <div
       className={`w-full cursor-default flex gap-3 items-start ${
