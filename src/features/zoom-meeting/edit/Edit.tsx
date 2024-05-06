@@ -51,8 +51,8 @@ const Edit = () => {
         value.length > 0 ? null : "Password is required",
       grade_id: (value: string) =>
         value.length > 0 ? null : "Grade ID is required",
-      section_id: (value: string) =>
-        value.length > 0 ? null : "Section ID is required",
+      // section_id: (value: string) =>
+      //   value.length > 0 ? null : "Section ID is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject ID is required",
       recurrence_type: (value: string, values) =>
@@ -210,7 +210,10 @@ const Edit = () => {
         />
 
         <div className="md:col-span-2 col-span-1">
-          <GradeSectionSubject form={form} />
+          <GradeSectionSubject form={form}   asterisk={{
+              grade: true,
+              subject: true,
+            }}/>
         </div>
 
         {form.values.type == "8" && (

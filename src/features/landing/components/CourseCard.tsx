@@ -45,7 +45,7 @@ const ClassCard = ({ data }: PropsType) => {
 
           <div
             dangerouslySetInnerHTML={{ __html: data?.description }}
-            className="sm:text-base text-sm mt-2"
+            className="sm:text-base text-sm mt-2 line-clamp-3"
           />
 
           <div className="w-full my-4 grid grid-cols-3">

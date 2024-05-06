@@ -31,8 +31,8 @@ const Create = () => {
       name: (value: string) => (value.length > 0 ? null : "Title is required"),
       grade_id: (value: string) =>
         value.length > 0 ? null : "Grade is required",
-      section_id: (value: string) =>
-        value.length > 0 ? null : "Section is required",
+      // section_id: (value: string) =>
+      //   value.length > 0 ? null : "Section is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
     },
@@ -96,7 +96,13 @@ const Create = () => {
           name="name"
         />
 
-        <GradeSectionSubject form={form} />
+        <GradeSectionSubject
+          form={form}
+          asterisk={{
+            grade: true,
+            subject: true,
+          }}
+        />
 
         <TextEditorInput
           label="Description"
