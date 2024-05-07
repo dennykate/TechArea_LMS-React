@@ -35,7 +35,14 @@ const Edit = () => {
       phone: (value: string) => (value.length > 0 ? null : "Phone is required"),
       gender: (value: string) =>
         value.length > 0 ? null : "Gender is required",
-
+      password_confirmation: (value: string, values) =>
+        values.password.length > 0
+          ? value.length > 0
+            ? value != values.password
+              ? "Password doesn't match"
+              : null
+            : "This field is required"
+          : null,
       // date_of_birth: (value: string) =>
       //   value ? null : "Date of Birth is required",
       address: (value: string) =>

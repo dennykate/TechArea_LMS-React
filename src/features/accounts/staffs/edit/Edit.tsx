@@ -35,7 +35,14 @@ const Edit = () => {
       phone: (value: string) => (value.length > 0 ? null : "Phone is required"),
       gender: (value: string) =>
         value.length > 0 ? null : "Gender is required",
-
+      password_confirmation: (value: string, values) =>
+        values.password.length > 0
+          ? value.length > 0
+            ? value != values.password
+              ? "Password doesn't match"
+              : null
+            : "This field is required"
+          : null,
       date_of_birth: (value: string) =>
         value ? null : "Date of Birth is required",
       address: (value: string) =>
@@ -140,17 +147,15 @@ const Edit = () => {
         />
 
         <PasswordInputComponent
-          label="New Password"
+          label="New Password ( Optional )"
           placeholder="Enter new password"
-          withAsterisk
           form={form}
           name="password"
         />
 
         <PasswordInputComponent
-          label="Confirm New Password"
+          label="Confirm New Password ( Optional )"
           placeholder="Enter confrim new password"
-          withAsterisk
           form={form}
           name="password_confirmation"
         />

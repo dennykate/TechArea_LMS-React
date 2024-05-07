@@ -9,7 +9,7 @@ import VideoPlayer from "@/components/common/VideoPlayer";
 import TextEditorInput from "@/components/inputs/TextEditorInput";
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import useMutate from "@/hooks/useMutate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 
 interface PropsType {
@@ -18,6 +18,7 @@ interface PropsType {
 }
 
 const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
+  // const [loaded, setLoaded] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>();
 
   const form = useForm({
@@ -60,10 +61,16 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
     onSubmit(`/course-contents/${data?.id}`, formData, "POST", true);
   };
 
+  useEffect(() => {
+    setFile(null);
+    // form.setFieldValue("youtubeURL", "");
+  }, [form.values.type]);
+
   return (
     <FormLayout
       wrapperClassName="sm:px-2 px-0 py-4"
       isModal
+      fullpageLoading
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       onCancel={close}
@@ -111,10 +118,18 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
           }}
         />
 
-        {(form.values.type === "image" || form.values.type === "video") && (
+        {form.values.type === "video" && (
+          <FileUpload
+            defaultImage={data?.content_type == "video" && data?.content}
+            type={"video"}
+            setSingleFile={setFile}
+          />
+        )}
+
+        {form.values.type === "image" && (
           <FileUpload
             defaultImage={data?.content_type == "image" && data?.content}
-            type={form.values.type as "video" | "image"}
+            type={"image"}
             setSingleFile={setFile}
           />
         )}

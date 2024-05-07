@@ -32,7 +32,7 @@ const AddSingleChat: React.FC<ModelProps> = ({ close }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const { data, isLoading, error } = useGetDataQuery(
-    `/users?filter[role_id]=${search.role}&search=${search.name}&page=${currentPage}&limit=${ITEMS_PER_PAGE}`
+    `/users?filter[role_id]=${search.role}&search=${search.name}&page=${currentPage}&limit=${ITEMS_PER_PAGE}&hideMe=true`
   );
 
   const handlePageChange = (page: number) => {

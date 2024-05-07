@@ -14,6 +14,8 @@ import { Logo } from "@/components";
 import MyButton from "@/components/buttons/MyButton";
 import { Link } from "react-router-dom";
 import { MdHome } from "react-icons/md";
+import { VscGraph } from "react-icons/vsc";
+import PostInsight from "./components/PostInsight";
 
 const NewFeed = () => {
   const postContainerRef = useRef<any>();
@@ -22,6 +24,8 @@ const NewFeed = () => {
   const [hasMore, setHasMore] = useState(true);
   const [latest, setLatest] = useState(true);
   const [opened, { open, close }] = useDisclosure();
+  const [insightOpened, { open: insightOpen, close: insightClose }] =
+    useDisclosure();
 
   const {
     // data: postData,
@@ -29,7 +33,6 @@ const NewFeed = () => {
     // isFetching,
   } = useQuery(`/posts?limit=10&page=${page}`, (data: any, meta: any) => {
     if (data) {
-
       // setPosts((prev: any[]) => {
       //   const newData = data.filter(
       //     (newItem: any) => !prev.some((prevItem) => prevItem.id === newItem.id)
@@ -129,7 +132,6 @@ const NewFeed = () => {
     });
   };
 
-
   const fetchMoreData = () => {
     if (!isLoading && hasMore) {
       setPage((prevPage) => prevPage + 1);
@@ -203,14 +205,30 @@ const NewFeed = () => {
             </div>
           </InfiniteScroll>
         </div>
-        <Tooltip label="post upload">
-          <div
-            onClick={open}
-            className="text-3xl hidden cursor-pointer w-16 h-16 hover:bg-blue-400 bg-blue-500 text-white font-bold md:flex justify-center items-center rounded-full absolute right-10 bottom-10"
-          >
-            <TbTextPlus />
-          </div>
-        </Tooltip>
+
+        <div className="fixed md:bottom-16 md:right-16 bottom-3 right-3 flex flex-col gap-6 z-[10]">
+          <Tooltip label="post insight">
+            <div
+              onClick={insightOpen}
+              className="text-2xl cursor-pointer w-16 h-16 hover:bg-blue-400
+             bg-blue-500 text-white font-bold flex justify-center items-center 
+             rounded-full"
+            >
+              <VscGraph />
+            </div>
+          </Tooltip>
+          <Tooltip label="post upload">
+            <div
+              onClick={open}
+              className="text-3xl hidden cursor-pointer w-16 h-16 hover:bg-blue-400
+             bg-blue-500 text-white font-bold md:flex justify-center items-center 
+             rounded-full"
+            >
+              <TbTextPlus />
+            </div>
+          </Tooltip>
+        </div>
+
         {/* for post upload model  */}
         <Modal
           centered
@@ -234,6 +252,16 @@ const NewFeed = () => {
             }}
             setPosts={setPosts}
           />
+        </Modal>
+
+        <Modal
+          centered
+          size={"lg"}
+          opened={insightOpened}
+          onClose={insightClose}
+          // title="Post Upload"
+        >
+          <PostInsight />
         </Modal>
       </div>
     </div>

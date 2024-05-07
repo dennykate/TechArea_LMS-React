@@ -204,7 +204,7 @@ const Post: React.FC<ParentProps> = ({
           {parent === "newfeed" &&
             (userData?.id === data?.creator?.id ||
               userData?.role_id == "3") && (
-              <div className=" absolute top-3 right-3 z-10">
+              <div className=" absolute top-[2px] right-[2px] z-10">
                 <Menu width={200} shadow="md">
                   <Menu.Target>
                     <button className="bg-primary text-white text-xl border rounded p-1 hover:bg-primary/70 hover:backdrop-blur-md">
@@ -377,7 +377,6 @@ const Post: React.FC<ParentProps> = ({
                   )
                 }
                 mb={2}
-              
               >
                 {data?.is_reactor
                   ? data.is_reactor?.user_id === userData.id

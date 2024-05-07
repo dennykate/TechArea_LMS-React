@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import FormHeader from "../forms/FormHeader";
 import { twMerge } from "tailwind-merge";
 import { Loader } from "@mantine/core";
+import FullPageLoader from "../common/FullPageLoader";
 
 export type FormHeaderType = {
   image: string;
@@ -22,6 +23,7 @@ interface PropsType {
   wrapperClassName?: string;
   submitLoading?: boolean;
   queryLoading?: boolean;
+  fullpageLoading?: boolean;
 }
 
 const FormLayout = ({
@@ -35,6 +37,7 @@ const FormLayout = ({
   wrapperClassName = "w-full sm:space-y-6 space-y-4 md:p-8 sm:p-4 p-2 md:py-8 py-6",
   submitLoading,
   queryLoading,
+  fullpageLoading = true,
 }: PropsType) => {
   const navigate = useNavigate();
 
@@ -45,6 +48,8 @@ const FormLayout = ({
 
   return (
     <>
+      {submitLoading && fullpageLoading && <FullPageLoader />}
+
       {header && <FormHeader data={header} />}
 
       <div className={twMerge(wrapperClassName)}>

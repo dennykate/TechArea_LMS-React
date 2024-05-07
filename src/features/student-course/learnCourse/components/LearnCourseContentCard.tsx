@@ -92,7 +92,8 @@ const LearnCourseContentCard: React.FC<PropsType> = ({ data, onClose }) => {
           </div>
         )}
 
-        <div className="flex justify-end items-center gap-2 mt-4">
+        <div className="flex justify-end items-center gap-2 pt-4">
+          <MyButton onClick={() => onClose()}>Back Now</MyButton>
           <MyButton
             onClick={() =>
               alertActions(
