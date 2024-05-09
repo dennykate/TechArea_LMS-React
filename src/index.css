@@ -32,12 +32,10 @@ th {
 
 .fc-list-day-cushion {
   @apply !text-black;
-
 }
 
 .custom-calendar .fc-header-toolbar {
   @apply !flex-wrap !gap-2;
-  
 }
 
 .custom-calendar .fc-toolbar-title {
