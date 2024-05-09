@@ -32,6 +32,7 @@ th {
 
 .fc-list-day-cushion {
   @apply !text-black;
+  
 }
 
 .custom-calendar .fc-header-toolbar {
