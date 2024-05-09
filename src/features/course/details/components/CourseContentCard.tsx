@@ -12,6 +12,7 @@ import EditCourseContent from "./EditCourseContent";
 import React from "react";
 import useMutate from "@/hooks/useMutate";
 import alertActions from "@/utilities/alertActions";
+import VideoPlayer from "@/components/common/VideoPlayer";
 
 interface PropsType {
   data: any;
@@ -49,6 +50,12 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
          w-full h-full object-cover"
               controls
             />
+          </div>
+        )}
+
+        {data?.content_type == "youtube" && (
+          <div className="lg:w-[300px] w-full min-h-[200px] rounded-sm overflow-hidden ">
+            <VideoPlayer url={data?.content}  />
           </div>
         )}
 

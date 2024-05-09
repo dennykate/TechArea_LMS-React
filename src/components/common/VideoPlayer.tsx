@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
 import ReactPlayer, { ReactPlayerProps } from "react-player";
+import { twMerge } from "tailwind-merge";
 
 interface PropsType extends ReactPlayerProps {
   type?: "video" | "youtube";
   url: string;
   autoPlay?: boolean;
   controls?: boolean;
+  wrapperClassname?: string;
 }
 
 const VideoPlayer: React.FC<PropsType> = ({
@@ -14,6 +16,7 @@ const VideoPlayer: React.FC<PropsType> = ({
   url,
   autoPlay,
   controls = true,
+  wrapperClassname,
   ...props
 }) => {
   const videoRef = useRef<any>(null);
@@ -26,8 +29,10 @@ const VideoPlayer: React.FC<PropsType> = ({
   if (isError)
     return (
       <div
-        className="w-full h-[300px] flex justify-center items-center bg-[#f5f5f5] border border-black
-       border-opacity-10 rounded"
+        className={twMerge(
+          "w-full h-[300px] flex justify-center items-center bg-[#f5f5f5] border border-black border-opacity-10 rounded",
+          wrapperClassname
+        )}
       >
         <img
           src="https://i.postimg.cc/50C9pjD2/Oops-404-Error-with-a-broken-robot-pana.png"

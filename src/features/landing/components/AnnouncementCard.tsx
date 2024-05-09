@@ -31,7 +31,7 @@ const AnnouncementCard: React.FC<PropsType> = ({ data }) => {
 
           <div
             dangerouslySetInnerHTML={{ __html: data?.description }}
-            className="font-sans text-base mt-2"
+            className="font-sans text-base mt-2 line-clamp-3"
           />
 
           <p className="font-poppins text-sm mt-2 text-primary-500">
