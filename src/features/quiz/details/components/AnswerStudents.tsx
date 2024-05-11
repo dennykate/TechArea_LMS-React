@@ -23,8 +23,9 @@ const AnswerStudents = () => {
           <td className="m_td">{element?.name}</td>
 
           <td className="m_td">{element?.gender}</td>
-          
+
           <td className="m_td">{element?.grade}</td>
+          
           <td className="m_td">{element?.section}</td>
           <td className="m_td">{element?.total_score}</td>
           <td className="m_td">{element?.total_score_percentage}</td>
