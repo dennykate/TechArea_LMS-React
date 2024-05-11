@@ -26,11 +26,11 @@ const CourseCard: React.FC<PropsType> = ({ data }) => {
           <div className="absolute bottom-[-9px] right-[-6px] p-[4px] bg-white rounded-full">
             <RingProgress
               sections={[{ value: data?.complete_percentage, color: "teal" }]}
-              size={50}
+              size={60}
               thickness={4}
               label={
                 <p className="text-primary-500 text-center text-[10px]">
-                  {data?.complete_percentage}%
+                  {parseInt(data?.complete_percentage)}%
                 </p>
               }
             />

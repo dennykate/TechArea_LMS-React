@@ -39,8 +39,8 @@ const Edit = () => {
       title: (value: string) => (value.length > 0 ? null : "Title is required"),
       grade_id: (value: string) =>
         value.length > 0 ? null : "Grade is required",
-      section_id: (value: string) =>
-        value.length > 0 ? null : "Section is required",
+      // section_id: (value: string) =>
+      //   value.length > 0 ? null : "Section is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
       deadline: (value) => (value ? null : "Subject is required"),
@@ -91,7 +91,7 @@ const Edit = () => {
       form.setFieldValue("grade_id", data?.grade_id);
       form.setFieldValue("subject_id", data?.subject_id);
       form.setFieldValue("section_id", data?.section_id);
-      form.setFieldValue("marks", data?.marks);
+      form.setFieldValue("marks", parseInt(data?.marks));
       form.setFieldValue(
         "deadline",
         dayjs(data?.deadline, "DD-MM-YYYY HH:mm").toDate()
@@ -125,7 +125,7 @@ const Edit = () => {
           name="title"
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
           <NumberInputComponent
             label="Marks"
             placeholder="Enter marks"
@@ -149,7 +149,13 @@ const Edit = () => {
           onChange={(val) => form.setFieldValue("description", val)}
         />
 
-        <GradeSectionSubject form={form} />
+        <GradeSectionSubject
+          form={form}
+          asterisk={{
+            grade: true,
+            subject: true,
+          }}
+        />
 
         <FileUpload
           defaultImage={defaultImage}

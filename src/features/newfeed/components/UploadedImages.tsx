@@ -4,9 +4,7 @@ import { useState } from "react";
 
 interface UploadProps {
   uploadedImage: string[];
-  setUploadedImage: (
-    value: string[] | ((prevState: string[]) => string[])
-  ) => void;
+  setUploadedImage: (value: File[] | ((prevState: File[]) => File[])) => void;
 }
 
 const UploadedImages: React.FC<UploadProps> = ({
@@ -23,7 +21,7 @@ const UploadedImages: React.FC<UploadProps> = ({
 
   return (
     <div className="flex gap-4 justify-center items-center">
-      {uploadedImage.map((image, index) => (
+      {uploadedImage?.map((image, index) => (
         <div
           onMouseEnter={() => setHoverIndex(index)}
           onMouseLeave={() => setHoverIndex(null)}
@@ -34,9 +32,10 @@ const UploadedImages: React.FC<UploadProps> = ({
             maxHeight: "300px",
             width: "auto",
             height: "auto",
+            overflow: "hidden",
           }}
         >
-          <Image src={image} alt={`Uploaded ${index + 1}`} fit="contain" />
+          <Image src={image} alt={`Uploaded ${index + 1}`} fit="cover" />
           {hoverIndex === index && (
             <ActionIcon
               variant="outline"
@@ -48,6 +47,7 @@ const UploadedImages: React.FC<UploadProps> = ({
                 borderRadius: "50%",
               }}
               onClick={() => removeImage(index)}
+              aria-label="Remove image"
             >
               <IconX size={16} stroke={1.5} />
             </ActionIcon>

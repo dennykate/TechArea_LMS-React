@@ -68,12 +68,7 @@ const sideBarTabs = [
       },
     ],
   },
-  {
-    label: "Calendar",
-    icon: FaCalendarAlt,
-    initiallyOpened: false,
-    link: "/calendar",
-  },
+
   {
     label: "Courses",
     icon: MdOutlineMenuBook,
@@ -95,6 +90,7 @@ const sideBarTabs = [
     link: "/assignments",
     banRoles: banRoles.assignments,
   },
+
   {
     label: "Announcements",
     icon: HiSpeakerphone,
@@ -157,6 +153,12 @@ const sideBarTabs = [
     initiallyOpened: false,
     link: "/student-assignments",
     banRoles: banRoles.student_assignments,
+  },
+  {
+    label: "Calendar",
+    icon: FaCalendarAlt,
+    initiallyOpened: false,
+    link: "/calendar",
   },
   {
     label: "Zoom Meetings",

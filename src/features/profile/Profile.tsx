@@ -1,17 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
-import DateInputComponent from "@/components/inputs/DateInputComponent";
 import ImageUpload from "@/components/inputs/ImageUpload";
 import PasswordInputComponent from "@/components/inputs/PasswordInputComponent";
-import SelectComponent from "@/components/inputs/SelectComponent";
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import { useEffect, useMemo, useState } from "react";
-import toast from "react-hot-toast";
 import dayjs from "dayjs";
-import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { useNavigate } from "react-router-dom";
 
@@ -106,44 +102,41 @@ const Profile = () => {
         title: "Loream Ispum",
       }}
     >
-      <ImageUpload
-        defaultImage={defaultImage}
-        label="Profile"
-        setFile={setProfile}
-      />
+      {userInfo?.role_id != "1" && (
+        <ImageUpload
+          defaultImage={defaultImage}
+          label="Profile"
+          setFile={setProfile}
+        />
+      )}
 
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
-        <TextInputComponent
-          label="Name"
-          placeholder="Enter namee"
-          form={form}
-          name="name"
-        />
+        {userInfo?.role_id != "1" && (
+          <>
+            <TextInputComponent
+              label="Name"
+              placeholder="Enter name"
+              form={form}
+              name="name"
+            />
 
-        <TextInputComponent
-          label="Email"
-          placeholder="Enter email"
-          form={form}
-          name="email"
-        />
+            <TextInputComponent
+              label="Email"
+              placeholder="Enter email"
+              form={form}
+              name="email"
+            />
 
-        <TextInputComponent
-          label="Phone Number"
-          placeholder="Enter phone number"
-          form={form}
-          name="phone"
-        />
-
-        <SelectComponent
-          label="Gender"
-          placeholder="Select gender"
-          data={[
-            { label: "Male", value: "male" },
-            { label: "Female", value: "female" },
-          ]}
-          form={form}
-          name="gender"
-        />
+            <div className="md:col-span-2 col-span-1">
+              <TextInputComponent
+                label="Phone Number"
+                placeholder="Enter phone number"
+                form={form}
+                name="phone"
+              />
+            </div>
+          </>
+        )}
 
         <PasswordInputComponent
           label="New Password"
@@ -159,29 +152,16 @@ const Profile = () => {
           name="password_confirmation"
         />
 
-        {["1", "2"].includes(userInfo?.role_id) && (
-          <div className=" col-span-2">
-            <GradeSectionSubject form={form} usage={["grade", "section"]} />
+        {userInfo?.role_id != "1" && (
+          <div className="md:col-span-2 col-span-1">
+            <TextAreaComponent
+              label="Address"
+              placeholder="Enter address"
+              form={form}
+              name="address"
+            />
           </div>
         )}
-
-        <div className="md:col-span-2 col-span-1">
-          <DateInputComponent
-            placeholder="Choose date"
-            label="Date of birth"
-            form={form}
-            name="date_of_birth"
-          />
-        </div>
-
-        <div className="md:col-span-2 col-span-1">
-          <TextAreaComponent
-            label="Address"
-            placeholder="Enter address"
-            form={form}
-            name="address"
-          />
-        </div>
       </div>
     </FormLayout>
   );

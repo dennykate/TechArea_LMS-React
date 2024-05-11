@@ -61,7 +61,6 @@ const Create = () => {
       start_date: dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
       end_date: dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
     };
-
     onSubmit("/academic-calendar-events", newItem);
   };
   //
@@ -81,7 +80,7 @@ const Create = () => {
         title: "Loream Ispum",
       }}
     >
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
+      <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-7 gap-3">
         <TextInputComponent
           label="Title"
           placeholder="Enter title"
@@ -89,7 +88,6 @@ const Create = () => {
           form={form}
           name="title"
         />
-
         <SelectComponent
           label="Type"
           placeholder="Select type"
@@ -106,7 +104,7 @@ const Create = () => {
 
         <div
           className={twMerge(
-            form.values?.role_id != "1" ? "col-span-2" : "col-span-1"
+            form.values?.role_id != "1" ? "sm:col-span-2 col-span-1" : "col-span-1"
           )}
         >
           <SelectComponent
@@ -163,7 +161,6 @@ const Create = () => {
           form={form}
           name="start_date"
         />
-
         <DateTimeInputComponent
           placeholder="Choose end date"
           label="End Date"
@@ -171,7 +168,6 @@ const Create = () => {
           form={form}
           name="end_date"
         />
-
         <div className="md:col-span-2 col-span-1">
           <TextAreaComponent
             label="Description"

@@ -32,7 +32,10 @@ const List = () => {
           </td>
           <td className="m_td">{element?.title}</td>
           <td className="m_td">
-            <div dangerouslySetInnerHTML={{ __html: element?.description }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: element?.description }}
+              className=" line-clamp-1"
+            />
           </td>
 
           <td className="m_td">{element?.created_by}</td>
@@ -40,7 +43,9 @@ const List = () => {
           <td className="m_td">
             <TableActions
               detailCb={() => navigate(`/announcements/details/${element.id}`)}
-              destroyCb={() => onSubmit(`/announcements/${element.id}`, {}, "DELETE")}
+              destroyCb={() =>
+                onSubmit(`/announcements/${element.id}`, {}, "DELETE")
+              }
               editCb={() => navigate(`/announcements/edit/${element.id}`)}
             />
           </td>

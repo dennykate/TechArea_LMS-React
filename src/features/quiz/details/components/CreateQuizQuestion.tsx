@@ -45,6 +45,8 @@ const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
       return toast.error("Sorry, maximun answers limit exceeded");
 
     setOptions((prev: string[]) => {
+      if (prev?.includes(optionalAnswer)) return prev;
+
       return [...prev, optionalAnswer];
     });
 
@@ -183,7 +185,7 @@ const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
 
           <div className="mt-4 space-y-1">
             <Alert icon={<IconAlertCircle size={18} />} color="orange">
-              Plese press the correct answer
+              Please press the correct answer
             </Alert>
             {form.values.type === "multiple-choice" && (
               <Alert icon={<IconAlertCircle size={18} />} color="orange">

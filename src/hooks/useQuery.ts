@@ -18,10 +18,13 @@ type ReturnType = {
 
 const useQuery = (
   url: string,
-  callback?: (value: any) => void,
-  kill: boolean = false
+  callback?: (value: any, meta: any) => void,
+  kill: boolean = false,
+  useRegenerate: boolean = false,
+  showError: boolean = true
 ): ReturnType => {
   if (kill) return { isLoading: false };
+
   const logout = useLogout();
   const { pathname } = useLocation();
   const code = useAppSelector((state) => state.key.value);
@@ -29,7 +32,9 @@ const useQuery = (
 
   const queryUrl = useMemo(() => parseUrl(url), [pathname, url, code]);
 
-  const { data, error } = useGetDataQuery(url) as any;
+  const { data, error } = useGetDataQuery(
+    useRegenerate ? queryUrl : url
+  ) as any;
 
   const initLoading = useCallback(() => setIsLoading(true), [queryUrl]);
 
@@ -37,17 +42,19 @@ const useQuery = (
 
   useEffect(() => {
     if (data && callback) {
-      callback(data?.data);
+      callback(data?.data, data?.meta);
       setIsLoading(false);
     }
+  }, [data]);
 
+  useEffect(() => {
     if (data) {
       setIsLoading(false);
     }
   }, [data]);
 
   useEffect(() => {
-    if (error) {
+    if (error && showError) {
       setIsLoading(false);
       if (error.status === 401) {
         toast.error("You're Unauthorized");
@@ -55,7 +62,9 @@ const useQuery = (
         logout();
       }
 
-      toast.error("Something wrong");
+      if (url != "") {
+        toast.error("Something wrong");
+      }
     }
   }, [error]);
 

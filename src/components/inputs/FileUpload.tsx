@@ -24,8 +24,6 @@ const FileUpload: React.FC<PropsType> = ({
   multiple = false,
   ...props
 }) => {
-  console.log("defaultImage => ", defaultImage);
-
   const theme = useMantineTheme();
   const [file, setFile] = useState<File | null>(null);
   const [files, setFiles] = useState<File[] | null>(null);
@@ -141,12 +139,9 @@ const FileUpload: React.FC<PropsType> = ({
       )}
 
       {(files as any)?.length > 0 && (
-        <div
-          className="h-auto rounded-md border border-dashed border-gray-400 w-full flex 
- justify-center items-center p-2 relative mt-6  flex-col gap-1"
-        >
+        <div className=" justify-center items-center p-2 relative mt-6  flex-col gap-1">
           {files?.map((dt: File) => (
-            <div className="w-full flex gap-1 justify-between items-center">
+            <div className="w-full flex gap-1 justify-between items-center mt-2">
               <p className="text-sm font-[400] truncate w-[80%]">{dt?.name}</p>
 
               <button
@@ -168,5 +163,4 @@ const FileUpload: React.FC<PropsType> = ({
     </>
   );
 };
-
 export default FileUpload;

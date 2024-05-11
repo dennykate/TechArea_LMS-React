@@ -53,7 +53,7 @@ const Edit = () => {
     (data) => {
       form.setValues({
         ...data,
-        role_id: JSON.stringify(data?.role_id),
+        role_id: data?.role_id,
         start_date: dayjs(data?.start_date, "DD MMM YYYY hh:mm A").toDate(),
         end_date: dayjs(data?.end_date, "DD MMM YYYY hh:mm A").toDate(),
       });
@@ -74,7 +74,6 @@ const Edit = () => {
       start_date: dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
       end_date: dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
     };
-
     onSubmit(`/academic-calendar-events/${scheduleId}`, newItem, "PUT");
   };
 
@@ -95,7 +94,7 @@ const Edit = () => {
         title: "Loream Ispum",
       }}
     >
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-7">
+      <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-7 gap-3">
         <TextInputComponent
           label="Title"
           placeholder="Enter title"
@@ -103,7 +102,6 @@ const Edit = () => {
           form={form}
           name="title"
         />
-
         <SelectComponent
           label="Type"
           placeholder="Select type"
@@ -120,7 +118,9 @@ const Edit = () => {
 
         <div
           className={twMerge(
-            form.values?.role_id != "1" ? "col-span-2" : "col-span-1"
+            form.values?.role_id != "1"
+              ? "sm:col-span-2 col-span-1"
+              : "col-span-1"
           )}
         >
           <SelectComponent
@@ -177,7 +177,6 @@ const Edit = () => {
           form={form}
           name="start_date"
         />
-
         <DateTimeInputComponent
           placeholder="Choose end date"
           label="End Date"
@@ -185,7 +184,6 @@ const Edit = () => {
           form={form}
           name="end_date"
         />
-
         <div className="md:col-span-2 col-span-1">
           <TextAreaComponent
             label="Description"

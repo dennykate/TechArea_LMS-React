@@ -1,80 +1,90 @@
-import React, { useState, FormEvent } from "react";
-import {
-  TextInput,
-  Button,
-  Group,
-  Text,
-  useMantineTheme,
-  rem,
-} from "@mantine/core";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, FormEvent, useEffect } from "react";
+import { Group, Text, useMantineTheme, rem, Button } from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import UploadedImages from "./UploadedImages";
+import TextEditorInput from "@/components/inputs/TextEditorInput";
+import toast from "react-hot-toast";
+import useMutate from "@/hooks/useMutate";
 
-const UploadField = (props: Partial<DropzoneProps>) => {
+interface ModalProps {
+  close?: () => void;
+  latest: boolean;
+  setLatest: (latest: boolean) => void;
+  setPosts: any;
+}
+
+const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
+  latest,
+  setLatest,
+  close,
+  setPosts,
+  ...dropzoneProps
+}) => {
   const theme = useMantineTheme();
+  // const [uploadPost, { isLoading }] = usePostDataMutation();
+  const [uploadedImage, setUploadedImage] = useState<File[]>([]);
+  const [content, setContent] = useState("");
 
-  const [uploadedImage, setUploadedImage] = useState<string[]>([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [onSubmit, { isLoading }] = useMutate({
+    navigateBack: false,
+    callback: (data) => {
+      setUploadedImage([]);
+      setContent("");
+      if (close) close();
+      setLatest(!latest);
+
+      setPosts((posts: any) => [data, ...posts]);
+    },
+  });
+
+  useEffect(() => {
+    // Cleanup created object URLs
+    return () => {
+      uploadedImage.forEach((file) =>
+        URL.revokeObjectURL(URL.createObjectURL(file))
+      );
+    };
+  }, [uploadedImage]);
 
   const handleDrop = (files: File[]) => {
-    const newImageUrls: string[] = [];
-
-    files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        newImageUrls.push(reader.result as string);
-
-        if (newImageUrls.length === files.length) {
-          setUploadedImage((prevImages) => [...prevImages, ...newImageUrls]);
-        }
-      };
-      reader.readAsDataURL(file);
-    });
+    setUploadedImage(files);
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    const formData = {
-      title,
-      description,
-      images: uploadedImage,
-    };
-    console.log(formData);
-    // Here you would typically send formData to your backend
-    // Example: axios.post('your-endpoint', formData)
+    if (content == "") return toast.error("Content is required");
+
+    const formData = new FormData();
+    formData.append("content", content);
+    uploadedImage.forEach((file) => {
+      formData.append("image", file);
+    });
+
+    try {
+      return onSubmit("/posts", formData, "POST", true);
+    } catch (error) {
+      console.error("Failed to upload data:", error);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-10 flex flex-col gap-10">
-      <div className="flex h-[40vh] items-center ">
-        <div className="flex flex-col justify-between gap-10 w-1/2 p-5">
-          <TextInput
-            placeholder="Title"
-            label="Title"
-            required
-            size="lg"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+    <form onSubmit={handleSubmit} className="md:p-10 flex flex-col">
+      <div className="flex flex-col h-full items-center mb-5 gap-5">
+        <div className="w-full">
+          <TextEditorInput
+            label="Content"
+            value={content}
+            onChange={(e) => setContent(e)}
           />
-          <TextInput
-            placeholder="Description"
-            label="Description"
-            required
-            size="lg"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-          <Button variant="outline" type="submit">
-            Submit
-          </Button>
         </div>
-        {/* for uploading photo  */}
-        <div className="w-1/2 p-5">
+        <div className="w-full h-full ">
           {uploadedImage.length > 0 ? (
             <UploadedImages
-              uploadedImage={uploadedImage}
+              uploadedImage={uploadedImage.map((file) =>
+                URL.createObjectURL(file)
+              )}
               setUploadedImage={setUploadedImage}
             />
           ) : (
@@ -83,7 +93,7 @@ const UploadField = (props: Partial<DropzoneProps>) => {
               onReject={(files) => console.log("rejected files", files)}
               maxSize={3 * 1024 ** 2}
               accept={IMAGE_MIME_TYPE}
-              {...props}
+              {...dropzoneProps}
             >
               <Group
                 position="center"
@@ -113,7 +123,6 @@ const UploadField = (props: Partial<DropzoneProps>) => {
                 <Dropzone.Idle>
                   <IconPhoto size="3.2rem" stroke={1.5} />
                 </Dropzone.Idle>
-
                 <div>
                   <Text size="xl" inline>
                     Drag images here or click to select files
@@ -128,6 +137,13 @@ const UploadField = (props: Partial<DropzoneProps>) => {
           )}
         </div>
       </div>
+      <Button
+        className="bg-primary text-white py-2 rounded mt-2"
+        type="submit"
+        loading={isLoading}
+      >
+        Post
+      </Button>
     </form>
   );
 };

@@ -33,8 +33,8 @@ const Create = () => {
       title: (value: string) => (value.length > 0 ? null : "Title is required"),
       grade_id: (value: string) =>
         value.length > 0 ? null : "Grade is required",
-      section_id: (value: string) =>
-        value.length > 0 ? null : "Section is required",
+      // section_id: (value: string) =>
+      //   value.length > 0 ? null : "Section is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
       deadline: (value) => (value ? null : "Deadline is required"),
@@ -63,8 +63,10 @@ const Create = () => {
 
     if (additionalFiles.length > 0) {
       additionalFiles?.map((additionalFile: any, index: number) => {
-        formData.append(`additionals[${index}][type]`, additionalFile.type);
-        formData.append(`additionals[${index}][file]`, additionalFile.file);
+        if (additionalFile.file != "") {
+          formData.append(`additionals[${index}][type]`, additionalFile.type);
+          formData.append(`additionals[${index}][file]`, additionalFile.file);
+        }
       });
     }
 
@@ -98,7 +100,7 @@ const Create = () => {
           name="title"
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
           <NumberInputComponent
             label="Marks"
             placeholder="Enter marks"
@@ -122,7 +124,13 @@ const Create = () => {
           onChange={(val) => form.setFieldValue("description", val)}
         />
 
-        <GradeSectionSubject form={form} />
+        <GradeSectionSubject
+          form={form}
+          asterisk={{
+            grade: true,
+            subject: true,
+          }}
+        />
 
         <FileUpload type={"all"} setSingleFile={setFile} />
 

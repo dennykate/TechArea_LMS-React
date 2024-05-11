@@ -15,7 +15,9 @@ const StudentClassFilterSearch = () => {
   const userInfo = useMemo(() => JSON.parse(get("userInfo") as string), []);
 
   const { data, total } = useQuery(
-    `/zooms/?filter[subject_id]=${subjectId}&search=${search}&page=${page}`
+    `/zooms?search=${search}&page=${page}${
+      subjectId ? `&filter[subject_id]=${subjectId}` : ""
+    }`
   );
 
   return (

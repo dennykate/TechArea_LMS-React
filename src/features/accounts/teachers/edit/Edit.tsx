@@ -32,11 +32,15 @@ const Edit = () => {
     validateInputOnBlur: true,
     validate: {
       name: (value: string) => (value.length > 0 ? null : "Name is required"),
-
       phone: (value: string) => (value.length > 0 ? null : "Phone is required"),
       gender: (value: string) =>
         value.length > 0 ? null : "Gender is required",
-
+      password_confirmation: (value: string, values) =>
+        values.password.length > 0
+          ? value.length > 0
+            ? null
+            : "This field is required"
+          : null,
       date_of_birth: (value: string) =>
         value ? null : "Date of Birth is required",
       address: (value: string) =>
@@ -107,7 +111,7 @@ const Edit = () => {
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
         <TextInputComponent
           label="Name"
-          placeholder="Enter namee"
+          placeholder="Enter name"
           withAsterisk
           form={form}
           name="name"

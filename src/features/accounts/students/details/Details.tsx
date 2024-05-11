@@ -5,7 +5,7 @@ import { IconPencilMinus } from "@tabler/icons-react";
 import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 import StudentInformation from "./components/StudentInformation";
-import StudentCourseAndQuiz from "./components/StudentCourseAndQuiz";
+// import StudentCourseAndQuiz from "./components/StudentCourseAndQuiz";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams } from "react-router-dom";
@@ -38,7 +38,7 @@ const Details = () => {
           <div className="space-y-[2px]">
             <p className="text-2xl font-[400]">{data?.name}</p>
             <p className="text-sm font-[300]">
-              {data?.role} , {data?.created_at}
+              {data?.role} , {data?.student_id}
             </p>
           </div>
         </div>
@@ -57,9 +57,9 @@ const Details = () => {
         <StudentInformation data={data} />
       </div>
 
-      <div className="sm:mt-6 mt-3">
+      {/* <div className="sm:mt-6 mt-3">
         <StudentCourseAndQuiz />
-      </div>
+      </div> */}
     </DetailsLayout>
   );
 };

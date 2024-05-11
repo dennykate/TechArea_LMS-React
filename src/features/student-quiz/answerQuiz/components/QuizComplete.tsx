@@ -2,6 +2,7 @@
 import MyButton from "@/components/buttons/MyButton";
 import Heading from "@/components/typography/Heading";
 import { useNavigate } from "react-router-dom";
+import BetterChange from "@/assets/better-change-text-logo.png";
 
 interface PropsType {
   data: any;
@@ -15,9 +16,9 @@ const QuizComplete: React.FC<PropsType> = ({ data, questionCount }) => {
     <div className="w-full p-8 flex flex-col gap-4 items-center">
       <div className="w-full flex justify-center items-center">
         <img
-          src="https://i.postimg.cc/nrsrCmJr/Achievement-bro.png"
+          src={BetterChange}
           alt="archieve"
-          className="w-[200px] h-[200px] object-cover"
+          className="w-[240px] object-cover"
         />
       </div>
 
@@ -28,7 +29,7 @@ const QuizComplete: React.FC<PropsType> = ({ data, questionCount }) => {
         {data?.score_percentage}% score percentage)
       </p>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 mt-6">
         <MyButton onClick={() => navigate("/student-quizzes")}>
           Back To Quizzes
         </MyButton>

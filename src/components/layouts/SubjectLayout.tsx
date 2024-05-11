@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ActionIcon, Menu, Skeleton } from "@mantine/core";
+import { ActionIcon, Loader, Menu, Skeleton } from "@mantine/core";
 import { IconAdjustments } from "@tabler/icons-react";
 
 import TextInputComponent from "@/components/inputs/TextInputComponent";
@@ -17,6 +17,7 @@ interface PropsType {
   setSearch?: (x: string) => void;
   setPage?: (x: number) => void;
   total?: number;
+  isFetching?: boolean;
 }
 
 const SubjectLayout: React.FC<PropsType> = ({
@@ -27,6 +28,7 @@ const SubjectLayout: React.FC<PropsType> = ({
   setSearch,
   total = 0,
   setPage,
+  isFetching,
 }) => {
   const [activeSubject, setActiveSubject] = useState<string | null>("");
   const [activeSection, setActiveSection] = useState<string | null>("");
@@ -116,7 +118,13 @@ const SubjectLayout: React.FC<PropsType> = ({
         </div>
       </div>
 
-      {children}
+      {isFetching ? (
+        <div className="w-full h-[300px] flex justify-center items-center ">
+          <Loader size="md" />
+        </div>
+      ) : (
+        children
+      )}
 
       <div className="w-full flex justify-end">
         <MyPagination

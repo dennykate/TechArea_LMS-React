@@ -4,12 +4,13 @@ import { IoPeopleOutline } from "react-icons/io5";
 
 import { TableActions, TableComponent } from "@/components/table";
 import { useNavigate } from "react-router-dom";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
 import SelectComponent from "@/components/inputs/SelectComponent";
 import useQuery from "@/hooks/useQuery";
 import Heading from "@/components/typography/Heading";
+import MyButton from "@/components/buttons/MyButton";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -42,7 +43,7 @@ const List = () => {
               detailCb={() =>
                 navigate(`/accounts/students/details/${element.id}`)
               }
-              destroyCb={() => {}}
+              destroyCb={() => onSubmit(`/users/${element?.id}`, {}, "DELETE")}
               editCb={() => navigate(`/accounts/students/edit/${element.id}`)}
             />
           </td>
@@ -55,6 +56,10 @@ const List = () => {
   const { data: sections } = useQuery(
     `/sections?limit=100&filter[grade_id]=${gradeId}`
   );
+
+  useEffect(() => {
+    setSectionId("");
+  }, [gradeId]);
 
   return (
     <TableLayout
@@ -95,6 +100,12 @@ const List = () => {
             onChange={(val: string) => setSectionId(val)}
           />
         </div>
+
+        <div className="w-full flex justify-end items-center px-4">
+          <MyButton onClick={() => navigate("/accounts/students/create")}>
+            Create New Student
+          </MyButton>
+        </div>
       </div>
 
       {(gradeId || sectionId) && (
@@ -103,7 +114,8 @@ const List = () => {
           dateRangePicker
           pagination
           Icon={IoPeopleOutline}
-          addNewRoute="/accounts/students/create"
+          hideAddNew
+          // addNewRoute="/accounts/students/create"
           rows={rows}
           title={"Student List"}
           tableHeads={[

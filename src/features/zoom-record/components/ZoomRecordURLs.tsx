@@ -56,7 +56,7 @@ const ZoomRecordURLs: React.FC<PropsType> = ({ urls, setUrls }) => {
         ))}
       </div>
 
-      <div className="w-2/3 flex flex-col gap-2">
+      <div className="sm:w-2/3 w-[95%] flex flex-col gap-2">
         <TextInputComponent
           placeholder="Your URL"
           value={value}

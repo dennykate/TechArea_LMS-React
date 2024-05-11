@@ -1,5 +1,5 @@
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
-import { ActionIcon, Avatar } from "@mantine/core";
+import { ActionIcon, Avatar, Tooltip } from "@mantine/core";
 import { useMemo } from "react";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoChatboxEllipsesSharp } from "react-icons/io5";
@@ -31,7 +31,6 @@ const NavBar = ({
     e.stopPropagation();
     toggle();
   };
-
   return (
     <div
       className={twMerge(
@@ -59,20 +58,24 @@ const NavBar = ({
           </div>
         </Link>
 
-        <Link to="/new-feed">
-          <ActionIcon>
-            <RiArticleFill color="black" className="lg:text-xl text-lg" />
-          </ActionIcon>
-        </Link>
+        <Tooltip label="News Feed">
+          <Link to="/new-feed">
+            <ActionIcon>
+              <RiArticleFill color="black" className="lg:text-xl text-lg" />
+            </ActionIcon>
+          </Link>
+        </Tooltip>
 
-        <Link to="/chat">
-          <ActionIcon>
-            <IoChatboxEllipsesSharp
-              color="black"
-              className="lg:text-xl text-lg"
-            />
-          </ActionIcon>
-        </Link>
+        <Tooltip label="Chat">
+          <Link to="/chat">
+            <ActionIcon>
+              <IoChatboxEllipsesSharp
+                color="black"
+                className="lg:text-xl text-lg"
+              />
+            </ActionIcon>
+          </Link>
+        </Tooltip>
       </div>
     </div>
   );

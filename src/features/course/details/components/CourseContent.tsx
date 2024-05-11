@@ -3,7 +3,7 @@ import MyButton from "@/components/buttons/MyButton";
 import Heading from "@/components/typography/Heading";
 import { IconBookUpload } from "@tabler/icons-react";
 import CourseContentCard from "./CourseContentCard";
-import MyPagination from "@/components/common/MyPagination";
+// import MyPagination from "@/components/common/MyPagination";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import CreateCourseContent from "./CreateCourseContent";
@@ -32,9 +32,9 @@ const CourseContent: React.FC<PropsType> = ({ data }) => {
         ))}
       </div>
 
-      <div className="mt-6 flex justify-end">
+      {/* <div className="mt-6 flex justify-end">
         <MyPagination total={5} />
-      </div>
+      </div> */}
 
       <Modal
         opened={opened}

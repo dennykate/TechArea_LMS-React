@@ -3,11 +3,16 @@ import MyButton from "@/components/buttons/MyButton";
 import Heading from "@/components/typography/Heading";
 import { Badge, Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconCalendarMonth, IconPencilMinus } from "@tabler/icons-react";
+import {
+  IconCalendarMonth,
+  IconPencilMinus,
+  IconTrash,
+} from "@tabler/icons-react";
 import EditCourseContent from "./EditCourseContent";
 import React from "react";
 import useMutate from "@/hooks/useMutate";
 import alertActions from "@/utilities/alertActions";
+import VideoPlayer from "@/components/common/VideoPlayer";
 
 interface PropsType {
   data: any;
@@ -48,6 +53,12 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
           </div>
         )}
 
+        {data?.content_type == "youtube" && (
+          <div className="lg:w-[300px] w-full min-h-[200px] rounded-sm overflow-hidden ">
+            <VideoPlayer url={data?.content}  />
+          </div>
+        )}
+
         <div className=" space-y-3 w-full lg:w-[calc(100%-300px)] py-2">
           <div className="w-[calc(100%-80px)]">
             <Heading tag="h6">{data?.name}</Heading>
@@ -55,7 +66,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
           <p className="text-sm font-[300] text-gray-500">
             {data?.description}
           </p>
-          {data?.timmer && (
+          {data?.timmer !== 0 && (
             <p className="text-sm font-[300] text-gray-500">
               duration - {data?.timmer} minute(s)
             </p>
@@ -74,7 +85,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
           </div>
         </div>
 
-        <div className="absolute top-2 right-2 flex items-center gap-2">
+        <div className="absolute sm:top-2 sm:right-2 top-3 right-3 flex items-center gap-2">
           <MyButton
             onClick={() => {
               alertActions(() => {
@@ -82,8 +93,10 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
               }, "Are you sure to delete!");
             }}
             size="xs"
-            variant="outline"
-            color="red"
+            classNames={{
+              root: "bg-red-500 hover:bg-red-800",
+            }}
+            leftIcon={<IconTrash size={16} />}
           >
             Delete
           </MyButton>

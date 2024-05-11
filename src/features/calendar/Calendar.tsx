@@ -8,10 +8,6 @@ import { useMemo, useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import moment from "moment";
 import useUserInfo from "@/hooks/use-user-info";
-import { Loader } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import GradeSectionSubject from "@/components/common/GradeSectionSubject";
-import config from "@/config";
 
 type EventType = "exams" | "meetings" | "holidays" | "events";
 
@@ -29,23 +25,17 @@ const Calendar = () => {
   });
   const userInfo = useUserInfo();
 
-  const form = useForm({
-    initialValues: {
-      grade_id: config.grade_10_id,
-    },
-  });
-
-  const { data, isLoading } = useQuery(
-    `/academic-calendar-events?filter[role_id]=${
-      userInfo?.role_id
-    }&limit=100&start_date=${moment(currentRange.start)
+  const { data } = useQuery(
+    `/academic-calendar-events?${
+      userInfo.role_id == 3 ? "" : `filter[role_id]=${userInfo?.role_id}&`
+    }limit=100&start_date=${moment(currentRange.start)
       .subtract(1, "month")
       .startOf("month")
       .format("YYYY-MM-DD")}&end_date=${moment(currentRange.end)
       .add(1, "month")
       .endOf("month")
       .format("YYYY-MM-DD")}${
-      userInfo?.role_id == 1 ? `&filter[grade_id]=${form.values.grade_id}` : ""
+      userInfo?.role_id == 1 ? `&filter[grade_id]=${userInfo?.grade_id}` : ""
     }`
   );
 
@@ -73,7 +63,7 @@ const Calendar = () => {
 
   return (
     <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar sm:overflow-x-hidden overflow-x-auto">
-      <div className="flex items-center justify-between mb-4 ">
+      <div className="flex sm:items-center items-start justify-between mb-4 sm:flex-row flex-col gap-4">
         <div className="flex items-center gap-4">
           {Object.entries(typeObj)?.map(([key, val]) => (
             <div key={key} className="flex items-center gap-1">
@@ -85,20 +75,6 @@ const Calendar = () => {
             </div>
           ))}
         </div>
-
-        {isLoading ? (
-          <div className="flex items-center gap-4">
-            <p>Loading ...</p>
-
-            <Loader size="xs" />
-          </div>
-        ) : (
-          userInfo?.role_id == 1 && (
-            <div className="w-[200px]">
-              <GradeSectionSubject hideLabel form={form} usage={["grade"]} />
-            </div>
-          )
-        )}
       </div>
 
       <div className="">

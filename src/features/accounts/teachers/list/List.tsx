@@ -36,7 +36,7 @@ const List = () => {
               detailCb={() =>
                 navigate(`/accounts/teachers/details/${element.id}`)
               }
-              destroyCb={() => {}}
+              destroyCb={() => onSubmit(`/users/${element?.id}`, {}, "DELETE")}
               editCb={() => navigate(`/accounts/teachers/edit/${element.id}`)}
             />
           </td>

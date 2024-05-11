@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FormLayout from "@/components/layouts/FormLayout";
-import DateInputComponent from "@/components/inputs/DateInputComponent";
+// import DateInputComponent from "@/components/inputs/DateInputComponent";
 import ImageUpload from "@/components/inputs/ImageUpload";
 import PasswordInputComponent from "@/components/inputs/PasswordInputComponent";
 import SelectComponent from "@/components/inputs/SelectComponent";
@@ -10,12 +10,12 @@ import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 const Create = () => {
   const [profile, setProfile] = useState<File | undefined>();
 
-  const form = useForm<any>({
+  const form = useForm({
     initialValues: {
       name: "",
       email: "",
@@ -23,13 +23,12 @@ const Create = () => {
       gender: "",
       password: "",
       password_confirmation: "",
-      date_of_birth: "",
+      // date_of_birth: "",
       address: "",
     },
     validateInputOnBlur: true,
     validate: {
       name: (value: string) => (value.length > 0 ? null : "Name is required"),
-
       phone: (value: string) => (value.length > 0 ? null : "Phone is required"),
       gender: (value: string) =>
         value.length > 0 ? null : "Gender is required",
@@ -37,8 +36,8 @@ const Create = () => {
         value.length > 0 ? null : "Password is required",
       password_confirmation: (value: string, values: any) =>
         value === values.password ? null : "Password doesn't match",
-      date_of_birth: (value: string) =>
-        value ? null : "Date of Birth is required",
+      // date_of_birth: (value: string) =>
+      //   value ? null : "Date of Birth is required",
       address: (value: string) =>
         value.length > 0 ? null : "Address is required",
     },
@@ -51,10 +50,10 @@ const Create = () => {
 
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
-      if (key === "date_of_birth") {
-        formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
-        return;
-      }
+      // if (key === "date_of_birth") {
+      //   formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
+      //   return;
+      // }
 
       formData.append(key, value as string);
     });
@@ -86,7 +85,7 @@ const Create = () => {
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 mt-4">
         <TextInputComponent
           label="Name"
-          placeholder="Enter namee"
+          placeholder="Enter name"
           withAsterisk
           form={form}
           name="name"
@@ -135,7 +134,7 @@ const Create = () => {
           name="password_confirmation"
         />
 
-        <div className="md:col-span-2 col-span-1">
+        {/* <div className="md:col-span-2 col-span-1">
           <DateInputComponent
             placeholder="Choose date"
             label="Date of birth"
@@ -143,7 +142,7 @@ const Create = () => {
             form={form}
             name="date_of_birth"
           />
-        </div>
+        </div> */}
 
         <div className="md:col-span-2 col-span-1">
           <TextAreaComponent

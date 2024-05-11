@@ -57,6 +57,9 @@ const Details = () => {
         <p className="font-light">
           <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         </p>
+        <p className="font-light">{data?.grade}</p>
+        <p className="font-light">{data?.section}</p>
+        <p className="font-light">{data?.subject}</p>
       </div>
 
       <div className="sm:mt-6 mt-3 space-y-3">

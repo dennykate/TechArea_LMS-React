@@ -4,7 +4,6 @@ import FormLayout from "@/components/layouts/FormLayout";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
 import SelectComponent from "@/components/inputs/SelectComponent";
 import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
-
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import {
   recurrenceOccurence,
@@ -52,8 +51,8 @@ const Edit = () => {
         value.length > 0 ? null : "Password is required",
       grade_id: (value: string) =>
         value.length > 0 ? null : "Grade ID is required",
-      section_id: (value: string) =>
-        value.length > 0 ? null : "Section ID is required",
+      // section_id: (value: string) =>
+      //   value.length > 0 ? null : "Section ID is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject ID is required",
       recurrence_type: (value: string, values) =>
@@ -114,7 +113,7 @@ const Edit = () => {
     (data) => {
       form.setFieldValue("agenda", data?.agenda);
       form.setFieldValue("topic", data?.topic);
-      form.setFieldValue("duration", data?.meeting_duration);
+      form.setFieldValue("duration", parseInt(data?.meeting_duration));
       form.setFieldValue("password", data?.meeting_password);
       form.setFieldValue("grade_id", data?.grade_id);
       form.setFieldValue("section_id", data?.section_id);
@@ -141,7 +140,7 @@ const Edit = () => {
 
   return (
     <FormLayout
-      title="Edit Schedule"
+      title="Edit Zoom Meeting"
       queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
@@ -211,7 +210,10 @@ const Edit = () => {
         />
 
         <div className="md:col-span-2 col-span-1">
-          <GradeSectionSubject form={form} />
+          <GradeSectionSubject form={form}   asterisk={{
+              grade: true,
+              subject: true,
+            }}/>
         </div>
 
         {form.values.type == "8" && (

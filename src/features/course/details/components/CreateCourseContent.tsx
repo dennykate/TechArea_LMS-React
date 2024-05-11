@@ -9,7 +9,7 @@ import VideoPlayer from "@/components/common/VideoPlayer";
 import TextEditorInput from "@/components/inputs/TextEditorInput";
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import useMutate from "@/hooks/useMutate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
@@ -76,16 +76,64 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
     onSubmit("/course-contents", formData, "POST", true);
   };
 
+  useEffect(() => {
+    setFile(null);
+    form.setFieldValue("youtubeURL", "");
+  }, [form.values.type]);
+
   return (
     <FormLayout
       wrapperClassName="sm:px-2 px-0 py-4"
       isModal
+      fullpageLoading
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       onCancel={close}
     >
       <div className="space-y-4">
-        {(form.values.type === "image" || form.values.type === "video") && (
+        <TextInputComponent
+          label="Name"
+          placeholder="Enter Name"
+          withAsterisk
+          form={form}
+          name="name"
+        />
+
+        <TextAreaComponent
+          label="Description"
+          placeholder="Enter Description"
+          withAsterisk
+          form={form}
+          name="description"
+        />
+
+        {(form.values.type === "text" || form.values.type === "image") && (
+          <NumberInputComponent
+            label="Course Duration ( In Minutes )"
+            placeholder="Enter duration"
+            withAsterisk
+            form={form}
+            name="timmer"
+          />
+        )}
+
+        <SelectComponent
+          data={courseContentType}
+          label="Content Type"
+          withAsterisk
+          placeholder="Select Content Type"
+          form={form}
+          name="type"
+        />
+
+        {form.values.type === "image" && (
+          <FileUpload
+            type={form.values.type as "video" | "image"}
+            setSingleFile={setFile}
+          />
+        )}
+
+        {form.values.type === "video" && (
           <FileUpload
             type={form.values.type as "video" | "image"}
             setSingleFile={setFile}
@@ -110,41 +158,6 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
           <TextEditorInput
             value={form.values.text}
             onChange={(val) => form.setFieldValue("text", val)}
-          />
-        )}
-
-        <TextInputComponent
-          label="Name"
-          placeholder="Enter Name"
-          withAsterisk
-          form={form}
-          name="name"
-        />
-
-        <SelectComponent
-          data={courseContentType}
-          label="Content Type"
-          withAsterisk
-          placeholder="Select Content Type"
-          form={form}
-          name="type"
-        />
-
-        <TextAreaComponent
-          label="Description"
-          placeholder="Enter Description"
-          withAsterisk
-          form={form}
-          name="description"
-        />
-
-        {(form.values.type === "text" || form.values.type === "image") && (
-          <NumberInputComponent
-            label="Duration ( In Minutes )"
-            placeholder="Enter duration"
-            withAsterisk
-            form={form}
-            name="timmer"
           />
         )}
       </div>
