@@ -44,10 +44,11 @@ const EventCard: React.FC<PropsType> = ({ data }) => {
           className="w-full h-[240px] object-cover"
         />
         <div className="p-5">
-        
+
           <p className=" font-poppins font-bold text-xl">{data?.title}</p>
 
           <div
+          
             dangerouslySetInnerHTML={{ __html: data?.description }}
             className="font-sans text-base mt-2 line-clamp-3"
           />
