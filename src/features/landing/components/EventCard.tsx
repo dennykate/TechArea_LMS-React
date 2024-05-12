@@ -52,8 +52,9 @@ const EventCard: React.FC<PropsType> = ({ data }) => {
             dangerouslySetInnerHTML={{ __html: data?.description }}
 
             className="font-sans text-base mt-2 line-clamp-3"
-            
+
           />
+          
         </div>
 
         <div
