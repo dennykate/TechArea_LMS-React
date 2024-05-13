@@ -44,19 +44,17 @@ const EventCard: React.FC<PropsType> = ({ data }) => {
           className="w-full h-[240px] object-cover"
         />
         <div className="p-5">
-
           <p className=" font-poppins font-bold text-xl">{data?.title}</p>
 
           <div
-
             dangerouslySetInnerHTML={{ __html: data?.description }}
-            
             className="font-sans text-base mt-2 line-clamp-3"
           />
         </div>
 
         <div
-          className="absolute bottom-0 left-0 right-0 w-full h-[3px] bg-[#F4524C] lg:hidden block
+          className="absolute bottom-0 
+          left-0 right-0 w-full h-[3px] bg-[#F4524C] lg:hidden block
        group-hover:block"
         ></div>
       </div>
