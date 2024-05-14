@@ -5,7 +5,7 @@ import { IconPencilMinus } from "@tabler/icons-react";
 import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
 import TeacherInformation from "./components/TeacherInformation";
-import TeacherCourseAndQuiz from "./components/TeacherCourseAndQuiz";
+// import TeacherCourseAndQuiz from "./components/TeacherCourseAndQuiz";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams } from "react-router-dom";
@@ -57,9 +57,9 @@ const Details = () => {
         <TeacherInformation data={data} />
       </div>
 
-      <div className="sm:mt-6 mt-3">
+      {/* <div className="sm:mt-6 mt-3">
         <TeacherCourseAndQuiz />
-      </div>
+      </div> */}
     </DetailsLayout>
   );
 };

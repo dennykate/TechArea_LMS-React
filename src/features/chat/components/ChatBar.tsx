@@ -13,6 +13,7 @@ import { FaUserPlus, FaUserGroup } from "react-icons/fa6";
 import { useGetDataQuery } from "@/redux/api/queryApi";
 import CreateGroupChat from "./group-chats/CreateGroupChat";
 import { Link } from "react-router-dom";
+import useUserInfo from "@/hooks/use-user-info";
 
 interface Data {
   partner: { role: string; name: string; profile: string; id: string };
@@ -27,6 +28,7 @@ interface FunProps {
 }
 
 const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
+  const userInfo = useUserInfo();
   const { data, error, isLoading } = useGetDataQuery(`conversations`);
   const { data: groupChatData } = useGetDataQuery("group-chats");
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -67,11 +69,13 @@ const ChatBar: React.FC<FunProps> = ({ toggleChatRoom }) => {
           Chat Room <IoChatbubbles />
         </Link>
         <div className="flex gap-4">
-          <FaUserGroup
-            onClick={openGroupModal}
-            className="text-primary cursor-pointer"
-            size={22}
-          />
+          {userInfo?.role_id != "1" && (
+            <FaUserGroup
+              onClick={openGroupModal}
+              className="text-primary cursor-pointer"
+              size={22}
+            />
+          )}
           <FaUserPlus
             onClick={openSingleModal}
             className="text-primary cursor-pointer"

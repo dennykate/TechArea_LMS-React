@@ -114,63 +114,64 @@ const GroupChatMate: React.FC<LayoutProps> = ({
                 </Badge>
               </div>
 
-              {userInfo?.id === data?.created_by && (
-                <Menu
-                  opened={opened}
-                  onClose={close}
-                  shadow="md"
-                  width={200}
-                  position="bottom-end"
-                >
-                  <Menu.Target>
-                    <ActionIcon
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        open();
-                      }}
-                      className="hover:bg-transparent opacity-50 hover:opacity-100"
-                    >
-                      <IconDotsVertical size={20} color="black" />
-                    </ActionIcon>
-                  </Menu.Target>
+              {userInfo?.id === data?.created_by &&
+                userInfo?.role_id != "1" && (
+                  <Menu
+                    opened={opened}
+                    onClose={close}
+                    shadow="md"
+                    width={200}
+                    position="bottom-end"
+                  >
+                    <Menu.Target>
+                      <ActionIcon
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          open();
+                        }}
+                        className="hover:bg-transparent opacity-50 hover:opacity-100"
+                      >
+                        <IconDotsVertical size={20} color="black" />
+                      </ActionIcon>
+                    </Menu.Target>
 
-                  <Menu.Dropdown>
-                    <Menu.Item
-                      onClick={(e) => {
-                        e.stopPropagation();
+                    <Menu.Dropdown>
+                      <Menu.Item
+                        onClick={(e) => {
+                          e.stopPropagation();
 
-                        managementOpen();
-                      }}
-                      icon={<IconUsers size={14} />}
-                    >
-                      Manage Users
-                    </Menu.Item>
-                    <Menu.Item
-                      onClick={(e) => {
-                        e.stopPropagation();
+                          managementOpen();
+                        }}
+                        icon={<IconUsers size={14} />}
+                      >
+                        Manage Users
+                      </Menu.Item>
+                      <Menu.Item
+                        onClick={(e) => {
+                          e.stopPropagation();
 
-                        editOpen();
-                      }}
-                      icon={<IconPencil size={14} />}
-                    >
-                      Edit
-                    </Menu.Item>
-                    <Menu.Item
-                      onClick={(e) => {
-                        e.stopPropagation();
+                          editOpen();
+                        }}
+                        icon={<IconPencil size={14} />}
+                      >
+                        Edit
+                      </Menu.Item>
+                      <Menu.Item
+                        onClick={(e) => {
+                          e.stopPropagation();
 
-                        alertActions(() => {
-                          onDelete(`/group-chats/${data.id}`, {}, "DELETE");
-                        }, "Are you sure to delete this chat");
-                      }}
-                      color="red"
-                      icon={<IconTrash size={14} />}
-                    >
-                      Delete
-                    </Menu.Item>
-                  </Menu.Dropdown>
-                </Menu>
-              )}
+                          alertActions(() => {
+                            onDelete(`/group-chats/${data.id}`, {}, "DELETE");
+                          }, "Are you sure to delete this chat");
+                        }}
+                        color="red"
+                        icon={<IconTrash size={14} />}
+                      >
+                        Delete
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+                )}
             </Flex>
             <Text c="dimmed" className="opacity-90" fz={12}>
               {textTruncate(data?.description, 27)}
@@ -187,7 +188,7 @@ const GroupChatMate: React.FC<LayoutProps> = ({
         onClose={editClose}
         centered
         size={"xl"}
-        title="Create New Group"
+        title="Update Group"
       >
         <EditGroupChat id={data?.id} onClose={editClose} />
       </Modal>

@@ -28,7 +28,7 @@ const ClassCard = ({ data }: PropsType) => {
     <>
       <div
         onClick={open}
-        className={`bg-white flex flex-col rounded-md relative lg:w-full sm:w-2/3 w-full mx-auto shadow-md
+        className={`bg-white flex cursor-pointer flex-col rounded-md relative lg:w-full sm:w-2/3 w-full mx-auto shadow-md
        hover:translate-y-[-2px] transition-all duration-300 ease-in-out hover:shadow-lg `}
       >
         <div className="w-full h-[250px] relative">
