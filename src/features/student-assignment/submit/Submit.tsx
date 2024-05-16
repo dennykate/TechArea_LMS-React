@@ -7,7 +7,7 @@ import { banRoles } from "@/data/banRoles";
 import withPermissions from "@/hocs/withPermissions";
 import useMutate from "@/hooks/useMutate";
 import useQuery from "@/hooks/useQuery";
-import { Loader } from "@mantine/core";
+import { Alert, Loader } from "@mantine/core";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { MdAssignment } from "react-icons/md";
@@ -71,6 +71,35 @@ const Submit = () => {
             </p>
             <p>Deadline - {data?.deadline}</p>
           </div>
+
+          {data?.my_assignment_report && (
+            <>
+              {data?.my_assignment_report?.marks && (
+                <div className="mb-4">
+                  <Alert>
+                    You got {data?.my_assignment_report?.marks} Marks in this
+                    assignment
+                  </Alert>
+                </div>
+              )}
+              <div className="">
+                <p>My Submitted Answer(s): </p>
+                <div className="flex items-center gap-2 flex-wrap mt-2">
+                  {data?.my_assignment_report?.attachments?.map(
+                    (attachment: any) => (
+                      <div className="w-[200px] h-[200px]">
+                        <img
+                          src={attachment?.url}
+                          alt="file"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+            </>
+          )}
 
           {data?.attachments?.length > 0 && (
             <div className="">
