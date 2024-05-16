@@ -95,7 +95,7 @@ const Edit = () => {
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Staff List", link: "/accounts/staffs/list" },
-        { title: "New Staff", link: "" },
+        { title: "Edit Staff", link: "" },
       ]}
       header={{
         image:
