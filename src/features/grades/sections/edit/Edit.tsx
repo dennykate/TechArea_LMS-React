@@ -10,7 +10,7 @@ import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 
 const Edit = () => {
-  const { sectionId } = useParams();
+  const { sectionId, gradeId } = useParams();
 
   const form = useForm<any>({
     initialValues: {
@@ -43,7 +43,7 @@ const Edit = () => {
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Grade List", link: "/grades" },
-        { title: "Grade Details", link: "/grades/details/1" },
+        { title: "Grade Details", link: `/grades/details/${gradeId}` },
         { title: "Edit Section", link: "" },
       ]}
       header={{

@@ -90,7 +90,7 @@ const Edit = () => {
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Zoom Meeting List", link: "/zoom-meetings/list" },
-        { title: "New Zoom Meeting", link: "" },
+        { title: "Edit Zoom Meeting", link: "" },
       ]}
       header={{
         image:

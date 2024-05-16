@@ -104,7 +104,9 @@ const Submit = () => {
           {data?.attachments?.length > 0 && (
             <div className="">
               <p>Lessons: </p>
-              <MediaViewer attachments={data?.attachments} />
+              <div className="w-full mt-2">
+                <MediaViewer attachments={data?.attachments} />
+              </div>
             </div>
           )}
         </div>

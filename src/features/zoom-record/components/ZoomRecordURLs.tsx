@@ -46,7 +46,7 @@ const ZoomRecordURLs: React.FC<PropsType> = ({ urls, setUrls }) => {
                 });
               }}
               type="button"
-              className=" bg-red-500 min-w-[32px] h-[32px] flex justify-center items-center rounded-md hover:bg-red-700"
+              className=" bg-red-500 min-w-[32px] h-[32px] flex justify-center items-center relative rounded-md hover:bg-red-700"
             >
               <IconTrashFilled color="white" size={16} />
 

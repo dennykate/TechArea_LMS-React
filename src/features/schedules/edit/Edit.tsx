@@ -51,6 +51,8 @@ const Edit = () => {
   const { isLoading: queryLoading } = useQuery(
     `/academic-calendar-events/${scheduleId}`,
     (data) => {
+      console.log("schedule => ", data);
+
       form.setValues({
         ...data,
         role_id: data?.role_id,

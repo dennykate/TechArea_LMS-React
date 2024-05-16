@@ -47,7 +47,7 @@ const FormLayout = ({
   };
 
   return (
-    <>
+    <div>
       {submitLoading && fullpageLoading && <FullPageLoader />}
 
       {header && <FormHeader data={header} />}
@@ -95,7 +95,7 @@ const FormLayout = ({
           )}
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

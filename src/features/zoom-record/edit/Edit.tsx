@@ -88,7 +88,7 @@ const Edit = () => {
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Zoom Record List", link: "/zoom-records/list" },
-        { title: "New Zoom Record", link: "" },
+        { title: "Edit Zoom Record", link: "" },
       ]}
       header={{
         image:
@@ -96,7 +96,7 @@ const Edit = () => {
         title: "Loream Ispum",
       }}
     >
-      <div className="space-y-4">
+      <div className="flex flex-col gap-4 mt-4">
         <TextInputComponent
           label="Title"
           placeholder="Enter title"

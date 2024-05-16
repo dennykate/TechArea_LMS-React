@@ -34,7 +34,7 @@ const Create = () => {
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Grade List", link: "/grades" },
-        { title: "Grade Details", link: "/grades/details/1" },
+        { title: "Grade Details", link: `/grades/details/${gradeId}` },
         { title: "New Subject", link: "" },
       ]}
       header={{

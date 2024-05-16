@@ -122,9 +122,7 @@ const List = () => {
           </div>
 
           <div className="flex items-center gap-10 mt-6">
-            <h2 className="sm:text-xl text-lg font-[400]">
-              Set Home Room Teacher
-            </h2>
+            <h2 className="sm:text-xl text-lg font-[400]">Set Class Teacher</h2>
 
             <MyButton onClick={open}>Set Teacher</MyButton>
           </div>
@@ -135,7 +133,7 @@ const List = () => {
         <SectionStudent sectionId={sectionId as string} />
       </div>
 
-      <Modal title="Home Room Teacher" onClose={close} opened={opened} centered>
+      <Modal title="Class Teacher" onClose={close} opened={opened} centered>
         <AddTeacher
           sectionId={sectionId as string}
           close={close}
