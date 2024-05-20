@@ -79,7 +79,7 @@ const Post: React.FC<ParentProps> = ({
   const [onSubmit, { isLoading: reactLoading }] = useMutate({
     navigateBack: false,
     callback: () => {
-      toast.success("Unreact successfully");
+      // toast.success("Unreact successfully");
       // resetData();
       data && directChangeReaction(data.id, data.is_reactor.type, "remove");
     },

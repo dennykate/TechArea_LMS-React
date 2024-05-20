@@ -34,7 +34,12 @@ const CreateMemory: React.FC<PropsType> = ({ onClose }) => {
 
   return (
     <div className="w-full flex flex-col gap-4">
-      <FileUpload type="image" setMultileFile={setFiles} multiple />
+      <FileUpload
+        type="image"
+        setMultileFile={setFiles}
+        setSingleFile={(file: File | undefined) => setFiles([file as File])}
+        multiple
+      />
 
       <MyButton
         loading={isLoading}
