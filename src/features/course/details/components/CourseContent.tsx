@@ -19,7 +19,7 @@ const CourseContent: React.FC<PropsType> = ({ data }) => {
   return (
     <>
       <div className="w-full flex justify-between items-center">
-        <Heading tag="h2">Course Contents</Heading>
+        <Heading tag="h2">Lesson Contents</Heading>
 
         <MyButton onClick={open} leftIcon={<IconBookUpload size={16} />}>
           Create New

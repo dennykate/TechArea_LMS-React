@@ -55,7 +55,7 @@ const List = () => {
           link: "/dashboard",
         },
         {
-          title: "Course List",
+          title: "Lesson List",
           link: "",
         },
       ]}
@@ -67,7 +67,7 @@ const List = () => {
         Icon={MdOutlineMenuBook}
         addNewRoute="/courses/create"
         rows={rows}
-        title={"Course List"}
+        title={"Lesson List"}
         tableHeads={[
           "Thumbnail",
           "Name",

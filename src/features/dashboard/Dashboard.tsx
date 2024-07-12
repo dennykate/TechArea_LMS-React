@@ -20,7 +20,7 @@ const Dashboard = () => {
         <div className="w-full lg:min-h-[500px] h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 shadow-md">
           <DonutChartContainer
             baseURL="/dashboard/top-enroll-courses"
-            title="Popular Courses"
+            title="Popular Lessons"
           />
         </div>
       </div>

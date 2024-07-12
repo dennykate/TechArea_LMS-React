@@ -80,7 +80,7 @@ const List = () => {
           "Title",
           "Description",
           "Grade",
-          "Section",
+          "Class",
           "Subject",
           "Created By",
           "Created At",

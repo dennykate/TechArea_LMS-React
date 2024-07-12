@@ -68,7 +68,7 @@ const List = () => {
           "Topic",
           "Meeting Id",
           "Grade",
-          "Section",
+          "Class",
           "Subject",
           "Start Time",
           "Created By",

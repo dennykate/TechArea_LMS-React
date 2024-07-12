@@ -72,14 +72,14 @@ const Create = () => {
 
   return (
     <FormLayout
-      title="Edit Course"
+      title="Edit Lesson"
       queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Course List", link: "/courses/list" },
-        { title: "Edit Course", link: "" },
+        { title: "Lesson List", link: "/courses/list" },
+        { title: "Edit Lesson", link: "" },
       ]}
       header={{
         image:

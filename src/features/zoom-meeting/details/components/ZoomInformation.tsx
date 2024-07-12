@@ -42,7 +42,7 @@ const ZoomInformation: React.FC<PropsType> = ({ data }) => {
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
-              Section
+              Class
             </p>
             <span className="sm:text-sm text-xs">- {data?.section}</span>
           </div>

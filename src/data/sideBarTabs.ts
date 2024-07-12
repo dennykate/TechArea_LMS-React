@@ -70,7 +70,7 @@ const sideBarTabs = [
   },
 
   {
-    label: "Courses",
+    label: "Lessons",
     icon: MdOutlineMenuBook,
     initiallyOpened: false,
     link: "/courses",
