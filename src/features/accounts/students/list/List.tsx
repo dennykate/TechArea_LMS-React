@@ -75,7 +75,7 @@ const List = () => {
       ]}
     >
       <div className="w-full bg-white rounded-md shadow-md border border-opacity-20 flex flex-col items-center gap-4 py-4">
-        <Heading tag="h2">Please choose Grade & Section first!</Heading>
+        <Heading tag="h2">Please choose Grade & Class first!</Heading>
 
         <div className="w-full flex justify-center items-center gap-4">
           <SelectComponent
@@ -90,8 +90,8 @@ const List = () => {
           />
 
           <SelectComponent
-            label="Section"
-            placeholder="Select section"
+            label="Class"
+            placeholder="Select class"
             data={sections?.map((section: any) => ({
               value: section?.id,
               label: section?.name,
