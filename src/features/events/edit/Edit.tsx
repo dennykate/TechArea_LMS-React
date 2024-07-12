@@ -23,7 +23,7 @@ const Edit = () => {
     validate: {
       title: (value: string) => (value.length > 0 ? null : "Title is required"),
       description: (value: string) =>
-        value.length > 0 ? null : "Description is required",
+        value.length > 0 ? null : "Note is required",
     },
   });
 
@@ -74,7 +74,7 @@ const Edit = () => {
           name="title"
         />
         <TextEditorInput
-          label="Description"
+          label="Note"
           value={form.values.description}
           onChange={(val) => form.setFieldValue("description", val)}
         />

@@ -51,7 +51,7 @@ const Edit = () => {
   const [onSubmit, { isLoading }] = useMutate();
 
   const onSubmitHandler = (values: any) => {
-    if (values.description == "") return toast.error("Description is requried");
+    if (values.description == "") return toast.error("Note is requried");
 
     const formData = new FormData();
 
@@ -144,7 +144,7 @@ const Edit = () => {
         </div>
 
         <TextEditorInput
-          label="Description"
+          label="Note"
           value={form.values.description}
           onChange={(val) => form.setFieldValue("description", val)}
         />

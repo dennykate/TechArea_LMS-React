@@ -78,7 +78,7 @@ const List = () => {
         tableHeads={[
           "Image",
           "Title",
-          "Description",
+          "Note",
           "Grade",
           "Class",
           "Subject",

@@ -28,7 +28,7 @@ const ScheduleInformation = ({ data }: ScheduleType) => {
 
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
-              Description
+              Note
             </p>
             <p className="sm:text-sm text-xs w-[90%]">- {data?.description}</p>
           </div>

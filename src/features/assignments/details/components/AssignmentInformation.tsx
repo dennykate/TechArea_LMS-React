@@ -43,7 +43,7 @@ const AssignmentInformation: React.FC<PropsType> = ({ data }) => {
           <p>{data?.marks}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p className="font-[500]">Description</p>
+          <p className="font-[500]">Note</p>
           <div
             className="line-clamp-1 truncate"
             dangerouslySetInnerHTML={{ __html: data?.description }}

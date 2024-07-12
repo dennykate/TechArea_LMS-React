@@ -36,7 +36,7 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
       type: (value: string) => (value.length > 0 ? null : "Type is required"),
       name: (value: string) => (value.length > 0 ? null : "Name is required"),
       description: (value: string) =>
-        value.length > 0 ? null : "Description is required",
+        value.length > 0 ? null : "Note is required",
       timmer: (value: number, values: any) =>
         values.type != "text" && values.type != "image"
           ? null
@@ -100,8 +100,8 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
         />
 
         <TextAreaComponent
-          label="Description"
-          placeholder="Enter Description"
+          label="Note"
+          placeholder="Enter Note"
           withAsterisk
           form={form}
           name="description"

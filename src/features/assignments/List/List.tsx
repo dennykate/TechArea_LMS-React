@@ -72,7 +72,7 @@ const List = () => {
         title={"Assignment List"}
         tableHeads={[
           "Title",
-          "Description",
+          "Note",
           "Grade",
           "Class",
           "Subject",

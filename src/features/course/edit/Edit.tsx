@@ -54,7 +54,7 @@ const Create = () => {
   );
 
   const onSubmitHandler = (values: any) => {
-    if (values.description == "") return toast.error("Description is requried");
+    if (values.description == "") return toast.error("Note is requried");
     // if (!file) return toast.error("File is requried");
 
     const formData = new FormData();
@@ -105,7 +105,7 @@ const Create = () => {
         />
 
         <TextEditorInput
-          label="Description"
+          label="Note"
           value={form.values.description}
           onChange={(val) => form.setFieldValue("description", val)}
         />

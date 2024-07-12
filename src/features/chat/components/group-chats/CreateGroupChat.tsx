@@ -59,8 +59,8 @@ const CreateGroupChat: React.FC<PropsType> = ({ onClose }) => {
         name="name"
       />
       <TextAreaComponent
-        label="Group Description"
-        placeholder="Enter group description"
+        label="Group Note"
+        placeholder="Enter group note"
         withAsterisk
         form={form}
         name="description"

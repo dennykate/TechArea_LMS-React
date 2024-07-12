@@ -56,7 +56,7 @@ const CreateGroup: React.FC<Props> = ({ close }) => {
           name="name"
         />
         <TextAreaComponent
-          label="Description"
+          label="Note"
           placeholder="Describe your group"
           form={form}
           name="description"
