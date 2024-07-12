@@ -18,7 +18,7 @@ const CourseInformation: React.FC<PropsType> = ({ data }) => {
         Grade - <span className="underline">{data?.grade}</span>
       </p>
       <p className="sm:text-sm text-xs font-[300] text-black/70">
-        Section - <span className="underline">{data?.section}</span>
+        Class - <span className="underline">{data?.section}</span>
       </p>
       <p className="sm:text-sm text-xs font-[300] text-black/70">
         Subject - <span className="underline">{data?.subject}</span>

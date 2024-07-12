@@ -100,8 +100,8 @@ const List = () => {
         Icon={MdOutlineClass}
         addNewRoute={`/grades/details/${gradeId}/sections/create`}
         rows={sections}
-        title={"Section List"}
-        tableHeads={["Section", "Created By", "Created At"]}
+        title={"Class List"}
+        tableHeads={["Class", "Created By", "Created At"]}
         baseUrl={`sections`}
         filter={`&filter[grade_id]=${gradeId}`}
         setData={setSectionData}

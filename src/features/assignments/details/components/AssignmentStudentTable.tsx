@@ -96,8 +96,7 @@ const AssignmentStudentTable: React.FC<PropsType> = ({ assignmentMarks }) => {
           "Marks",
           "Gender",
           "Grade",
-          "Section",
-          "Created At",
+          "Class"
         ]}
         baseUrl={`assignment-reports`}
         filter={`&assignment_id=${assignmentId}`}

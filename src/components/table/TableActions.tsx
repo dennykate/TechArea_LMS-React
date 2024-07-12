@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ActionIcon, Menu } from "@mantine/core";
+
 import alertActions from "@/utilities/alertActions";
 // import useDisableUI from "@/hooks/useDisableUI";
 import { MouseEvent } from "react";
@@ -7,7 +7,6 @@ import {
   IconInfoCircle,
   IconTrash,
   IconPencilMinus,
-  IconDotsVertical,
 } from "@tabler/icons-react";
 
 interface PropsType {
@@ -38,56 +37,39 @@ PropsType) => {
   };
 
   return (
-    <div className="w-full flex items-center pl-4">
-      <Menu shadow="md" width={200} position="bottom-end">
-        <Menu.Target>
-          <ActionIcon>
-            <IconDotsVertical size={20} color="black" />
-          </ActionIcon>
-        </Menu.Target>
+    <div className="w-full flex items-center gap-1">
+      {detailCb && (
+        <button
+          onClick={(e) => onClickHandler(e as any, detailCb)}
+          className="w-6 h-6 rounded-sm flex justify-center items-center text-white bg-green-400"
+        >
+          <IconInfoCircle size={14} />
+        </button>
+      )}
 
-        <Menu.Dropdown>
-          {detailCb && (
-            <Menu.Item
-              icon={<IconInfoCircle size={14} />}
-              onClick={(e) => onClickHandler(e as any, detailCb)}
-            >
-              Details
-            </Menu.Item>
-          )}
+      {editCb && (
+        <button
+          onClick={(e) => onClickHandler(e as any, editCb)}
+          className="w-6 h-6 rounded-sm flex justify-center items-center text-white bg-blue-400"
+        >
+          <IconPencilMinus size={14} />
+        </button>
+      )}
 
-          {editCb && (
-            <Menu.Item
-              icon={<IconPencilMinus size={14} />}
-              onClick={(e) => onClickHandler(e as any, editCb)}
-            >
-              Edit
-            </Menu.Item>
-          )}
-
-          {destroyCb && (
-            <>
-              <Menu.Divider />
-
-              <Menu.Label>Danger zone</Menu.Label>
-              <Menu.Item
-                color="red"
-                icon={<IconTrash size={14} />}
-                onClick={(e) =>
-                  onClickHandler(e as any, () => {
-                    alertActions(
-                      destroyCb as () => void,
-                      "Are you sure to delete"
-                    );
-                  })
-                }
-              >
-                Delete
-              </Menu.Item>
-            </>
-          )}
-        </Menu.Dropdown>
-      </Menu>
+      {destroyCb && (
+        <>
+          <button
+            onClick={(e) =>
+              onClickHandler(e as any, () => {
+                alertActions(destroyCb as () => void, "Are you sure to delete");
+              })
+            }
+            className="w-6 h-6 rounded-sm flex justify-center items-center text-white bg-red-400"
+          >
+            <IconTrash size={14} />
+          </button>
+        </>
+      )}
     </div>
   );
 };

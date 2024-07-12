@@ -66,8 +66,8 @@ const GradeSectionSubject: React.FC<PropsType> = ({
       {usage.includes("section") && (
         <SelectComponent
           disabled={grades?.length == 0 || form.values.grade_id == ""}
-          label={!hideLabel ? "Section" : ""}
-          placeholder="Select section"
+          label={!hideLabel ? "Class" : ""}
+          placeholder="Select class"
           data={
             sections?.map((section: any) => ({
               label: section?.name,
@@ -84,7 +84,7 @@ const GradeSectionSubject: React.FC<PropsType> = ({
         <SelectComponent
           disabled={grades?.length == 0 || form.values.grade_id == ""}
           label={!hideLabel ? "Subject" : ""}
-          placeholder="Select section"
+          placeholder="Select subject"
           data={
             subjects?.map((subject: any) => ({
               label: subject?.name,

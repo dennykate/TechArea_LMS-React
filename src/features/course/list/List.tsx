@@ -72,7 +72,7 @@ const List = () => {
           "Thumbnail",
           "Name",
           "Grade",
-          "Section",
+          "Class",
           "Subject",
           "Created By",
           "Created At",

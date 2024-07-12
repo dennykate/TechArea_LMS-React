@@ -21,7 +21,7 @@ const QuizInformation: React.FC<PropsType> = ({ data }) => {
           <p>{data?.grade}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p>Section</p>
+          <p>Class</p>
           <p>{data?.section}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">

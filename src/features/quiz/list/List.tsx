@@ -73,7 +73,7 @@ const List = () => {
           "Thumbnail",
           "Name",
           "Grade",
-          "Section",
+          "Class",
           "Subject",
           "Answer Count Limit",
           "Created By",

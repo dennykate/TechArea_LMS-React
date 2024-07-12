@@ -74,7 +74,7 @@ const List = () => {
           "Title",
           "Description",
           "Grade",
-          "Section",
+          "Class",
           "Subject",
           "Deadline",
           "Created By",

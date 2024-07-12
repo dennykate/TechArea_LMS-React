@@ -60,7 +60,7 @@ const SectionStudent: React.FC<PropsType> = ({ sectionId }) => {
       hideAddNew
       Icon={PiStudent}
       rows={rows}
-      title={"Section Student List"}
+      title={" Student List"}
       tableHeads={[
         "Profile",
         "Name",

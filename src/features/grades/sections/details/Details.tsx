@@ -39,7 +39,7 @@ const List = () => {
             link: `/grades/details/${gradeId}`,
           },
           {
-            title: "Section Details",
+            title: "Class Details",
             link: "",
           },
         ]}
@@ -74,7 +74,7 @@ const List = () => {
           <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4 ">
             <div className="">
               <h2 className="sm:text-xl text-lg font-[400]">
-                Section Information
+                Class Information
               </h2>
 
               <div className="space-y-2 mt-2">
