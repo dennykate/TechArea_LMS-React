@@ -57,13 +57,13 @@ const Create = () => {
 
   return (
     <FormLayout
-      title="Create Quiz"
+      title="Create Test"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Quiz List", link: "/quizzes/list" },
-        { title: "New Quiz", link: "" },
+        { title: "Test List", link: "/quizzes/list" },
+        { title: "New Test", link: "" },
       ]}
       header={{
         image:

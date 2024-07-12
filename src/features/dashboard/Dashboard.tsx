@@ -14,7 +14,7 @@ const Dashboard = () => {
         <div className="w-full lg:min-h-[500px] h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 shadow-md">
           <DonutChartContainer
             baseURL="/dashboard/top-answer-quizzes"
-            title="Popular Quizzes"
+            title="Popular Tests"
           />
         </div>
         <div className="w-full lg:min-h-[500px] h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 shadow-md">
@@ -26,13 +26,13 @@ const Dashboard = () => {
       </div>
       <div className="w-full h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 mb-5 shadow-md">
         <TopAssignmentMarkStudents
-          title="Top Quiz Mark Students"
+          title="Top Test Mark Students"
           baseURL="dashboard/top-answer-students"
         />
       </div>
       <div className="w-full h-auto bg-white rounded-[5px] sm:p-5 p-3 py-5 shadow-md">
         <TopAssignmentMarkStudents
-          title="Top Assignment Mark Students"
+          title="Top Homework Mark Students"
           baseURL="dashboard/top-assignment-mark-students"
         />
       </div>

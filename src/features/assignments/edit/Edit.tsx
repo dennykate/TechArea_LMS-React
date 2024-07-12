@@ -101,14 +101,14 @@ const Edit = () => {
 
   return (
     <FormLayout
-      title="Edit Assignment"
+      title="Edit Homework"
       queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Assignment List", link: "/assignments/list" },
-        { title: "Edit Assignment", link: "" },
+        { title: "Homework List", link: "/assignments/list" },
+        { title: "Edit Homework", link: "" },
       ]}
       header={{
         image:

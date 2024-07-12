@@ -57,7 +57,7 @@ const List = () => {
           link: "/dashboard",
         },
         {
-          title: "Assignment List",
+          title: "Homework List",
           link: "",
         },
       ]}
@@ -69,7 +69,7 @@ const List = () => {
         Icon={RiAdminLine}
         addNewRoute="/assignments/create"
         rows={rows}
-        title={"Assignment List"}
+        title={"Homework List"}
         tableHeads={[
           "Title",
           "Note",

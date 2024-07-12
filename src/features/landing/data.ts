@@ -3,7 +3,7 @@ export const navbarData = [
   "About Us",
   "Contact",
   "Teachers",
-  "Courses",
+  "Lessons",
 ];
 
 export const title =

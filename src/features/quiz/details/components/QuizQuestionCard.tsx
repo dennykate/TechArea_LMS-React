@@ -82,7 +82,7 @@ const QuizQuestionCard: React.FC<PropsType> = ({ data }) => {
 
       <Modal
         opened={opened}
-        title="Edit Quiz Question"
+        title="Edit Test Question"
         onClose={close}
         size="lg"
       >

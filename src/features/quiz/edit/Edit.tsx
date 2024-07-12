@@ -69,14 +69,14 @@ const Edit = () => {
 
   return (
     <FormLayout
-      title="Edit Quiz"
+      title="Edit Test"
       queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Quiz List", link: "/quizzes/list" },
-        { title: "Edit Quiz", link: "" },
+        { title: "Test List", link: "/quizzes/list" },
+        { title: "Edit Test", link: "" },
       ]}
       header={{
         image:

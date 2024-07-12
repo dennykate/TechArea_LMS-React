@@ -18,7 +18,7 @@ const QuizQuestion: React.FC<PropsType> = ({ questions }) => {
   return (
     <>
       <div className="w-full flex justify-between items-center">
-        <Heading tag="h2">Quiz Questions</Heading>
+        <Heading tag="h2">Test Questions</Heading>
 
         <MyButton onClick={open} leftIcon={<IconBookUpload size={16} />}>
           Create New
@@ -34,7 +34,7 @@ const QuizQuestion: React.FC<PropsType> = ({ questions }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Quiz Question"
+        title="Create Test Question"
         centered
         size="lg"
       >

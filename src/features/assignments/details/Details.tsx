@@ -23,8 +23,8 @@ const Details = () => {
       isLoading={isLoading}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Assignment List", link: "/assignments/list" },
-        { title: "Assignment Details", link: "" },
+        { title: "Homework List", link: "/assignments/list" },
+        { title: "Homework Details", link: "" },
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
