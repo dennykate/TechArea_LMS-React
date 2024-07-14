@@ -13,9 +13,10 @@ import useQuery from "@/hooks/useQuery";
 import { Logo } from "@/components";
 import MyButton from "@/components/buttons/MyButton";
 import { Link } from "react-router-dom";
-import { MdHome } from "react-icons/md";
+import { MdHome, MdOutlinePendingActions } from "react-icons/md";
 import { VscGraph } from "react-icons/vsc";
 import PostInsight from "./components/PostInsight";
+import PendingPost from "./components/PendingPost";
 
 const NewFeed = () => {
   const postContainerRef = useRef<any>();
@@ -26,7 +27,8 @@ const NewFeed = () => {
   const [opened, { open, close }] = useDisclosure();
   const [insightOpened, { open: insightOpen, close: insightClose }] =
     useDisclosure();
-
+  const [pendingOpened, { open: pendingOpen, close: pendingClose }] =
+    useDisclosure();
   const {
     // data: postData,
     isLoading,
@@ -207,24 +209,34 @@ const NewFeed = () => {
         </div>
 
         <div className="fixed md:bottom-16 md:right-16 bottom-3 right-3 flex flex-col gap-6 z-[10]">
-          <Tooltip label="post insight">
+          <Tooltip label="Pending Posts">
             <div
-              onClick={insightOpen}
-              className="text-2xl cursor-pointer w-16 h-16 hover:bg-blue-400
+              onClick={pendingOpen}
+              className="cursor-pointer w-12 h-12 hover:bg-blue-400
              bg-blue-500 text-white font-bold flex justify-center items-center 
              rounded-full"
             >
-              <VscGraph />
+              <MdOutlinePendingActions size={18} />
             </div>
           </Tooltip>
-          <Tooltip label="post upload">
+          <Tooltip label="Post Insight">
+            <div
+              onClick={insightOpen}
+              className=" cursor-pointer w-12 h-12 hover:bg-blue-400
+             bg-blue-500 text-white font-bold flex justify-center items-center 
+             rounded-full"
+            >
+              <VscGraph size={18} />
+            </div>
+          </Tooltip>
+          <Tooltip label="Post Upload">
             <div
               onClick={open}
-              className="text-3xl hidden cursor-pointer w-16 h-16 hover:bg-blue-400
+              className=" hidden cursor-pointer w-12 h-12 hover:bg-blue-400
              bg-blue-500 text-white font-bold md:flex justify-center items-center 
              rounded-full"
             >
-              <TbTextPlus />
+              <TbTextPlus size={18} />
             </div>
           </Tooltip>
         </div>
@@ -259,9 +271,18 @@ const NewFeed = () => {
           size={"lg"}
           opened={insightOpened}
           onClose={insightClose}
-          // title="Post Upload"
+          title="Post Insight ( Top Five Posts )"
         >
           <PostInsight />
+        </Modal>
+        <Modal
+          centered
+          size={"lg"}
+          opened={pendingOpened}
+          onClose={pendingClose}
+          title="Pending Posts"
+        >
+          <PendingPost />
         </Modal>
       </div>
     </div>

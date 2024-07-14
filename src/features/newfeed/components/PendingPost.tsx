@@ -6,7 +6,8 @@ import { Interweave } from "interweave";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const PostInsight = () => {
+
+const PendingPost = () => {
   const { data, isLoading } = useQuery(`/posts/insight/top-five`);
 
   return (
@@ -62,4 +63,4 @@ const PostInsight = () => {
   );
 };
 
-export default PostInsight;
+export default PendingPost;
