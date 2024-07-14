@@ -15,6 +15,8 @@ import MyButton from "../buttons/MyButton";
 import MyPagination from "../common/MyPagination";
 import SelectComponent from "../inputs/SelectComponent";
 
+import { TbFileExport } from "react-icons/tb";
+
 interface PropsType {
   rows: JSX.Element[];
   Icon?: IconType;
@@ -40,6 +42,7 @@ interface PropsType {
   addNewAction?: () => void;
   hideAddNew?: boolean;
   dLimit?: string;
+  hideExport?: boolean;
 }
 
 const TableComponent = ({
@@ -51,6 +54,7 @@ const TableComponent = ({
   addNewLabel = "Create New",
   search = true,
   limit = true,
+  hideExport = true,
   limitOnly = true,
   dateRangePicker = false,
   checkboxCol = true,
@@ -173,6 +177,14 @@ PropsType) => {
                     dateRange={dateRange}
                     setDateRange={setDateRange}
                   />
+                )}
+                {!hideExport && (
+                  <MyButton className="!bg-green-500 !hover:bg-green-400">
+                    <div className="flex gap-2 items-center text-sm">
+                      <TbFileExport size={18} />
+                      <p className="font-medium"> Export</p>
+                    </div>
+                  </MyButton>
                 )}
                 <div className="flex items-center gap-6 ">
                   {limitOnly && (
