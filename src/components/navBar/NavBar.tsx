@@ -9,6 +9,9 @@ import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import { useMediaQuery } from "@mantine/hooks";
 
+import { notiData } from "./data";
+import NotificationComponent from "./NotificationComponent";
+
 interface PropsType {
   toggle: () => void;
   Icon?: IconType;
@@ -57,6 +60,8 @@ const NavBar = ({
             />
           </div>
         </Link>
+
+        <NotificationComponent notiData={notiData} />
 
         <Tooltip label="News Feed">
           <Link to="/new-feed">
