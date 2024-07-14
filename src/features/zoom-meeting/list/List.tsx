@@ -50,7 +50,7 @@ const List = () => {
           link: "/dashboard",
         },
         {
-          title: "Zoom Meeting List",
+          title: "Online Classroom List",
           link: "",
         },
       ]}
@@ -62,13 +62,13 @@ const List = () => {
         Icon={BiLogoZoom}
         addNewRoute="/zoom-meetings/create"
         rows={rows}
-        title={"Zoom Meetings List"}
+        title={"Online Classroom List"}
         tableHeads={[
           "Agenda",
           "Topic",
           "Meeting Id",
           "Grade",
-          "Section",
+          "Class",
           "Subject",
           "Start Time",
           "Created By",

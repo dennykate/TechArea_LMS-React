@@ -66,7 +66,7 @@ const LearnCourseContentCard: React.FC<PropsType> = ({ data, onClose }) => {
       <div className=" space-y-2 px-[6px] mt-4">
         <Heading tag="h6">{data?.name}</Heading>
         <p className="text-sm text-gray-500">
-          Description
+          Note
           <div dangerouslySetInnerHTML={{ __html: data?.description }} />
         </p>
 

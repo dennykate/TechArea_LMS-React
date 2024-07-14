@@ -34,7 +34,7 @@ const Create = () => {
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
       description: (value: string) =>
-        value.length > 0 ? null : "Description is required",
+        value.length > 0 ? null : "Note is required",
       answer_limit: (value: number) =>
         value > 0 ? null : "Answer Limit is required",
     },
@@ -57,13 +57,13 @@ const Create = () => {
 
   return (
     <FormLayout
-      title="Create Quiz"
+      title="Create Test"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Quiz List", link: "/quizzes/list" },
-        { title: "New Quiz", link: "" },
+        { title: "Test List", link: "/quizzes/list" },
+        { title: "New Test", link: "" },
       ]}
       header={{
         image:
@@ -101,8 +101,8 @@ const Create = () => {
         />
 
         <TextAreaComponent
-          label="Description"
-          placeholder="Enter description"
+          label="Note"
+          placeholder="Enter note"
           withAsterisk
           form={form}
           name="description"

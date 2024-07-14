@@ -76,7 +76,7 @@ const List = () => {
         title={"Schedule List"}
         tableHeads={[
           "Title",
-          "Description",
+          "Note",
           "For",
           "Grade",
           "Start Date",

@@ -45,7 +45,7 @@ const Create = () => {
   const [onSubmit, { isLoading }] = useMutate();
 
   const onSubmitHandler = (values: any) => {
-    if (values.description == "") return toast.error("Description is requried");
+    if (values.description == "") return toast.error("Note is requried");
     if (!file) return toast.error("File is requried");
 
     const formData = new FormData();
@@ -77,13 +77,13 @@ const Create = () => {
 
   return (
     <FormLayout
-      title="Create Assignment"
+      title="Create Homework"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Assignment List", link: "/assignments/list" },
-        { title: "New Assignment", link: "" },
+        { title: "Homework List", link: "/assignments/list" },
+        { title: "New Homework", link: "" },
       ]}
       header={{
         image:
@@ -119,7 +119,7 @@ const Create = () => {
         </div>
 
         <TextEditorInput
-          label="Description"
+          label="Note"
           value={form.values.description}
           onChange={(val) => form.setFieldValue("description", val)}
         />

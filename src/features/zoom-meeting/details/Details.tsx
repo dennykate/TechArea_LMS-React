@@ -19,8 +19,8 @@ const Details = () => {
     <DetailsLayout
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Zoom Meeting List", link: "/zoom-meetings/list" },
-        { title: "Zoom Meeting Details", link: "" },
+        { title: "Online Classroom List", link: "/zoom-meetings/list" },
+        { title: "Online Classroom Details", link: "" },
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3 relative">

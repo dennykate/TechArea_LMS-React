@@ -23,8 +23,8 @@ const Details = () => {
       isLoading={isLoading}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Admin List", link: "/accounts/admins/list" },
-        { title: "Admin Details", link: "" },
+        { title: "Homework List", link: "/assignments/list" },
+        { title: "Homework Details", link: "" },
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
@@ -43,7 +43,7 @@ const Details = () => {
       <div className="sm:mt-6 mt-3">
         <AssignmentInformation data={data} />
 
-        {data?.attachments && (
+        {data?.attachments?.length > 0 && (
           <div className="mt-2 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
             <p>Lessons</p>
 

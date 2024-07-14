@@ -57,13 +57,13 @@ const Create = () => {
 
   return (
     <FormLayout
-      title="Create Schedule"
+      title="Create Online Classroom"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Zoom Meeting List", link: "/zoom-meetings/list" },
-        { title: "New Zoom Meeting", link: "" },
+        { title: "Online Classroom List", link: "/zoom-meetings/list" },
+        { title: "New Online Classroom", link: "" },
       ]}
       header={{
         image:

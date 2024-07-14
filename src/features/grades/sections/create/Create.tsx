@@ -18,7 +18,7 @@ const Create = () => {
     validateInputOnBlur: true,
     validate: {
       name: (value: string) =>
-        value.length > 0 ? null : "Section name is required",
+        value.length > 0 ? null : "Class name is required",
     },
   });
 
@@ -26,7 +26,7 @@ const Create = () => {
 
   return (
     <FormLayout
-      title="Create Section"
+      title="Create Class"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) =>
         onSubmit("/sections", { ...values, grade_id: gradeId })
@@ -35,7 +35,7 @@ const Create = () => {
         { title: "Dashboard", link: "/dashboard" },
         { title: "Grade List", link: "/grades" },
         { title: "Grade Details", link: `/grades/details/${gradeId}` },
-        { title: "New Section", link: "" },
+        { title: "New Class", link: "" },
       ]}
       header={{
         image:

@@ -32,7 +32,7 @@ const Edit = () => {
 
   return (
     <FormLayout
-      title="Edit Section"
+      title="Edit Class"
       queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) =>
@@ -41,8 +41,8 @@ const Edit = () => {
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Grade List", link: "/grades" },
-        { title: "Grade Details", link: "/grades/details/1" },
-        { title: "Edit Section", link: "" },
+        { title: "Grade Details", link: `/grades/details/${sectionId}` },
+        { title: "Edit Class", link: "" },
       ]}
       header={{
         image:

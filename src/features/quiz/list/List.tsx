@@ -56,7 +56,7 @@ const List = () => {
           link: "/dashboard",
         },
         {
-          title: "Quiz List",
+          title: "Test List",
           link: "",
         },
       ]}
@@ -68,12 +68,12 @@ const List = () => {
         Icon={MdQuiz}
         addNewRoute="/quizzes/create"
         rows={rows}
-        title={"Quiz List"}
+        title={"Test List"}
         tableHeads={[
           "Thumbnail",
           "Name",
           "Grade",
-          "Section",
+          "Class",
           "Subject",
           "Answer Count Limit",
           "Created By",

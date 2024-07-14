@@ -21,8 +21,8 @@ const Details = () => {
     <DetailsLayout
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Course List", link: "/courses/list" },
-        { title: "Course Details", link: "" },
+        { title: "Lesson List", link: "/courses/list" },
+        { title: "Lesson Details", link: "" },
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
@@ -53,7 +53,7 @@ const Details = () => {
       <div className="mt-4">
         <Tabs defaultValue="contents">
           <Tabs.List>
-            <Tabs.Tab value="contents">Course Contents</Tabs.Tab>
+            <Tabs.Tab value="contents">Lesson Contents</Tabs.Tab>
             <Tabs.Tab value="students">Learning Students</Tabs.Tab>
           </Tabs.List>
 

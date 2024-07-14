@@ -188,8 +188,8 @@ const Edit = () => {
         />
         <div className="md:col-span-2 col-span-1">
           <TextAreaComponent
-            label="Description"
-            placeholder="Enter description"
+            label="Note"
+            placeholder="Enter note"
             form={form}
             name="description"
           />

@@ -121,13 +121,13 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close, id }) => {
             { value: "true/false", label: "True/False" },
           ]}
           label="Type"
-          placeholder="Select Quiz Type"
+          placeholder="Select Test Type"
           form={form}
           name="type"
         />
 
         <TextInputComponent
-          label="Qustion"
+          label="Question"
           placeholder="Enter Question"
           withAsterisk
           form={form}

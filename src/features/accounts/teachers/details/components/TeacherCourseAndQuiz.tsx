@@ -22,7 +22,7 @@ const TeacherCourseAndQuiz = () => {
           value="quizzes"
           icon={<IconDeviceDesktopQuestion size={18} />}
         >
-          Quizzes
+          Tests
         </Tabs.Tab>
       </Tabs.List>
 

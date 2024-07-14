@@ -54,7 +54,7 @@ const Create = () => {
   );
 
   const onSubmitHandler = (values: any) => {
-    if (values.description == "") return toast.error("Description is requried");
+    if (values.description == "") return toast.error("Note is requried");
     // if (!file) return toast.error("File is requried");
 
     const formData = new FormData();
@@ -72,14 +72,14 @@ const Create = () => {
 
   return (
     <FormLayout
-      title="Edit Course"
+      title="Edit Lesson"
       queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Course List", link: "/courses/list" },
-        { title: "Edit Course", link: "" },
+        { title: "Lesson List", link: "/courses/list" },
+        { title: "Edit Lesson", link: "" },
       ]}
       header={{
         image:
@@ -105,7 +105,7 @@ const Create = () => {
         />
 
         <TextEditorInput
-          label="Description"
+          label="Note"
           value={form.values.description}
           onChange={(val) => form.setFieldValue("description", val)}
         />

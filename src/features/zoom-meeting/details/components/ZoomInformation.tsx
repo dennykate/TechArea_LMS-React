@@ -11,7 +11,7 @@ const ZoomInformation: React.FC<PropsType> = ({ data }) => {
     <div className=" ">
       <div className="">
         <h2 className="sm:text-xl text-base font-[400] mb-5">
-          Zoom Meeting Details
+         Online Classroom Details
         </h2>
 
         <div className="space-y-2 mt-2">
@@ -42,7 +42,7 @@ const ZoomInformation: React.FC<PropsType> = ({ data }) => {
           </div>
           <div className="flex gap-1">
             <p className="sm:text-sm text-xs text-black/70 font-medium min-w-[80px]">
-              Section
+              Class
             </p>
             <span className="sm:text-sm text-xs">- {data?.section}</span>
           </div>

@@ -1,12 +1,13 @@
 import {
   MdDashboard,
-  MdPeople,
+  // MdPeople,
   MdOutlineMenuBook,
   MdSchool,
   MdQuiz,
   MdQuestionAnswer,
   MdAssignment,
   MdAssignmentTurnedIn,
+  MdSettings,
   // MdChat,
   // MdPodcasts,
 } from "react-icons/md";
@@ -31,12 +32,13 @@ const sideBarTabs = [
     link: "/dashboard",
     banRoles: banRoles.dashboard,
   },
+
   {
-    label: "Accounts",
-    icon: MdPeople,
+    label: "Setting",
+    icon: MdSettings,
     initiallyOpened: false,
     link: undefined,
-    banRoles: banRoles.accounts.overall,
+    // banRoles: banRoles.accounts.overall,
     links: [
       {
         icon: RiAdminLine,
@@ -66,25 +68,39 @@ const sideBarTabs = [
         path: "/accounts/students",
         banRoles: banRoles.accounts.students,
       },
+      {
+        label: "Lessons",
+        icon: MdOutlineMenuBook,
+        link: "/courses",
+        path: "/courses",
+        banRoles: banRoles.courses,
+      },
+      {
+        label: "Grades",
+        icon: MdSchool,
+        link: "/grades",
+        path: "/grades",
+        banRoles: banRoles.grades,
+      },
+      {
+        label: "Lessons",
+        icon: FaBookReader,
+        link: "/student-courses",
+        path: "/student-courses",
+        banRoles: banRoles.student_courses,
+      },
     ],
   },
 
   {
-    label: "Courses",
-    icon: MdOutlineMenuBook,
-    initiallyOpened: false,
-    link: "/courses",
-    banRoles: banRoles.courses,
-  },
-  {
-    label: "Quizzes",
+    label: "Tests",
     icon: MdQuiz,
     initiallyOpened: false,
     link: "/quizzes",
     banRoles: banRoles.quizzes,
   },
   {
-    label: "Assignments",
+    label: "Homework",
     icon: MdAssignment,
     initiallyOpened: false,
     link: "/assignments",
@@ -105,13 +121,7 @@ const sideBarTabs = [
     link: "/events",
     banRoles: banRoles.events,
   },
-  {
-    label: "Grades",
-    icon: MdSchool,
-    initiallyOpened: false,
-    link: "/grades",
-    banRoles: banRoles.grades,
-  },
+
   {
     label: "Schedules",
     icon: AiFillSchedule,
@@ -120,7 +130,7 @@ const sideBarTabs = [
     banRoles: banRoles.schedules,
   },
   {
-    label: "Zoom Meetings",
+    label: "Online Classroom",
     icon: BiLogoZoom,
     initiallyOpened: false,
     link: "/zoom-meetings",
@@ -133,22 +143,16 @@ const sideBarTabs = [
     link: "/zoom-records",
     banRoles: banRoles.zoom_records,
   },
+
   {
-    label: "Courses",
-    icon: FaBookReader,
-    initiallyOpened: false,
-    link: "/student-courses",
-    banRoles: banRoles.student_courses,
-  },
-  {
-    label: "Quizzes",
+    label: "Tests",
     icon: MdQuestionAnswer,
     initiallyOpened: false,
     link: "/student-quizzes",
     banRoles: banRoles.student_quizzes,
   },
   {
-    label: "Assignments",
+    label: "Homework",
     icon: MdAssignmentTurnedIn,
     initiallyOpened: false,
     link: "/student-assignments",
@@ -161,7 +165,7 @@ const sideBarTabs = [
     link: "/calendar",
   },
   {
-    label: "Zoom Meetings",
+    label: "Online Classroom",
     icon: SiGoogleclassroom,
     initiallyOpened: false,
     link: "/student-classes",

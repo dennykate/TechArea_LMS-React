@@ -9,7 +9,7 @@ interface PropsType {
 const AssignmentInformation: React.FC<PropsType> = ({ data }) => {
   return (
     <div className=" space-y-2 pb-6 border-b border-black border-opacity-20">
-      <Heading tag="h2">Assignment Information</Heading>
+      <Heading tag="h2">Homework Information</Heading>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
@@ -17,7 +17,7 @@ const AssignmentInformation: React.FC<PropsType> = ({ data }) => {
           <p>{data?.grade}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p className="font-[500]">Section</p>
+          <p className="font-[500]">Class</p>
           <p>{data?.section}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
@@ -43,7 +43,7 @@ const AssignmentInformation: React.FC<PropsType> = ({ data }) => {
           <p>{data?.marks}</p>
         </div>
         <div className="sm:text-sm text-xs font-[300] text-black/70 flex flex-col">
-          <p className="font-[500]">Description</p>
+          <p className="font-[500]">Note</p>
           <div
             className="line-clamp-1 truncate"
             dangerouslySetInnerHTML={{ __html: data?.description }}

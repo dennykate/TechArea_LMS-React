@@ -46,7 +46,7 @@ const AnswerStudents = () => {
         "Name",
         "Gender",
         "Grade",
-        "Section",
+        "Class",
         "Total Score",
         "Total Score Percentage",
         "Lastest Answered At",

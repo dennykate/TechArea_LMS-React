@@ -1,13 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DateInput } from "@mantine/dates";
-import { InputProps } from "./types/type";
+import { DateInput, DateInputProps } from "@mantine/dates";
 import { UseFormReturnType } from "@mantine/form";
 import { IoCalendarSharp } from "react-icons/io5";
 
-interface PropsType extends InputProps {
-  // value?: number | string;
-  // onChangeHandler?: (e: ChangeEvent<HTMLInputElement>) => void;
-  // disabled?: boolean;
+interface PropsType extends Omit<DateInputProps, "form"> {
   form?: UseFormReturnType<any>;
   name?: string;
   format?: string;
@@ -20,9 +16,11 @@ export default function DateInputComponent({
   name,
   format,
   withAsterisk,
+  ...props
 }: PropsType) {
   return (
     <DateInput
+      {...props}
       valueFormat={format ? format : "YYYY/MM/DD"}
       label={label}
       placeholder={`${placeholder} ( Format - 2023/01/09 )`}
