@@ -9,6 +9,7 @@ import useQuery from "@/hooks/useQuery";
 import moment from "moment";
 import useUserInfo from "@/hooks/use-user-info";
 import { Modal } from "@mantine/core";
+import List from "../schedules/list/List";
 
 type EventType = "exams" | "meetings" | "holidays" | "events";
 
@@ -65,7 +66,7 @@ const Calendar = () => {
 
   return (
     <>
-      <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar sm:overflow-x-hidden overflow-x-auto">
+      <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar sm:overflow-x-hidden overflow-y-auto overflow-x-auto">
         <div className="flex sm:items-center items-start justify-between mb-4 sm:flex-row flex-col gap-4">
           <div className="flex items-center gap-4">
             {Object.entries(typeObj)?.map(([key, val]) => (
@@ -80,7 +81,7 @@ const Calendar = () => {
           </div>
         </div>
 
-        <div className="">
+        <div className="bg-white p-3 rounded-md">
           <FullCalendar
             plugins={[
               dayGridPlugin,
@@ -106,7 +107,7 @@ const Calendar = () => {
           />
         </div>
       </div>
-
+      <List/>
       <Modal
         opened={!!startDate}
         onClose={() => setStartDate(undefined)}

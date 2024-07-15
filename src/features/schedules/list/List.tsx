@@ -54,24 +54,13 @@ const List = () => {
   );
 
   return (
-    <TableLayout
-      linkItems={[
-        {
-          title: "Dashboard",
-          link: "/dashboard",
-        },
-        {
-          title: "Schedule List",
-          link: "",
-        },
-      ]}
-    >
+    <TableLayout>
       <TableComponent
         checkboxCol={false}
         dateRangePicker
         pagination
         Icon={RiAdminLine}
-        addNewRoute="/schedules/create"
+        hideAddNew
         rows={rows}
         title={"Schedule List"}
         tableHeads={[

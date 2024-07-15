@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import MyButton from "@/components/buttons/MyButton";
 import useQuery from "@/hooks/useQuery";
 import { Avatar, Loader } from "@mantine/core";
 import { Interweave } from "interweave";
 import React from "react";
 import { Link } from "react-router-dom";
-
 
 const PendingPost = () => {
   const { data, isLoading } = useQuery(`/posts/insight/top-five`);
@@ -20,7 +20,10 @@ const PendingPost = () => {
 
       <div className="max-h-[70vh] overflow-y-auto pr-4  space-y-5">
         {data?.map((post: any) => (
-          <div className="flex flex-col gap-2 w-full border rounded shadow-md px-2 py-2 overflow-hidden">
+          <div className="flex flex-col gap-2 w-full border rounded shadow-md px-2 py-2 overflow-hidden relative">
+            <MyButton className="!w-[70px] !h-[30px] absolute top-2 right-2 !px-1 !text-xs !font-normal">
+              Approve
+            </MyButton>
             <div className="flex items-center gap-4 sm:flex-row flex-col">
               <img
                 src={post?.image}
@@ -29,7 +32,6 @@ const PendingPost = () => {
               />
 
               <div className="flex flex-col h-full gap-2 w-full ">
-                {/* <Heading tag="h6">Title</Heading> */}
                 <p className=" truncate sm:text-[13px] text-[11px] text-gray-500 ">
                   <Interweave content={post?.content} />
                 </p>
