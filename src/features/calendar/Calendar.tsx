@@ -9,7 +9,8 @@ import useQuery from "@/hooks/useQuery";
 import moment from "moment";
 import useUserInfo from "@/hooks/use-user-info";
 import { Modal } from "@mantine/core";
-import List from "../schedules/list/List";
+// import List from "../schedules/list/List";
+import Create from "../schedules/create/Create";
 
 type EventType = "exams" | "meetings" | "holidays" | "events";
 
@@ -107,13 +108,15 @@ const Calendar = () => {
           />
         </div>
       </div>
-      <List/>
+      {/* <List /> */}
       <Modal
         opened={!!startDate}
         onClose={() => setStartDate(undefined)}
         title="Create Schedule"
         centered
-      ></Modal>
+      >
+        <Create startDate={startDate}/>
+      </Modal>
     </>
   );
 };

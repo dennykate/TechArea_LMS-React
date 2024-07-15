@@ -18,7 +18,10 @@ import { banRoles } from "@/data/banRoles";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { twMerge } from "tailwind-merge";
 
-const Create = () => {
+interface PropsType {
+  startDate?: Date;
+}
+const Create = ({ startDate }: PropsType) => {
   // const theme = useMantineTheme();
   // const [isFullDay, setIsFullDay] = useState<boolean>(false);
 
@@ -26,8 +29,8 @@ const Create = () => {
     initialValues: {
       title: "",
       type: "",
-      start_date: new Date(),
-      end_date: new Date(),
+      start_date: startDate ?? new Date(),
+      end_date: startDate ?? new Date(),
       description: "",
       role_id: "",
       grade_id: "",
@@ -66,21 +69,12 @@ const Create = () => {
   //
   return (
     <FormLayout
-      title="Create Schedule"
       submitLoading={isLoading}
+      isModal
+      wrapperClassName="!p-0"
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
-      linkItems={[
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Schedule List", link: "/schedules/list" },
-        { title: "New Schedule", link: "" },
-      ]}
-      header={{
-        image:
-          "https://images.pexels.com/photos/3401403/pexels-photo-3401403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        title: "Loream Ispum",
-      }}
     >
-      <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-7 gap-3">
+      <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
         <TextInputComponent
           label="Title"
           placeholder="Enter title"
@@ -104,7 +98,9 @@ const Create = () => {
 
         <div
           className={twMerge(
-            form.values?.role_id != "1" ? "sm:col-span-2 col-span-1" : "col-span-1"
+            form.values?.role_id != "1"
+              ? "sm:col-span-2 col-span-1"
+              : "col-span-1"
           )}
         >
           <SelectComponent
@@ -160,12 +156,14 @@ const Create = () => {
           withAsterisk
           form={form}
           name="start_date"
+          className="whitespace-nowrap"
         />
         <DateTimeInputComponent
           placeholder="Choose end date"
           label="End Date"
           withAsterisk
           form={form}
+          className="whitespace-nowrap"
           name="end_date"
         />
         <div className="md:col-span-2 col-span-1">
