@@ -11,6 +11,7 @@ import useUserInfo from "@/hooks/use-user-info";
 import { Modal } from "@mantine/core";
 // import List from "../schedules/list/List";
 import Create from "../schedules/create/Create";
+import List from "../schedules/list/List";
 
 type EventType = "exams" | "meetings" | "holidays" | "events";
 
@@ -66,8 +67,8 @@ const Calendar = () => {
   };
 
   return (
-    <>
-      <div className="md:p-8 sm:p-4 p-2 md:py-8 py-6 custom-calendar sm:overflow-x-hidden overflow-y-auto overflow-x-auto">
+    <div>
+      <div className="md:p-8 sm:p-4 p-2 md:pt-8 pt-6 custom-calendar sm:overflow-x-hidden overflow-y-auto overflow-x-auto">
         <div className="flex sm:items-center items-start justify-between mb-4 sm:flex-row flex-col gap-4">
           <div className="flex items-center gap-4">
             {Object.entries(typeObj)?.map(([key, val]) => (
@@ -108,16 +109,18 @@ const Calendar = () => {
           />
         </div>
       </div>
-      {/* <List /> */}
+
+      <List />
+
       <Modal
         opened={!!startDate}
         onClose={() => setStartDate(undefined)}
         title="Create Schedule"
         centered
       >
-        <Create startDate={startDate}/>
+        <Create startDate={startDate} />
       </Modal>
-    </>
+    </div>
   );
 };
 
