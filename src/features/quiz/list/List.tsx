@@ -8,8 +8,10 @@ import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
-
-const List = () => {
+interface PropsType {
+  hideBreadCrumb?: boolean;
+}
+const List = ({ hideBreadCrumb = false }: PropsType) => {
   const [onSubmit] = useMutate();
 
   const [data, setData] = useState<any>();
@@ -48,7 +50,29 @@ const List = () => {
     [data, navigate, onSubmit]
   );
 
-  return (
+  return hideBreadCrumb ? (
+    <TableComponent
+      checkboxCol={false}
+      dateRangePicker
+      pagination
+      Icon={MdQuiz}
+      addNewRoute="/quizzes/create"
+      rows={rows}
+      title={"Test List"}
+      tableHeads={[
+        "Thumbnail",
+        "Name",
+        "Grade",
+        "Class",
+        "Subject",
+        "Answer Count Limit",
+        "Created By",
+        "Created At",
+      ]}
+      baseUrl="quizzes"
+      setData={setData}
+    />
+  ) : (
     <TableLayout
       linkItems={[
         {

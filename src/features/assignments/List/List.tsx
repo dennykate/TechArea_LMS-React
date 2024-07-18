@@ -7,8 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
 import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
-
-const List = () => {
+interface PropsType {
+  hideBreadCrumb?: boolean;
+}
+const List = ({ hideBreadCrumb = false }: PropsType) => {
   const [onSubmit] = useMutate();
 
   const [data, setData] = useState<any>();
@@ -49,7 +51,29 @@ const List = () => {
     [data, navigate, onSubmit]
   );
 
-  return (
+  return hideBreadCrumb ? (
+    <TableComponent
+      checkboxCol={false}
+      dateRangePicker
+      pagination
+      Icon={RiAdminLine}
+      addNewRoute="/assignments/create"
+      rows={rows}
+      title={"Homework List"}
+      tableHeads={[
+        "Title",
+        "Note",
+        "Grade",
+        "Class",
+        "Subject",
+        "Deadline",
+        "Created By",
+        "Created At",
+      ]}
+      baseUrl="assignments"
+      setData={setData}
+    />
+  ) : (
     <TableLayout
       linkItems={[
         {

@@ -10,6 +10,8 @@ import { Tabs } from "@mantine/core";
 import LearningStudents from "./components/LearningStudents";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import HomeworkList from "./components/HomeworkList";
+import TestList from "./components/TestList";
 
 const Details = () => {
   const { courseId } = useParams();
@@ -55,6 +57,8 @@ const Details = () => {
           <Tabs.List>
             <Tabs.Tab value="contents">Lesson Contents</Tabs.Tab>
             <Tabs.Tab value="students">Learning Students</Tabs.Tab>
+            <Tabs.Tab value="homework">Homework</Tabs.Tab>
+            <Tabs.Tab value="tests">Tests</Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="contents" pt="xs">
@@ -63,6 +67,12 @@ const Details = () => {
 
           <Tabs.Panel value="students" pt="xs">
             <LearningStudents />
+          </Tabs.Panel>
+          <Tabs.Panel value="homework" pt="xs">
+            <HomeworkList />
+          </Tabs.Panel>
+          <Tabs.Panel value="tests" pt="xs">
+            <TestList />
           </Tabs.Panel>
         </Tabs>
       </div>
