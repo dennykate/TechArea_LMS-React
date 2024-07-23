@@ -13,7 +13,7 @@ import {
 } from "react-icons/md";
 import { PiStudent, PiChalkboardTeacherLight } from "react-icons/pi";
 import { IoPeopleOutline, IoFilm } from "react-icons/io5";
-import { FaBookReader, FaCalendarAlt } from "react-icons/fa";
+import { FaBookReader } from "react-icons/fa";
 import { RiAdminLine } from "react-icons/ri";
 import { AiFillSchedule } from "react-icons/ai";
 import { BiLogoZoom } from "react-icons/bi";
@@ -126,7 +126,7 @@ const sideBarTabs = [
     label: "Schedules",
     icon: AiFillSchedule,
     initiallyOpened: false,
-    link: "/schedules",
+    link: "/calendar",
     banRoles: banRoles.schedules,
   },
   {
@@ -157,12 +157,6 @@ const sideBarTabs = [
     initiallyOpened: false,
     link: "/student-assignments",
     banRoles: banRoles.student_assignments,
-  },
-  {
-    label: "Calendar",
-    icon: FaCalendarAlt,
-    initiallyOpened: false,
-    link: "/calendar",
   },
   {
     label: "Online Classroom",

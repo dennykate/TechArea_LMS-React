@@ -28,6 +28,7 @@ const Edit = () => {
       password: "",
       password_confirmation: "",
       date_of_birth: "",
+      learning_expire_at: "",
       address: "",
       grade_id: "",
       section_id: "",
@@ -48,6 +49,8 @@ const Edit = () => {
           : null,
       date_of_birth: (value: string) =>
         value ? null : "Date of Birth is required",
+      learning_expire_at: (value: string) =>
+        value ? null : "Learning Expired Date is required",
       address: (value: string) =>
         value.length > 0 ? null : "Address is required",
       grade_id: (value: string) =>
@@ -174,15 +177,20 @@ const Edit = () => {
           />
         </div>
 
-        <div className="md:col-span-2 col-span-1">
-          <DateInputComponent
-            placeholder="Choose date"
-            label="Date of birth"
-            withAsterisk
-            form={form}
-            name="date_of_birth"
-          />
-        </div>
+        <DateInputComponent
+          placeholder="Choose date"
+          label="Date of birth"
+          withAsterisk
+          form={form}
+          name="date_of_birth"
+        />
+        <DateInputComponent
+          placeholder="Choose date"
+          label="Learning Expired Date"
+          withAsterisk
+          form={form}
+          name="learning_expire_at"
+        />
 
         <div className="md:col-span-2 col-span-1">
           <TextAreaComponent

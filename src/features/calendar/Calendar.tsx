@@ -68,7 +68,7 @@ const Calendar = () => {
 
   return (
     <div>
-      <div className="md:p-8 sm:p-4 p-2 md:pt-8 pt-6 custom-calendar sm:overflow-x-hidden overflow-y-auto overflow-x-auto">
+      <div className="md:px-8 sm:px-4 px-2 md:pt-8 pt-6 custom-calendar sm:overflow-x-hidden overflow-y-auto overflow-x-auto">
         <div className="flex sm:items-center items-start justify-between mb-4 sm:flex-row flex-col gap-4">
           <div className="flex items-center gap-4">
             {Object.entries(typeObj)?.map(([key, val]) => (
@@ -109,7 +109,6 @@ const Calendar = () => {
           />
         </div>
       </div>
-
       <List />
 
       <Modal

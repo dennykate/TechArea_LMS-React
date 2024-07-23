@@ -19,6 +19,8 @@ const Create = () => {
     initialValues: {
       title: "",
       grade_id: "",
+      chapter_title: "",
+      chapter_description: "",
       section_id: "",
       subject_id: "",
       description: "",
@@ -29,8 +31,10 @@ const Create = () => {
       title: (value: string) => (value.length > 0 ? null : "Title is required"),
       grade_id: (value: string) =>
         value.length > 0 ? null : "Grade is required",
-      // section_id: (value: string) =>
-      //   value.length > 0 ? null : "Section is required",
+      chapter_title: (value: string) =>
+        value.length > 0 ? null : "Chapter Title is required",
+      chapter_description: (value: string) =>
+        value.length > 0 ? null : "Chapter Description is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
       description: (value: string) =>
@@ -91,7 +95,20 @@ const Create = () => {
             name="answer_limit"
           />
         </div>
-
+        <TextInputComponent
+          label="Chapter Title"
+          placeholder="Enter chapter title"
+          withAsterisk
+          form={form}
+          name="chapter_title"
+        />
+        <TextAreaComponent
+          label="Chapter Description"
+          placeholder="Enter chapter description"
+          withAsterisk
+          form={form}
+          name="chapter_description"
+        />
         <GradeSectionSubject
           form={form}
           asterisk={{

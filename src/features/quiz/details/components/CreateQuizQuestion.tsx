@@ -94,7 +94,9 @@ const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
       onCancel={close}
     >
       <div className="space-y-4">
-        <FileUpload setSingleFile={setFile} />
+        <FileUpload setSingleFile={setFile} label="Image" />
+        
+        <FileUpload setSingleFile={setFile} label="Video" />
 
         <SelectComponent
           data={[

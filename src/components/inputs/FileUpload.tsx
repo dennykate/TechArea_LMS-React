@@ -14,6 +14,7 @@ interface PropsType extends Partial<DropzoneProps> {
   setSingleFile?: (x: File | undefined) => void;
   setMultileFile?: (x: File[] | undefined) => void;
   defaultImage?: string;
+  label?: string;
 }
 
 const FileUpload: React.FC<PropsType> = ({
@@ -22,6 +23,7 @@ const FileUpload: React.FC<PropsType> = ({
   setMultileFile,
   defaultImage = "",
   multiple = false,
+  label,
   ...props
 }) => {
   const theme = useMantineTheme();
@@ -43,59 +45,62 @@ const FileUpload: React.FC<PropsType> = ({
   return (
     <>
       {!previewUrl && (files?.length == 0 || !files) && (
-        <Dropzone
-          onDrop={handleDrop}
-          onReject={(files) => console.log("rejected files", files)}
-          // maxSize={3 * 1024 ** 2}
-          accept={
-            type === "all"
-              ? []
-              : type === "image"
-              ? IMAGE_MIME_TYPE
-              : ["video/mp4"]
-          }
-          multiple={multiple}
-          {...props}
-        >
-          <Group
-            position="center"
-            spacing="xl"
-            style={{ minHeight: 220, pointerEvents: "none" }}
-            className=""
+        <div className="space-y-2">
+          {label && <label className="sm:text-[16px] text-[14px] font-medium">{label}</label>}
+          <Dropzone
+            onDrop={handleDrop}
+            onReject={(files) => console.log("rejected files", files)}
+            // maxSize={3 * 1024 ** 2}
+            accept={
+              type === "all"
+                ? []
+                : type === "image"
+                ? IMAGE_MIME_TYPE
+                : ["video/mp4"]
+            }
+            multiple={multiple}
+            {...props}
           >
-            <Dropzone.Accept>
-              <IconUpload
-                size="3.2rem"
-                stroke={1.5}
-                color={
-                  theme.colors[theme.primaryColor][
-                    theme.colorScheme === "dark" ? 4 : 6
-                  ]
-                }
-              />
-            </Dropzone.Accept>
-            <Dropzone.Reject>
-              <IconX
-                size="3.2rem"
-                stroke={1.5}
-                color={theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]}
-              />
-            </Dropzone.Reject>
-            <Dropzone.Idle>
-              <IconPhoto size="3.2rem" stroke={1.5} />
-            </Dropzone.Idle>
+            <Group
+              position="center"
+              spacing="xl"
+              style={{ minHeight: 220, pointerEvents: "none" }}
+              className=""
+            >
+              <Dropzone.Accept>
+                <IconUpload
+                  size="3.2rem"
+                  stroke={1.5}
+                  color={
+                    theme.colors[theme.primaryColor][
+                      theme.colorScheme === "dark" ? 4 : 6
+                    ]
+                  }
+                />
+              </Dropzone.Accept>
+              <Dropzone.Reject>
+                <IconX
+                  size="3.2rem"
+                  stroke={1.5}
+                  color={theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]}
+                />
+              </Dropzone.Reject>
+              <Dropzone.Idle>
+                <IconPhoto size="3.2rem" stroke={1.5} />
+              </Dropzone.Idle>
 
-            <div>
-              <Text size="xl" inline>
-                Drag here or click to select files
-              </Text>
-              <Text size="sm" color="dimmed" inline mt={7}>
-                Attach as many files as you like, each file should not exceed
-                5mb
-              </Text>
-            </div>
-          </Group>
-        </Dropzone>
+              <div>
+                <Text size="xl" inline>
+                  Drag here or click to select files
+                </Text>
+                <Text size="sm" color="dimmed" inline mt={7}>
+                  Attach as many files as you like, each file should not exceed
+                  5mb
+                </Text>
+              </div>
+            </Group>
+          </Dropzone>
+        </div>
       )}
 
       {previewUrl && (

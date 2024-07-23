@@ -113,7 +113,12 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close, id }) => {
       onCancel={close}
     >
       <div className="space-y-4">
-        <FileUpload defaultImage={defaultImage} setSingleFile={setFile} />
+        <FileUpload
+          defaultImage={defaultImage}
+          setSingleFile={setFile}
+          label="Image"
+        />
+        <FileUpload setSingleFile={setFile} label="Video" />
 
         <SelectComponent
           data={[
