@@ -58,7 +58,7 @@ const Create = () => {
 
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
-      if (key === "date_of_birth") {
+      if (key === "date_of_birth" || key === "learning_expire_at") {
         formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
         return;
       }
@@ -141,7 +141,7 @@ const Create = () => {
           name="password_confirmation"
         />
 
-        <div className=" col-span-2">
+        <div className="md:col-span-2 col-span-1">
           <GradeSectionSubject
             form={form}
             usage={["grade", "section"]}

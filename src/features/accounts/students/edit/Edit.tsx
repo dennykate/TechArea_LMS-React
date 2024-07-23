@@ -63,7 +63,7 @@ const Edit = () => {
   const onSubmitHandler = (values: any) => {
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
-      if (key === "date_of_birth") {
+      if (key === "date_of_birth" || key === "learning_expire_at") {
         formData.append(key, dayjs(value as Date).format("DD-MM-YYYY"));
         return;
       }
@@ -89,6 +89,12 @@ const Edit = () => {
       "date_of_birth",
       data?.date_of_birth
         ? dayjs(data?.date_of_birth, "DD-MM-YYYY").toDate()
+        : ""
+    );
+    form.setFieldValue(
+      "learning_expire_at",
+      data?.learning_expire_at
+        ? dayjs(data?.learning_expire_at, "DD-MM-YYYY").toDate()
         : ""
     );
   });
@@ -167,7 +173,7 @@ const Edit = () => {
           name="password_confirmation"
         />
 
-        <div className=" col-span-2">
+        <div className="md:col-span-2 col-span-1">
           <GradeSectionSubject
             form={form}
             usage={["grade", "section"]}

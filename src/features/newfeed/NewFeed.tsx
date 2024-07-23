@@ -33,36 +33,39 @@ const NewFeed = () => {
     // data: postData,
     isLoading,
     // isFetching,
-  } = useQuery(`/posts?limit=10&page=${page}`, (data: any, meta: any) => {
-    if (data) {
-      // setPosts((prev: any[]) => {
-      //   const newData = data.filter(
-      //     (newItem: any) => !prev.some((prevItem) => prevItem.id === newItem.id)
-      //   );
+  } = useQuery(
+    `/posts?filter[status]=approved&limit=10&page=${page}`,
+    (data: any, meta: any) => {
+      if (data) {
+        // setPosts((prev: any[]) => {
+        //   const newData = data.filter(
+        //     (newItem: any) => !prev.some((prevItem) => prevItem.id === newItem.id)
+        //   );
 
-      //   return [...prev, ...newData];
-      // });
+        //   return [...prev, ...newData];
+        // });
 
-      setPosts((prev: any[]) => {
-        const prevItemsMap = new Map(prev.map((item) => [item.id, item]));
+        setPosts((prev: any[]) => {
+          const prevItemsMap = new Map(prev.map((item) => [item.id, item]));
 
-        data.forEach((newItem: any) => {
-          if (!prevItemsMap.has(newItem.id)) {
-            prevItemsMap.set(newItem.id, newItem);
-          }
+          data.forEach((newItem: any) => {
+            if (!prevItemsMap.has(newItem.id)) {
+              prevItemsMap.set(newItem.id, newItem);
+            }
+          });
+
+          // Convert the map back to an array
+          return Array.from(prevItemsMap.values());
         });
 
-        // Convert the map back to an array
-        return Array.from(prevItemsMap.values());
-      });
-
-      if (page < meta.last_page) {
-        setHasMore(true);
-      } else {
-        setHasMore(false);
+        if (page < meta.last_page) {
+          setHasMore(true);
+        } else {
+          setHasMore(false);
+        }
       }
     }
-  });
+  );
 
   const resetData = () => {
     setPosts([]);
@@ -282,7 +285,7 @@ const NewFeed = () => {
           onClose={pendingClose}
           title="Pending Posts"
         >
-          <PendingPost />
+          <PendingPost pendingClose={pendingClose}/>
         </Modal>
       </div>
     </div>
