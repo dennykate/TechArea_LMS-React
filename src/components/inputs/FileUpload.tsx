@@ -7,7 +7,7 @@ import {
   IconTrashFilled,
 } from "@tabler/icons-react";
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface PropsType extends Partial<DropzoneProps> {
   type?: "video" | "image" | "all";
@@ -31,6 +31,10 @@ const FileUpload: React.FC<PropsType> = ({
   const [files, setFiles] = useState<File[] | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(defaultImage);
 
+  useEffect(() => {
+    setPreviewUrl(defaultImage);
+  }, [defaultImage]);
+
   const handleDrop = (files: File[]) => {
     if (files.length === 1) {
       setFile(files[0]);
@@ -46,7 +50,11 @@ const FileUpload: React.FC<PropsType> = ({
     <>
       {!previewUrl && (files?.length == 0 || !files) && (
         <div className="space-y-2">
-          {label && <label className="sm:text-[16px] text-[14px] font-medium">{label}</label>}
+          {label && (
+            <label className="sm:text-[16px] text-[14px] font-medium">
+              {label}
+            </label>
+          )}
           <Dropzone
             onDrop={handleDrop}
             onReject={(files) => console.log("rejected files", files)}

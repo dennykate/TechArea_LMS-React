@@ -83,7 +83,7 @@ const sideBarTabs = [
         banRoles: banRoles.grades,
       },
       {
-        label: "Lessons",
+        label: "Student Lessons",
         icon: FaBookReader,
         link: "/student-courses",
         path: "/student-courses",

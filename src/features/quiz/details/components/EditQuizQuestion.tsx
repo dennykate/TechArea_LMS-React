@@ -123,7 +123,11 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close, id }) => {
           setSingleFile={setFile}
           label="Image"
         />
-        <FileUpload defaultImage={defaultVideo} setSingleFile={setVideo} label="Video" />
+        <FileUpload
+          defaultImage={defaultVideo}
+          setSingleFile={setVideo}
+          label="Video"
+        />
 
         <SelectComponent
           data={[
