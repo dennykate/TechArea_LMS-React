@@ -21,6 +21,7 @@ interface PropsType {
 const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
   const { quizId } = useParams();
   const [file, setFile] = useState<File | undefined>();
+  const [video, setVideo] = useState<File | undefined>();
 
   const form = useForm({
     initialValues: {
@@ -62,6 +63,7 @@ const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
     });
 
     formData.append("image", file as File);
+    formData.append("video", video as File);
     formData.append("quiz_id", quizId as string);
 
     let optionsWithCorrectAns: any[] = [];
@@ -95,8 +97,8 @@ const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
     >
       <div className="space-y-4">
         <FileUpload setSingleFile={setFile} label="Image" />
-        
-        <FileUpload setSingleFile={setFile} label="Video" />
+
+        <FileUpload setSingleFile={setVideo} label="Video" />
 
         <SelectComponent
           data={[

@@ -19,41 +19,46 @@ const QuizQuestionCard: React.FC<PropsType> = ({ data }) => {
   return (
     <>
       <div
-        className="w-full rounded-sm shadow-md p-4 space-y-2 border border-black border-opacity-10
-    relative  flex gap-4"
+        className="w-full rounded-sm shadow-md p-4 border border-black border-opacity-10
+    sm:relative"
       >
-        {data?.image && (
-          <div className="w-[200px] h-[100px]">
-            <img
-              src={data?.image}
-              alt={data?.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        )}
+        <div className="flex gap-4">
+          {data?.image && (
+            <div className="sm:w-[200px] min-w-[100px] h-[100px]">
+              <img
+                src={data?.image}
+                alt={data?.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
 
-        <div className="space-y-2">
-          <p className="sm:text-base text-sm font-[500] ">Qus. {data?.title}</p>
-          <p className="sm:text-base text-sm font-[500] ">Type. {data?.type}</p>
-          <div className="flex items-center gap-2">
-            <p className="sm:text-base text-sm font-[500] ">Ans.</p>
+          <div className="space-y-2 whitespace-nowrap">
+            <p className="sm:text-base text-sm font-[500] ">
+              Qus. {data?.title}
+            </p>
+            <p className="sm:text-base text-sm font-[500] ">
+              Type. {data?.type}
+            </p>
+            <div className="flex items-center gap-2">
+              <p className="sm:text-base text-sm font-[500] ">Ans.</p>
 
-            <div className="flex items-center gap-2 flex-wrap">
-              {data?.options?.map((option: any) => (
-                <Badge
-                  key={option?.id}
-                  size="sm"
-                  color={option?.is_correct ? "teal" : "red"}
-                >
-                  {option?.content}
-                </Badge>
-              ))}
+              <div className="flex items-center gap-2 flex-wrap">
+                {data?.options?.map((option: any) => (
+                  <Badge
+                    key={option?.id}
+                    size="sm"
+                    color={option?.is_correct ? "teal" : "red"}
+                  >
+                    {option?.content}
+                  </Badge>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-
         <div
-          className="sm:absolute sticky bottom-2 right-2 flex items-center gap-2 !mt-4 
+          className="sm:absolute static sm:bottom-2 sm:right-2 flex items-center gap-2 sm:!mt-4
        sm:w-auto w-full justify-end"
         >
           <MyButton

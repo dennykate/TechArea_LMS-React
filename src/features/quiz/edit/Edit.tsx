@@ -23,7 +23,7 @@ const Edit = () => {
       title: "",
       grade_id: "",
       chapter_title: "",
-      chapter_description: "",
+      chapter_note: "",
       section_id: "",
       subject_id: "",
       description: "",
@@ -38,8 +38,8 @@ const Edit = () => {
       //   value.length > 0 ? null : "Section is required",
       chapter_title: (value: string) =>
         value.length > 0 ? null : "Chapter Title is required",
-      chapter_description: (value: string) =>
-        value.length > 0 ? null : "Chapter Description is required",
+      chapter_note: (value: string) =>
+        value.length > 0 ? null : "Chapter Note is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
       description: (value: string) =>
@@ -70,6 +70,8 @@ const Edit = () => {
     form.setFieldValue("section_id", data?.section_id);
     form.setFieldValue("subject_id", data?.subject_id);
     form.setFieldValue("description", data?.description);
+    form.setFieldValue("chapter_title", data?.chapter?.title);
+    form.setFieldValue("chapter_note", data?.chapter?.note);
     form.setFieldValue("answer_limit", parseInt(data?.answer_limit));
   });
 
@@ -109,22 +111,21 @@ const Edit = () => {
             form={form}
             name="answer_limit"
           />
-        
         </div>
         <TextInputComponent
-            label="Chapter Title"
-            placeholder="Enter chapter title"
-            withAsterisk
-            form={form}
-            name="chapter_title"
-          />
-          <TextAreaComponent
-            label="Chapter Description"
-            placeholder="Enter chapter description"
-            withAsterisk
-            form={form}
-            name="chapter_description"
-          />
+          label="Chapter Title"
+          placeholder="Enter chapter title"
+          withAsterisk
+          form={form}
+          name="chapter_title"
+        />
+        <TextAreaComponent
+          label="Chapter Note"
+          placeholder="Enter chapter note"
+          withAsterisk
+          form={form}
+          name="chapter_note"
+        />
         <GradeSectionSubject
           form={form}
           asterisk={{

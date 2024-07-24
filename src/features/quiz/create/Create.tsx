@@ -20,7 +20,7 @@ const Create = () => {
       title: "",
       grade_id: "",
       chapter_title: "",
-      chapter_description: "",
+      chapter_note: "",
       section_id: "",
       subject_id: "",
       description: "",
@@ -33,8 +33,8 @@ const Create = () => {
         value.length > 0 ? null : "Grade is required",
       chapter_title: (value: string) =>
         value.length > 0 ? null : "Chapter Title is required",
-      chapter_description: (value: string) =>
-        value.length > 0 ? null : "Chapter Description is required",
+      chapter_note: (value: string) =>
+        value.length > 0 ? null : "Chapter Note is required",
       subject_id: (value: string) =>
         value.length > 0 ? null : "Subject is required",
       description: (value: string) =>
@@ -103,11 +103,11 @@ const Create = () => {
           name="chapter_title"
         />
         <TextAreaComponent
-          label="Chapter Description"
-          placeholder="Enter chapter description"
+          label="Chapter Note"
+          placeholder="Enter chapter note"
           withAsterisk
           form={form}
-          name="chapter_description"
+          name="chapter_note"
         />
         <GradeSectionSubject
           form={form}
