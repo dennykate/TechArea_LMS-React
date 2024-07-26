@@ -62,9 +62,12 @@ const List = () => {
         checkboxCol={false}
         dateRangePicker
         pagination
+        hideExport={false}
         Icon={IoPeopleOutline}
         addNewRoute="/accounts/staffs/create"
         rows={rows}
+          exportUrl="/users/data/export?filter[role_id]=4"
+        exportFileName="staff-list-"
         title={"Staff List"}
         tableHeads={[
           "Profile",

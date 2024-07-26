@@ -63,6 +63,9 @@ const List = () => {
         dateRangePicker
         pagination
         Icon={IoPeopleOutline}
+        hideExport={false}
+        exportUrl="/users/data/export?filter[role_id]=3"
+        exportFileName="admin-list-"
         addNewRoute="/accounts/admins/create"
         rows={rows}
         title={"Admin List"}

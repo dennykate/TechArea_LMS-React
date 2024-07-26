@@ -137,7 +137,7 @@ const sideBarTabs = [
     banRoles: banRoles.zoom_meetings,
   },
   {
-    label: "Zoom Record",
+    label: "Classroom Record",
     icon: FaHardDrive,
     initiallyOpened: false,
     link: "/zoom-records",

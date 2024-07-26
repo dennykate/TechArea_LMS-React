@@ -115,7 +115,12 @@ const List = () => {
           pagination
           Icon={IoPeopleOutline}
           hideAddNew
+          hideExport={false}
           // addNewRoute="/accounts/students/create"
+          exportUrl={`/users/data/export?filter[role_id]=1&filter[grade_id]=${gradeId}${
+            sectionId ? `&filter[section_id]=${sectionId}` : ""
+          }`}
+          exportFileName="student-list-"
           rows={rows}
           title={"Student List"}
           tableHeads={[

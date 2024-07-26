@@ -62,9 +62,12 @@ const List = () => {
         checkboxCol={false}
         dateRangePicker
         pagination
+        hideExport={false}
         Icon={IoPeopleOutline}
         addNewRoute="/accounts/teachers/create"
         rows={rows}
+        exportUrl="/users/data/export?filter[role_id]=2"
+        exportFileName="teacher-list-"
         title={"Teacher List"}
         tableHeads={[
           "Profile",

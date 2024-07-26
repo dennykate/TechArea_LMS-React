@@ -16,6 +16,8 @@ import MyPagination from "../common/MyPagination";
 import SelectComponent from "../inputs/SelectComponent";
 
 import { TbFileExport } from "react-icons/tb";
+import { downloadCSV } from "@/utilities/downloadCSV";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 interface PropsType {
   rows: JSX.Element[];
@@ -43,6 +45,8 @@ interface PropsType {
   hideAddNew?: boolean;
   dLimit?: string;
   hideExport?: boolean;
+  exportUrl?: string;
+  exportFileName?: string;
 }
 
 const TableComponent = ({
@@ -65,6 +69,8 @@ const TableComponent = ({
   disableTablePadding = false,
   baseUrl,
   filter = "",
+  exportUrl,
+  exportFileName,
   setData,
   addNewAction,
   hideAddNew,
@@ -74,6 +80,7 @@ PropsType) => {
   const [page, setPage] = useState<number>(1);
   const [dataLimit, setDataLimit] = useState<string>(dLimit);
   const [dataSearch, setDataSearch] = useDebouncedState<string>("", 500);
+  const { get } = useEncryptStorage();
   const [dateRange, setDateRange] = useState<{ start: Moment; end: Moment }>({
     start: moment()
       .subtract(moment().year() - 2000, "year")
@@ -169,8 +176,8 @@ PropsType) => {
 
             {limit && (
               <div
-                className="flex  sm:items-center items-end  gap-3
-              sm:w-auto w-full sm:justify-center justify-between"
+                className="flex flex-wrap sm:items-center items-end gap-3
+              sm:w-auto w-full sm:justify-center justify-end"
               >
                 {dateRangePicker && (
                   <DateRangePickerComponent
@@ -178,31 +185,65 @@ PropsType) => {
                     setDateRange={setDateRange}
                   />
                 )}
-                {!hideExport && (
-                  <MyButton className="!bg-green-500 !hover:bg-green-400">
-                    <div className="flex gap-2 items-center text-sm">
-                      <TbFileExport size={18} />
-                      <p className="font-medium"> Export</p>
-                    </div>
-                  </MyButton>
+
+                {!hideExport ? (
+                  <div className="sm:w-auto w-full flex items-center sm:justify-normal justify-end sm:gap-6 gap-3">
+                    {!hideExport && (
+                      <MyButton
+                        onClick={() => {
+                          if (exportUrl) {
+                            downloadCSV(
+                              exportUrl,
+                              exportFileName as string,
+                              get("token") as string
+                            );
+                          } else {
+                            console.error("Invalid URL:", exportUrl);
+                          }
+                        }}
+                        className="!bg-green-400 !hover:bg-green-400"
+                      >
+                        <div className="flex gap-2 items-center text-sm">
+                          <TbFileExport size={18} />
+                          <p className="font-medium"> Export</p>
+                        </div>
+                      </MyButton>
+                    )}
+                    {limitOnly && (
+                      <div className="w-[80px]">
+                        <SelectComponent
+                          defaultValue={dataLimit}
+                          value={dataLimit}
+                          onChangeHandler={(e) => setDataLimit(e)}
+                          data={[
+                            { value: "10", label: "10" },
+                            { value: "20", label: "20" },
+                            { value: "50", label: "50" },
+                            { value: "100", label: "100" },
+                          ]}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div>
+                    {limitOnly && (
+                      <div className="w-[80px]">
+                        <SelectComponent
+                          defaultValue={dataLimit}
+                          value={dataLimit}
+                          onChangeHandler={(e) => setDataLimit(e)}
+                          data={[
+                            { value: "10", label: "10" },
+                            { value: "20", label: "20" },
+                            { value: "50", label: "50" },
+                            { value: "100", label: "100" },
+                          ]}
+                        />
+                      </div>
+                    )}
+                  </div>
                 )}
-                <div className="flex items-center gap-6 ">
-                  {limitOnly && (
-                    <div className="w-[80px]">
-                      <SelectComponent
-                        defaultValue={dataLimit}
-                        value={dataLimit}
-                        onChangeHandler={(e) => setDataLimit(e)}
-                        data={[
-                          { value: "10", label: "10" },
-                          { value: "20", label: "20" },
-                          { value: "50", label: "50" },
-                          { value: "100", label: "100" },
-                        ]}
-                      />
-                    </div>
-                  )}
-                </div>
               </div>
             )}
           </div>
