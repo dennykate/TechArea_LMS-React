@@ -29,6 +29,7 @@ import { studentZoomRecordRoutes } from "@/features/student-zoom-record/routes";
 const Dashboard = lazy(() => import("@/features/dashboard/Dashboard"));
 const Profile = lazy(() => import("@/features/profile/Profile"));
 const Chat = lazy(() => import("@/features/chat/Chat"));
+const Report = lazy(() => import("@/features/report/Report"));
 const StudentCourse = lazy(
   () => import("@/features/student-course/StudentCourse")
 );
@@ -179,6 +180,14 @@ const privateRoutes = [
     element: (
       <Wrapper>
         <Chat />
+      </Wrapper>
+    ),
+  },
+  {
+    path: "report",
+    element: (
+      <Wrapper>
+        <Report />
       </Wrapper>
     ),
   },

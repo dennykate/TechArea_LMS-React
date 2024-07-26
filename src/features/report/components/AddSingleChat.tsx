@@ -4,7 +4,7 @@ import { useGetDataQuery } from "@/redux/api/queryApi";
 import { Pagination, Text } from "@mantine/core";
 import SelectComponent from "@/components/inputs/SelectComponent";
 import TextInputComponent from "@/components/inputs/TextInputComponent";
-import useUserInfo from "@/hooks/use-user-info";
+import { useDebouncedValue } from "@mantine/hooks";
 
 interface SearchProps {
   role: number;
@@ -29,12 +29,13 @@ const ITEMS_PER_PAGE = 16;
 
 const AddSingleChat: React.FC<ModelProps> = ({ close }) => {
   // all users
-  const userInfo = useUserInfo();
-  const [search, setSearch] = useState<SearchProps>({ role: 1, name: "" });
+  const [search, setSearch] = useState<SearchProps>({ role: 2, name: "" });
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [debouncedSearch] = useDebouncedValue(search.name, 300);
+
   const { data, isLoading, error } = useGetDataQuery(
-    `/users?filter[role_id]=${search.role}&search=${search.name}&page=${currentPage}&limit=${ITEMS_PER_PAGE}&hideMe=true`
+    `/users?filter[role_id]=${search.role}&search=${debouncedSearch}&page=${currentPage}&limit=${ITEMS_PER_PAGE}&hideMe=true`
   );
 
   const handlePageChange = (page: number) => {
@@ -62,20 +63,17 @@ const AddSingleChat: React.FC<ModelProps> = ({ close }) => {
   return (
     <div className="w-full">
       <div className="flex flex-row sm:gap-5 gap-2 justify-between items-center mb-4 w-full">
-        {userInfo?.role?.id == "1" && (
-          <SelectComponent
-            placeholder="Select role"
-            value={search.role.toString()}
-            onChangeHandler={handleRoleChange}
-            data={[
-              { value: "1", label: "Student" },
-              { value: "2", label: "Teacher" },
-              { value: "3", label: "Admin" },
-              { value: "4", label: "Staff" },
-            ]}
-            searchInputClassName="w-[100px] md:w-[200px]"
-          />
-        )}
+        <SelectComponent
+          placeholder="Select role"
+          value={search.role.toString()}
+          onChangeHandler={handleRoleChange}
+          data={[
+            { value: "2", label: "Teacher" },
+            { value: "3", label: "Admin" },
+            { value: "4", label: "Staff" },
+          ]}
+          searchInputClassName="w-[100px] md:w-[200px]"
+        />
         <TextInputComponent
           type="text"
           value={search.name}

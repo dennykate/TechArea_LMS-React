@@ -1,6 +1,4 @@
-import useEncryptStorage from "@/hooks/use-encrypt-storage";
 import { ActionIcon, Avatar, Tooltip } from "@mantine/core";
-import { useMemo } from "react";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { IoChatboxEllipsesSharp } from "react-icons/io5";
 import { RiArticleFill } from "react-icons/ri";
@@ -8,9 +6,11 @@ import { IconType } from "react-icons/lib";
 import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import { useMediaQuery } from "@mantine/hooks";
+import { BsFileBarGraphFill } from "react-icons/bs";
 
 import { notiData } from "./data";
 import NotificationComponent from "./NotificationComponent";
+import useUserInfo from "@/hooks/use-user-info";
 
 interface PropsType {
   toggle: () => void;
@@ -25,10 +25,9 @@ const NavBar = ({
   withShadow,
   wrapperClassName,
 }: PropsType) => {
-  const { get } = useEncryptStorage();
   const matches = useMediaQuery("(max-width: 600px");
 
-  const userInfo = useMemo(() => JSON.parse(get("userInfo") as string), []);
+  const userInfo = useUserInfo();
 
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -81,6 +80,16 @@ const NavBar = ({
             </ActionIcon>
           </Link>
         </Tooltip>
+
+        {userInfo?.role?.id != "1" && (
+          <Tooltip label="Report">
+            <Link to="/report">
+              <ActionIcon>
+                <BsFileBarGraphFill color="black" className="text-[17px]" />
+              </ActionIcon>
+            </Link>
+          </Tooltip>
+        )}
       </div>
     </div>
   );

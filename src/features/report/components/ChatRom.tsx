@@ -4,7 +4,10 @@ import { IoIosSend } from "react-icons/io";
 import { useMessageHandler } from "@/utilities/messageHandler";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 import EmojiPicker from "emoji-picker-react";
-import { Loader } from "@mantine/core";
+import { MdAttachFile } from "react-icons/md";
+import { Loader, Modal } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import FileSend from "./FileSend";
 import { useSelector } from "react-redux";
 import { selectCurrentChatData } from "@/redux/services/chatSlice";
 import Message from "./Message";
@@ -23,6 +26,7 @@ const ChatRoom: React.FC = () => {
     useMessageHandler();
   const [sendMessage, { isLoading: getMsgLoading }] = useSendMessageMutation();
 
+  const [opened, { open, close }] = useDisclosure();
   const [openEmoji, setOpenEmoji] = useState<boolean>(false);
   const [userId, setUserId] = useState<any>(
     Cookies.get("user_id") ?? undefined
@@ -31,11 +35,10 @@ const ChatRoom: React.FC = () => {
   const [lastConversation, setLastConservation] = useState<any>(
     Cookies.get("last_conversation") ?? undefined
   );
+
   const [chatType, setChatType] = useState<any>(
     Cookies.get("chat_type") ?? undefined
   );
-
-  // for report
 
   const currentChat = useSelector(selectCurrentChatData);
 
@@ -219,6 +222,24 @@ const ChatRoom: React.FC = () => {
                 <EmojiPicker onEmojiClick={handleEmojiClick} />
               </div>
             )}
+          </div>
+          {/* for file sending  */}
+          <div className="h-full flex justify-center items-center cursor-pointer">
+            <MdAttachFile onClick={open} size={30} />
+            <Modal
+              opened={opened}
+              onClose={close}
+              title="Drop your file here"
+              centered
+            >
+              <FileSend
+                close={close}
+                receiverId={userId}
+                onSuccess={(data) => {
+                  setMessages((prev) => [data, ...prev]);
+                }}
+              />
+            </Modal>
           </div>
         </div>
 

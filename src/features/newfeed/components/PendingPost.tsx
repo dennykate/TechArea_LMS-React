@@ -5,6 +5,7 @@ import useMutate from "@/hooks/useMutate";
 import useQuery from "@/hooks/useQuery";
 import { Avatar, Loader } from "@mantine/core";
 import { Interweave } from "interweave";
+import BetterChange from "@/assets/better-change-text-logo.png";
 
 import { Link } from "react-router-dom";
 interface PropsType {
@@ -45,11 +46,19 @@ const PendingPost = ({ pendingClose }: PropsType) => {
                 Approve
               </MyButton>
               <div className="flex items-center gap-4 sm:flex-row flex-col">
-                <img
-                  src={post?.image}
-                  alt="post thumnnail"
-                  className="sm:min-w-[200px] w-full h-[150px] object-cover"
-                />
+                {post?.image ? (
+                  <img
+                    src={post?.image}
+                    alt="post thumnnail"
+                    className="sm:min-w-[200px] w-full h-[150px] object-cover"
+                  />
+                ) : (
+                  <img
+                    src={BetterChange}
+                    alt="logo"
+                    className="sm:min-w-[200px] w-full  object-cover"
+                  />
+                )}
 
                 <div className="flex flex-col h-full gap-2 w-full ">
                   <p className=" truncate sm:text-[13px] text-[11px] text-gray-500 ">
