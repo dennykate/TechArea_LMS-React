@@ -128,8 +128,8 @@ const Edit = () => {
         />
         <GradeSectionSubject
           form={form}
+          usage={["section", "subject"]}
           asterisk={{
-            grade: true,
             subject: true,
           }}
         />

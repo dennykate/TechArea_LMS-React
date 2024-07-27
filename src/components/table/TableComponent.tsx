@@ -18,6 +18,7 @@ import SelectComponent from "../inputs/SelectComponent";
 import { TbFileExport } from "react-icons/tb";
 import { downloadCSV } from "@/utilities/downloadCSV";
 import useEncryptStorage from "@/hooks/use-encrypt-storage";
+import { twMerge } from "tailwind-merge";
 
 interface PropsType {
   rows: JSX.Element[];
@@ -47,6 +48,7 @@ interface PropsType {
   hideExport?: boolean;
   exportUrl?: string;
   exportFileName?: string;
+  headerClassName?: string;
 }
 
 const TableComponent = ({
@@ -75,6 +77,7 @@ const TableComponent = ({
   addNewAction,
   hideAddNew,
   dLimit = "10",
+  headerClassName,
 }: // hideRoles = [""],
 PropsType) => {
   const [page, setPage] = useState<number>(1);
@@ -132,7 +135,12 @@ PropsType) => {
       }`}
     >
       {titleSection && (
-        <div className="sm:p-5 p-3 py-3 border-b border-black border-opacity-20 flex justify-between items-center">
+        <div
+          className={twMerge(
+            "sm:p-5 p-3 py-3 border-b border-black border-opacity-20 flex justify-between items-center",
+            headerClassName
+          )}
+        >
           <div className="flex items-center gap-2">
             {Icon && <Icon className="sm:text-[22px] text-[20px]" />}
             <p className="font-medium sm:text-lg text-base">{title} </p>

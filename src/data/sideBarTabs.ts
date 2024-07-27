@@ -3,9 +3,9 @@ import {
   // MdPeople,
   MdOutlineMenuBook,
   MdSchool,
-  MdQuiz,
   MdQuestionAnswer,
-  MdAssignment,
+  // MdQuiz,
+  // MdAssignment,
   MdAssignmentTurnedIn,
   MdSettings,
   // MdChat,
@@ -92,20 +92,20 @@ const sideBarTabs = [
     ],
   },
 
-  {
-    label: "Tests",
-    icon: MdQuiz,
-    initiallyOpened: false,
-    link: "/quizzes",
-    banRoles: banRoles.quizzes,
-  },
-  {
-    label: "Homework",
-    icon: MdAssignment,
-    initiallyOpened: false,
-    link: "/assignments",
-    banRoles: banRoles.assignments,
-  },
+  // {
+  //   label: "Tests",
+  //   icon: MdQuiz,
+  //   initiallyOpened: false,
+  //   link: "/quizzes",
+  //   banRoles: banRoles.quizzes,
+  // },
+  // {
+  //   label: "Homework",
+  //   icon: MdAssignment,
+  //   initiallyOpened: false,
+  //   link: "/assignments",
+  //   banRoles: banRoles.assignments,
+  // },
 
   {
     label: "Announcements",
