@@ -22,9 +22,9 @@ const Login = () => {
     validateInputOnBlur: true,
     validate: {
       phone: (value: string) =>
-        value.length > 0 ? null : "Phone number is required",
+        value?.length > 0 ? null : "Phone number is required",
       password: (value: string) =>
-        value.length >= 6 ? null : "Password must be at least 6 characters",
+        value?.length >= 6 ? null : "Password must be at least 6 characters",
     },
   });
 

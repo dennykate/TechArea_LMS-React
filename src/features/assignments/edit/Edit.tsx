@@ -36,13 +36,14 @@ const Edit = () => {
     },
     validateInputOnBlur: true,
     validate: {
-      title: (value: string) => (value.length > 0 ? null : "Title is required"),
+      title: (value: string) =>
+        value?.length > 0 ? null : "Title is required",
       grade_id: (value: string) =>
-        value.length > 0 ? null : "Grade is required",
+        value?.length > 0 ? null : "Grade is required",
       // section_id: (value: string) =>
-      //   value.length > 0 ? null : "Section is required",
+      //   value?.length > 0 ? null : "Section is required",
       subject_id: (value: string) =>
-        value.length > 0 ? null : "Subject is required",
+        value?.length > 0 ? null : "Subject is required",
       deadline: (value) => (value ? null : "Subject is required"),
       marks: (value: number) => (value > 0 ? null : "Subject is required"),
     },

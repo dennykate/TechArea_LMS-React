@@ -43,34 +43,35 @@ const Edit = () => {
     validateInputOnBlur: true,
     validate: {
       agenda: (value: string) =>
-        value.length > 0 ? null : "Agenda is required",
-      topic: (value: string) => (value.length > 0 ? null : "Topic is required"),
+        value?.length > 0 ? null : "Agenda is required",
+      topic: (value: string) =>
+        value?.length > 0 ? null : "Topic is required",
       duration: (value: number) => (value > 0 ? null : "Duration is required"),
       start_date: (value) => (value ? null : "Start Date is required"),
       password: (value: string) =>
-        value.length > 0 ? null : "Password is required",
+        value?.length > 0 ? null : "Password is required",
       grade_id: (value: string) =>
-        value.length > 0 ? null : "Grade ID is required",
+        value?.length > 0 ? null : "Grade ID is required",
       // section_id: (value: string) =>
-      //   value.length > 0 ? null : "Section ID is required",
+      //   value?.length > 0 ? null : "Section ID is required",
       subject_id: (value: string) =>
-        value.length > 0 ? null : "Subject ID is required",
+        value?.length > 0 ? null : "Subject ID is required",
       recurrence_type: (value: string, values) =>
         values?.type != "8"
           ? null
-          : value.length > 0
+          : value?.length > 0
           ? null
           : "Recurrence Type is required",
       recurrence_repeat_interval: (value: string, values) =>
         values?.type != "8"
           ? null
-          : value.length > 0
+          : value?.length > 0
           ? null
           : "Recurrence Repeat Inteval is required",
       recurrence_end_type: (value: string, values) =>
         values?.type != "8"
           ? null
-          : value.length > 0
+          : value?.length > 0
           ? null
           : "Recurrence End Type is required",
       recurrence_end_date_time: (value, values) =>
@@ -86,7 +87,7 @@ const Edit = () => {
           ? null
           : values?.type != "8"
           ? null
-          : value.length > 0
+          : value?.length > 0
           ? null
           : "Recurrence End Time is required",
     },
@@ -210,10 +211,13 @@ const Edit = () => {
         />
 
         <div className="md:col-span-2 col-span-1">
-          <GradeSectionSubject form={form}   asterisk={{
+          <GradeSectionSubject
+            form={form}
+            asterisk={{
               grade: true,
               subject: true,
-            }}/>
+            }}
+          />
         </div>
 
         {form.values.type == "8" && (

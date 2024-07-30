@@ -31,13 +31,14 @@ const Edit = () => {
     },
     validateInputOnBlur: true,
     validate: {
-      name: (value: string) => (value.length > 0 ? null : "Name is required"),
-      phone: (value: string) => (value.length > 0 ? null : "Phone is required"),
+      name: (value: string) => (value?.length > 0 ? null : "Name is required"),
+      phone: (value: string) =>
+        value?.length > 0 ? null : "Phone is required",
       gender: (value: string) =>
-        value.length > 0 ? null : "Gender is required",
+        value?.length > 0 ? null : "Gender is required",
       password_confirmation: (value: string, values) =>
         values.password.length > 0
-          ? value.length > 0
+          ? value?.length > 0
             ? value != values.password
               ? "Password doesn't match"
               : null
@@ -46,7 +47,7 @@ const Edit = () => {
       // date_of_birth: (value: string) =>
       //   value ? null : "Date of Birth is required",
       address: (value: string) =>
-        value.length > 0 ? null : "Address is required",
+        value?.length > 0 ? null : "Address is required",
     },
   });
 

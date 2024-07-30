@@ -18,9 +18,10 @@ const Create = () => {
     },
     validateInputOnBlur: true,
     validate: {
-      title: (value: string) => (value.length > 0 ? null : "Title is required"),
+      title: (value: string) =>
+        value?.length > 0 ? null : "Title is required",
       description: (value: string) =>
-        value.length > 0 ? null : "Note is required",
+        value?.length > 0 ? null : "Note is required",
     },
   });
 

@@ -33,7 +33,8 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close, id }) => {
     },
     validateInputOnBlur: true,
     validate: {
-      title: (value: string) => (value.length > 0 ? null : "Title is required"),
+      title: (value: string) =>
+        value?.length > 0 ? null : "Title is required",
     },
   });
 
