@@ -64,10 +64,16 @@ const Create = () => {
         <TextEditorInput
           label="Note"
           value={form.values.description}
+          withAsterisk
           onChange={(val) => form.setFieldValue("description", val)}
         />
         <div className="!mt-6">
-          <FileUpload type="image" setSingleFile={setFile} />
+          <FileUpload
+            type="image"
+            setSingleFile={setFile}
+            label="Image"
+            withAsterisk
+          />
         </div>
       </div>
     </FormLayout>

@@ -47,7 +47,7 @@ const Create = ({ startDate }: PropsType) => {
     },
   });
 
-  const [onSubmit, { isLoading }] = useMutate();
+  const [onSubmit, { isLoading }] = useMutate({navigateBack:false});
   const onSubmitHandler = (values: any) => {
     // const newItem = {
     //   ...values,
