@@ -3,8 +3,8 @@
 import useQuery from "@/hooks/useQuery";
 import { Avatar, Loader } from "@mantine/core";
 import { Interweave } from "interweave";
-import React from "react";
 import { Link } from "react-router-dom";
+import BetterChange from "@/assets/better-change-text-logo.png";
 
 const PostInsight = () => {
   const { data, isLoading } = useQuery(`/posts/insight/top-five`);
@@ -22,11 +22,19 @@ const PostInsight = () => {
           data?.map((post: any) => (
             <div className="flex flex-col gap-2 w-full border rounded shadow-md px-2 py-2 overflow-hidden">
               <div className="flex items-center gap-4 sm:flex-row flex-col">
-                <img
-                  src={post?.image}
-                  alt="post thumnnail"
-                  className="sm:min-w-[200px] w-full h-[150px] object-cover"
-                />
+                {post?.image ? (
+                  <img
+                    src={post?.image}
+                    alt="post thumnnail"
+                    className="sm:min-w-[200px] w-full h-[150px] object-cover"
+                  />
+                ) : (
+                  <img
+                    src={BetterChange}
+                    alt="logo"
+                    className="sm:min-w-[200px] w-full  object-cover"
+                  />
+                )}
 
                 <div className="flex flex-col h-full gap-2 w-full ">
                   {/* <Heading tag="h6">Title</Heading> */}

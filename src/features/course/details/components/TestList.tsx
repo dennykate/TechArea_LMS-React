@@ -2,10 +2,14 @@
 import { useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
 
-import { TableComponent } from "@/components/table";
+import { TableActions, TableComponent } from "@/components/table";
 import useMutate from "@/hooks/useMutate";
 
-const TestList = () => {
+interface PropsType {
+  gradeId: string;
+}
+
+const TestList: React.FC<PropsType> = ({ gradeId }) => {
   // const { courseId } = useParams();
   const navigate = useNavigate();
   const [onSubmit] = useMutate();
@@ -29,6 +33,15 @@ const TestList = () => {
           <td className="m_td">{element?.answer_limit}</td>
           <td className="m_td">{element?.created_by}</td>
           <td className="m_td">{element?.created_at}</td>
+          <td className="m_td">
+            <TableActions
+              detailCb={() => navigate(`/quizzes/details/${element.id}`)}
+              editCb={() => navigate(`/quizzes/edit/${element.id}`)}
+              destroyCb={() =>
+                onSubmit(`/quizzes/${element?.id}`, {}, "DELETE")
+              }
+            />
+          </td>
         </tr>
       )),
     [data, navigate, onSubmit]
@@ -36,14 +49,13 @@ const TestList = () => {
 
   return (
     <TableComponent
-      actions={false}
-      checkboxCol={false}
       pagination
-      search={false}
       disableShadow
-      disableTablePadding
       rows={rows}
-      titleSection={false}
+      checkboxCol={false}
+      addNewRoute={`/quizzes/create?gradeId=${gradeId}`}
+      title={"Test List"}
+      headerClassName="!border-opacity-5"
       tableHeads={[
         "Thumbnail",
         "Name",
@@ -55,6 +67,7 @@ const TestList = () => {
         "Created At",
       ]}
       baseUrl="quizzes"
+      filter={`&filter[grade_id]=${gradeId}`}
       setData={setData}
     />
   );

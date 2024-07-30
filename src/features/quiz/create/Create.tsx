@@ -6,16 +6,18 @@ import FileUplaod from "@/components/inputs/FileUpload";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import { useSearchParams } from "react-router-dom";
 
 const Create = () => {
+  const [searchParams] = useSearchParams();
   const [file, setFile] = useState<File | null>();
 
-  const form = useForm<any>({
+  const form = useForm({
     initialValues: {
       title: "",
       grade_id: "",
@@ -59,16 +61,17 @@ const Create = () => {
     onSubmit("/quizzes", formData, "POST", true);
   };
 
+  useEffect(() => {
+    const gradeId = searchParams.get("gradeId") as string;
+
+    if (gradeId) form.setFieldValue("grade_id", gradeId);
+  }, [searchParams]);
+
   return (
     <FormLayout
       title="Create Test"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
-      linkItems={[
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Test List", link: "/quizzes/list" },
-        { title: "New Test", link: "" },
-      ]}
       header={{
         image:
           "https://images.pexels.com/photos/3401403/pexels-photo-3401403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -111,8 +114,8 @@ const Create = () => {
         />
         <GradeSectionSubject
           form={form}
+          usage={["section", "subject"]}
           asterisk={{
-            grade: true,
             subject: true,
           }}
         />

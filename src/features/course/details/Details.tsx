@@ -21,11 +21,13 @@ const Details = () => {
 
   return (
     <DetailsLayout
-      linkItems={[
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Lesson List", link: "/courses/list" },
-        { title: "Lesson Details", link: "" },
-      ]}
+      linkItems={
+        [
+          // { title: "Dashboard", link: "/dashboard" },
+          // { title: "Lesson List", link: "/courses/list" },
+          // { title: "Lesson Details", link: "" },
+        ]
+      }
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
         <div className="sm:w-[400px] w-full">
@@ -69,10 +71,10 @@ const Details = () => {
             <LearningStudents />
           </Tabs.Panel>
           <Tabs.Panel value="homework" pt="xs">
-            <HomeworkList />
+            <HomeworkList gradeId={data?.grade_id} />
           </Tabs.Panel>
           <Tabs.Panel value="tests" pt="xs">
-            <TestList />
+            <TestList gradeId={data?.grade_id} />
           </Tabs.Panel>
         </Tabs>
       </div>

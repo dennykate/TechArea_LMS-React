@@ -6,17 +6,19 @@ import TextEditorInput from "@/components/inputs/TextEditorInput";
 import { useForm } from "@mantine/form";
 import FileUpload from "@/components/inputs/FileUpload";
 import useMutate from "@/hooks/useMutate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import AdditionalLessons from "./components/AdditionalLessons";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import dayjs from "dayjs";
 import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
+import { useSearchParams } from "react-router-dom";
 
 const Create = () => {
   const [file, setFile] = useState<File | undefined>();
   const [additionalFiles, setAdditionalFiles] = useState<any>([]);
+  const [searchParams] = useSearchParams();
 
   const form = useForm({
     initialValues: {
@@ -75,16 +77,17 @@ const Create = () => {
     setFile(undefined);
   };
 
+  useEffect(() => {
+    const gradeId = searchParams.get("gradeId") as string;
+
+    if (gradeId) form.setFieldValue("grade_id", gradeId);
+  }, [searchParams]);
+
   return (
     <FormLayout
       title="Create Homework"
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
-      linkItems={[
-        { title: "Dashboard", link: "/dashboard" },
-        { title: "Homework List", link: "/assignments/list" },
-        { title: "New Homework", link: "" },
-      ]}
       header={{
         image:
           "https://images.pexels.com/photos/3401403/pexels-photo-3401403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -126,8 +129,9 @@ const Create = () => {
 
         <GradeSectionSubject
           form={form}
+          usage={["section", "subject"]}
           asterisk={{
-            grade: true,
+            // grade: true,
             subject: true,
           }}
         />

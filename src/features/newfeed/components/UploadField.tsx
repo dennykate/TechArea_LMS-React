@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, FormEvent, useEffect } from "react";
+import React, { useState, FormEvent, useEffect, useMemo } from "react";
 import { Group, Text, useMantineTheme, rem, Button } from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
@@ -7,6 +7,7 @@ import UploadedImages from "./UploadedImages";
 import TextEditorInput from "@/components/inputs/TextEditorInput";
 import toast from "react-hot-toast";
 import useMutate from "@/hooks/useMutate";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
 
 interface ModalProps {
   close?: () => void;
@@ -26,6 +27,9 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
   // const [uploadPost, { isLoading }] = usePostDataMutation();
   const [uploadedImage, setUploadedImage] = useState<File[]>([]);
   const [content, setContent] = useState("");
+  const { get } = useEncryptStorage();
+
+  const userInfo = useMemo(() => JSON.parse(get("userInfo") || "{}"), []);
 
   const [onSubmit, { isLoading }] = useMutate({
     navigateBack: false,
@@ -35,7 +39,9 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
       if (close) close();
       setLatest(!latest);
 
-      setPosts((posts: any) => [data, ...posts]);
+      if (userInfo?.role?.id != 1) {
+        setPosts((posts: any) => [data, ...posts]);
+      }
     },
   });
 

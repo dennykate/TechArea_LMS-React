@@ -7,14 +7,19 @@ import NavBar from "../navBar/NavBar";
 import SideBar from "../sideBar/SideBar";
 import Footer from "../footers/Footer";
 import { useLocation } from "react-router-dom";
+import useUserInfo from "@/hooks/use-user-info";
+import moment from "moment";
+import toast from "react-hot-toast";
+import useLogout from "@/hooks/useLogout";
 
 interface PropsType {
   children: React.ReactNode;
 }
 
 const DashboardLayout = ({ children }: PropsType) => {
+  const userInfo = useUserInfo();
+  const logout = useLogout();
   const matches = useMediaQuery("(max-width: 796px)");
-
 
   const [opened, { toggle, close, open }] = useDisclosure(false);
 
@@ -29,6 +34,21 @@ const DashboardLayout = ({ children }: PropsType) => {
       if (!matches) open();
     }
   }, [matches]);
+
+  useEffect(() => {
+    if (userInfo && userInfo?.role_id == "1" && userInfo?.learning_expire_at) {
+      if (
+        moment().isAfter(
+          moment(userInfo?.learning_expire_at, "YYYY-MM-DD HH:mm:ss")
+        )
+      ) {
+        toast.error("Learning access has already expired");
+        logout();
+      } else {
+        // console.log("Student learning access is still active.");
+      }
+    }
+  }, [userInfo]);
 
   return (
     <div className="flex items-start h-screen overflow-hidden">

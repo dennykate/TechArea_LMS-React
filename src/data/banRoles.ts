@@ -9,6 +9,7 @@ export const banRoles = {
   schedules: ["1", "2"],
   zoom_meetings: ["1"],
   zoom_records: ["1"],
+  report: ["1"],
   accounts: {
     overall: ["1"],
     admins: ["1", "2", "4"],
