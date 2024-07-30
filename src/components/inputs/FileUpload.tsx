@@ -15,6 +15,7 @@ interface PropsType extends Partial<DropzoneProps> {
   setMultileFile?: (x: File[] | undefined) => void;
   defaultImage?: string;
   label?: string;
+  withAsterisk?: boolean;
 }
 
 const FileUpload: React.FC<PropsType> = ({
@@ -24,6 +25,7 @@ const FileUpload: React.FC<PropsType> = ({
   defaultImage = "",
   multiple = false,
   label,
+  withAsterisk,
   ...props
 }) => {
   const theme = useMantineTheme();
@@ -52,7 +54,7 @@ const FileUpload: React.FC<PropsType> = ({
         <div className="space-y-2">
           {label && (
             <label className="sm:text-[16px] text-[14px] font-medium">
-              {label}
+              {label} {withAsterisk && <span className="text-red-500">*</span>}
             </label>
           )}
           <Dropzone
@@ -112,42 +114,49 @@ const FileUpload: React.FC<PropsType> = ({
       )}
 
       {previewUrl && (
-        <div
-          className="h-auto rounded-md border border-dashed border-gray-400 w-full flex 
-   justify-center items-center p-[2px] relative mt-6"
-        >
-          <button
-            onClick={() => {
-              setPreviewUrl(null);
-              setFile && setFile(null);
-            }}
-            className="absolute bottom-2 right-2 bg-red-500 p-2 rounded-md hover:bg-red-700"
-          >
-            <IconTrashFilled color="white" size={18} />
-
-            <p className="sr-only">Delete Button</p>
-          </button>
-
-          {file?.type == "application/pdf" ? (
-            <div
-              className=" w-full h-[44px] flex items-center px-2 overflow-hidden
-         "
-            >
-              <p className="text-xs font-[400] text-start">{previewUrl}</p>
-            </div>
-          ) : file?.type === "video/mp4" ? (
-            <video
-              src={previewUrl}
-              controls
-              className="h-[300px] object-cover rounded-md"
-            />
-          ) : (
-            <img
-              src={previewUrl}
-              alt="thumbnail"
-              className="h-[300px] object-contain w-full rounded-md"
-            />
+        <div className="space-y-2">
+          {label && (
+            <label className="sm:text-[16px] text-[14px] font-medium">
+              {label} {withAsterisk && <span className="text-red-500">*</span>}
+            </label>
           )}
+          <div
+            className="h-auto rounded-md border border-dashed border-gray-400 w-full flex 
+   justify-center items-center p-[2px] relative mt-6"
+          >
+            <button
+              onClick={() => {
+                setPreviewUrl(null);
+                setFile && setFile(null);
+              }}
+              className="absolute bottom-2 right-2 bg-red-500 p-2 rounded-md hover:bg-red-700"
+            >
+              <IconTrashFilled color="white" size={18} />
+
+              <p className="sr-only">Delete Button</p>
+            </button>
+
+            {file?.type == "application/pdf" ? (
+              <div
+                className=" w-full h-[44px] flex items-center px-2 overflow-hidden
+         "
+              >
+                <p className="text-xs font-[400] text-start">{previewUrl}</p>
+              </div>
+            ) : file?.type === "video/mp4" ? (
+              <video
+                src={previewUrl}
+                controls
+                className="h-[300px] object-cover rounded-md"
+              />
+            ) : (
+              <img
+                src={previewUrl}
+                alt="thumbnail"
+                className="h-[300px] object-contain w-full rounded-md"
+              />
+            )}
+          </div>
         </div>
       )}
 

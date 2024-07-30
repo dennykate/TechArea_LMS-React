@@ -8,18 +8,20 @@ interface TextEditorInputProps {
   onChange?: (value: any) => void;
   label?: string;
   inputClassName?: string;
+  withAsterisk?: boolean;
 }
 const TextEditorInput = ({
   value,
   onChange,
   label,
   inputClassName,
+  withAsterisk,
 }: TextEditorInputProps) => {
   return (
     <div className={twMerge(label ? "min-h-[160px]" : "min-h-[140px] ")}>
       {label && (
         <label htmlFor="text-editor" className="font-medium">
-          {label}
+          {label} {withAsterisk && <span className="text-red-500">*</span>}
         </label>
       )}
 
@@ -48,7 +50,6 @@ const TextEditorInput = ({
           "link",
         ]}
         className={twMerge("", label && "mt-2", inputClassName)}
-        
       />
     </div>
   );

@@ -38,7 +38,7 @@ const Create = () => {
 
   const onSubmitHandler = (values: any) => {
     if (values.description == "") return toast.error("Note is requried");
-    if (!file) return toast.error("File is requried");
+    if (!file) return toast.error("Image is requried");
 
     const formData = new FormData();
 
@@ -88,11 +88,17 @@ const Create = () => {
 
         <TextEditorInput
           label="Note"
+          withAsterisk
           value={form.values.description}
           onChange={(val) => form.setFieldValue("description", val)}
         />
 
-        <FileUpload type={"image"} setSingleFile={setFile} />
+        <FileUpload
+          type={"image"}
+          setSingleFile={setFile}
+          label="Image"
+          withAsterisk
+        />
       </div>
     </FormLayout>
   );
