@@ -31,15 +31,16 @@ const Edit = () => {
     },
     validateInputOnBlur: true,
     validate: {
-      title: (value: string) => (value.length > 0 ? null : "Title is required"),
+      title: (value: string) =>
+        value?.length > 0 ? null : "Title is required",
       description: (value: string) =>
-        value.length > 0 ? null : "Note is required",
+        value?.length > 0 ? null : "Note is required",
       grade_id: (value: string) =>
-        value.length > 0 ? null : "Grade is required",
+        value?.length > 0 ? null : "Grade is required",
       // section_id: (value: string) =>
-      //   value.length > 0 ? null : "Section is required",
+      //   value?.length > 0 ? null : "Section is required",
       subject_id: (value: string) =>
-        value.length > 0 ? null : "Subject is required",
+        value?.length > 0 ? null : "Subject is required",
     },
   });
 

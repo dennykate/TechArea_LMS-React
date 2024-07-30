@@ -32,21 +32,22 @@ const Edit = () => {
     validateInputOnBlur: true,
     validate: {
       agenda: (value: string) =>
-        value.length > 0 ? null : "Agenda is required",
-      topic: (value: string) => (value.length > 0 ? null : "Topic is required"),
+        value?.length > 0 ? null : "Agenda is required",
+      topic: (value: string) =>
+        value?.length > 0 ? null : "Topic is required",
       start_date: (value) => (value ? null : "Start Date is required"),
       meeting_id: (value: string) =>
-        value.length > 0 ? null : "Meeting ID is required",
+        value?.length > 0 ? null : "Meeting ID is required",
       meeting_url: (value: string) =>
-        value.length > 0 ? null : "Meeting URL is required",
+        value?.length > 0 ? null : "Meeting URL is required",
       meeting_password: (value: string) =>
-        value.length > 0 ? null : "Meeting Password is required",
+        value?.length > 0 ? null : "Meeting Password is required",
       grade_id: (value: string) =>
-        value.length > 0 ? null : "Grade ID is required",
+        value?.length > 0 ? null : "Grade ID is required",
       // section_id: (value: string) =>
-      //   value.length > 0 ? null : "Section ID is required",
+      //   value?.length > 0 ? null : "Section ID is required",
       subject_id: (value: string) =>
-        value.length > 0 ? null : "Subject ID is required",
+        value?.length > 0 ? null : "Subject ID is required",
     },
   });
 

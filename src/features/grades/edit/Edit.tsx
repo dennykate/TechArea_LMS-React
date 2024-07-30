@@ -19,7 +19,7 @@ const Edit = () => {
     validateInputOnBlur: true,
     validate: {
       name: (value: string) =>
-        value.length > 0 ? null : "Grade name is required",
+        value?.length > 0 ? null : "Grade name is required",
     },
   });
 

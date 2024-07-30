@@ -30,17 +30,18 @@ const Create = () => {
     },
     validateInputOnBlur: true,
     validate: {
-      title: (value: string) => (value.length > 0 ? null : "Title is required"),
+      title: (value: string) =>
+        value?.length > 0 ? null : "Title is required",
       grade_id: (value: string) =>
-        value.length > 0 ? null : "Grade is required",
+        value?.length > 0 ? null : "Grade is required",
       chapter_title: (value: string) =>
-        value.length > 0 ? null : "Chapter Title is required",
+        value?.length > 0 ? null : "Chapter Title is required",
       chapter_note: (value: string) =>
-        value.length > 0 ? null : "Chapter Note is required",
+        value?.length > 0 ? null : "Chapter Note is required",
       subject_id: (value: string) =>
-        value.length > 0 ? null : "Subject is required",
+        value?.length > 0 ? null : "Subject is required",
       description: (value: string) =>
-        value.length > 0 ? null : "Note is required",
+        value?.length > 0 ? null : "Note is required",
       answer_limit: (value: number) =>
         value > 0 ? null : "Answer Limit is required",
     },

@@ -37,8 +37,9 @@ const Create = ({ startDate }: PropsType) => {
     },
     validateInputOnBlur: true,
     validate: {
-      title: (value: string) => (value.length > 0 ? null : "Title is required"),
-      type: (value: string) => (value.length > 0 ? null : "Type is required"),
+      title: (value: string) =>
+        value?.length > 0 ? null : "Title is required",
+      type: (value: string) => (value?.length > 0 ? null : "Type is required"),
       start_date: (value: string) => (value ? null : "Start date is required"),
       end_date: (value: string) => (value ? null : "End date is required"),
       role_id: (value: string) => (value ? null : "Role is required"),

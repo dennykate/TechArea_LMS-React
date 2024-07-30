@@ -32,12 +32,13 @@ const Create = () => {
     },
     validateInputOnBlur: true,
     validate: {
-      name: (value: string) => (value.length > 0 ? null : "Name is required"),
-      phone: (value: string) => (value.length > 0 ? null : "Phone is required"),
+      name: (value: string) => (value?.length > 0 ? null : "Name is required"),
+      phone: (value: string) =>
+        value?.length > 0 ? null : "Phone is required",
       gender: (value: string) =>
-        value.length > 0 ? null : "Gender is required",
+        value?.length > 0 ? null : "Gender is required",
       password: (value: string) =>
-        value.length > 0 ? null : "Password is required",
+        value?.length > 0 ? null : "Password is required",
       password_confirmation: (value: string, values: any) =>
         value === values.password ? null : "Password doesn't match",
       date_of_birth: (value: string) =>
@@ -45,9 +46,9 @@ const Create = () => {
       learning_expire_at: (value: string) =>
         value ? null : "Learning Expired Date is required",
       address: (value: string) =>
-        value.length > 0 ? null : "Address is required",
+        value?.length > 0 ? null : "Address is required",
       grade_id: (value: string) =>
-        value.length > 0 ? null : "Grade is required",
+        value?.length > 0 ? null : "Grade is required",
     },
   });
 

@@ -8,22 +8,50 @@ import SideBar from "../sideBar/SideBar";
 import Footer from "../footers/Footer";
 import { useLocation } from "react-router-dom";
 import useUserInfo from "@/hooks/use-user-info";
-import moment from "moment";
 import toast from "react-hot-toast";
 import useLogout from "@/hooks/useLogout";
+import useEncryptStorage from "@/hooks/use-encrypt-storage";
+import config from "@/config";
 
 interface PropsType {
   children: React.ReactNode;
 }
 
 const DashboardLayout = ({ children }: PropsType) => {
+  const { get } = useEncryptStorage();
   const userInfo = useUserInfo();
   const logout = useLogout();
   const matches = useMediaQuery("(max-width: 796px)");
+  const { pathname } = useLocation();
+
+  const token = get("token");
 
   const [opened, { toggle, close, open }] = useDisclosure(false);
 
-  const { pathname } = useLocation();
+  const checkLearningAccess = async () => {
+    if (userInfo && userInfo?.role_id == "1" && userInfo?.learning_expire_at) {
+      try {
+        const res = await fetch(
+          config.baseUrl + "/users/check/learning-access",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = await res.json();
+
+        if (!data?.success) {
+          toast.error("Your learning access has already expired");
+
+          logout();
+        }
+      } catch (error) {
+        console.log("Catch Error => ", error);
+      }
+    }
+  };
 
   useEffect(() => {
     matches && close();
@@ -36,19 +64,8 @@ const DashboardLayout = ({ children }: PropsType) => {
   }, [matches]);
 
   useEffect(() => {
-    if (userInfo && userInfo?.role_id == "1" && userInfo?.learning_expire_at) {
-      if (
-        moment().isAfter(
-          moment(userInfo?.learning_expire_at, "YYYY-MM-DD HH:mm:ss")
-        )
-      ) {
-        toast.error("Learning access has already expired");
-        logout();
-      } else {
-        // console.log("Student learning access is still active.");
-      }
-    }
-  }, [userInfo]);
+    checkLearningAccess();
+  }, [userInfo, pathname]);
 
   return (
     <div className="flex items-start h-screen overflow-hidden">
