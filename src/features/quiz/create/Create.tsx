@@ -50,7 +50,7 @@ const Create = () => {
   const [onSubmit, { isLoading }] = useMutate();
 
   const onSubmitHandler = (values: any) => {
-    if (!file) return toast.error("Profile is required");
+    if (!file) return toast.error("Image is required");
 
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
@@ -79,7 +79,7 @@ const Create = () => {
         title: "Loream Ispum",
       }}
     >
-      <FileUplaod setSingleFile={setFile} />
+      <FileUplaod setSingleFile={setFile} label="Image" withAsterisk />
 
       <div className="flex flex-col gap-4 mt-4">
         <div className="grid grid-cols-2 gap-4">

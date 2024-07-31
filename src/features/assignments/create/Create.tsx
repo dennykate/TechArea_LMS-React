@@ -124,6 +124,7 @@ const Create = () => {
 
         <TextEditorInput
           label="Note"
+          withAsterisk
           value={form.values.description}
           onChange={(val) => form.setFieldValue("description", val)}
         />
@@ -137,7 +138,12 @@ const Create = () => {
           }}
         />
 
-        <FileUpload type={"all"} setSingleFile={setFile} />
+        <FileUpload
+          type={"all"}
+          setSingleFile={setFile}
+          label="Image"
+          withAsterisk
+        />
 
         <AdditionalLessons
           additonalFiles={additionalFiles}
