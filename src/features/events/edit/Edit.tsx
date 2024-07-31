@@ -9,12 +9,13 @@ import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Edit = () => {
   const { eventId } = useParams();
   const [file, setFile] = useState<File>();
   const [defaultImage, setDefaultImage] = useState<string>();
-  const form = useForm<any>({
+  const form = useForm({
     initialValues: {
       title: "",
       description: "",
@@ -23,8 +24,6 @@ const Edit = () => {
     validate: {
       title: (value: string) =>
         value?.length > 0 ? null : "Title is required",
-      description: (value: string) =>
-        value?.length > 0 ? null : "Note is required",
     },
   });
 
@@ -37,6 +36,8 @@ const Edit = () => {
   });
 
   const onSubmitHandler = (values: any) => {
+    if (form.values.description == "") return toast.error("Note is required");
+
     const formData = new FormData();
 
     Object.entries(values).forEach(([key, value]) => {

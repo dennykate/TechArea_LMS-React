@@ -7,10 +7,11 @@ import TextEditorInput from "@/components/inputs/TextEditorInput";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const Create = () => {
   const [file, setFile] = useState<File>();
-  const form = useForm<any>({
+  const form = useForm({
     initialValues: {
       title: "",
       description: "",
@@ -20,13 +21,13 @@ const Create = () => {
     validate: {
       title: (value: string) =>
         value?.length > 0 ? null : "Title is required",
-      description: (value: string) =>
-        value?.length > 0 ? null : "Note is required",
     },
   });
 
   const [onSubmit, { isLoading }] = useMutate();
   const onSubmitHandler = (values: any) => {
+    if (form.values.description == "") return toast.error("Note is required");
+
     const formData = new FormData();
 
     Object.entries(values).forEach(([key, value]) => {
@@ -69,12 +70,7 @@ const Create = () => {
           onChange={(val) => form.setFieldValue("description", val)}
         />
         <div className="!mt-6">
-          <FileUpload
-            type="image"
-            setSingleFile={setFile}
-            label="Image"
-            withAsterisk
-          />
+          <FileUpload type="image" setSingleFile={setFile} label="Image" />
         </div>
       </div>
     </FormLayout>
