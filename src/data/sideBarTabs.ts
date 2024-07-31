@@ -166,7 +166,7 @@ const sideBarTabs = [
     banRoles: banRoles.student_classes,
   },
   {
-    label: "Zoom Records",
+    label: "Classroom Records",
     icon: IoFilm,
     initiallyOpened: false,
     link: "/student-zoom-records",

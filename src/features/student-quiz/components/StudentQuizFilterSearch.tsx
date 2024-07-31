@@ -36,7 +36,7 @@ const StudentQuizFilterSearch = () => {
             className="w-full h-[200px] flex justify-center items-center 
            xl:col-span-4 lg:col-span-3 sm:col-span-2"
           >
-            <p>No Quiz</p>
+            <p>No test.</p>
           </div>
         )}
       </div>

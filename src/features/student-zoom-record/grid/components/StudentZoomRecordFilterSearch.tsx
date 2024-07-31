@@ -28,9 +28,16 @@ const StudentZoomRecordFilterSearch = () => {
       setSearch={setSearch}
     >
       <div className="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 sm:gap-3 gap-2">
-        {data.map((dt: any) => (
-          <ZoomRecordCard key={dt} data={dt} />
-        ))}
+        {data?.length > 0 ? (
+          data.map((dt: any) => <ZoomRecordCard key={dt} data={dt} />)
+        ) : (
+          <div
+            className="w-full h-[200px] flex justify-center items-center 
+         xl:col-span-4 lg:col-span-3 sm:col-span-2"
+          >
+            <p>No classroom record.</p>
+          </div>
+        )}
       </div>
     </SubjectLayout>
   );
