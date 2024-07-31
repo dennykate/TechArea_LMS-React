@@ -88,7 +88,6 @@ const Create = () => {
 
         <TextEditorInput
           label="Note"
-          withAsterisk
           value={form.values.description}
           onChange={(val) => form.setFieldValue("description", val)}
         />
