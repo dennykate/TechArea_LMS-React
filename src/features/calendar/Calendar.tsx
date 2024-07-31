@@ -12,6 +12,7 @@ import { Modal } from "@mantine/core";
 // import List from "../schedules/list/List";
 import Create from "../schedules/create/Create";
 import List from "../schedules/list/List";
+import { useDisclosure } from "@mantine/hooks";
 
 type EventType = "exams" | "meetings" | "holidays" | "events";
 
@@ -23,6 +24,7 @@ const typeObj: { [key in EventType]: string } = {
 };
 
 const Calendar = () => {
+  const [opened, { open, close }] = useDisclosure();
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [currentRange, setCurrentRange] = useState({
     start: moment(),
@@ -105,19 +107,25 @@ const Calendar = () => {
             displayEventTime={false}
             eventContent={(arg) => ({ html: arg.event.title })}
             datesSet={handleDateSet} // Use this callback to respond to date changes
-            dateClick={(arg) => setStartDate(arg.date)}
+            dateClick={(arg) => {
+              setStartDate(arg.date);
+              open();
+            }}
           />
         </div>
       </div>
       <List />
 
       <Modal
-        opened={!!startDate}
-        onClose={() => setStartDate(undefined)}
+        opened={!!startDate && opened}
+        onClose={() => {
+          setStartDate(undefined);
+          close();
+        }}
         title="Create Schedule"
         centered
       >
-        <Create startDate={startDate} />
+        <Create startDate={startDate} close={close} />
       </Modal>
     </div>
   );

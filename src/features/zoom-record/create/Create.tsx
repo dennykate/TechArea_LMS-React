@@ -99,7 +99,7 @@ const Create = () => {
         />
 
         <div className="!my-6">
-          <FileUpload type="image" setSingleFile={setFile} />
+          <FileUpload type="image" setSingleFile={setFile} label="File" />
         </div>
 
         <div className="space-y-2">

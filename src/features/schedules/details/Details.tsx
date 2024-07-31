@@ -25,7 +25,7 @@ const Details = () => {
       isLoading={isLoading}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Schedule List", link: "/schedules/list" },
+        { title: "Schedule List", link: "/calendar" },
         { title: "Schedule Details", link: "" },
       ]}
     >

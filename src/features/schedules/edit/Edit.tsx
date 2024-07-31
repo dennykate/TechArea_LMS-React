@@ -88,7 +88,7 @@ const Edit = () => {
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Schedule List", link: "/schedules/list" },
+        { title: "Schedule List", link: "/calendar" },
         { title: "Edit Schedule", link: "" },
       ]}
       header={{

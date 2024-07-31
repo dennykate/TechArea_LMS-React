@@ -20,8 +20,9 @@ import { twMerge } from "tailwind-merge";
 
 interface PropsType {
   startDate?: Date;
+  close?: () => void;
 }
-const Create = ({ startDate }: PropsType) => {
+const Create = ({ startDate, close }: PropsType) => {
   // const theme = useMantineTheme();
   // const [isFullDay, setIsFullDay] = useState<boolean>(false);
 
@@ -48,7 +49,12 @@ const Create = ({ startDate }: PropsType) => {
     },
   });
 
-  const [onSubmit, { isLoading }] = useMutate({navigateBack:false});
+  const [onSubmit, { isLoading }] = useMutate({
+    navigateBack: false,
+    callback: () => {
+      close && close();
+    },
+  });
   const onSubmitHandler = (values: any) => {
     // const newItem = {
     //   ...values,
