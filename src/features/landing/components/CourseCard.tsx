@@ -109,7 +109,7 @@ const ClassCard = ({ data }: PropsType) => {
               Created At - {data?.created_at}
             </p>
             <div className="!mt-4 w-full">
-              <p className=" font-poppins font-bold text-xl">Course Content</p>
+              <p className=" font-poppins font-bold text-xl">Lesson Content</p>
 
               <div className="mt-4 flex w-full flex-col gap-[2px]">
                 {data?.course_contents?.map((content: any, index: number) => (

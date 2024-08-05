@@ -21,7 +21,7 @@ const LearnCourseContent: React.FC<PropsType> = ({ contents }) => {
   return (
     <>
       <div className="mt-6 space-y-4 px-2 mb-4">
-        <Heading tag="h2">Course Contents</Heading>
+        <Heading tag="h2">Lesson Contents</Heading>
       </div>
 
       <Accordion

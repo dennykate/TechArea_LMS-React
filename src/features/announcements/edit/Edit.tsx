@@ -9,6 +9,7 @@ import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Edit = () => {
   const { announcementId } = useParams();

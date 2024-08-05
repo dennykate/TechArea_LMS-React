@@ -136,8 +136,8 @@ const Edit = () => {
           />
 
           <DateTimeInputComponent
-            label="Marks"
-            placeholder="Enter marks"
+            label="Deadline"
+            placeholder="Enter deadline"
             withAsterisk
             form={form}
             name="deadline"
