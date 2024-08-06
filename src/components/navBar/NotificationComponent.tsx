@@ -1,15 +1,14 @@
-import { Avatar, Tooltip, ActionIcon } from "@mantine/core";
+import { Tooltip, ActionIcon } from "@mantine/core";
 import React, { useState, useEffect, useRef } from "react";
 import { MdNotifications } from "react-icons/md";
+import NotificationTabs from "./NotificationTabs";
+import MyButton from "../buttons/MyButton";
+import { Link } from "react-router-dom";
 
 interface NotificationItem {
-  username: string;
-  action: string;
-  place: string;
+  message: string;
   time: string;
-  organization: string;
-  avatarSrc: string;
-  avatarAlt: string;
+  url: string;
 }
 
 interface ItemType {
@@ -22,37 +21,24 @@ interface NotiDataType {
 
 const NotiCard: React.FC<ItemType> = ({ item }) => {
   return (
-    <div className="noti-card flex justify-between items-center border-b py-3 px-4 last:border-b-0">
-      <div className="flex gap-2">
-        <Avatar
-          src={item.avatarSrc}
-          alt={item.avatarAlt}
-          size="md"
-          className="rounded-full"
-        />
-        <div className="space-y-[2px]">
-          <p className="space-x-1">
-            <span className="username font-semibold text-gray-800">
-              {item.username}
-            </span>
-            <span className="action">{item.action}</span>
-            <span className="place font-semibold text-gray-800">
-              {item.place}
-            </span>
-          </p>
-          <p className="text-xs flex gap-1 items-center">
-            <span>{item.time}</span> <span className="text-base">&#183;</span>
-            <span>{item.organization}</span>
-          </p>
+    <div className="noti-card border-b py-3 px-4 last:border-b-0">
+      <div className="flex justify-between items-center">
+        <div className="space-y-1 w-full">
+          <p>{item.message}.</p>
+          <p className="text-xs">{item.time}</p>
         </div>
+        <Link to={item.url} className="">
+          <MyButton className="!h-7 !px-2">View</MyButton>
+        </Link>
+        {/* <div className="min-w-2 h-2 bg-primary rounded-full" /> */}
       </div>
-      <div className="w-2 h-2 bg-primary rounded-full" />
     </div>
   );
 };
 
 const NotificationComponent: React.FC<NotiDataType> = ({ notiData }) => {
   const [showNotification, setShowNotification] = useState(false);
+  const [activeTab, setActiveTab] = useState("Inbox");
   const notificationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -72,29 +58,30 @@ const NotificationComponent: React.FC<NotiDataType> = ({ notiData }) => {
   }, [notificationRef]);
 
   return (
-    <Tooltip label="Notifications">
-      <ActionIcon
-        onClick={() => setShowNotification((prev) => !prev)}
-        className="relative"
-      >
-        <MdNotifications color="black" className="lg:text-xl text-lg" />
-        {showNotification && (
-          <div
-            ref={notificationRef}
-            className="w-[400px] bg-white border rounded-md shadow-md absolute top-7 right-0 z-10"
-          >
-            <p className="font-semibold text-lg text-gray-800 px-4 py-3 border-b">
-              Notifications
-            </p>
-            <div className="overflow-y-auto">
-              {notiData.map((item, i) => (
-                <NotiCard key={i} item={item} />
-              ))}
-            </div>
-          </div>
-        )}
+    <div className="relative">
+      <ActionIcon onClick={() => setShowNotification((prev) => !prev)}>
+        <Tooltip label="Notifications">
+          <MdNotifications color="black" className="lg:text-xl text-lg" />
+        </Tooltip>
       </ActionIcon>
-    </Tooltip>
+      {showNotification && (
+        <div
+          ref={notificationRef}
+          onClick={() => setShowNotification(true)}
+          className="w-[400px] bg-white border rounded-md shadow-md absolute top-7 right-0 z-20"
+        >
+          <p className="font-semibold text-lg text-gray-800 px-4 pt-3">
+            Notifications
+          </p>
+          <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+          <div className="overflow-y-auto z-100">
+            {notiData.map((item, i) => (
+              <NotiCard key={i} item={item} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
