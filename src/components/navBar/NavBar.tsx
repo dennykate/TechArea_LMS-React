@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 import { useMediaQuery } from "@mantine/hooks";
 import { BsFileBarGraphFill } from "react-icons/bs";
 
-import { notiData } from "./data";
+// import { notiData } from "./data";
 import NotificationComponent from "./NotificationComponent";
 import useUserInfo from "@/hooks/use-user-info";
 
@@ -60,7 +60,7 @@ const NavBar = ({
           </div>
         </Link>
 
-        <NotificationComponent notiData={notiData} />
+        <NotificationComponent />
 
         <Tooltip label="News Feed">
           <Link to="/new-feed">

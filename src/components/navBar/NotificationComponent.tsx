@@ -1,13 +1,17 @@
 import { Tooltip, ActionIcon } from "@mantine/core";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { MdNotifications } from "react-icons/md";
 import NotificationTabs from "./NotificationTabs";
 import MyButton from "../buttons/MyButton";
 import { Link } from "react-router-dom";
+import useQuery from "@/hooks/useQuery";
 
 interface NotificationItem {
-  message: string;
-  time: string;
+  date: string;
+  image: string;
+  order: number;
+  text: string;
+  type: string;
   url: string;
 }
 
@@ -15,17 +19,13 @@ interface ItemType {
   item: NotificationItem;
 }
 
-interface NotiDataType {
-  notiData: NotificationItem[];
-}
-
 const NotiCard: React.FC<ItemType> = ({ item }) => {
   return (
     <div className="noti-card border-b py-3 px-4 last:border-b-0">
       <div className="flex justify-between items-center">
         <div className="space-y-1 w-full">
-          <p>{item.message}.</p>
-          <p className="text-xs">{item.time}</p>
+          <p className="">{item.text}.</p>
+          <p className="text-xs">{item.date}</p>
         </div>
         <Link to={item.url} className="">
           <MyButton className="!h-7 !px-2">View</MyButton>
@@ -36,10 +36,44 @@ const NotiCard: React.FC<ItemType> = ({ item }) => {
   );
 };
 
-const NotificationComponent: React.FC<NotiDataType> = ({ notiData }) => {
+const NotificationComponent = () => {
+  const { data } = useQuery(`/notifications`);
+  const [activeTab, setActiveTab] = useState("All");
   const [showNotification, setShowNotification] = useState(false);
-  const [activeTab, setActiveTab] = useState("Inbox");
+
   const notificationRef = useRef<HTMLDivElement>(null);
+  console.log(data);
+
+  const counts = useMemo(() => {
+    const testsCount = data?.tests?.length || 0;
+    const homeworksCount = data?.home_works?.length || 0;
+    const allCount = testsCount + homeworksCount;
+
+    return { all: allCount, tests: testsCount, homeworks: homeworksCount };
+  }, [data]);
+
+  const notifications = useMemo(() => {
+    let dt;
+    switch (activeTab) {
+      case "Tests":
+        dt = data?.tests || [];
+        break;
+      case "Homeworks":
+        dt = data?.home_works || [];
+        break;
+      case "All":
+      default:
+        dt = [...(data?.tests || []), ...(data?.home_works || [])];
+        break;
+    }
+
+    // Sort the combined array by the 'order' property
+    dt.sort((a, b) => a.order - b.order);
+
+    return dt;
+  }, [data, activeTab]);
+
+  console.log("notifications", notifications);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -61,23 +95,41 @@ const NotificationComponent: React.FC<NotiDataType> = ({ notiData }) => {
     <div className="relative">
       <ActionIcon onClick={() => setShowNotification((prev) => !prev)}>
         <Tooltip label="Notifications">
-          <MdNotifications color="black" className="lg:text-xl text-lg" />
+          <div className="relative">
+            <MdNotifications color="black" className="lg:text-xl text-lg" />
+            {counts.all > 0 && (
+              <span className=" absolute bottom-3 -right-3 ml-2 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                {counts.all}
+              </span>
+            )}
+          </div>
         </Tooltip>
       </ActionIcon>
       {showNotification && (
         <div
           ref={notificationRef}
           onClick={() => setShowNotification(true)}
-          className="w-[400px] bg-white border rounded-md shadow-md absolute top-7 right-0 z-20"
+          className="w-[450px] bg-white border rounded-md shadow-md absolute top-7 right-0 z-20"
         >
           <p className="font-semibold text-lg text-gray-800 px-4 pt-3">
             Notifications
           </p>
-          <NotificationTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+
+          <NotificationTabs
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            counts={counts}
+          />
           <div className="overflow-y-auto z-100">
-            {notiData.map((item, i) => (
-              <NotiCard key={i} item={item} />
-            ))}
+            {notifications?.length > 0 ? (
+              notifications.map((item: NotificationItem, i: number) => (
+                <NotiCard key={i} item={item} />
+              ))
+            ) : (
+              <div className="h-[300px] flex justify-center items-center">
+                <p>No notification.</p>
+              </div>
+            )}
           </div>
         </div>
       )}
