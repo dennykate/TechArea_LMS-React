@@ -17,6 +17,7 @@ import { MdHome, MdOutlinePendingActions } from "react-icons/md";
 import { VscGraph } from "react-icons/vsc";
 import PostInsight from "./components/PostInsight";
 import PendingPost from "./components/PendingPost";
+import useUserInfo from "@/hooks/use-user-info";
 
 const NewFeed = () => {
   const postContainerRef = useRef<any>();
@@ -29,6 +30,9 @@ const NewFeed = () => {
     useDisclosure();
   const [pendingOpened, { open: pendingOpen, close: pendingClose }] =
     useDisclosure();
+  const userInfo = useUserInfo();
+  const userRole = userInfo.role.name;
+
   const {
     // data: postData,
     isLoading,
@@ -212,16 +216,18 @@ const NewFeed = () => {
         </div>
 
         <div className="fixed md:bottom-16 md:right-16 bottom-3 right-3 flex flex-col gap-6 z-[10]">
-          <Tooltip label="Pending Posts">
-            <div
-              onClick={pendingOpen}
-              className="cursor-pointer w-12 h-12 hover:bg-blue-400
+          {userRole !== "Student" && (
+            <Tooltip label="Pending Posts">
+              <div
+                onClick={pendingOpen}
+                className="cursor-pointer w-12 h-12 hover:bg-blue-400
              bg-blue-500 text-white font-bold flex justify-center items-center 
              rounded-full"
-            >
-              <MdOutlinePendingActions size={18} />
-            </div>
-          </Tooltip>
+              >
+                <MdOutlinePendingActions size={18} />
+              </div>
+            </Tooltip>
+          )}
           <Tooltip label="Post Insight">
             <div
               onClick={insightOpen}
@@ -285,7 +291,7 @@ const NewFeed = () => {
           onClose={pendingClose}
           title="Pending Posts"
         >
-          <PendingPost pendingClose={pendingClose}/>
+          <PendingPost pendingClose={pendingClose} />
         </Modal>
       </div>
     </div>
