@@ -17,7 +17,6 @@ import { MdHome, MdOutlinePendingActions } from "react-icons/md";
 import { VscGraph } from "react-icons/vsc";
 import PostInsight from "./components/PostInsight";
 import PendingPost from "./components/PendingPost";
-import useUserInfo from "@/hooks/use-user-info";
 
 const NewFeed = () => {
   const postContainerRef = useRef<any>();
@@ -30,8 +29,6 @@ const NewFeed = () => {
     useDisclosure();
   const [pendingOpened, { open: pendingOpen, close: pendingClose }] =
     useDisclosure();
-  const userInfo = useUserInfo();
-  const userRole = userInfo.role.name;
 
   const {
     // data: postData,
@@ -82,6 +79,7 @@ const NewFeed = () => {
     profile: null;
     gender: string | null;
     name: string;
+    role: { name: string };
   } = JSON.parse(get("userInfo") as string);
 
   const directChangeReaction = (
@@ -216,7 +214,7 @@ const NewFeed = () => {
         </div>
 
         <div className="fixed md:bottom-16 md:right-16 bottom-3 right-3 flex flex-col gap-6 z-[10]">
-          {userRole !== "Student" && (
+          {userData?.role?.name !== "Student" && (
             <Tooltip label="Pending Posts">
               <div
                 onClick={pendingOpen}
