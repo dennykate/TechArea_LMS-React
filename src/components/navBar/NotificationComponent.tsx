@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Tooltip, ActionIcon } from "@mantine/core";
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { MdNotifications } from "react-icons/md";
@@ -68,7 +69,7 @@ const NotificationComponent = () => {
     }
 
     // Sort the combined array by the 'order' property
-    dt.sort((a, b) => a.order - b.order);
+    dt.sort((a: any, b: any) => a.order - b.order);
 
     return dt;
   }, [data, activeTab]);

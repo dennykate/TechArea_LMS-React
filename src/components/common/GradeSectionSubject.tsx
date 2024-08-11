@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import SelectComponent from "../inputs/SelectComponent";
 import { twMerge } from "tailwind-merge";
 import useQuery from "@/hooks/useQuery";
@@ -17,26 +17,29 @@ const GradeSectionSubject: React.FC<PropsType> = ({
   hideLabel = false,
   asterisk = { grade: true, subject: true, section: true },
 }) => {
+  const preGradeId = useMemo(() => form?.values?.grade_id, []);
   const [grades, setGrades] = useState<any>();
   const [sections, setSections] = useState<any>();
   const [subjects, setSubjects] = useState<any>();
 
-  useQuery(`/grades`, setGrades);
-  useQuery(
+  const { isLoading: gradeLoading } = useQuery(`/grades`, setGrades);
+  const { isLoading: sectionLoading } = useQuery(
     `/sections?filter[grade_id]=${form.values?.grade_id}`,
     setSections,
     !usage.includes("section")
   );
-  useQuery(
+  const { isLoading: subjectLoading } = useQuery(
     `/subjects?filter[grade_id]=${form.values?.grade_id}`,
     setSubjects,
     !usage.includes("subject")
   );
 
-  // useEffect(() => {
-  //   form.setFieldValue("section_id", "");
-  //   form.setFieldValue("subject_id", "");
-  // }, [form.values?.grade_id]);
+  useEffect(() => {
+    if (preGradeId != form?.values?.grade_id) {
+      form.setFieldValue("section_id", "");
+      form.setFieldValue("subject_id", "");
+    }
+  }, [preGradeId, form?.values?.grade_id]);
 
   return (
     <div
@@ -49,6 +52,7 @@ const GradeSectionSubject: React.FC<PropsType> = ({
     >
       {usage.includes("grade") && (
         <SelectComponent
+          disabled={gradeLoading}
           label={!hideLabel ? "Grade" : ""}
           placeholder="Select grade"
           data={
@@ -65,7 +69,9 @@ const GradeSectionSubject: React.FC<PropsType> = ({
 
       {usage.includes("section") && (
         <SelectComponent
-          disabled={grades?.length == 0 || form.values.grade_id == ""}
+          disabled={
+            grades?.length == 0 || form.values.grade_id == "" || sectionLoading
+          }
           label={!hideLabel ? "Class" : ""}
           placeholder="Select class"
           data={
@@ -82,7 +88,9 @@ const GradeSectionSubject: React.FC<PropsType> = ({
 
       {usage.includes("subject") && (
         <SelectComponent
-          disabled={grades?.length == 0 || form.values.grade_id == ""}
+          disabled={
+            grades?.length == 0 || form.values.grade_id == "" || subjectLoading
+          }
           label={!hideLabel ? "Subject" : ""}
           placeholder="Select subject"
           data={

@@ -115,6 +115,7 @@ const List = () => {
           pagination
           Icon={IoPeopleOutline}
           hideAddNew
+          isDateThisYear={true}
           hideExport={false}
           // addNewRoute="/accounts/students/create"
           exportUrl={`/users/data/export?filter[role_id]=1&filter[grade_id]=${gradeId}${

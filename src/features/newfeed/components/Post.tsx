@@ -265,9 +265,9 @@ const Post: React.FC<ParentProps> = ({
           </Text>
         </div>
 
-        <div className=" text-[11px] md:text-[12px] text-gray-500 w-full flex justify-end">
+        {/* <div className=" text-[11px] md:text-[12px] text-gray-500 w-full flex justify-end">
           <p>{data?.created_at}</p>
-        </div>
+        </div> */}
 
         {/* reaction count and comment cout  */}
         <div

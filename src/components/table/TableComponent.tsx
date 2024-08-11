@@ -49,6 +49,7 @@ interface PropsType {
   exportUrl?: string;
   exportFileName?: string;
   headerClassName?: string;
+  isDateThisYear?: boolean;
 }
 
 const TableComponent = ({
@@ -78,19 +79,27 @@ const TableComponent = ({
   hideAddNew,
   dLimit = "10",
   headerClassName,
+  isDateThisYear,
 }: // hideRoles = [""],
 PropsType) => {
   const [page, setPage] = useState<number>(1);
   const [dataLimit, setDataLimit] = useState<string>(dLimit);
   const [dataSearch, setDataSearch] = useDebouncedState<string>("", 500);
   const { get } = useEncryptStorage();
-  const [dateRange, setDateRange] = useState<{ start: Moment; end: Moment }>({
-    start: moment()
-      .subtract(moment().year() - 2000, "year")
-      .startOf("year"),
-    end: moment(),
-  });
-  // const check = useDisableUI();
+
+  const [dateRange, setDateRange] = useState<{ start: Moment; end: Moment }>(
+    isDateThisYear
+      ? {
+          start: moment().startOf("year"),
+          end: moment().endOf("year"),
+        }
+      : {
+          start: moment()
+            .subtract(moment().year() - 2000, "year")
+            .startOf("year"),
+          end: moment(),
+        }
+  );
 
   const url = useMemo(
     () =>
