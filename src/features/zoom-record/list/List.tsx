@@ -62,7 +62,7 @@ const List = () => {
           link: "/dashboard",
         },
         {
-          title: "Zoom Record List",
+          title: "Classroom Record List",
           link: "",
         },
       ]}
@@ -74,7 +74,7 @@ const List = () => {
         Icon={FaHardDrive}
         addNewRoute="/zoom-records/create"
         rows={rows}
-        title={"Zoom Record List"}
+        title={"Classroom Record List"}
         tableHeads={[
           "Image",
           "Title",
