@@ -13,7 +13,7 @@ import ZoomRecordURLs from "../components/ZoomRecordURLs";
 import toast from "react-hot-toast";
 
 const Create = () => {
-  const [files, setFiles] = useState<File[]>();
+  const [files, setFiles] = useState<File[]>([]);
   const [urls, setUrls] = useState<any>([]);
 
   const form = useForm<any>({

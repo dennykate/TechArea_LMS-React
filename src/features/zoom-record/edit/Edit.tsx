@@ -17,7 +17,7 @@ import ClassRoomImages from "./components/ClassRoomImages";
 
 const Edit = () => {
   const { zoomRecordId } = useParams();
-  const [files, setFiles] = useState<File[]>();
+  const [files, setFiles] = useState<File[]>([]);
   const [urls, setUrls] = useState<any>([]);
   const [defaultImage, setDefaultImage] = useState<string>("");
   const [attachments, setAttachments] = useState<any>();
