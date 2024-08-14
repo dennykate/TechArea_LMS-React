@@ -56,16 +56,6 @@ const Create = ({ startDate, close }: PropsType) => {
     },
   });
   const onSubmitHandler = (values: any) => {
-    // const newItem = {
-    //   ...values,
-    //   start_date: isFullDay
-    //     ? dayjs(values.start_date).startOf("day").format("DD-MM-YYYY HH:mm")
-    //     : dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
-    //   end_date: isFullDay
-    //     ? dayjs(values.end_date).endOf("day").format("DD-MM-YYYY HH:mm")
-    //     : dayjs(values.end_date).format("DD-MM-YYYY HH:mm"),
-    // };
-
     const newItem = {
       ...values,
       start_date: dayjs(values.start_date).format("DD-MM-YYYY HH:mm"),
@@ -79,6 +69,7 @@ const Create = ({ startDate, close }: PropsType) => {
       submitLoading={isLoading}
       isModal
       wrapperClassName="!p-0"
+      onCancel={close}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
     >
       <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
@@ -119,39 +110,6 @@ const Create = ({ startDate, close }: PropsType) => {
             name="role_id"
           />
         </div>
-
-        {/* <div className="grid grid-cols-2 gap-4">
-          <div className="pt-10">
-            <Group position="left">
-              <Switch
-                checked={isFullDay}
-                onChange={(event) => setIsFullDay(event.currentTarget.checked)}
-                color="teal"
-                size="md"
-                label="Set as full day"
-                thumbIcon={
-                  isFullDay ? (
-                    <IconCheck
-                      size="0.8rem"
-                      color={theme.colors.teal[theme.fn.primaryShade()]}
-                      stroke={3}
-                    />
-                  ) : (
-                    <IconX
-                      size="0.8rem"
-                      color={theme.colors.red[theme.fn.primaryShade()]}
-                      stroke={3}
-                    />
-                  )
-                }
-              />
-            </Group>
-          </div>
-
-          {form.values?.role_id == "1" && (
-            <GradeSectionSubject form={form} usage={["grade"]} />
-          )}
-        </div> */}
 
         {form.values?.role_id == "1" && (
           <GradeSectionSubject form={form} usage={["grade"]} />

@@ -241,7 +241,7 @@ const Post: React.FC<ParentProps> = ({
             <Avatar
               className=" rounded-full"
               size={"md"}
-              src={userData?.profile}
+              src={data?.creator?.profile}
             />
             <div className="flex items-center justify-between w-full">
               <Group
