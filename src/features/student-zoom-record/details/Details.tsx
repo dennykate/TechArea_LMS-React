@@ -11,7 +11,8 @@ import useQuery from "@/hooks/useQuery";
 import Heading from "@/components/typography/Heading";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
-import ModalImage from "@/components/ModalImage";
+
+import MyCarousel from "@/components/common/MyCarousel";
 
 const Details = () => {
   const { zoomRecordId } = useParams();
@@ -21,12 +22,6 @@ const Details = () => {
 
   return (
     <DetailsLayout isLoading={isLoading} linkItems={[]}>
-      <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
-        <div className="flex items-center justify-center gap-4">
-          <img src={data?.image} alt={data?.title} className="w-[200px]" />
-        </div>
-      </div>
-
       <div className="sm:mt-6 mt-3 space-y-3">
         <div className="flex gap-5">
           <h2 className="sm:text-2xl text-lg font-semibold text-gray-500">
@@ -64,19 +59,7 @@ const Details = () => {
       <div className="sm:mt-6 mt-3 space-y-3">
         <Heading tag="h2">Record Image</Heading>
 
-        <div className="grid grid-cols-3 gap-3">
-          {data?.attachments?.map((attachment: any) => (
-            <ModalImage key={attachment?.id} imageURL={attachment?.url}>
-              <div className="w-full h-[170px] rounded-md overflow-hidden relative">
-                <img
-                  src={attachment?.url}
-                  alt="img"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </ModalImage>
-          ))}
-        </div>
+        <MyCarousel slides={data?.attachments} />
       </div>
     </DetailsLayout>
   );

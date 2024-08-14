@@ -19,17 +19,7 @@ const List = () => {
       data?.map((element: any, i: number) => (
         <tr key={i}>
           <td className="m_td">{i + 1}</td>
-          <td className="m_td">
-            <div className="h-[60px]">
-              {element.image && (
-                <img
-                  src={element?.image}
-                  alt={element.title}
-                  className="w-[60px] h-[60px] object-cover rounded-md"
-                />
-              )}
-            </div>
-          </td>
+
           <td className="m_td">{element?.title}</td>
           <td className="m_td">
             <div dangerouslySetInnerHTML={{ __html: element?.description }} />
@@ -76,7 +66,6 @@ const List = () => {
         rows={rows}
         title={"Classroom Record List"}
         tableHeads={[
-          "Image",
           "Title",
           "Note",
           "Grade",

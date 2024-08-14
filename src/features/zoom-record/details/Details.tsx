@@ -11,7 +11,8 @@ import DetailsLayout from "@/components/layouts/DetailsLayout";
 
 import useQuery from "@/hooks/useQuery";
 import Heading from "@/components/typography/Heading";
-import ModalImage from "@/components/ModalImage";
+// import ModalImage from "@/components/ModalImage";
+import MyCarousel from "@/components/common/MyCarousel";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -30,10 +31,6 @@ const Details = () => {
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
-        <div className="flex items-center justify-center gap-4">
-          <img src={data?.image} alt={data?.title} className="w-[200px]" />
-        </div>
-
         <div className="sm:w-auto w-full flex gap-3 items-center justify-end">
           <MyButton
             onClick={() => navigate(`/zoom-records/edit/${zoomRecordId}`)}
@@ -83,19 +80,7 @@ const Details = () => {
         <div className="sm:mt-6 mt-3 space-y-3">
           <Heading tag="h2">Record Image</Heading>
 
-          <div className="grid grid-cols-3 gap-3">
-            {data?.attachments?.map((attachment: any) => (
-              <ModalImage key={attachment?.id} imageURL={attachment?.url}>
-                <div className="w-full h-[170px] rounded-md overflow-hidden relative">
-                  <img
-                    src={attachment?.url}
-                    alt="img"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </ModalImage>
-            ))}
-          </div>
+          <MyCarousel slides={data?.attachments} />
         </div>
       </div>
     </DetailsLayout>
