@@ -125,6 +125,7 @@ const FileUpload: React.FC<PropsType> = ({
    justify-center items-center p-[2px] relative mt-6"
           >
             <button
+              type="button"
               onClick={() => {
                 setPreviewUrl(null);
                 setFile && setFile(null);

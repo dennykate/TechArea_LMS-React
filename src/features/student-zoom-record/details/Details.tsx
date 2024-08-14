@@ -11,6 +11,7 @@ import useQuery from "@/hooks/useQuery";
 import Heading from "@/components/typography/Heading";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import ModalImage from "@/components/ModalImage";
 
 const Details = () => {
   const { zoomRecordId } = useParams();
@@ -56,6 +57,24 @@ const Details = () => {
 
               <FaLink className="text-gray-700" size={16} />
             </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="sm:mt-6 mt-3 space-y-3">
+        <Heading tag="h2">Record Image</Heading>
+
+        <div className="grid grid-cols-3 gap-3">
+          {data?.attachments?.map((attachment: any) => (
+            <ModalImage key={attachment?.id} imageURL={attachment?.url}>
+              <div className="w-full h-[170px] rounded-md overflow-hidden relative">
+                <img
+                  src={attachment?.url}
+                  alt="img"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </ModalImage>
           ))}
         </div>
       </div>

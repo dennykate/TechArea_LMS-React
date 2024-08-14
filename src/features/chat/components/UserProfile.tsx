@@ -7,6 +7,7 @@ import {
 import { useMessageHandler } from "@/utilities/messageHandler";
 import { Avatar, Badge, Checkbox, Flex, Text } from "@mantine/core";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 import { IoIosSend } from "react-icons/io";
 import { useDispatch } from "react-redux";
 interface Info {
@@ -50,6 +51,8 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
 
   // for send message
   const handleSendMessage = async () => {
+    if (inputValue === "") return toast.error("Please enter your message!");
+
     try {
       const formData = new URLSearchParams();
       formData.append("message", inputValue);
@@ -131,7 +134,7 @@ const UserProfile: React.FC<LayoutProps> = ({ parent, data, close }) => {
             value={inputValue}
             onKeyDown={handleKeyDown}
             onChange={messageHandler}
-            placeholder="Enter your message..."
+            placeholder="Enter your message... ( required )"
             className="outline-none p-2 px-5 w-full rounded-full h-full bg-slate-200"
           />
           <button

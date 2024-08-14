@@ -60,7 +60,7 @@ const NavBar = ({
           </div>
         </Link>
 
-        <NotificationComponent />
+        {userInfo?.role?.name === "Student" && <NotificationComponent />}
 
         <Tooltip label="News Feed">
           <Link to="/new-feed">

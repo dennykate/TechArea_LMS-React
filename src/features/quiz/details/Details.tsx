@@ -31,6 +31,7 @@ const Details = () => {
           // { title: "Test Details", link: "" },
         ]
       }
+      backBtn
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
         <div className="sm:w-[400px] w-full">

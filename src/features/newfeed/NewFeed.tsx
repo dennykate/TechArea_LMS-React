@@ -29,6 +29,7 @@ const NewFeed = () => {
     useDisclosure();
   const [pendingOpened, { open: pendingOpen, close: pendingClose }] =
     useDisclosure();
+
   const {
     // data: postData,
     isLoading,
@@ -78,6 +79,7 @@ const NewFeed = () => {
     profile: null;
     gender: string | null;
     name: string;
+    role: { name: string };
   } = JSON.parse(get("userInfo") as string);
 
   const directChangeReaction = (
@@ -212,16 +214,18 @@ const NewFeed = () => {
         </div>
 
         <div className="fixed md:bottom-16 md:right-16 bottom-3 right-3 flex flex-col gap-6 z-[10]">
-          <Tooltip label="Pending Posts">
-            <div
-              onClick={pendingOpen}
-              className="cursor-pointer w-12 h-12 hover:bg-blue-400
+          {userData?.role?.name !== "Student" && (
+            <Tooltip label="Pending Posts">
+              <div
+                onClick={pendingOpen}
+                className="cursor-pointer w-12 h-12 hover:bg-blue-400
              bg-blue-500 text-white font-bold flex justify-center items-center 
              rounded-full"
-            >
-              <MdOutlinePendingActions size={18} />
-            </div>
-          </Tooltip>
+              >
+                <MdOutlinePendingActions size={18} />
+              </div>
+            </Tooltip>
+          )}
           <Tooltip label="Post Insight">
             <div
               onClick={insightOpen}
@@ -285,7 +289,7 @@ const NewFeed = () => {
           onClose={pendingClose}
           title="Pending Posts"
         >
-          <PendingPost pendingClose={pendingClose}/>
+          <PendingPost pendingClose={pendingClose} />
         </Modal>
       </div>
     </div>

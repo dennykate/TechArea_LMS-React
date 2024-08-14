@@ -13,7 +13,7 @@ import ZoomRecordURLs from "../components/ZoomRecordURLs";
 import toast from "react-hot-toast";
 
 const Create = () => {
-  const [file, setFile] = useState<File>();
+  const [files, setFiles] = useState<File[]>();
   const [urls, setUrls] = useState<any>([]);
 
   const form = useForm<any>({
@@ -43,6 +43,7 @@ const Create = () => {
   const [onSubmit, { isLoading }] = useMutate();
   const onSubmitHandler = (values: any) => {
     if (urls?.length === 0) return toast.error("Record urls are required");
+    if (files?.length === 0) return toast.error("Classroom files are required");
 
     const formData = new FormData();
 
@@ -50,7 +51,13 @@ const Create = () => {
       formData.append(key, value as string);
     });
 
-    if (file) formData.append("image", file as File);
+    if (files) {
+      // formData.append("image", files as File);
+
+      files.forEach((file: File) => {
+        formData.append("files[]", file as File);
+      });
+    }
 
     urls?.forEach((item: any) => {
       formData.append(`urls[]`, item.url as string);
@@ -99,7 +106,12 @@ const Create = () => {
         />
 
         <div className="!my-6">
-          <FileUpload type="image" setSingleFile={setFile} label="File" />
+          <FileUpload
+            type="image"
+            setMultileFile={setFiles}
+            label="Files"
+            multiple
+          />
         </div>
 
         <div className="space-y-2">

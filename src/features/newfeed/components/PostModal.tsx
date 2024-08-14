@@ -56,6 +56,8 @@ const PostModal: React.FC<ModalProps> = ({
   });
 
   const commentHandler = async () => {
+    if (inputValue === "") return toast.error("Please enter your comment!");
+
     try {
       const payload = {
         content: inputValue,
@@ -131,7 +133,7 @@ const PostModal: React.FC<ModalProps> = ({
           <Input
             onKeyDown={handleKeyDown}
             size="lg"
-            placeholder="Enter your comment..."
+            placeholder="Enter your comment... ( required ) "
             w={"100%"}
             rightSection={
               <button onClick={commentHandler}>

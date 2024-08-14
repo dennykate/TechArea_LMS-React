@@ -38,7 +38,7 @@ const sideBarTabs = [
     icon: MdSettings,
     initiallyOpened: false,
     link: undefined,
-    // banRoles: banRoles.accounts.overall,
+    banRoles: banRoles.dashboard,
     links: [
       {
         icon: RiAdminLine,
@@ -106,7 +106,13 @@ const sideBarTabs = [
   //   link: "/assignments",
   //   banRoles: banRoles.assignments,
   // },
-
+  {
+    label: "Lessons",
+    icon: FaBookReader,
+    link: "/student-courses",
+    path: "/student-courses",
+    banRoles: banRoles.student_courses,
+  },
   {
     label: "Announcements",
     icon: HiSpeakerphone,

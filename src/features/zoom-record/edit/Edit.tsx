@@ -13,12 +13,14 @@ import ZoomRecordURLs from "../components/ZoomRecordURLs";
 import toast from "react-hot-toast";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
+import ClassRoomImages from "./components/ClassRoomImages";
 
 const Edit = () => {
   const { zoomRecordId } = useParams();
-  const [file, setFile] = useState<File>();
+  const [files, setFiles] = useState<File[]>();
   const [urls, setUrls] = useState<any>([]);
   const [defaultImage, setDefaultImage] = useState<string>("");
+  const [attachments, setAttachments] = useState<any>();
 
   const form = useForm({
     initialValues: {
@@ -54,7 +56,9 @@ const Edit = () => {
       formData.append(key, value as string);
     });
 
-    if (file) formData.append("image", file as File);
+    if (files) {
+      files?.forEach((file: File) => formData.append("files[]", file as File));
+    }
 
     urls?.forEach((item: any) => {
       formData.append(`urls[]`, item.url as string);
@@ -74,6 +78,10 @@ const Edit = () => {
 
       if (data?.image) {
         setDefaultImage(data?.image);
+      }
+
+      if (data?.attachments) {
+        setAttachments(data?.attachments);
       }
 
       setUrls(data?.urls);
@@ -120,11 +128,14 @@ const Edit = () => {
           }}
         />
 
-        <div className="!my-6">
+        <div className="!my-6 flex flex-col gap-6">
+          <ClassRoomImages data={attachments} />
+
           <FileUpload
+            multiple
             defaultImage={defaultImage}
             type="image"
-            setSingleFile={setFile}
+            setMultileFile={setFiles}
           />
         </div>
 
