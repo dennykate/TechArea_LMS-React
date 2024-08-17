@@ -94,7 +94,7 @@ const Edit = () => {
       header={{
         image:
           "https://images.pexels.com/photos/3401403/pexels-photo-3401403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-        title: "Loream Ispum",
+        title: "Better Change",
       }}
     >
       <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-7 gap-3">
