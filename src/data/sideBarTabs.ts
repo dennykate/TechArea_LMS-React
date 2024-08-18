@@ -34,7 +34,7 @@ const sideBarTabs = [
   },
 
   {
-    label: "Setting",
+    label: "Settings",
     icon: MdSettings,
     initiallyOpened: false,
     link: undefined,

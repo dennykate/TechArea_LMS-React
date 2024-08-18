@@ -39,7 +39,7 @@ const CourseContent: React.FC<PropsType> = ({ data }) => {
       <Modal
         opened={opened}
         onClose={close}
-        title="Create Course Content"
+        title="Create Lesson Content"
         centered
         size="lg"
       >

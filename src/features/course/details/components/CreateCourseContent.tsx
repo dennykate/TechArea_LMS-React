@@ -81,6 +81,8 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
     form.setFieldValue("youtubeURL", "");
   }, [form.values.type]);
 
+  console.log("File => ", file);
+
   return (
     <FormLayout
       wrapperClassName="sm:px-2 px-0 py-4"

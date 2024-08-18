@@ -17,7 +17,10 @@ const GradeSectionSubject: React.FC<PropsType> = ({
   hideLabel = false,
   asterisk = { grade: true, subject: true, section: true },
 }) => {
-  const preGradeId = useMemo(() => form?.values?.grade_id, []);
+  const preGradeId = useMemo(
+    () => form?.values?.grade_id,
+    [form?.values?.grade_id]
+  );
   const [grades, setGrades] = useState<any>();
   const [sections, setSections] = useState<any>();
   const [subjects, setSubjects] = useState<any>();
