@@ -30,27 +30,28 @@ const Details = () => {
         { title: "Classroom Record Details", link: "" },
       ]}
     >
-      <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
-        <div className="sm:w-auto w-full flex gap-3 items-center justify-end">
+      {/* <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
+        <div className="w-full flex gap-3 items-center justify-end"></div>
+      </div> */}
+
+      <div className="space-y-3">
+        <div className="flex justify-between items-center">
+          <div className="flex gap-5">
+            <h2 className="sm:text-2xl text-lg font-semibold text-gray-500">
+              {data?.title}
+            </h2>
+
+            <div className="flex gap-2 items-center">
+              <MdEdit className="text-gray-500" />
+              <p className="text-sm font-[300]">{data?.created_at}</p>
+            </div>
+          </div>
           <MyButton
             onClick={() => navigate(`/zoom-records/edit/${zoomRecordId}`)}
             leftIcon={<IconPencilMinus size={16} />}
           >
             Edit
           </MyButton>
-        </div>
-      </div>
-
-      <div className="sm:mt-6 mt-3 space-y-3">
-        <div className="flex gap-5">
-          <h2 className="sm:text-2xl text-lg font-semibold text-gray-500">
-            {data?.title}
-          </h2>
-
-          <div className="flex gap-2 items-center">
-            <MdEdit className="text-gray-500" />
-            <p className="text-sm font-[300]">{data?.created_at}</p>
-          </div>
         </div>
         <p className="font-light">
           <div dangerouslySetInnerHTML={{ __html: data?.description }} />

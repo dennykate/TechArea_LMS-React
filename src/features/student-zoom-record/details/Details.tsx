@@ -22,7 +22,7 @@ const Details = () => {
 
   return (
     <DetailsLayout isLoading={isLoading} linkItems={[]}>
-      <div className="sm:mt-6 mt-3 space-y-3">
+      <div className="space-y-3">
         <div className="flex gap-5">
           <h2 className="sm:text-2xl text-lg font-semibold text-gray-500">
             {data?.title}

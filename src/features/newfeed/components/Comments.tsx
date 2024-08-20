@@ -21,9 +21,9 @@ interface CommentProps {
 }
 
 const Comments: React.FC<CommentProps> = ({ data, setPosts, postId }) => {
-  // console.log(data);
   const { get } = useEncryptStorage();
   const [deleteComment] = usePostDataMutation();
+  console.log(data);
 
   const userData = JSON.parse(get("userInfo") as any);
 
