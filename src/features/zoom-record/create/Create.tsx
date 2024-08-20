@@ -70,11 +70,11 @@ const Create = () => {
     <FormLayout
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
-      title="Create Zoom Record"
+      title="Create Classroom Record"
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Zoom Record List", link: "/zoom-records/list" },
-        { title: "New Zoom Record", link: "" },
+        { title: "Classroom Record List", link: "/zoom-records/list" },
+        { title: "New Classroom Record", link: "" },
       ]}
       header={{
         image:

@@ -93,7 +93,7 @@ const Edit = () => {
       queryLoading={queryLoading}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
-      title="Edit Zoom Record"
+      title="Edit Classroom Record"
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
         { title: "Classroom Record List", link: "/zoom-records/list" },
