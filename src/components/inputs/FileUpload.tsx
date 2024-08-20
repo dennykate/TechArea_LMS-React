@@ -41,6 +41,7 @@ const FileUpload: React.FC<PropsType> = ({
 }) => {
   const theme = useMantineTheme();
   const [files, setFiles] = useState<File[]>([]);
+  const [file, setFile] = useState<File>();
   const [previewUrl, setPreviewUrl] = useState<string | null>(defaultImage);
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const FileUpload: React.FC<PropsType> = ({
       setSingleFile && setSingleFile(accaptedFiles[0]);
       setMultileFile && setMultileFile(accaptedFiles);
       setPreviewUrl(URL.createObjectURL(accaptedFiles[0]));
+      setFile(accaptedFiles[0]);
     } else {
       setFiles((prev) => [...(prev as File[]), ...accaptedFiles]);
       setMultileFile &&
@@ -161,14 +163,14 @@ const FileUpload: React.FC<PropsType> = ({
               <p className="sr-only">Delete Button</p>
             </button>
 
-            {previewUrl?.includes(".pdf") ? (
+            {file?.type == "application/pdf" || previewUrl?.includes(".pdf") ? (
               <div
                 className=" w-full h-[44px] flex items-center px-2 overflow-hidden
          "
               >
                 <p className="text-xs font-[400] text-start">{previewUrl}</p>
               </div>
-            ) : previewUrl?.includes(".mp4") ? (
+            ) : file?.type == "video/mp4" || previewUrl?.includes(".mp4") ? (
               <video
                 src={previewUrl}
                 controls

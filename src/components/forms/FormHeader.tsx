@@ -1,4 +1,4 @@
-import { Blockquote } from "@mantine/core";
+
 import { FormHeaderType } from "../layouts/FormLayout";
 
 interface PropsType {
@@ -15,9 +15,7 @@ const FormHeader: React.FC<PropsType> = ({ data }) => {
       />
 
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center">
-        <Blockquote className="text-white font-[700] text-3xl">
-          {data.title}
-        </Blockquote>
+        <p className="text-white font-[700] text-3xl">{data.title}</p>
       </div>
     </div>
   );

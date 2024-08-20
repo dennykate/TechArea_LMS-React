@@ -42,7 +42,7 @@ const Create = () => {
 
   const [onSubmit, { isLoading }] = useMutate();
   const onSubmitHandler = (values: any) => {
-    if (urls?.length === 0) return toast.error("Record urls are required");
+    // if (urls?.length === 0) return toast.error("Record urls are required");
     if (files?.length === 0) return toast.error("Classroom files are required");
 
     const formData = new FormData();
@@ -70,11 +70,11 @@ const Create = () => {
     <FormLayout
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
-      title="Create Zoom Record"
+      title="Create Classroom Record"
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Zoom Record List", link: "/zoom-records/list" },
-        { title: "New Zoom Record", link: "" },
+        { title: "Classroom Record List", link: "/zoom-records/list" },
+        { title: "New Classroom Record", link: "" },
       ]}
       header={{
         image:
@@ -110,6 +110,7 @@ const Create = () => {
             type="image"
             setMultileFile={setFiles}
             label="Files"
+            withAsterisk
             multiple
           />
         </div>
