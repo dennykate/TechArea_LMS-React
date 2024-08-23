@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SelectComponent from "../inputs/SelectComponent";
 import { twMerge } from "tailwind-merge";
 import useQuery from "@/hooks/useQuery";
@@ -17,7 +17,7 @@ const GradeSectionSubject: React.FC<PropsType> = ({
   hideLabel = false,
   asterisk = { grade: true, subject: true, section: true },
 }) => {
-  const preGradeId = useMemo(() => form?.values?.grade_id, []);
+  const [isFirst, setIsFirst] = useState<boolean>(true);
   const [grades, setGrades] = useState<any>();
   const [sections, setSections] = useState<any>();
   const [subjects, setSubjects] = useState<any>();
@@ -35,11 +35,15 @@ const GradeSectionSubject: React.FC<PropsType> = ({
   );
 
   useEffect(() => {
-    if (preGradeId != form?.values?.grade_id) {
+    // if (preGradeId != form?.values?.grade_id) {
+    if (!isFirst) {
       form.setFieldValue("section_id", "");
       form.setFieldValue("subject_id", "");
     }
-  }, [preGradeId, form?.values?.grade_id]);
+
+    setIsFirst(false);
+    // }
+  }, [form?.values?.grade_id]);
 
   return (
     <div

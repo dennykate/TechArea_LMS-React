@@ -10,7 +10,6 @@ import { useState } from "react";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import Heading from "@/components/typography/Heading";
 import ZoomRecordURLs from "../components/ZoomRecordURLs";
-import toast from "react-hot-toast";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
 import ClassRoomImages from "./components/ClassRoomImages";
@@ -48,7 +47,7 @@ const Edit = () => {
 
   const [onSubmit, { isLoading }] = useMutate();
   const onSubmitHandler = (values: any) => {
-    if (urls?.length === 0) return toast.error("Record urls are required");
+    // if (urls?.length === 0) return toast.error("Record urls are required");
 
     const formData = new FormData();
 

@@ -55,7 +55,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
 
         {data?.content_type == "youtube" && (
           <div className="lg:w-[300px] w-full min-h-[200px] rounded-sm overflow-hidden ">
-            <VideoPlayer url={data?.content}  />
+            <VideoPlayer url={data?.content} />
           </div>
         )}
 
@@ -112,7 +112,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
       </div>
 
       <Modal
-        title={"Edit Course Content"}
+        title={"Edit Lesson Content"}
         opened={opened}
         onClose={close}
         centered

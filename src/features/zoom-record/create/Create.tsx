@@ -42,7 +42,7 @@ const Create = () => {
 
   const [onSubmit, { isLoading }] = useMutate();
   const onSubmitHandler = (values: any) => {
-    if (urls?.length === 0) return toast.error("Record urls are required");
+    // if (urls?.length === 0) return toast.error("Record urls are required");
     if (files?.length === 0) return toast.error("Classroom files are required");
 
     const formData = new FormData();
@@ -110,6 +110,7 @@ const Create = () => {
             type="image"
             setMultileFile={setFiles}
             label="Files"
+            withAsterisk
             multiple
           />
         </div>

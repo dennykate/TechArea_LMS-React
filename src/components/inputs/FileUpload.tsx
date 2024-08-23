@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Group, Text, useMantineTheme } from "@mantine/core";
 import {
@@ -39,8 +40,8 @@ const FileUpload: React.FC<PropsType> = ({
   ...props
 }) => {
   const theme = useMantineTheme();
-  const [file, setFile] = useState<File | null>(null);
-  const [files, setFiles] = useState<File[] | null>([]);
+  const [files, setFiles] = useState<File[]>([]);
+  const [file, setFile] = useState<File>();
   const [previewUrl, setPreviewUrl] = useState<string | null>(defaultImage);
 
   useEffect(() => {
@@ -48,7 +49,7 @@ const FileUpload: React.FC<PropsType> = ({
   }, [defaultImage]);
 
   const handleDrop = (accaptedFiles: File[]) => {
-    if (files && files?.length > 0) {
+    if (files?.length > 1 && accaptedFiles?.length > 0) {
       setFiles((prev) => [...(prev as File[]), ...accaptedFiles]);
       setMultileFile &&
         setMultileFile((prev: any) => [
@@ -59,10 +60,11 @@ const FileUpload: React.FC<PropsType> = ({
       return;
     }
 
-    if (!files && accaptedFiles.length === 1) {
-      setFile(accaptedFiles[0]);
+    if (files?.length === 0 && accaptedFiles.length === 1) {
       setSingleFile && setSingleFile(accaptedFiles[0]);
+      setMultileFile && setMultileFile(accaptedFiles);
       setPreviewUrl(URL.createObjectURL(accaptedFiles[0]));
+      setFile(accaptedFiles[0]);
     } else {
       setFiles((prev) => [...(prev as File[]), ...accaptedFiles]);
       setMultileFile &&
@@ -153,7 +155,6 @@ const FileUpload: React.FC<PropsType> = ({
               type="button"
               onClick={() => {
                 setPreviewUrl(null);
-                setFile && setFile(null);
               }}
               className="absolute bottom-2 right-2 bg-red-500 p-2 rounded-md hover:bg-red-700"
             >
@@ -162,14 +163,14 @@ const FileUpload: React.FC<PropsType> = ({
               <p className="sr-only">Delete Button</p>
             </button>
 
-            {file?.type == "application/pdf" ? (
+            {file?.type == "application/pdf" || previewUrl?.includes(".pdf") ? (
               <div
                 className=" w-full h-[44px] flex items-center px-2 overflow-hidden
          "
               >
                 <p className="text-xs font-[400] text-start">{previewUrl}</p>
               </div>
-            ) : file?.type === "video/mp4" ? (
+            ) : file?.type == "video/mp4" || previewUrl?.includes(".mp4") ? (
               <video
                 src={previewUrl}
                 controls
@@ -186,10 +187,13 @@ const FileUpload: React.FC<PropsType> = ({
         </div>
       )}
 
-      {(files as any)?.length > 0 && (
+      {(files as any)?.length > 1 && (
         <div className=" p-2 relative mt-6 grid md:grid-cols-3 grid-cols-2  gap-1">
-          {files?.map((dt: File) => (
-            <div className="w-full h-[180px] flex gap-1 justify-between items-center mt-2 relative bg-gray-200">
+          {files?.map((dt: File, index: number) => (
+            <div
+              key={index}
+              className="w-full h-[180px] flex gap-1 justify-between items-center mt-2 relative bg-gray-200"
+            >
               {imageTypes.includes(dt.type) ? (
                 <img
                   src={URL.createObjectURL(dt)}
