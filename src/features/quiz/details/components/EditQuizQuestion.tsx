@@ -128,6 +128,7 @@ const EditQuizQuestion: React.FC<PropsType> = ({ close, id }) => {
           defaultImage={defaultVideo}
           setSingleFile={setVideo}
           label="Video"
+          type="video"
         />
 
         <SelectComponent

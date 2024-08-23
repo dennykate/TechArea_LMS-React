@@ -99,7 +99,7 @@ const CreateQuizQuestion: React.FC<PropsType> = ({ close }) => {
       <div className="space-y-4">
         <FileUpload setSingleFile={setFile} label="Image" />
 
-        <FileUpload setSingleFile={setVideo} label="Video" />
+        <FileUpload setSingleFile={setVideo} label="Video" type="video" />
 
         <SelectComponent
           data={[
