@@ -8,6 +8,8 @@ import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   const [file, setFile] = useState<File>();
@@ -77,4 +79,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.announcements);

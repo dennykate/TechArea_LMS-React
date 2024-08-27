@@ -6,6 +6,8 @@ import { useMemo, useState } from "react";
 import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
 import { HiOutlineSpeakerphone } from "react-icons/hi";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -75,13 +77,7 @@ const List = () => {
         addNewRoute="/announcements/create"
         rows={rows}
         title={"Announcement List"}
-        tableHeads={[
-          "Image",
-          "Title",
-          "Note",
-          "Created By",
-          "Created At",
-        ]}
+        tableHeads={["Image", "Title", "Note", "Created By", "Created At"]}
         baseUrl={`announcements`}
         filter=""
         setData={setData}
@@ -90,4 +86,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default withPermissions(List, banRoles.announcements);

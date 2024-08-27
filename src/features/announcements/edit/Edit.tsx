@@ -10,6 +10,8 @@ import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Edit = () => {
   const { announcementId } = useParams();
@@ -95,4 +97,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default withPermissions(Edit, banRoles.announcements);
