@@ -108,13 +108,15 @@ const Calendar = () => {
             eventContent={(arg) => ({ html: arg.event.title })}
             datesSet={handleDateSet} // Use this callback to respond to date changes
             dateClick={(arg) => {
+              if (userInfo.role_id == 1) return;
               setStartDate(arg.date);
               open();
             }}
           />
         </div>
       </div>
-      <List />
+
+      {userInfo.role_id != 1 && <List />}
 
       <Modal
         opened={!!startDate && opened}
