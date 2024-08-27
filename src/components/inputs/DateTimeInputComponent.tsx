@@ -32,6 +32,7 @@ export default function DateTimeInputComponent({
         input: "h-[35px]",
         placeholder: "text-base",
         weekday: "!text-black",
+        root: "z-[1000]",
       }}
       name={name}
       {...form?.getInputProps(name as string)}

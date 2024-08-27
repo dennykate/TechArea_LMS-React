@@ -124,6 +124,10 @@ const Calendar = () => {
         }}
         title="Create Schedule"
         centered
+        classNames={{
+          content: "!h-[80vh] ",
+        }}
+        size={"lg"}
       >
         <Create startDate={startDate} close={close} />
       </Modal>

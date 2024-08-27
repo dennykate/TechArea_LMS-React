@@ -59,6 +59,7 @@ const List = () => {
         checkboxCol={false}
         dateRangePicker
         pagination
+        isDateThisYear
         Icon={RiAdminLine}
         hideAddNew
         rows={rows}
