@@ -12,6 +12,8 @@ import { useState } from "react";
 // import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import useQuery from "@/hooks/useQuery";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Edit = () => {
   const { adminId } = useParams();
@@ -185,4 +187,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default withPermissions(Edit, banRoles.accounts.admins);
