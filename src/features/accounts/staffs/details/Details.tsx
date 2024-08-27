@@ -8,6 +8,8 @@ import StaffInformation from "./components/StaffInformation";
 import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
   const { staffId } = useParams();
@@ -57,4 +59,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.accounts.staffs);

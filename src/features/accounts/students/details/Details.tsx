@@ -9,6 +9,8 @@ import StudentInformation from "./components/StudentInformation";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams } from "react-router-dom";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
   const { studentId } = useParams();
@@ -64,4 +66,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.accounts.students);

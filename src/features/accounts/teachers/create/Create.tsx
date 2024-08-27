@@ -11,6 +11,8 @@ import useMutate from "@/hooks/useMutate";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import dayjs from "dayjs";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   const [profile, setProfile] = useState<File | undefined>();
@@ -158,4 +160,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.accounts.teachers);

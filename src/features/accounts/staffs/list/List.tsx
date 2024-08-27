@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { useMemo, useState } from "react";
 import useMutate from "@/hooks/useMutate";
 import TableLayout from "@/components/layouts/TableLayout";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -66,7 +68,7 @@ const List = () => {
         Icon={IoPeopleOutline}
         addNewRoute="/accounts/staffs/create"
         rows={rows}
-          exportUrl="/users/data/export?filter[role_id]=4"
+        exportUrl="/users/data/export?filter[role_id]=4"
         exportFileName="staff-list-"
         title={"Staff List"}
         tableHeads={[
@@ -86,4 +88,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default withPermissions(List, banRoles.accounts.staffs);

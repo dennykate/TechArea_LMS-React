@@ -13,6 +13,8 @@ import dayjs from "dayjs";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Edit = () => {
   const { studentId } = useParams();
@@ -213,4 +215,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default withPermissions(Edit, banRoles.accounts.students);

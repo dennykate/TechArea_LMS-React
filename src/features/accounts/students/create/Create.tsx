@@ -12,6 +12,8 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import dayjs from "dayjs";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
   const [profile, setProfile] = useState<File | undefined>();
@@ -181,4 +183,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default withPermissions(Create, banRoles.accounts.students);
