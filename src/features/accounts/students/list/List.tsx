@@ -11,6 +11,8 @@ import SelectComponent from "@/components/inputs/SelectComponent";
 import useQuery from "@/hooks/useQuery";
 import Heading from "@/components/typography/Heading";
 import MyButton from "@/components/buttons/MyButton";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -145,4 +147,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default withPermissions(List, banRoles.accounts.students);
