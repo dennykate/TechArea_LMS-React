@@ -11,6 +11,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { MdEdit } from "react-icons/md";
 import EventMemory from "./components/EventMemory";
+import withPermissions from "@/hocs/withPermissions";
+import { banRoles } from "@/data/banRoles";
 
 const Details = () => {
   const navigate = useNavigate();
@@ -59,9 +61,9 @@ const Details = () => {
         </p>
       </div>
 
-      <EventMemory data={data?.galleries}/>
+      <EventMemory data={data?.galleries} />
     </DetailsLayout>
   );
 };
 
-export default Details;
+export default withPermissions(Details, banRoles.events);
