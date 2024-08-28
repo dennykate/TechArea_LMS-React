@@ -94,6 +94,23 @@ const Create = ({ startDate, close }: PropsType) => {
           name="type"
         />
 
+        <DateTimeInputComponent
+          placeholder="Choose start date"
+          label="Start Date"
+          withAsterisk
+          form={form}
+          name="start_date"
+          className="whitespace-nowrap"
+        />
+        <DateTimeInputComponent
+          placeholder="Choose end date"
+          label="End Date"
+          withAsterisk
+          form={form}
+          className="whitespace-nowrap"
+          name="end_date"
+        />
+
         <div
           className={twMerge(
             form.values?.role_id != "1"
@@ -115,22 +132,6 @@ const Create = ({ startDate, close }: PropsType) => {
           <GradeSectionSubject form={form} usage={["grade"]} />
         )}
 
-        <DateTimeInputComponent
-          placeholder="Choose start date"
-          label="Start Date"
-          withAsterisk
-          form={form}
-          name="start_date"
-          className="whitespace-nowrap"
-        />
-        <DateTimeInputComponent
-          placeholder="Choose end date"
-          label="End Date"
-          withAsterisk
-          form={form}
-          className="whitespace-nowrap"
-          name="end_date"
-        />
         <div className="md:col-span-2 col-span-1">
           <TextAreaComponent
             label="Note"
