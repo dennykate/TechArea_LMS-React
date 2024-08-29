@@ -7,13 +7,14 @@ const TextAreaComponent = ({
   placeholder,
   name,
   form,
+  minRows,
   withAsterisk,
 }: InputProps) => {
   return (
     <Textarea
       label={label}
       placeholder={placeholder}
-      minRows={2}
+      minRows={minRows?? 2}
       classNames={{ label: `sm:text-[16px] text-[14px] mb-2` }}
       {...form?.getInputProps(name as string)}
       withAsterisk={withAsterisk}

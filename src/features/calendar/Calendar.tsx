@@ -125,6 +125,7 @@ const Calendar = () => {
           close();
         }}
         title="Create Schedule"
+        classNames={{ title: "sm:text-xl text-lg font-medium" }}
         centered
         size={"lg"}
       >

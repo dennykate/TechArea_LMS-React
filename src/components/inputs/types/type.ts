@@ -7,5 +7,6 @@ export interface InputProps {
   name?: string;
   form?: UseFormReturnType<any>;
   defaultValue?: string;
+  minRows?: number;
   withAsterisk?: boolean;
 }

@@ -72,7 +72,7 @@ const Create = ({ startDate, close }: PropsType) => {
       onCancel={close}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
     >
-      <div className="grid md:grid-cols-2 grid-cols-1 gap-3">
+      <div className="grid md:grid-cols-2 grid-cols-1 sm:gap-5 gap-3">
         <TextInputComponent
           label="Title"
           placeholder="Enter title"
@@ -137,6 +137,7 @@ const Create = ({ startDate, close }: PropsType) => {
             label="Note"
             placeholder="Enter note"
             form={form}
+            minRows={6}
             name="description"
           />
         </div>
