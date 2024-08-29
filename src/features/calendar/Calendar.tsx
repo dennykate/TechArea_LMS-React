@@ -42,7 +42,9 @@ const Calendar = () => {
       .add(1, "month")
       .endOf("month")
       .format("YYYY-MM-DD")}${
-      userInfo?.role_id == 1 ? `&filter[grade_id]=${userInfo?.grade_id}` : ""
+      userInfo?.role_id == 1
+        ? `&filter[grade_id]=${userInfo?.grade_id}&filter[grade_id]=all_students`
+        : ""
     }`
   );
 

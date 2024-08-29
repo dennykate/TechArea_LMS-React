@@ -17,6 +17,8 @@ import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { twMerge } from "tailwind-merge";
+import { useState } from "react";
+import useQuery from "@/hooks/useQuery";
 
 interface PropsType {
   startDate?: Date;
@@ -25,6 +27,9 @@ interface PropsType {
 const Create = ({ startDate, close }: PropsType) => {
   // const theme = useMantineTheme();
   // const [isFullDay, setIsFullDay] = useState<boolean>(false);
+  const [grades, setGrades] = useState<any>();
+
+  const { isLoading: gradeLoading } = useQuery(`/grades`, setGrades);
 
   const form = useForm<any>({
     initialValues: {
@@ -129,7 +134,24 @@ const Create = ({ startDate, close }: PropsType) => {
         </div>
 
         {form.values?.role_id == "1" && (
-          <GradeSectionSubject form={form} usage={["grade"]} />
+          <SelectComponent
+            disabled={gradeLoading}
+            label={"Grade"}
+            placeholder="Select grade"
+            data={[
+              {
+                label: "For All Grades",
+                value: "all_students",
+              },
+              ...(grades?.map((grade: any) => ({
+                label: grade?.name,
+                value: grade?.id,
+              })) || []),
+            ]}
+            withAsterisk
+            form={form}
+            name="grade_id"
+          />
         )}
 
         <div className="md:col-span-2 col-span-1">

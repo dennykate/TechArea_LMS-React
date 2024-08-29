@@ -15,14 +15,17 @@ import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 // import { Group, Switch, useMantineTheme } from "@mantine/core";
 // import { IconCheck, IconX } from "@tabler/icons-react";
-import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { twMerge } from "tailwind-merge";
+import { useState } from "react";
 // import { useState } from "react";
 
 const Edit = () => {
   const { scheduleId } = useParams();
   // const theme = useMantineTheme();
   // const [isFullDay, setIsFullDay] = useState<boolean>(false);
+  const [grades, setGrades] = useState<any>();
+
+  const { isLoading: gradeLoading } = useQuery(`/grades`, setGrades);
 
   const form = useForm<any>({
     initialValues: {
@@ -170,7 +173,24 @@ const Edit = () => {
         </div> */}
 
         {form.values?.role_id == "1" && (
-          <GradeSectionSubject form={form} usage={["grade"]} />
+          <SelectComponent
+            disabled={gradeLoading}
+            label={"Grade"}
+            placeholder="Select grade"
+            data={[
+              {
+                label: "For All Grades",
+                value: "all_students",
+              },
+              ...(grades?.map((grade: any) => ({
+                label: grade?.name,
+                value: grade?.id,
+              })) || []),
+            ]}
+            withAsterisk
+            form={form}
+            name="grade_id"
+          />
         )}
 
         <DateTimeInputComponent
