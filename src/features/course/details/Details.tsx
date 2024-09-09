@@ -14,10 +14,12 @@ import HomeworkList from "./components/HomeworkList";
 import TestList from "./components/TestList";
 import Heading from "@/components/typography/Heading";
 import MyCarousel from "@/components/common/MyCarousel";
+import useUserInfo from "@/hooks/use-user-info";
 
 const Details = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
+  const userInfo = useUserInfo();
 
   const { data } = useQuery(`/courses/${courseId}`);
 
@@ -32,26 +34,20 @@ const Details = () => {
       }
       backBtn
     >
-      <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
-        {/* <div className="sm:w-[400px] w-full">
-          <img
-            src={data?.thumbnail}
-            alt={data?.name}
-            className="w-full object-cover"
-          />
-        </div> */}
-
-        <div className="sm:w-auto w-full flex justify-end">
-          <div>
-            <MyButton
-              onClick={() => navigate(`/courses/edit/${data?.id}`)}
-              leftIcon={<IconPencilMinus size={16} />}
-            >
-              Edit
-            </MyButton>
+      {userInfo.id === data?.created_by_id && (
+        <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
+          <div className="sm:w-auto w-full flex justify-end">
+            <div>
+              <MyButton
+                onClick={() => navigate(`/courses/edit/${data?.id}`)}
+                leftIcon={<IconPencilMinus size={16} />}
+              >
+                Edit
+              </MyButton>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="sm:mt-6 mt-3 space-y-3">
         <Heading tag="h2">Lesson Images</Heading>

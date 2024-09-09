@@ -5,7 +5,7 @@ export const banRoles = {
   assignments: ["1"],
   announcements: ["1", "2"],
   events: ["1", "2"],
-  grades: ["1"],
+  grades: ["1", "2", "4"],
   schedules: [],
   zoom_meetings: ["1"],
   zoom_records: ["1"],

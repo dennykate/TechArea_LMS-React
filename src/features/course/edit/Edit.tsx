@@ -14,11 +14,15 @@ import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 import MyCarousel from "@/components/common/MyCarousel";
 import alertActions from "@/utilities/alertActions";
+import useUserInfo from "@/hooks/use-user-info";
+import NotAllowed from "@/components/common/NotAllowed";
 
 const Create = () => {
   const { courseId } = useParams();
   const [defaultImages, setDefaultImages] = useState<string>("");
   const [files, setFiles] = useState<File[] | undefined>([]);
+  const [creatorId, setCreatorId] = useState<string>("");
+  const userInfo = useUserInfo();
 
   const form = useForm({
     initialValues: {
@@ -46,6 +50,7 @@ const Create = () => {
     `/courses/${courseId}`,
     (data) => {
       setDefaultImages(data?.attachments);
+      setCreatorId(data?.created_by_id);
 
       form.setFieldValue("name", data?.name);
       form.setFieldValue("grade_id", data?.grade_id);
@@ -84,6 +89,8 @@ const Create = () => {
       "Are you sure to delete"
     );
   };
+
+  if (userInfo.id !== creatorId) return <NotAllowed />;
 
   return (
     <FormLayout
