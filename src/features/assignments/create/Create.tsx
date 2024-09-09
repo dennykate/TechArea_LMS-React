@@ -141,7 +141,7 @@ const Create = () => {
         <FileUpload
           type={"all"}
           setSingleFile={setFile}
-          label="Image"
+          label="Files"
           withAsterisk
         />
 

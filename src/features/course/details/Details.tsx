@@ -12,6 +12,8 @@ import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 import HomeworkList from "./components/HomeworkList";
 import TestList from "./components/TestList";
+import Heading from "@/components/typography/Heading";
+import MyCarousel from "@/components/common/MyCarousel";
 
 const Details = () => {
   const { courseId } = useParams();
@@ -31,13 +33,13 @@ const Details = () => {
       backBtn
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
-        <div className="sm:w-[400px] w-full">
+        {/* <div className="sm:w-[400px] w-full">
           <img
             src={data?.thumbnail}
             alt={data?.name}
             className="w-full object-cover"
           />
-        </div>
+        </div> */}
 
         <div className="sm:w-auto w-full flex justify-end">
           <div>
@@ -49,6 +51,12 @@ const Details = () => {
             </MyButton>
           </div>
         </div>
+      </div>
+
+      <div className="sm:mt-6 mt-3 space-y-3">
+        <Heading tag="h2">Lesson Images</Heading>
+
+        <MyCarousel slides={data?.attachments} />
       </div>
 
       <div className="mt-6 ">

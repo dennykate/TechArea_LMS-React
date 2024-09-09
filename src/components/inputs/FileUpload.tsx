@@ -131,8 +131,7 @@ const FileUpload: React.FC<PropsType> = ({
                   Drag here or click to select files
                 </Text>
                 <Text size="sm" color="dimmed" inline mt={7}>
-                  Attach as many files as you like, each file should not exceed
-                  5mb
+                  Attach as many files as you like...
                 </Text>
               </div>
             </Group>
@@ -213,7 +212,7 @@ const FileUpload: React.FC<PropsType> = ({
                     prev.filter((file: any) => file?.name != dt?.name)
                   )
                 }
-                className=" bg-red-500 w-[32px] absolute bottom-2 right-2 h-[32px] flex justify-center items-center rounded-md hover:bg-red-700"
+                className=" bg-red-500 tw-z-50 w-[32px] absolute bottom-2 right-2 h-[32px] flex justify-center items-center rounded-md hover:bg-red-700"
               >
                 <IconTrashFilled color="white" size={12} />
 
@@ -273,8 +272,7 @@ const FileUpload: React.FC<PropsType> = ({
                   mt={7}
                   className="text-center"
                 >
-                  Attach as many files as you like, each file should not exceed
-                  5mb
+                  Attach as many files as you like...
                 </Text>
               </div>
             </div>

@@ -12,11 +12,13 @@ import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import MyCarousel from "@/components/common/MyCarousel";
+import alertActions from "@/utilities/alertActions";
 
 const Create = () => {
   const { courseId } = useParams();
-  const [defaultImage, setDefaultImage] = useState<string>("");
-  const [file, setFile] = useState<File | undefined>();
+  const [defaultImages, setDefaultImages] = useState<string>("");
+  const [files, setFiles] = useState<File[] | undefined>([]);
 
   const form = useForm({
     initialValues: {
@@ -43,7 +45,7 @@ const Create = () => {
   const { isLoading: queryLoading } = useQuery(
     `/courses/${courseId}`,
     (data) => {
-      setDefaultImage(data?.thumbnail);
+      setDefaultImages(data?.attachments);
 
       form.setFieldValue("name", data?.name);
       form.setFieldValue("grade_id", data?.grade_id);
@@ -55,7 +57,7 @@ const Create = () => {
 
   const onSubmitHandler = (values: any) => {
     if (values.description == "") return toast.error("Note is requried");
-    // if (!file) return toast.error("File is requried");
+    // if (!files) return toast.error("File is requried");
 
     const formData = new FormData();
 
@@ -63,11 +65,24 @@ const Create = () => {
       formData.append(key, value as string);
     });
 
-    formData.append("thumbnail", file as File);
+    if (files?.length && files?.length > 0) {
+      files?.forEach((file: File) => {
+        formData.append("thumbnails[]", file as File);
+      });
+    }
 
     onSubmit(`/courses/${courseId}`, formData, "POST", true);
 
-    setFile(undefined);
+    setFiles(undefined);
+  };
+
+  const [onDelete] = useMutate();
+
+  const handleDelete = (id: string) => {
+    alertActions(
+      () => onDelete(`/courses/${id}/attachment`, null, "DELETE"),
+      "Are you sure to delete"
+    );
   };
 
   return (
@@ -110,11 +125,11 @@ const Create = () => {
           onChange={(val) => form.setFieldValue("description", val)}
         />
 
-        <FileUpload
-          type={"image"}
-          setSingleFile={setFile}
-          defaultImage={defaultImage}
-        />
+        {defaultImages?.length > 0 && (
+          <MyCarousel slides={defaultImages} onDelete={handleDelete} />
+        )}
+
+        <FileUpload type={"image"} multiple setMultileFile={setFiles} />
       </div>
     </FormLayout>
   );

@@ -119,7 +119,7 @@ const FileSend: React.FC<PropData> = ({ close, receiverId, onSuccess }) => {
             Drag files here or click to select files
           </Text>
           <Text size="sm" color="dimmed" inline mt={7}>
-            Attach as many files as you like, each file should not exceed 5MB
+            Attach as many files as you like...
           </Text>
         </Dropzone>
       )}

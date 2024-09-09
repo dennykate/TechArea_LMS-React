@@ -22,7 +22,11 @@ const List = () => {
           <td className="m_td">{i + 1}</td>
           <td className="m_td">
             <img
-              src={element?.thumbnail}
+              src={
+                element?.thumbnail ||
+                (element?.attachments?.length > 0 &&
+                  element?.attachments[0]?.url)
+              }
               alt={element?.name}
               className="h-[70px] w-[120px] object-cover rounded-sm"
             />
