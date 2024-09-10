@@ -13,11 +13,13 @@ import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import useUserInfo from "@/hooks/use-user-info";
 
 const Details = () => {
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState<any>();
+  const userInfo = useUserInfo();
 
   const { isLoading } = useQuery(`/quizzes/${quizId}`, setData);
 
@@ -42,16 +44,18 @@ const Details = () => {
           />
         </div>
 
-        <div className="sm:w-auto w-full flex justify-end">
-          <div>
-            <MyButton
-              onClick={() => navigate(`/quizzes/edit/${quizId}`)}
-              leftIcon={<IconPencilMinus size={16} />}
-            >
-              Edit
-            </MyButton>
+        {userInfo.id === data?.created_by_id && (
+          <div className="sm:w-auto w-full flex justify-end">
+            <div>
+              <MyButton
+                onClick={() => navigate(`/quizzes/edit/${quizId}`)}
+                leftIcon={<IconPencilMinus size={16} />}
+              >
+                Edit
+              </MyButton>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <div className="mt-6 ">

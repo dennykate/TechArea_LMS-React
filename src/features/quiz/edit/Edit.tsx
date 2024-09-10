@@ -12,11 +12,15 @@ import { useParams } from "react-router-dom";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import useUserInfo from "@/hooks/use-user-info";
+import NotAllowed from "@/components/common/NotAllowed";
 
 const Edit = () => {
   const { quizId } = useParams();
   const [file, setFile] = useState<File | null>();
   const [defaultImage, setDefaultImage] = useState<string>("");
+  const [creatorId, setCreatorId] = useState<string>("");
+  const userInfo = useUserInfo();
 
   const form = useForm<any>({
     initialValues: {
@@ -65,6 +69,7 @@ const Edit = () => {
 
   const { isLoading: queryLoading } = useQuery(`quizzes/${quizId}`, (data) => {
     setDefaultImage(data?.image);
+    setCreatorId(data.created_by_id);
 
     form.setFieldValue("title", data?.title);
     form.setFieldValue("grade_id", data?.grade_id);
@@ -75,6 +80,8 @@ const Edit = () => {
     form.setFieldValue("chapter_note", data?.chapter?.note);
     form.setFieldValue("answer_limit", parseInt(data?.answer_limit));
   });
+
+  if (userInfo.id !== creatorId) return <NotAllowed />;
 
   return (
     <FormLayout

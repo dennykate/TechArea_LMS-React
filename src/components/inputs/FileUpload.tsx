@@ -7,7 +7,12 @@ import {
   IconX,
   IconTrashFilled,
 } from "@tabler/icons-react";
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import {
+  Dropzone,
+  DropzoneProps,
+  IMAGE_MIME_TYPE,
+  PDF_MIME_TYPE,
+} from "@mantine/dropzone";
 import React, { useEffect, useState } from "react";
 import { AiFillFileUnknown } from "react-icons/ai";
 
@@ -92,7 +97,7 @@ const FileUpload: React.FC<PropsType> = ({
               type === "all"
                 ? []
                 : type === "image"
-                ? IMAGE_MIME_TYPE
+                ? [...IMAGE_MIME_TYPE, ...PDF_MIME_TYPE]
                 : ["video/mp4"]
             }
             multiple={multiple}
@@ -201,7 +206,7 @@ const FileUpload: React.FC<PropsType> = ({
                 />
               ) : (
                 <div className="w-full h-full flex justify-center items-center bg-gray-200">
-                  <AiFillFileUnknown />
+                  <AiFillFileUnknown className="text-5xl" />
                 </div>
               )}
 

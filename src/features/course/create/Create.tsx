@@ -98,7 +98,7 @@ const Create = () => {
           type={"image"}
           multiple
           setMultileFile={setFiles}
-          label="Thumbnails"
+          label="Images"
           withAsterisk
         />
       </div>

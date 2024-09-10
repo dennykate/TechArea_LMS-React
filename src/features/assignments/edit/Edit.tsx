@@ -16,6 +16,8 @@ import Attachments from "./components/Attachments";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import dayjs from "dayjs";
 import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
+import useUserInfo from "@/hooks/use-user-info";
+import NotAllowed from "@/components/common/NotAllowed";
 
 const Edit = () => {
   const { assignmentId } = useParams();
@@ -23,6 +25,8 @@ const Edit = () => {
   const [additionalFiles, setAdditionalFiles] = useState<any>([]);
   const [defaultImage, setDefaultImage] = useState<string>("");
   const [attachments, setAttachments] = useState<string>("");
+  const [creatorId, setCreatorId] = useState<string>("");
+  const userInfo = useUserInfo();
 
   const form = useForm({
     initialValues: {
@@ -86,6 +90,7 @@ const Edit = () => {
     (data) => {
       setDefaultImage(data?.file);
       setAttachments(data?.attachments);
+      setCreatorId(data?.created_by_id);
 
       form.setFieldValue("title", data?.title);
       form.setFieldValue("description", data?.description);
@@ -100,6 +105,8 @@ const Edit = () => {
     }
   );
 
+  if (userInfo.id !== creatorId) return <NotAllowed />;
+
   return (
     <FormLayout
       title="Edit Homework"
@@ -108,7 +115,7 @@ const Edit = () => {
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Homework List", link: "/assignments/list" },
+        { title: "Homework List", link: "/courses/list" },
         { title: "Edit Homework", link: "" },
       ]}
       header={{

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { TableActions, TableComponent } from "@/components/table";
 import useMutate from "@/hooks/useMutate";
+import useUserInfo from "@/hooks/use-user-info";
 
 interface PropsType {
   gradeId: string;
@@ -14,6 +15,7 @@ const HomeworkList: React.FC<PropsType> = ({ gradeId }) => {
   const navigate = useNavigate();
   const [onSubmit] = useMutate();
   const [data, setData] = useState<any>([]);
+  const userInfo = useUserInfo();
 
   const rows = useMemo(
     () =>
@@ -38,10 +40,16 @@ const HomeworkList: React.FC<PropsType> = ({ gradeId }) => {
           <td className="m_td">
             <TableActions
               detailCb={() => navigate(`/assignments/details/${element.id}`)}
-              destroyCb={() =>
-                onSubmit(`/assignments/${element?.id}`, {}, "DELETE")
+              destroyCb={
+                userInfo.id === element?.created_by_id
+                  ? () => onSubmit(`/assignments/${element?.id}`, {}, "DELETE")
+                  : undefined
               }
-              editCb={() => navigate(`/assignments/edit/${element.id}`)}
+              editCb={
+                userInfo.id === element?.created_by_id
+                  ? () => navigate(`/assignments/edit/${element.id}`)
+                  : undefined
+              }
             />
           </td>
         </tr>

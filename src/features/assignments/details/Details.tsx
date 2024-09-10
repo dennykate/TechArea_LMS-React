@@ -10,11 +10,13 @@ import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import MediaViewer from "@/components/common/MediaViewer";
+import useUserInfo from "@/hooks/use-user-info";
 
 const Details = () => {
   const { assignmentId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState<any>();
+  const userInfo = useUserInfo();
 
   const { isLoading } = useQuery(`/assignments/${assignmentId}`, setData);
 
@@ -23,21 +25,23 @@ const Details = () => {
       isLoading={isLoading}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Homework List", link: "/assignments/list" },
+        { title: "Homework List", link: "/courses/list" },
         { title: "Homework Details", link: "" },
       ]}
     >
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
         <Heading tag="h1">{data?.title}</Heading>
 
-        <div className="sm:w-auto w-full flex justify-end">
-          <MyButton
-            onClick={() => navigate(`/assignments/edit/${assignmentId}`)}
-            leftIcon={<IconPencilMinus size={16} />}
-          >
-            Edit
-          </MyButton>
-        </div>
+        {userInfo.id === data?.created_by_id && (
+          <div className="sm:w-auto w-full flex justify-end">
+            <MyButton
+              onClick={() => navigate(`/assignments/edit/${assignmentId}`)}
+              leftIcon={<IconPencilMinus size={16} />}
+            >
+              Edit
+            </MyButton>
+          </div>
+        )}
       </div>
 
       <div className="sm:mt-6 mt-3">
