@@ -8,6 +8,7 @@ import { MdOutlineMenuBook } from "react-icons/md";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 import useUserInfo from "@/hooks/use-user-info";
+import { FaFilePdf } from "react-icons/fa6";
 
 const List = () => {
   const [onSubmit] = useMutate();
@@ -23,15 +24,21 @@ const List = () => {
         <tr key={i}>
           <td className="m_td">{i + 1}</td>
           <td className="m_td">
-            <img
-              src={
-                element?.thumbnail ||
-                (element?.attachments?.length > 0 &&
-                  element?.attachments[0]?.url)
-              }
-              alt={element?.name}
-              className="h-[70px] w-[120px] object-cover rounded-sm"
-            />
+            {element?.attachments[0]?.url?.includes(".pdf") ? (
+              <div className="h-[70px] w-[120px] object-cover rounded-sm flex justify-center items-center bg-gray-300">
+                <FaFilePdf className="text-3xl" />
+              </div>
+            ) : (
+              <img
+                src={
+                  element?.thumbnail ||
+                  (element?.attachments?.length > 0 &&
+                    element?.attachments[0]?.url)
+                }
+                alt={element?.name}
+                className="h-[70px] w-[120px] object-cover rounded-sm"
+              />
+            )}
           </td>
           <td className="m_td">{element?.name} </td>
           <td className="m_td">{element?.grade}</td>
