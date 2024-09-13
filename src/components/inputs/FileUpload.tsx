@@ -16,7 +16,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { AiFillFileUnknown } from "react-icons/ai";
 
-const imageTypes = [
+export const imageTypes = [
   "image/jpeg",
   "image/png",
   "image/gif",

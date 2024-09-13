@@ -65,7 +65,7 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
     const formData = new FormData();
     formData.append("content", content);
     uploadedImage.forEach((file) => {
-      formData.append("image", file);
+      formData.append("images[]", file);
     });
 
     try {
@@ -98,7 +98,7 @@ const UploadField: React.FC<ModalProps & Partial<DropzoneProps>> = ({
               onDrop={handleDrop}
               onReject={(files) => console.log("rejected files", files)}
               maxSize={3 * 1024 ** 2}
-              accept={IMAGE_MIME_TYPE}
+              accept={[...IMAGE_MIME_TYPE]}
               {...dropzoneProps}
             >
               <Group

@@ -28,6 +28,7 @@ import Swal from "sweetalert2";
 import useMutate from "@/hooks/useMutate";
 import { twMerge } from "tailwind-merge";
 import { useState } from "react";
+import PostMedia from "./PostMedia";
 
 interface Reaction {
   id: string;
@@ -44,6 +45,14 @@ interface ReactProps {
   user_id: string;
   type: string;
 }
+
+export type MediaType = {
+  id: string;
+  url: string;
+  mediable_id: string;
+  mediable_type: string;
+};
+
 interface ParentProps {
   parent: string;
   data?: {
@@ -57,6 +66,7 @@ interface ParentProps {
     is_reactor: ReactProps;
     reactions: any;
     creator: any;
+    medias: MediaType[];
   };
   resetData: () => void;
   directChangeReaction?: any;
@@ -188,17 +198,7 @@ const Post: React.FC<ParentProps> = ({
         w={"100%"}
       >
         <Card.Section className="relative">
-          {data?.image && (
-            <div className="w-full flex justify-center">
-              <img
-                src={`${data?.image}`}
-                alt=""
-                className={` object-cover h-[250px] sm:h-[300px] lg:h-[500px]  ${
-                  parent === "newfeed" ? "w-[700px]" : "w-[500px]"
-                }`}
-              />
-            </div>
-          )}
+          {data?.medias && <PostMedia data={data?.medias} parent={parent} />}
 
           {/* for delete and edit  */}
           {parent === "newfeed" &&
@@ -281,69 +281,6 @@ const Post: React.FC<ParentProps> = ({
 
           <span>{data?.comment_count} Comment</span>
         </div>
-
-        {/* for comment and reaction  */}
-        {/* <div className="hidden w-full justify-around gap-1 lg:flex">
-          <HoverCard shadow="md" openDelay={50}>
-            <HoverCard.Target>
-              <Button
-                disabled={reactLoading}
-                onClick={deleteReactHandler}
-                fullWidth
-                color={
-                  data && data.is_reactor?.user_id === userData.id
-                    ? "blue"
-                    : "gray"
-                }
-                variant="outline"
-                leftIcon={
-                  data?.is_reactor === null ? (
-                    <IconThumbUp size={16} />
-                  ) : (
-                    `${
-                      data?.is_reactor?.type === "good"
-                        ? "👍"
-                        : data?.is_reactor?.type === "best"
-                        ? "❤️"
-                        : data?.is_reactor?.type === "not bad"
-                        ? "🙂"
-                        : data?.is_reactor?.type === "bad" && "👎"
-                    }`
-                  )
-                }
-              >
-                {data?.is_reactor
-                  ? data.is_reactor?.user_id === userData.id
-                    ? data?.is_reactor?.type
-                    : null
-                  : "Like"}
-              </Button>
-            </HoverCard.Target>
-            <HoverCard.Dropdown>
-              <div className="flex justify-center gap-2">
-                {reactions.map((r) => (
-                  <ActionIcon
-                    key={r.id}
-                    size="xl"
-                    onClick={() => handleReactionSelect(r)}
-                  >
-                    <span>{r.emoji}</span>
-                  </ActionIcon>
-                ))}
-              </div>
-            </HoverCard.Dropdown>
-          </HoverCard>
-          {parent === "newfeed" && (
-            <Button
-              fullWidth
-              variant="outline"
-              leftIcon={<IconMessageCircle size={16} />}
-              onClick={handleCommentButtonClick}
-            >
-              Comment
-            </Button>
-          )}
-        </div> */}
 
         <div className="flex w-full justify-around gap-1 ">
           <Popover shadow="md" opened={opened} onChange={setOpened}>

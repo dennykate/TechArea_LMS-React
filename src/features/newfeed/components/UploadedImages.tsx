@@ -1,6 +1,7 @@
-import { ActionIcon, Image } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface UploadProps {
   uploadedImage: string[];
@@ -20,22 +21,22 @@ const UploadedImages: React.FC<UploadProps> = ({
   };
 
   return (
-    <div className="flex gap-4 justify-center items-center">
+    <div className="flex gap-4 justify-center items-center flex-wrap">
       {uploadedImage?.map((image, index) => (
         <div
           onMouseEnter={() => setHoverIndex(index)}
           onMouseLeave={() => setHoverIndex(null)}
-          className="relative"
+          className={twMerge(
+            "relative ",
+            uploadedImage?.length > 1 ? "w-[48%] h-[150px]" : "w-full h-[300px]"
+          )}
           key={index}
-          style={{
-            maxWidth: "300px",
-            maxHeight: "300px",
-            width: "auto",
-            height: "auto",
-            overflow: "hidden",
-          }}
         >
-          <Image src={image} alt={`Uploaded ${index + 1}`} fit="cover" />
+          <img
+            src={image}
+            alt={`Uploaded ${index + 1}`}
+            className="w-full h-full object-cover"
+          />
           {hoverIndex === index && (
             <ActionIcon
               variant="outline"
