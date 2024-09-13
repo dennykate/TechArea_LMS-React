@@ -24,11 +24,11 @@ const List = () => {
         <tr key={i}>
           <td className="m_td">{i + 1}</td>
           <td className="m_td">
-            {element?.attachments[0]?.url?.includes(".pdf") ? (
+            {/* {element?.attachments[0]?.url?.includes(".pdf") ? (
               <div className="h-[70px] w-[120px] object-cover rounded-sm flex justify-center items-center bg-gray-300">
                 <FaFilePdf className="text-3xl" />
               </div>
-            ) : (
+            ) : ( */}
               <img
                 src={
                   element?.thumbnail ||
@@ -38,7 +38,7 @@ const List = () => {
                 alt={element?.name}
                 className="h-[70px] w-[120px] object-cover rounded-sm"
               />
-            )}
+            {/* )} */}
           </td>
           <td className="m_td">{element?.name} </td>
           <td className="m_td">{element?.grade}</td>
