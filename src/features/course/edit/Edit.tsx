@@ -12,17 +12,14 @@ import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
-import MyCarousel from "@/components/common/MyCarousel";
-import alertActions from "@/utilities/alertActions";
-import useUserInfo from "@/hooks/use-user-info";
 import NotAllowed from "@/components/common/NotAllowed";
+import checkPermission from "@/utilities/check-permission";
 
-const Create = () => {
+const Edit = () => {
   const { courseId } = useParams();
-  const [defaultImages, setDefaultImages] = useState<string>("");
-  const [files, setFiles] = useState<File[] | undefined>([]);
+  const [defaultImage, setDefaultImage] = useState<string>("");
+  const [file, setFile] = useState<File | undefined>(undefined);
   const [creatorId, setCreatorId] = useState<string>("");
-  const userInfo = useUserInfo();
 
   const form = useForm({
     initialValues: {
@@ -49,7 +46,7 @@ const Create = () => {
   const { isLoading: queryLoading } = useQuery(
     `/courses/${courseId}`,
     (data) => {
-      setDefaultImages(data?.attachments);
+      setDefaultImage(data?.thumbnail);
       setCreatorId(data?.created_by_id);
 
       form.setFieldValue("name", data?.name);
@@ -62,7 +59,7 @@ const Create = () => {
 
   const onSubmitHandler = (values: any) => {
     if (values.description == "") return toast.error("Note is requried");
-    // if (!files) return toast.error("File is requried");
+    // if (!file) return toast.error("File is requried");
 
     const formData = new FormData();
 
@@ -70,27 +67,14 @@ const Create = () => {
       formData.append(key, value as string);
     });
 
-    if (files?.length && files?.length > 0) {
-      files?.forEach((file: File) => {
-        formData.append("thumbnails[]", file as File);
-      });
-    }
+    formData.append("thumbnail", file as File);
 
     onSubmit(`/courses/${courseId}`, formData, "POST", true);
 
-    setFiles(undefined);
+    setFile(undefined);
   };
 
-  const [onDelete] = useMutate();
-
-  const handleDelete = (id: string) => {
-    alertActions(
-      () => onDelete(`/courses/${id}/attachment`, null, "DELETE"),
-      "Are you sure to delete"
-    );
-  };
-
-  if (userInfo.id !== creatorId) return <NotAllowed />;
+  if (!checkPermission(creatorId)) return <NotAllowed />;
 
   return (
     <FormLayout
@@ -132,14 +116,19 @@ const Create = () => {
           onChange={(val) => form.setFieldValue("description", val)}
         />
 
-        {defaultImages?.length > 0 && (
+        {/* {defaultImage?.length > 0 && (
           <MyCarousel slides={defaultImages} onDelete={handleDelete} />
-        )}
+        )} */}
 
-        <FileUpload type={"image"} multiple setMultileFile={setFiles} />
+        <FileUpload
+          type={"image"}
+          label="Image"
+          setSingleFile={setFile}
+          defaultImage={defaultImage}
+        />
       </div>
     </FormLayout>
   );
 };
 
-export default withPermissions(Create, banRoles.courses);
+export default withPermissions(Edit, banRoles.courses);

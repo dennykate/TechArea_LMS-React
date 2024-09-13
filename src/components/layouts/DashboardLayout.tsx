@@ -67,6 +67,12 @@ const DashboardLayout = ({ children }: PropsType) => {
     checkLearningAccess();
   }, [userInfo, pathname]);
 
+  useEffect(() => {
+    if (userInfo) {
+      window.activeUser = userInfo;
+    }
+  }, [userInfo]);
+
   return (
     <div className="flex items-start h-screen overflow-hidden">
       {matches && (

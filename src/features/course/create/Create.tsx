@@ -12,7 +12,7 @@ import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 
 const Create = () => {
-  const [files, setFiles] = useState<File[] | undefined>([]);
+  const [file, setFile] = useState<File | undefined>(undefined);
 
   const form = useForm({
     initialValues: {
@@ -38,7 +38,7 @@ const Create = () => {
 
   const onSubmitHandler = (values: any) => {
     if (values.description == "") return toast.error("Note is requried");
-    if (files?.length === 0) return toast.error("Image is requried");
+    if (!file) return toast.error("Image is requried");
 
     const formData = new FormData();
 
@@ -46,13 +46,11 @@ const Create = () => {
       formData.append(key, value as string);
     });
 
-    files?.forEach((file: File) =>
-      formData.append("thumbnails[]", file as File)
-    );
+    formData.append("thumbnail", file as File);
 
     onSubmit("/courses", formData, "POST", true);
 
-    setFiles(undefined);
+    setFile(undefined);
   };
 
   return (
@@ -96,9 +94,8 @@ const Create = () => {
 
         <FileUpload
           type={"image"}
-          multiple
-          setMultileFile={setFiles}
-          label="Images"
+          setSingleFile={setFile}
+          label="Image"
           withAsterisk
         />
       </div>

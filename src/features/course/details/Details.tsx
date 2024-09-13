@@ -12,14 +12,11 @@ import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 import HomeworkList from "./components/HomeworkList";
 import TestList from "./components/TestList";
-import Heading from "@/components/typography/Heading";
-import MyCarousel from "@/components/common/MyCarousel";
-import useUserInfo from "@/hooks/use-user-info";
+import checkPermission from "@/utilities/check-permission";
 
 const Details = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  const userInfo = useUserInfo();
 
   const { data } = useQuery(`/courses/${courseId}`);
 
@@ -34,8 +31,8 @@ const Details = () => {
       }
       backBtn
     >
-      {userInfo.id === data?.created_by_id && (
-        <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
+      {checkPermission(data?.created_by_id) && (
+        <div className="w-full flex justify-between mb-2 sm:items-end items-start sm:flex-row flex-col gap-3">
           <div className="sm:w-auto w-full flex justify-end">
             <div>
               <MyButton
@@ -49,10 +46,8 @@ const Details = () => {
         </div>
       )}
 
-      <div className="sm:mt-6 mt-3 space-y-3">
-        <Heading tag="h2">Lesson Images</Heading>
-
-        <MyCarousel slides={data?.attachments} />
+      <div className="w-[300px]">
+        <img src={data?.thumbnail} alt="" className="w-full object-cover" />
       </div>
 
       <div className="mt-6 ">

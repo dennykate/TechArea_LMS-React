@@ -7,14 +7,12 @@ import TableLayout from "@/components/layouts/TableLayout";
 import { MdOutlineMenuBook } from "react-icons/md";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
-import useUserInfo from "@/hooks/use-user-info";
 import { FaFilePdf } from "react-icons/fa6";
+import checkPermission from "@/utilities/check-permission";
 
 const List = () => {
   const [onSubmit] = useMutate();
-
   const [data, setData] = useState<any>();
-  const userInfo = useUserInfo();
 
   const navigate = useNavigate();
 
@@ -50,12 +48,12 @@ const List = () => {
             <TableActions
               detailCb={() => navigate(`/courses/details/${element?.id}`)}
               editCb={
-                userInfo.id === element?.created_by_id
+                checkPermission(element?.created_by_id)
                   ? () => navigate(`/courses/edit/${element?.id}`)
                   : undefined
               }
               destroyCb={
-                userInfo.id === element?.created_by_id
+                checkPermission(element?.created_by_id)
                   ? () => onSubmit(`/courses/${element?.id}`, {}, "DELETE")
                   : undefined
               }
