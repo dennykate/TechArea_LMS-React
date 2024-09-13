@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 
 import { TableActions, TableComponent } from "@/components/table";
 import useMutate from "@/hooks/useMutate";
-import useUserInfo from "@/hooks/use-user-info";
+// import useUserInfo from "@/hooks/use-user-info";
+import checkPermission from "@/utilities/check-permission";
 
 interface PropsType {
   gradeId: string;
@@ -15,14 +16,21 @@ const HomeworkList: React.FC<PropsType> = ({ gradeId }) => {
   const navigate = useNavigate();
   const [onSubmit] = useMutate();
   const [data, setData] = useState<any>([]);
-  const userInfo = useUserInfo();
+  // const userInfo = useUserInfo();
 
   const rows = useMemo(
     () =>
       data?.map((element: any, i: number) => (
         <tr key={i}>
           <td className="m_td">{i + 1}</td>
+          <td className="m_td">
+            <img
+              src={element?.image}
+              className="h-[70px] w-[120px] object-cover rounded-sm"
+            />
+          </td>
           <td className="m_td">{element?.title}</td>
+
           <td className="m_td">
             <div className="flex items-center max-w-[200px] ">
               <div
@@ -41,12 +49,12 @@ const HomeworkList: React.FC<PropsType> = ({ gradeId }) => {
             <TableActions
               detailCb={() => navigate(`/assignments/details/${element.id}`)}
               destroyCb={
-                userInfo.id === element?.created_by_id
+                checkPermission(element?.created_by_id)
                   ? () => onSubmit(`/assignments/${element?.id}`, {}, "DELETE")
                   : undefined
               }
               editCb={
-                userInfo.id === element?.created_by_id
+                checkPermission(element?.created_by_id)
                   ? () => navigate(`/assignments/edit/${element.id}`)
                   : undefined
               }
@@ -67,6 +75,7 @@ const HomeworkList: React.FC<PropsType> = ({ gradeId }) => {
       title={"Homework List"}
       headerClassName="!border-opacity-5"
       tableHeads={[
+        "Thumbnail",
         "Title",
         "Note",
         "Grade",

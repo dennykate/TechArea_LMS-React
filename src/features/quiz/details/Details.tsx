@@ -13,13 +13,14 @@ import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
-import useUserInfo from "@/hooks/use-user-info";
+// import useUserInfo from "@/hooks/use-user-info";
+import checkPermission from "@/utilities/check-permission";
 
 const Details = () => {
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState<any>();
-  const userInfo = useUserInfo();
+  // const userInfo = useUserInfo();
 
   const { isLoading } = useQuery(`/quizzes/${quizId}`, setData);
 
@@ -44,7 +45,7 @@ const Details = () => {
           />
         </div>
 
-        {userInfo.id === data?.created_by_id && (
+        {checkPermission(data?.created_by_id) && (
           <div className="sm:w-auto w-full flex justify-end">
             <div>
               <MyButton

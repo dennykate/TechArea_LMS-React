@@ -7,7 +7,7 @@ import TableLayout from "@/components/layouts/TableLayout";
 import { MdOutlineMenuBook } from "react-icons/md";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
-import { FaFilePdf } from "react-icons/fa6";
+
 import checkPermission from "@/utilities/check-permission";
 
 const List = () => {
@@ -27,15 +27,15 @@ const List = () => {
                 <FaFilePdf className="text-3xl" />
               </div>
             ) : ( */}
-              <img
-                src={
-                  element?.thumbnail ||
-                  (element?.attachments?.length > 0 &&
-                    element?.attachments[0]?.url)
-                }
-                alt={element?.name}
-                className="h-[70px] w-[120px] object-cover rounded-sm"
-              />
+            <img
+              src={
+                element?.thumbnail ||
+                (element?.attachments?.length > 0 &&
+                  element?.attachments[0]?.url)
+              }
+              alt={element?.name}
+              className="h-[70px] w-[120px] object-cover rounded-sm"
+            />
             {/* )} */}
           </td>
           <td className="m_td">{element?.name} </td>

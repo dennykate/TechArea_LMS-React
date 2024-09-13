@@ -16,8 +16,9 @@ import Attachments from "./components/Attachments";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import dayjs from "dayjs";
 import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
-import useUserInfo from "@/hooks/use-user-info";
+// import useUserInfo from "@/hooks/use-user-info";
 import NotAllowed from "@/components/common/NotAllowed";
+import checkPermission from "@/utilities/check-permission";
 
 const Edit = () => {
   const { assignmentId } = useParams();
@@ -26,7 +27,7 @@ const Edit = () => {
   const [defaultImage, setDefaultImage] = useState<string>("");
   const [attachments, setAttachments] = useState<string>("");
   const [creatorId, setCreatorId] = useState<string>("");
-  const userInfo = useUserInfo();
+  // const userInfo = useUserInfo();
 
   const form = useForm({
     initialValues: {
@@ -105,7 +106,7 @@ const Edit = () => {
     }
   );
 
-  if (userInfo.id !== creatorId) return <NotAllowed />;
+  if (!checkPermission(creatorId)) return <NotAllowed />;
 
   return (
     <FormLayout
@@ -115,7 +116,7 @@ const Edit = () => {
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Homework List", link: "/courses/list" },
+        { title: "Homework List", link: "courses/details/0443f90c-f77c-42cf-9ca3-011d46ceed2e" },
         { title: "Edit Homework", link: "" },
       ]}
       header={{
