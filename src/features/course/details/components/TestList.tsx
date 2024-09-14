@@ -9,9 +9,10 @@ import checkPermission from "@/utilities/check-permission";
 
 interface PropsType {
   gradeId: string;
+  lessonId: string;
 }
 
-const TestList: React.FC<PropsType> = ({ gradeId }) => {
+const TestList: React.FC<PropsType> = ({ gradeId, lessonId }) => {
   // const { courseId } = useParams();
   const navigate = useNavigate();
   const [onSubmit] = useMutate();
@@ -38,10 +39,13 @@ const TestList: React.FC<PropsType> = ({ gradeId }) => {
           <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate(`/quizzes/details/${element.id}`)}
+              detailCb={() => navigate(`/quizzes/details/${element.id}?lesson_id=${lessonId}`)}
               editCb={
                 checkPermission(element?.created_by_id)
-                  ? () => navigate(`/quizzes/edit/${element.id}`)
+                  ? () =>
+                      navigate(
+                        `/quizzes/edit/${element.id}?lesson_id=${lessonId}`
+                      )
                   : undefined
               }
               destroyCb={

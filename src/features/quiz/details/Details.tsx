@@ -2,7 +2,7 @@
 import { Tabs } from "@mantine/core";
 import { MdOutlinePeopleAlt, MdOutlineQuestionMark } from "react-icons/md";
 import { IconPencilMinus } from "@tabler/icons-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import MyButton from "@/components/buttons/MyButton";
 import DetailsLayout from "@/components/layouts/DetailsLayout";
@@ -20,6 +20,7 @@ const Details = () => {
   const { quizId } = useParams();
   const navigate = useNavigate();
   const [data, setData] = useState<any>();
+  const [searchParams] = useSearchParams();
   // const userInfo = useUserInfo();
 
   const { isLoading } = useQuery(`/quizzes/${quizId}`, setData);
@@ -49,7 +50,7 @@ const Details = () => {
           <div className="sm:w-auto w-full flex justify-end">
             <div>
               <MyButton
-                onClick={() => navigate(`/quizzes/edit/${quizId}`)}
+                onClick={() => navigate(`/quizzes/edit/${quizId}?lesson_id=${searchParams.get("lesson_id")}`)}
                 leftIcon={<IconPencilMinus size={16} />}
               >
                 Edit

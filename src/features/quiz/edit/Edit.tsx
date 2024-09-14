@@ -8,7 +8,7 @@ import useMutate from "@/hooks/useMutate";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import { useState } from "react";
 import useQuery from "@/hooks/useQuery";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
@@ -21,6 +21,7 @@ const Edit = () => {
   const [file, setFile] = useState<File | null>();
   const [defaultImage, setDefaultImage] = useState<string>("");
   const [creatorId, setCreatorId] = useState<string>("");
+  const [searchParams] = useSearchParams();
   // const userInfo = useUserInfo();
 
   const form = useForm<any>({
@@ -92,7 +93,7 @@ const Edit = () => {
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Test List", link: "/quizzes/list" },
+        { title: "Test List", link: `/courses/details/${searchParams.get("lesson_id")}` },
         { title: "Edit Test", link: "" },
       ]}
       header={{
