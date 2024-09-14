@@ -10,7 +10,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import AdditionalLessons from "./components/AdditionalLessons";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import useQuery from "@/hooks/useQuery";
 import Attachments from "./components/Attachments";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
@@ -27,6 +27,7 @@ const Edit = () => {
   const [attachments, setAttachments] = useState<string>("");
   const [creatorId, setCreatorId] = useState<string>("");
   const userInfo = useUserInfo();
+  const [searchParams] = useSearchParams();
 
   const form = useForm({
     initialValues: {
@@ -115,7 +116,10 @@ const Edit = () => {
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Homework List", link: "/courses/list" },
+        {
+          title: "Homework List",
+          link: `/courses/details/${searchParams.get("lesson_id")}`,
+        },
         { title: "Edit Homework", link: "" },
       ]}
       header={{

@@ -8,9 +8,10 @@ import useUserInfo from "@/hooks/use-user-info";
 
 interface PropsType {
   gradeId: string;
+  lessonId: string;
 }
 
-const HomeworkList: React.FC<PropsType> = ({ gradeId }) => {
+const HomeworkList: React.FC<PropsType> = ({ gradeId, lessonId }) => {
   // const { courseId } = useParams();
   const navigate = useNavigate();
   const [onSubmit] = useMutate();
@@ -39,7 +40,11 @@ const HomeworkList: React.FC<PropsType> = ({ gradeId }) => {
           <td className="m_td">{element?.created_at}</td>
           <td className="m_td">
             <TableActions
-              detailCb={() => navigate(`/assignments/details/${element.id}`)}
+              detailCb={() =>
+                navigate(
+                  `/assignments/details/${element.id}?lesson_id=${lessonId}`
+                )
+              }
               destroyCb={
                 userInfo.id === element?.created_by_id
                   ? () => onSubmit(`/assignments/${element?.id}`, {}, "DELETE")
@@ -47,7 +52,10 @@ const HomeworkList: React.FC<PropsType> = ({ gradeId }) => {
               }
               editCb={
                 userInfo.id === element?.created_by_id
-                  ? () => navigate(`/assignments/edit/${element.id}`)
+                  ? () =>
+                      navigate(
+                        `/assignments/edit/${element.id}?lesson_id=${lessonId}`
+                      )
                   : undefined
               }
             />

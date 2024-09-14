@@ -7,13 +7,14 @@ import AssignmentInformation from "./components/AssignmentInformation";
 import Heading from "@/components/typography/Heading";
 import AssignmentStudentTable from "./components/AssignmentStudentTable";
 import useQuery from "@/hooks/useQuery";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import MediaViewer from "@/components/common/MediaViewer";
 import useUserInfo from "@/hooks/use-user-info";
 
 const Details = () => {
   const { assignmentId } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [data, setData] = useState<any>();
   const userInfo = useUserInfo();
@@ -25,7 +26,10 @@ const Details = () => {
       isLoading={isLoading}
       linkItems={[
         { title: "Dashboard", link: "/dashboard" },
-        { title: "Homework List", link: "/courses/list" },
+        {
+          title: "Homework List",
+          link: `/courses/details/${searchParams.get("lesson_id")}`,
+        },
         { title: "Homework Details", link: "" },
       ]}
     >
@@ -35,7 +39,13 @@ const Details = () => {
         {userInfo.id === data?.created_by_id && (
           <div className="sm:w-auto w-full flex justify-end">
             <MyButton
-              onClick={() => navigate(`/assignments/edit/${assignmentId}`)}
+              onClick={() =>
+                navigate(
+                  `/assignments/edit/${assignmentId}?lesson_id=${searchParams.get(
+                    "lesson_id"
+                  )}`
+                )
+              }
               leftIcon={<IconPencilMinus size={16} />}
             >
               Edit
