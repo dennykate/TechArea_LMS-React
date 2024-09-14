@@ -27,9 +27,13 @@ const CourseContent: React.FC<PropsType> = ({ data }) => {
       </div>
 
       <div className="grid grid-cols-1 mt-4 gap-4">
-        {data?.map((dt: any) => (
-          <CourseContentCard key={dt?.id} data={dt} />
-        ))}
+        {data?.length > 0 ? (
+          data?.map((dt: any) => <CourseContentCard key={dt?.id} data={dt} />)
+        ) : (
+          <div className="h-[100px] flex justify-center items-center">
+            <p className="">No lesson content.</p>
+          </div>
+        )}
       </div>
 
       {/* <div className="mt-6 flex justify-end">

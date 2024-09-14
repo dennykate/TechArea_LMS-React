@@ -7,6 +7,7 @@ import TableLayout from "@/components/layouts/TableLayout";
 import { MdOutlineMenuBook } from "react-icons/md";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+
 import checkPermission from "@/utilities/check-permission";
 import MediaRenderer from "@/components/images/MediaRenderer";
 

@@ -16,8 +16,9 @@ import Attachments from "./components/Attachments";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import dayjs from "dayjs";
 import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
-import useUserInfo from "@/hooks/use-user-info";
+// import useUserInfo from "@/hooks/use-user-info";
 import NotAllowed from "@/components/common/NotAllowed";
+import checkPermission from "@/utilities/check-permission";
 
 const Edit = () => {
   const { assignmentId } = useParams();
@@ -26,8 +27,8 @@ const Edit = () => {
   const [defaultImage, setDefaultImage] = useState<string>("");
   const [attachments, setAttachments] = useState<string>("");
   const [creatorId, setCreatorId] = useState<string>("");
-  const userInfo = useUserInfo();
   const [searchParams] = useSearchParams();
+  // const userInfo = useUserInfo();
 
   const form = useForm({
     initialValues: {
@@ -106,7 +107,7 @@ const Edit = () => {
     }
   );
 
-  if (userInfo.id !== creatorId) return <NotAllowed />;
+  if (!checkPermission(creatorId)) return <NotAllowed />;
 
   return (
     <FormLayout

@@ -10,14 +10,15 @@ import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import MediaViewer from "@/components/common/MediaViewer";
-import useUserInfo from "@/hooks/use-user-info";
+// import useUserInfo from "@/hooks/use-user-info";
+import checkPermission from "@/utilities/check-permission";
 
 const Details = () => {
   const { assignmentId } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [data, setData] = useState<any>();
-  const userInfo = useUserInfo();
+  // const userInfo = useUserInfo();
 
   const { isLoading } = useQuery(`/assignments/${assignmentId}`, setData);
 
@@ -36,7 +37,7 @@ const Details = () => {
       <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
         <Heading tag="h1">{data?.title}</Heading>
 
-        {userInfo.id === data?.created_by_id && (
+        {checkPermission(data?.created_by_id) && (
           <div className="sm:w-auto w-full flex justify-end">
             <MyButton
               onClick={() =>
