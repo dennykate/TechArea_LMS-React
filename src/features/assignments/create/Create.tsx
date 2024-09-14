@@ -16,7 +16,7 @@ import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
 import { useSearchParams } from "react-router-dom";
 
 const Create = () => {
-  const [file, setFile] = useState<File | undefined>();
+  const [files, setFiles] = useState<File[] | undefined>([]);
   const [additionalFiles, setAdditionalFiles] = useState<any>([]);
   const [searchParams] = useSearchParams();
 
@@ -49,7 +49,7 @@ const Create = () => {
 
   const onSubmitHandler = (values: any) => {
     if (values.description == "") return toast.error("Note is requried");
-    if (!file) return toast.error("File is requried");
+    if (files?.length === 0) return toast.error("File is requried");
 
     const formData = new FormData();
 
@@ -62,7 +62,9 @@ const Create = () => {
       formData.append(key, value as string);
     });
 
-    formData.append("file", file as File);
+    files?.forEach((file: File) => {
+      formData.append("files[]", file as File);
+    });
 
     if (additionalFiles.length > 0) {
       additionalFiles?.map((additionalFile: any, index: number) => {
@@ -75,7 +77,7 @@ const Create = () => {
 
     onSubmit("/assignments", formData, "POST", true);
 
-    setFile(undefined);
+    setFiles([]);
   };
 
   useEffect(() => {
@@ -139,10 +141,11 @@ const Create = () => {
         />
 
         <FileUpload
-          type={"all"}
-          setSingleFile={setFile}
-          label="Files"
+          type={"image"}
+          setMultileFile={setFiles}
+          label="Images"
           withAsterisk
+          multiple
         />
 
         <AdditionalLessons

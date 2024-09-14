@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 type PropsType = {
@@ -7,40 +7,55 @@ type PropsType = {
 };
 
 const MediaRenderer: React.FC<PropsType> = ({ className, src }) => {
-  const Item = useMemo(() => {
-    const extension = src.split(".")?.pop()?.toLowerCase();
+  const [isFail, setIsFail] = useState<boolean>(false);
 
-    switch (true) {
-      case extension === "pdf":
-        return (
-          <iframe src={src} className={twMerge("w-full h-full", className)} />
-        );
-      case extension === "mp4" || extension === "webm" || extension === "ogg":
-        return (
-          <video
-            src={src}
-            controls
-            className={twMerge("w-full h-full", className)}
-          />
-        );
-      case extension === "jpg" ||
-        extension === "jpeg" ||
-        extension === "png" ||
-        extension === "svg" ||
-        extension === "webp":
-        return (
-          <img src={src} className={twMerge("w-full h-full", className)} />
-        );
-      default:
-        return (
-          <div className="w-full h-[200px] flex justify-center items-center rounded-md">
-            <p className="text-sm">Unsupported File Type</p>
-          </div>
-        );
-    }
-  }, [src]);
+  const extension = src.split(".")?.pop()?.toLowerCase();
 
-  return <>{Item}</>;
+  if (isFail) {
+    return (
+      <div
+        className={twMerge(
+          "flex justify-center items-center bg-gray-200 rounded-md",
+          className
+        )}
+      >
+        <p>Fail to load file</p>
+      </div>
+    );
+  }
+
+  switch (true) {
+    case extension === "pdf":
+      return (
+        <iframe src={src} className={twMerge("w-full h-full", className)} />
+      );
+    case extension === "mp4" || extension === "webm" || extension === "ogg":
+      return (
+        <video
+          src={src}
+          controls
+          className={twMerge("w-full h-full", className)}
+        />
+      );
+    case extension === "jpg" ||
+      extension === "jpeg" ||
+      extension === "png" ||
+      extension === "svg" ||
+      extension === "webp":
+      return (
+        <img
+          src={src}
+          className={twMerge("w-full h-full", className)}
+          onError={() => setIsFail(true)}
+        />
+      );
+    default:
+      return (
+        <div className="w-full h-[200px] flex justify-center items-center rounded-md bg-gray-200">
+          <p className="text-sm">Unsupported File Type</p>
+        </div>
+      );
+  }
 };
 
 export default MediaRenderer;

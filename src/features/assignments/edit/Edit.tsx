@@ -6,7 +6,7 @@ import TextEditorInput from "@/components/inputs/TextEditorInput";
 import { useForm } from "@mantine/form";
 import FileUpload from "@/components/inputs/FileUpload";
 import useMutate from "@/hooks/useMutate";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
 import AdditionalLessons from "./components/AdditionalLessons";
@@ -19,12 +19,15 @@ import DateTimeInputComponent from "@/components/inputs/DateTimeInputComponent";
 // import useUserInfo from "@/hooks/use-user-info";
 import NotAllowed from "@/components/common/NotAllowed";
 import checkPermission from "@/utilities/check-permission";
+import MyCarousel from "@/components/common/MyCarousel";
+import { MediaType } from "@/features/newfeed/components/Post";
+import alertActions from "@/utilities/alertActions";
 
 const Edit = () => {
   const { assignmentId } = useParams();
-  const [file, setFile] = useState<File | undefined>();
+  const [files, setFiles] = useState<File[] | undefined>([]);
   const [additionalFiles, setAdditionalFiles] = useState<any>([]);
-  const [defaultImage, setDefaultImage] = useState<string>("");
+  const [defaultImages, setDefaultImages] = useState<MediaType[]>([]);
   const [attachments, setAttachments] = useState<string>("");
   const [creatorId, setCreatorId] = useState<string>("");
   const [searchParams] = useSearchParams();
@@ -71,7 +74,11 @@ const Edit = () => {
       formData.append(key, value as string);
     });
 
-    if (file) formData.append("file", file as File);
+    if (files && files?.length > 0) {
+      files?.forEach((file: File) => {
+        formData.append("files[]", file as File);
+      });
+    }
 
     if (additionalFiles.length > 0) {
       additionalFiles?.map((additionalFile: any, index: number) => {
@@ -84,13 +91,13 @@ const Edit = () => {
 
     onSubmit(`/assignments/${assignmentId}`, formData, "POST", true);
 
-    setFile(undefined);
+    setFiles(undefined);
   };
 
   const { isLoading: queryLoading } = useQuery(
     `/assignments/${assignmentId}`,
     (data) => {
-      setDefaultImage(data?.file);
+      setDefaultImages(data?.medias);
       setAttachments(data?.attachments);
       setCreatorId(data?.created_by_id);
 
@@ -106,6 +113,13 @@ const Edit = () => {
       );
     }
   );
+
+  const handleMediaDelete = useCallback((id: string) => {
+    alertActions(
+      () => onSubmit(`/medias/${id}`, {}, "DELETE"),
+      "Are you sure to delete ?"
+    );
+  }, []);
 
   if (!checkPermission(creatorId)) return <NotAllowed />;
 
@@ -170,11 +184,9 @@ const Edit = () => {
           }}
         />
 
-        <FileUpload
-          defaultImage={defaultImage}
-          type={"all"}
-          setSingleFile={setFile}
-        />
+        <MyCarousel slides={defaultImages} onDelete={handleMediaDelete} />
+
+        <FileUpload type={"image"} setMultileFile={setFiles} multiple />
 
         {attachments?.length > 0 && <Attachments attachments={attachments} />}
 

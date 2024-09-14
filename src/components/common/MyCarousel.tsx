@@ -2,8 +2,7 @@
 import { Carousel } from "@mantine/carousel";
 import ModalImage from "../ModalImage";
 import { IconTrashFilled } from "@tabler/icons-react";
-
-const imageExts = [".png", ".jpg", ".jpeg", ".webp"];
+import MediaRenderer from "../images/MediaRenderer";
 
 interface PropsType {
   slides: any;
@@ -11,17 +10,12 @@ interface PropsType {
   isLoading?: boolean;
 }
 
-const getFileExtension = (url: string): string => {
-  const match = url.match(/\.[a-zA-Z0-9]+$/);
-  return match ? match[0].toLowerCase() : "";
-};
+// const getFileExtension = (url: string): string => {
+//   const match = url.match(/\.[a-zA-Z0-9]+$/);
+//   return match ? match[0].toLowerCase() : "";
+// };
 
 const MyCarousel = ({ slides, onDelete, isLoading }: PropsType) => {
-  const isImageUrl = (url: string): boolean => {
-    const ext = getFileExtension(url);
-    return imageExts.includes(ext);
-  };
-
   return (
     <Carousel
       withControls
@@ -35,24 +29,14 @@ const MyCarousel = ({ slides, onDelete, isLoading }: PropsType) => {
       classNames={{ control: "bg-primary text-white opacity-100" }}
     >
       {slides?.map((slide: any, i: number) => {
-        const url = slide?.url;
-        const isValidImage = isImageUrl(url);
-
         return (
           <Carousel.Slide className="" key={i}>
-            <ModalImage imageURL={url}>
+            <ModalImage imageURL={slide?.url}>
               <div className="relative w-full h-[250px]">
-                {isValidImage ? (
-                  <img
-                    src={url}
-                    alt="img"
-                    className="h-[250px] w-full object-cover"
-                  />
-                ) : (
-                  <div className="h-[250px] rounded-md w-full flex items-center justify-center bg-gray-200 text-gray-600">
-                    <p>Unknown File Type</p>
-                  </div>
-                )}
+                <MediaRenderer
+                  className="h-[250px] w-full object-cover"
+                  src={slide?.url}
+                />
                 {onDelete && (
                   <button
                     disabled={isLoading}

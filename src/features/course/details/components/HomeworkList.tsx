@@ -6,6 +6,7 @@ import { TableActions, TableComponent } from "@/components/table";
 import useMutate from "@/hooks/useMutate";
 // import useUserInfo from "@/hooks/use-user-info";
 import checkPermission from "@/utilities/check-permission";
+import MediaRenderer from "@/components/images/MediaRenderer";
 
 interface PropsType {
   gradeId: string;
@@ -25,13 +26,14 @@ const HomeworkList: React.FC<PropsType> = ({ gradeId, lessonId }) => {
         <tr key={i}>
           <td className="m_td">{i + 1}</td>
           <td className="m_td">
-            <img
-              src={element?.image}
-              className="h-[70px] w-[120px] object-cover rounded-sm"
-            />
+            {element?.medias?.length > 0 && (
+              <MediaRenderer
+                src={element?.medias[0]?.url}
+                className="h-[70px] w-[120px] object-cover rounded-sm"
+              />
+            )}
           </td>
           <td className="m_td">{element?.title}</td>
-
           <td className="m_td">
             <div className="flex items-center max-w-[200px] ">
               <div
