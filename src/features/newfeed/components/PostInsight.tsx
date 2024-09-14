@@ -22,9 +22,9 @@ const PostInsight = () => {
           ? data?.map((post: any) => (
               <div className="flex flex-col gap-2 w-full border rounded shadow-md px-2 py-2 overflow-hidden">
                 <div className="flex items-center gap-4 sm:flex-row flex-col">
-                  {post?.image ? (
+                  {post?.medias?.length > 0 ? (
                     <img
-                      src={post?.image}
+                      src={post?.medias[0]?.url}
                       alt="post thumnnail"
                       className="sm:min-w-[200px] w-full h-[150px] object-cover"
                     />
