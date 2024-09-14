@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button, Group, useMantineTheme, rem, ActionIcon } from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
@@ -9,6 +9,8 @@ import { usePostDataMutation } from "@/redux/api/queryApi";
 import { MediaType } from "./Post";
 import MediaRenderer from "@/components/images/MediaRenderer";
 import { twMerge } from "tailwind-merge";
+import useMutate from "@/hooks/useMutate";
+import alertActions from "@/utilities/alertActions";
 
 interface DataProps {
   initialContent: {
@@ -36,7 +38,19 @@ const UpdateField: React.FC<DataProps> = ({
   const theme = useMantineTheme();
   const [content, setContent] = useState<string>(initialContent.content);
   const [uploadedImage, setUploadedImage] = useState<File[]>([]);
+  const [medias, setMedias] = useState<MediaType[]>([]);
   const [updatePost, { isLoading }] = usePostDataMutation();
+
+  const [onSubmit] = useMutate({
+    disableAlert: true,
+    callback: (res) => {
+      setMedias((prev) => prev?.filter((media) => media?.id !== res));
+    },
+  });
+
+  useEffect(() => {
+    if (initialContent?.medias?.length > 0) setMedias(initialContent?.medias);
+  }, [initialContent]);
 
   useEffect(() => {
     setContent(initialContent.content);
@@ -50,7 +64,7 @@ const UpdateField: React.FC<DataProps> = ({
     event.preventDefault();
     const formData = new FormData();
     formData.append("content", content);
-    uploadedImage.forEach((file) => formData.append("image", file));
+    uploadedImage.forEach((file) => formData.append("images[]", file));
 
     try {
       const response = (await updatePost({
@@ -79,6 +93,13 @@ const UpdateField: React.FC<DataProps> = ({
     }
   };
 
+  const handleDeleteMedia = useCallback((id: string) => {
+    alertActions(
+      () => onSubmit(`/medias/${id}`, {}, "DELETE"),
+      "Are you sure to remove this photo ?"
+    );
+  }, []);
+
   return (
     <form onSubmit={handleUpdate} className="md:p-10 flex flex-col">
       <div className="flex flex-col h-full items-center mb-5 gap-5">
@@ -90,16 +111,14 @@ const UpdateField: React.FC<DataProps> = ({
           />
         </div>
         <div className="w-full h-full md:p-5">
-          {initialContent?.medias && initialContent?.medias?.length > 0 && (
+          {medias && medias?.length > 0 && (
             <div
               className={twMerge(
                 "grid w-full gap-2 mb-2",
-                initialContent?.medias?.length > 1
-                  ? "grid-cols-2"
-                  : "grid-cols-1"
+                medias?.length > 1 ? "grid-cols-2" : "grid-cols-1"
               )}
             >
-              {initialContent?.medias?.map((media) => (
+              {medias?.map((media) => (
                 <div key={media?.id} className="relative">
                   <MediaRenderer
                     src={media?.url}
@@ -116,7 +135,7 @@ const UpdateField: React.FC<DataProps> = ({
                       right: 10,
                       borderRadius: "50%",
                     }}
-                    onClick={() => alert(`Delete Image => ${media?.id}`)}
+                    onClick={() => handleDeleteMedia(media?.id)}
                     aria-label="Remove image"
                   >
                     <IconX size={16} stroke={1.5} />
