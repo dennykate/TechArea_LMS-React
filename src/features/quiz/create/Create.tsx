@@ -15,7 +15,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Create = () => {
   const [searchParams] = useSearchParams();
-  const [file, setFile] = useState<File | null>();
+  const [files, setFiles] = useState<File[] | null>([]);
 
   const form = useForm({
     initialValues: {
@@ -50,14 +50,14 @@ const Create = () => {
   const [onSubmit, { isLoading }] = useMutate();
 
   const onSubmitHandler = (values: any) => {
-    if (!file) return toast.error("Image is required");
+    if (files?.length === 0) return toast.error("Images are required");
 
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value as string);
     });
 
-    formData.append("file", file as File);
+    files?.forEach((file: File) => formData.append("files[]", file));
 
     onSubmit("/quizzes", formData, "POST", true);
   };
@@ -79,8 +79,6 @@ const Create = () => {
         title: "Better Change",
       }}
     >
-      <FileUplaod setSingleFile={setFile} label="Image" withAsterisk />
-
       <div className="flex flex-col gap-4 mt-4">
         <div className="grid grid-cols-2 gap-4">
           <TextInputComponent
@@ -127,6 +125,13 @@ const Create = () => {
           withAsterisk
           form={form}
           name="description"
+        />
+
+        <FileUplaod
+          setMultileFile={setFiles}
+          label="Images"
+          withAsterisk
+          multiple
         />
       </div>
     </FormLayout>

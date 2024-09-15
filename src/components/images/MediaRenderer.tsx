@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 type PropsType = {
@@ -7,11 +7,11 @@ type PropsType = {
 };
 
 const MediaRenderer: React.FC<PropsType> = ({ className, src }) => {
-  const [isFail, setIsFail] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
-  const extension = src.split(".")?.pop()?.toLowerCase();
+  const extension = useMemo(() => src.split(".")?.pop()?.toLowerCase(), [src]);
 
-  if (isFail) {
+  if (isError) {
     return (
       <div
         className={twMerge(
@@ -46,7 +46,7 @@ const MediaRenderer: React.FC<PropsType> = ({ className, src }) => {
         <img
           src={src}
           className={twMerge("w-full h-full", className)}
-          onError={() => setIsFail(true)}
+          onError={() => setIsError(true)}
         />
       );
     default:

@@ -6,7 +6,7 @@ import FileUplaod from "@/components/inputs/FileUpload";
 import { useForm } from "@mantine/form";
 import useMutate from "@/hooks/useMutate";
 import GradeSectionSubject from "@/components/common/GradeSectionSubject";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import useQuery from "@/hooks/useQuery";
 import { useParams } from "react-router-dom";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
@@ -15,11 +15,14 @@ import { banRoles } from "@/data/banRoles";
 // import useUserInfo from "@/hooks/use-user-info";
 import NotAllowed from "@/components/common/NotAllowed";
 import checkPermission from "@/utilities/check-permission";
+import { MediaType } from "@/features/newfeed/components/Post";
+import MyCarousel from "@/components/common/MyCarousel";
+import alertActions from "@/utilities/alertActions";
 
 const Edit = () => {
   const { quizId } = useParams();
-  const [file, setFile] = useState<File | null>();
-  const [defaultImage, setDefaultImage] = useState<string>("");
+  const [files, setFiles] = useState<File[] | null>([]);
+  const [defaultImages, setDefaultImages] = useState<MediaType[]>([]);
   const [creatorId, setCreatorId] = useState<string>("");
   // const userInfo = useUserInfo();
 
@@ -63,13 +66,15 @@ const Edit = () => {
       formData.append(key, value as string);
     });
 
-    formData.append("file", file as File);
+    if (files && files?.length > 0) {
+      files?.forEach((file: File) => formData.append("files[]", file as File));
+    }
 
     onSubmit(`/quizzes/${quizId}`, formData, "POST", true);
   };
 
   const { isLoading: queryLoading } = useQuery(`quizzes/${quizId}`, (data) => {
-    setDefaultImage(data?.image);
+    setDefaultImages(data?.medias);
     setCreatorId(data.created_by_id);
 
     form.setFieldValue("title", data?.title);
@@ -81,6 +86,13 @@ const Edit = () => {
     form.setFieldValue("chapter_note", data?.chapter?.note);
     form.setFieldValue("answer_limit", parseInt(data?.answer_limit));
   });
+
+  const handleMediaDelete = useCallback((id: string) => {
+    alertActions(
+      () => onSubmit(`/medias/${id}`, {}, "DELETE"),
+      "Are you sure to delete ?"
+    );
+  }, []);
 
   if (!checkPermission(creatorId)) return <NotAllowed />;
 
@@ -101,8 +113,6 @@ const Edit = () => {
         title: "Better Change",
       }}
     >
-      <FileUplaod setSingleFile={setFile} defaultImage={defaultImage} />
-
       <div className="flex flex-col gap-4 mt-4">
         <div className="grid grid-cols-2 gap-4">
           <TextInputComponent
@@ -150,6 +160,12 @@ const Edit = () => {
           form={form}
           name="description"
         />
+
+        {defaultImages?.length > 0 && (
+          <MyCarousel slides={defaultImages} onDelete={handleMediaDelete} />
+        )}
+
+        <FileUplaod setMultileFile={setFiles} multiple />
       </div>
     </FormLayout>
   );
