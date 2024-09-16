@@ -9,9 +9,10 @@ import AssignmentStudentTable from "./components/AssignmentStudentTable";
 import useQuery from "@/hooks/useQuery";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import MediaViewer from "@/components/common/MediaViewer";
+
 // import useUserInfo from "@/hooks/use-user-info";
 import checkPermission from "@/utilities/check-permission";
+import MyCarousel from "@/components/common/MyCarousel";
 
 const Details = () => {
   const { assignmentId } = useParams();
@@ -21,8 +22,8 @@ const Details = () => {
   // const userInfo = useUserInfo();
 
   const { isLoading } = useQuery(`/assignments/${assignmentId}`, setData);
-  
-  console.log("homework data=>",data);
+
+  console.log("homework data=>", data);
 
   return (
     <DetailsLayout
@@ -63,10 +64,7 @@ const Details = () => {
         {data?.medias?.length > 0 && (
           <div className="mt-2 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
             <p className="text-lg font-medium text-black">Lessons</p>
-
-            {/* <div className="sm:w-[500px] w-[300px]"> */}
-              <MediaViewer attachments={data?.medias} />
-            {/* </div> */}
+            <MyCarousel slides={data?.medias} height={300} className="h-[300px]" />
           </div>
         )}
       </div>
