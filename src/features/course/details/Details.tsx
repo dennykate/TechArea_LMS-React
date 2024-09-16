@@ -77,7 +77,7 @@ const Details = () => {
             />
           </Tabs.Panel>
           <Tabs.Panel value="tests" pt="xs">
-            <TestList gradeId={data?.grade_id} />
+            <TestList gradeId={data?.grade_id} lessonId={courseId as string} />
           </Tabs.Panel>
         </Tabs>
       </div>
