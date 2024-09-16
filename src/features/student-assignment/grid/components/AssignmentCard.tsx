@@ -20,7 +20,7 @@ const AssignmentCard: React.FC<PropsType> = ({ data }) => {
     >
       <div className="w-full sm:h-[150px] h-[130px] relative">
         <img
-          src={data?.file}
+          src={data?.medias[0].url}
           alt={data?.title}
           className="w-full h-full object-cover"
         />

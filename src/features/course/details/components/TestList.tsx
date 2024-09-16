@@ -69,7 +69,7 @@ const TestList: React.FC<PropsType> = ({ gradeId, lessonId }) => {
       disableShadow
       rows={rows}
       checkboxCol={false}
-      addNewRoute={`/quizzes/create?gradeId=${gradeId}`}
+      addNewRoute={`/quizzes/create?gradeId=${gradeId}&lesson_id=${lessonId}`}
       title={"Test List"}
       headerClassName="!border-opacity-5"
       tableHeads={[

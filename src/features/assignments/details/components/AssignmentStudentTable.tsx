@@ -79,7 +79,7 @@ const AssignmentStudentTable: React.FC<PropsType> = ({ assignmentMarks }) => {
 
   return (
     <>
-      <Heading tag="h2" className="mb-4">
+      <Heading tag="h2" className="sm:mb-4 mb-0">
         Submitted Students
       </Heading>
 

@@ -17,6 +17,7 @@ import QuizComplete from "./components/QuizComplete";
 import { IconAlertCircle } from "@tabler/icons-react";
 import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
+import MyCarousel from "@/components/common/MyCarousel";
 
 const AnswerQuiz = () => {
   const { quizId } = useParams();
@@ -71,15 +72,22 @@ const AnswerQuiz = () => {
     <>
       <NavLayout>
         <div className="max-w-3xl mx-auto mb-8">
-          <div className="w-full flex justify-center items-center">
+          <div className="!w-full">
             <img
-              src={data?.image}
+              src={data?.medias[0].url}
               alt={data?.title}
-              className=" object-cover h-[350px]"
+              className="w-full object-cover h-[350px] mt-5"
             />
           </div>
 
           <AnswerQuizInformation data={data} />
+          <hr className="my-5"/>
+          {data?.medias?.length > 0 && (
+            <div className="mt-5 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
+              <p className="text-lg font-medium text-black mb-3">Lessons</p>
+              <MyCarousel slides={data?.medias} />
+            </div>
+          )}
 
           {isLimitExceeded && (
             <div className="my-4 px-2">

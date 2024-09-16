@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
+// import PdfPreviewer from "../common/PdfPreviewer";
 
 type PropsType = {
   className?: string;
@@ -28,6 +29,7 @@ const MediaRenderer: React.FC<PropsType> = ({ className, src }) => {
     case extension === "pdf":
       return (
         <iframe src={src} className={twMerge("w-full h-full", className)} />
+        // <PdfPreviewer pdfUrl={src}/>
       );
     case extension === "mp4" || extension === "webm" || extension === "ogg":
       return (

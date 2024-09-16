@@ -17,7 +17,7 @@ const QuizCard: React.FC<PropsType> = ({ data }) => {
     >
       <div className="w-full sm:h-[150px] h-[130px] relative">
         <img
-          src={data?.image}
+          src={data?.medias[0].url}
           alt={data?.title}
           className="w-full h-full object-cover"
         />

@@ -47,7 +47,7 @@ const conditionalClassNames = (
   }
 
   if (tag === "h3" || variant === "h3") {
-    return "text-xl";
+    return "text-lg font-[400]";
   }
 
   if (tag === "h6" || variant === "h6") {

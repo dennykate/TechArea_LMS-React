@@ -15,6 +15,8 @@ import withPermissions from "@/hocs/withPermissions";
 import { banRoles } from "@/data/banRoles";
 // import useUserInfo from "@/hooks/use-user-info";
 import checkPermission from "@/utilities/check-permission";
+import MyCarousel from "@/components/common/MyCarousel";
+import Heading from "@/components/typography/Heading";
 
 const Details = () => {
   const { quizId } = useParams();
@@ -37,32 +39,38 @@ const Details = () => {
       }
       backBtn
     >
-      <div className="w-full flex justify-between sm:items-end items-start sm:flex-row flex-col gap-3">
-        <div className="sm:w-[400px] w-full">
-          <img
-            src={data?.image}
-            alt={data?.title}
-            className="w-full object-cover"
-          />
-        </div>
-
-        {checkPermission(data?.created_by_id) && (
-          <div className="sm:w-auto w-full flex justify-end">
-            <div>
-              <MyButton
-                onClick={() => navigate(`/quizzes/edit/${quizId}?lesson_id=${searchParams.get("lesson_id")}`)}
-                leftIcon={<IconPencilMinus size={16} />}
-              >
-                Edit
-              </MyButton>
-            </div>
+      {checkPermission(data?.created_by_id) && (
+        <div className="sm:w-auto w-full flex justify-end">
+          <div>
+            <MyButton
+              onClick={() =>
+                navigate(
+                  `/quizzes/edit/${quizId}?lesson_id=${searchParams.get(
+                    "lesson_id"
+                  )}`
+                )
+              }
+              leftIcon={<IconPencilMinus size={16} />}
+            >
+              Edit
+            </MyButton>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      <div className="mt-6 ">
+      <div className="">
         <QuizInformation data={data} />
       </div>
+      {data?.medias?.length > 0 && (
+        <div className="mt-6 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
+          <Heading tag="h3" className="text-black mb-3">Attached Files</Heading>
+          <MyCarousel
+            slides={data?.medias}
+            height={300}
+            className="h-[300px]"
+          />
+        </div>
+      )}
 
       <div className="mt-6 ">
         <Tabs defaultValue="content">

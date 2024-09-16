@@ -30,9 +30,13 @@ const Details = () => {
         ]
       }
       backBtn
+      handleBackClick={() => navigate("/courses/list")}
     >
       {checkPermission(data?.created_by_id) && (
         <div className="w-full flex justify-between mb-2 sm:items-end items-start sm:flex-row flex-col gap-3">
+          <div className="w-[300px]">
+            <img src={data?.thumbnail} alt="" className="w-full object-cover" />
+          </div>
           <div className="sm:w-auto w-full flex justify-end">
             <div>
               <MyButton
@@ -45,10 +49,6 @@ const Details = () => {
           </div>
         </div>
       )}
-
-      <div className="w-[300px]">
-        <img src={data?.thumbnail} alt="" className="w-full object-cover" />
-      </div>
 
       <div className="mt-6 ">
         <CourseInformation data={data} />

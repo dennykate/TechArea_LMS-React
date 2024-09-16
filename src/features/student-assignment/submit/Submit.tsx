@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import MyButton from "@/components/buttons/MyButton";
 import MediaViewer from "@/components/common/MediaViewer";
+import MyCarousel from "@/components/common/MyCarousel";
 import FileUpload from "@/components/inputs/FileUpload";
 import { banRoles } from "@/data/banRoles";
 import withPermissions from "@/hocs/withPermissions";
@@ -71,7 +72,12 @@ const Submit = () => {
             </p>
             <p>Deadline - {data?.deadline}</p>
           </div>
-
+          {data?.medias?.length > 0 && (
+            <div className="mt-5 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
+              <p className="text-lg font-medium text-black mb-3">Lessons</p>
+              <MyCarousel slides={data?.medias} />
+            </div>
+          )}
           {data?.my_assignment_report && (
             <>
               {data?.my_assignment_report?.marks && (

@@ -62,14 +62,18 @@ const Details = () => {
         <AssignmentInformation data={data} />
 
         {data?.medias?.length > 0 && (
-          <div className="mt-2 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
-            <p className="text-lg font-medium text-black">Lessons</p>
-            <MyCarousel slides={data?.medias} height={300} className="h-[300px]" />
+          <div className="mt-5 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
+            <p className="text-lg font-medium text-black mb-3">Lessons</p>
+            <MyCarousel
+              slides={data?.medias}
+              height={300}
+              className="h-[300px]"
+            />
           </div>
         )}
       </div>
-
-      <div className="sm:mt-6 mt-3">
+      <hr className="mt-8"/>
+      <div className=" mt-5">
         <AssignmentStudentTable assignmentMarks={data?.marks} />
       </div>
     </DetailsLayout>

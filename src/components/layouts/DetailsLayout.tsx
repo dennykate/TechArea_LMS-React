@@ -10,6 +10,7 @@ interface PropsType {
   linkItems: { title: string; link: string }[];
   isLoading?: boolean;
   backBtn?: boolean;
+  handleBackClick?: () => void;
 }
 
 const DetailsLayout: React.FC<PropsType> = ({
@@ -17,11 +18,11 @@ const DetailsLayout: React.FC<PropsType> = ({
   linkItems,
   isLoading,
   backBtn,
+  handleBackClick,
 }) => {
-  
   const navigate = useNavigate();
 
-  const handleBackClick = () => {
+  const defaultHandleBackClick = () => {
     navigate(-1);
   };
   return (
@@ -29,7 +30,10 @@ const DetailsLayout: React.FC<PropsType> = ({
       <MyBreadcrumbs items={linkItems} />
 
       {backBtn && (
-        <MyButton onClick={handleBackClick} className="!w-auto !px-5 !py-2">
+        <MyButton
+          onClick={handleBackClick ?? defaultHandleBackClick}
+          className="!w-auto !px-5 !py-2"
+        >
           <div className="flex gap-2">
             <IoMdArrowRoundBack />
             Back

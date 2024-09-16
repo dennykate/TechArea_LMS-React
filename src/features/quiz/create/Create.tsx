@@ -15,6 +15,7 @@ import { useSearchParams } from "react-router-dom";
 
 const Create = () => {
   const [searchParams] = useSearchParams();
+
   const [files, setFiles] = useState<File[] | null>([]);
 
   const form = useForm({
@@ -71,6 +72,14 @@ const Create = () => {
   return (
     <FormLayout
       title="Create Test"
+      linkItems={[
+        { title: "Dashboard", link: "/dashboard" },
+        {
+          title: "Test List",
+          link: `/courses/details/${searchParams.get("lesson_id")}`,
+        },
+        { title: "Create Test", link: "" },
+      ]}
       submitLoading={isLoading}
       onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
       header={{
