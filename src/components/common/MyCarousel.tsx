@@ -3,11 +3,14 @@ import { Carousel } from "@mantine/carousel";
 import ModalImage from "../ModalImage";
 import { IconTrashFilled } from "@tabler/icons-react";
 import MediaRenderer from "../images/MediaRenderer";
+import { twMerge } from "tailwind-merge";
 
 interface PropsType {
   slides: any;
   onDelete?: any;
   isLoading?: boolean;
+  className?: string;
+  height?: number;
 }
 
 // const getFileExtension = (url: string): string => {
@@ -15,11 +18,17 @@ interface PropsType {
 //   return match ? match[0].toLowerCase() : "";
 // };
 
-const MyCarousel = ({ slides, onDelete, isLoading }: PropsType) => {
+const MyCarousel = ({
+  slides,
+  onDelete,
+  isLoading,
+  className,
+  height = 250,
+}: PropsType) => {
   return (
     <Carousel
       withControls
-      height={250}
+      height={height}
       slideSize="33.333333%"
       slideGap="md"
       loop
@@ -32,9 +41,9 @@ const MyCarousel = ({ slides, onDelete, isLoading }: PropsType) => {
         return (
           <Carousel.Slide className="" key={i}>
             <ModalImage imageURL={slide?.url}>
-              <div className="relative w-full h-[250px]">
+              <div className={twMerge("relative w-full h-[250px]", className)}>
                 <MediaRenderer
-                  className="h-[250px] w-full object-cover"
+                  className="h-full w-full object-cover"
                   src={slide?.url}
                 />
                 {onDelete && (

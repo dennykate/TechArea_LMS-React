@@ -9,8 +9,10 @@ import VideoPlayer from "@/components/common/VideoPlayer";
 import TextEditorInput from "@/components/inputs/TextEditorInput";
 import TextAreaComponent from "@/components/inputs/TextAreaComponent";
 import useMutate from "@/hooks/useMutate";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
+import MyCarousel from "@/components/common/MyCarousel";
+import alertActions from "@/utilities/alertActions";
 
 interface PropsType {
   close: () => void;
@@ -20,6 +22,7 @@ interface PropsType {
 const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
   // const [loaded, setLoaded] = useState<boolean>(false);
   const [file, setFile] = useState<File | null>();
+  const [imageFiles, setImageFiles] = useState<File[] | null>([]);
 
   const form = useForm({
     initialValues: {
@@ -50,6 +53,10 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
     callback: () => close(),
   });
 
+  const [onDelete] = useMutate({
+    navigateBack: false,
+  });
+
   const onSubmitHandler = (values: any) => {
     const formData = new FormData();
     Object.entries(values).forEach(([key, value]) => {
@@ -58,6 +65,14 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
 
     if (file) formData.append("file", file as File);
 
+    if (values?.type === "image") {
+      if (imageFiles && imageFiles?.length > 0) {
+        imageFiles?.forEach((file: File) => {
+          formData.append("files[]", file as File);
+        });
+      }
+    }
+
     onSubmit(`/course-contents/${data?.id}`, formData, "POST", true);
   };
 
@@ -65,6 +80,13 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
     setFile(null);
     // form.setFieldValue("youtubeURL", "");
   }, [form.values.type]);
+
+  const handleMediaDelete = useCallback((id: string) => {
+    alertActions(
+      () => onDelete(`/medias/${id}`, {}, "DELETE"),
+      "Are you sure to delete ?"
+    );
+  }, []);
 
   return (
     <FormLayout
@@ -127,11 +149,16 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
         )}
 
         {form.values.type === "image" && (
-          <FileUpload
-            defaultImage={data?.content_type == "image" && data?.content}
-            type={"image"}
-            setSingleFile={setFile}
+          <MyCarousel
+            slides={data?.medias}
+            className="h-[180px]"
+            height={180}
+            onDelete={handleMediaDelete}
           />
+        )}
+
+        {form.values.type === "image" && (
+          <FileUpload type={"image"} setMultileFile={setImageFiles} multiple />
         )}
 
         {form.values.type === "youtube" && (

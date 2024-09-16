@@ -34,7 +34,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
         {data?.content_type == "image" && (
           <div className="lg:w-[300px] w-full h-[200px] rounded-sm overflow-hidden ">
             <img
-              src={data?.content}
+              src={data?.medias[0]?.url}
               alt="thumbnail"
               className="
          w-full h-full object-cover"

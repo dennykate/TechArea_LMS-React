@@ -21,6 +21,7 @@ interface PropsType {
 const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
   const { courseId } = useParams();
   const [file, setFile] = useState<File | null>();
+  const [imageFiles, setImageFiles] = useState<File[] | null>([]);
 
   const form = useForm({
     initialValues: {
@@ -52,8 +53,12 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
   });
 
   const onSubmitHandler = (values: any) => {
-    if (form.values.type == "image" || form.values.type == "video") {
+    if (form.values.type == "video") {
       if (!file) return toast.error("File is required");
+    }
+
+    if (form.values.type == "image") {
+      if (imageFiles?.length === 0) return toast.error("Images are required");
     }
 
     if (form.values.type == "text") {
@@ -71,7 +76,14 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
     });
 
     formData.append("course_id", courseId as string);
+
     if (file) formData.append("file", file as File);
+
+    if (form.values.type == "image") {
+      imageFiles?.forEach((file: File) => {
+        formData.append("files[]", file as File);
+      });
+    }
 
     onSubmit("/course-contents", formData, "POST", true);
   };
@@ -129,10 +141,7 @@ const CreateCourseContent: React.FC<PropsType> = ({ close }) => {
         />
 
         {form.values.type === "image" && (
-          <FileUpload
-            type={form.values.type as "video" | "image"}
-            setSingleFile={setFile}
-          />
+          <FileUpload type={"image"} setMultileFile={setImageFiles} multiple />
         )}
 
         {form.values.type === "video" && (
