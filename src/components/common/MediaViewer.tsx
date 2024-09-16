@@ -2,13 +2,19 @@ import React from "react";
 import VideoPlayer from "./VideoPlayer";
 // import PDFViewer from "./PDFViewer";
 import PdfPreviewer from "./PdfPreviewer";
+// import MyCarousel from "./MyCarousel";
+import { Carousel } from "@mantine/carousel";
+import { twMerge } from "tailwind-merge";
+import ModalImage from "../ModalImage";
+import { IconTrashFilled } from "@tabler/icons-react";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface PropsType {
   attachments: any;
+  onDelete?: (id: number) => void;
 }
 
-const MediaViewer: React.FC<PropsType> = ({ attachments }) => {
+const MediaViewer: React.FC<PropsType> = ({ attachments, onDelete }) => {
   const renderMedia = (attachment: any) => {
     const fileType = attachment.url.split(".").pop().toLowerCase();
 
@@ -31,13 +37,42 @@ const MediaViewer: React.FC<PropsType> = ({ attachments }) => {
   };
 
   return (
-    <div className="w-full grid grid-cols-4 gap-4">
-      {attachments.map((attachment: any) => (
-        <div key={attachment.id} className="media-container">
-          {renderMedia(attachment)}
-        </div>
-      ))}
-    </div>
+    <Carousel
+      withControls
+      slideSize="25%"
+      slideGap="md"
+      loop
+      align="start"
+      slidesToScroll={1}
+      controlSize={30}
+      classNames={{ control: "bg-primary text-white opacity-100" }}
+    >
+      {attachments?.map((slide: any, i: number) => {
+        return (
+          <Carousel.Slide className="" key={i}>
+            <ModalImage imageURL={slide?.url}>
+              <div className={twMerge("relative w-full h-[250px]")}>
+                {renderMedia(slide)}
+                {onDelete && (
+                  <button
+                    // disabled={isLoading}
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDelete(slide?.id);
+                    }}
+                    className="absolute bottom-2 right-2 bg-red-500 p-2 rounded-md hover:bg-red-700"
+                  >
+                    <IconTrashFilled color="white" size={18} />
+                    <p className="sr-only">Delete Button</p>
+                  </button>
+                )}
+              </div>
+            </ModalImage>
+          </Carousel.Slide>
+        );
+      })}
+    </Carousel>
   );
 };
 
