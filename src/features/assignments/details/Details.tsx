@@ -21,6 +21,8 @@ const Details = () => {
   // const userInfo = useUserInfo();
 
   const { isLoading } = useQuery(`/assignments/${assignmentId}`, setData);
+  
+  console.log("homework data=>",data);
 
   return (
     <DetailsLayout
@@ -58,13 +60,13 @@ const Details = () => {
       <div className="sm:mt-6 mt-3">
         <AssignmentInformation data={data} />
 
-        {data?.attachments?.length > 0 && (
+        {data?.medias?.length > 0 && (
           <div className="mt-2 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
-            <p>Lessons</p>
+            <p className="text-lg font-medium text-black">Lessons</p>
 
-            <div className="sm:w-[500px] w-[300px]">
-              <MediaViewer attachments={data?.attachments} />
-            </div>
+            {/* <div className="sm:w-[500px] w-[300px]"> */}
+              <MediaViewer attachments={data?.medias} />
+            {/* </div> */}
           </div>
         )}
       </div>

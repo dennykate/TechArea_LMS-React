@@ -1,6 +1,7 @@
 import React from "react";
 import VideoPlayer from "./VideoPlayer";
-import PDFViewer from "./PDFViewer";
+// import PDFViewer from "./PDFViewer";
+import PdfPreviewer from "./PdfPreviewer";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 interface PropsType {
@@ -21,7 +22,7 @@ const MediaViewer: React.FC<PropsType> = ({ attachments }) => {
       case "gif":
         return <img src={attachment.url} alt={`File ID: ${attachment.id}`} />;
       case "pdf":
-        return <PDFViewer url={attachment.url} name={attachment.id} />;
+        return <PdfPreviewer url={attachment.url} name={attachment.id} />;
       case "mp4":
         return <video controls src={attachment.url} />;
       default:
@@ -30,7 +31,7 @@ const MediaViewer: React.FC<PropsType> = ({ attachments }) => {
   };
 
   return (
-    <div className="space-y-2">
+    <div className="w-full grid grid-cols-4 gap-4">
       {attachments.map((attachment: any) => (
         <div key={attachment.id} className="media-container">
           {renderMedia(attachment)}
