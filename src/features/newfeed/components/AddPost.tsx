@@ -24,7 +24,7 @@ const AddPost: React.FC<StateProps> = ({ latest, setLatest, setPosts }) => {
     items-center justify-center gap-5 mt-6"
     >
       <div className="flex items-center gap-2 sm:gap-5 w-full">
-        <Avatar className=" rounded-full" size={"lg"} src={userData?.profile} />
+        <Avatar className=" rounded-full" size={"md"} src={userData?.profile} />
         <input
           onClick={open}
           disabled={opened}

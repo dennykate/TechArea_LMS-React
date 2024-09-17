@@ -31,7 +31,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
         className="w-full border rounded-sm border-black border-opacity-20 p-2 shadow-md
      flex items-start lg:gap-4 gap-2 relative  lg:flex-row flex-col"
       >
-        {/* {data?.content_type == "image" && (
+        {data?.content_type == "image" && data?.medias[0] && (
           <div className="lg:w-[300px] w-full h-[200px] rounded-sm overflow-hidden ">
             <img
               src={data?.medias[0]?.url}
@@ -40,7 +40,7 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
          w-full h-full object-cover"
             />
           </div>
-        )} */}
+        )}
 
         {data?.content_type == "video" && (
           <div className="lg:w-[300px] w-full h-[200px] rounded-sm overflow-hidden ">

@@ -21,7 +21,7 @@ const ModalImage: React.FC<PropsType> = ({ imageURL, children }) => {
           <img
             src={imageURL}
             alt="imageURL"
-            className="h-[80vh] w-auto object-cover"
+            className="sm:h-[80vh] w-auto object-cover"
           />
         </div>
       </Modal>

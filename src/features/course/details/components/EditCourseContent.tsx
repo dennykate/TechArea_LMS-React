@@ -148,7 +148,7 @@ const EditCourseContent: React.FC<PropsType> = ({ close, data }) => {
           />
         )}
 
-        {form.values.type === "image" && (
+        {form.values.type === "image" && data?.medias?.length > 0 && (
           <MyCarousel
             slides={data?.medias}
             className="h-[180px]"

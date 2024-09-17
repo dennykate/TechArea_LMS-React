@@ -132,10 +132,16 @@ const FileUpload: React.FC<PropsType> = ({
               </Dropzone.Idle>
 
               <div>
-                <Text size="xl" inline>
+                <Text size="xl" inline className="text-center">
                   Drag here or click to select files
                 </Text>
-                <Text size="sm" color="dimmed" inline mt={7}>
+                <Text
+                  size="sm"
+                  color="dimmed"
+                  inline
+                  mt={7}
+                  className="text-center"
+                >
                   Attach as many files as you like...
                 </Text>
               </div>
@@ -267,7 +273,7 @@ const FileUpload: React.FC<PropsType> = ({
               </Dropzone.Idle>
 
               <div>
-                <Text size="xl" inline>
+                <Text size="xl" inline className="text-center">
                   Drag here or click to select files
                 </Text>
                 <Text

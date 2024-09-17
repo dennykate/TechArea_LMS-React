@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { MediaType } from "./Post";
 import { twMerge } from "tailwind-merge";
 import MediaRenderer from "@/components/images/MediaRenderer";
+import { useViewportSize } from "@mantine/hooks";
 
 type PropsType = {
   data: MediaType[];
@@ -9,12 +10,13 @@ type PropsType = {
 };
 
 const PostMedia: React.FC<PropsType> = ({ data, parent }) => {
+  const { width } = useViewportSize();
   const [shouldSlice, setShouldSlice] = useState<boolean>(false);
 
   useEffect(() => {
-    if (data?.length > 2) setShouldSlice(true);
+    if (data?.length > (width < 500 ? 1 : 2)) setShouldSlice(true);
     else setShouldSlice(false);
-  }, [data]);
+  }, [data, width]);
 
   return (
     <>
@@ -22,22 +24,24 @@ const PostMedia: React.FC<PropsType> = ({ data, parent }) => {
         <div
           className={twMerge(
             "w-full grid gap-2",
-            parent === "newfeed" ? "w-[700px]" : "w-[500px]",
-            data?.length > 1 ? "grid-cols-2" : "grid-cols-1"
+            parent === "newfeed" ? "w-[700px]" : "sm:w-[500px]",
+            data?.length > 1 ? "sm:grid-cols-2 grid-cols-1" : "grid-cols-1"
           )}
         >
-          {data?.slice(0, shouldSlice ? 2 : data?.length).map((media) => (
-            <MediaRenderer
-              key={media?.id}
-              src={media?.url}
-              // alt={media?.id}
-              className={` object-cover h-[250px] sm:h-[300px]`}
-            />
-          ))}
+          {data
+            ?.slice(0, shouldSlice ? (width < 500 ? 1 : 2) : data?.length)
+            .map((media) => (
+              <MediaRenderer
+                key={media?.id}
+                src={media?.url}
+                // alt={media?.id}
+                className={` object-cover h-[250px] sm:h-[300px]`}
+              />
+            ))}
         </div>
       )}
 
-      {data?.length > 2 && (
+      {data?.length > (width < 500 ? 1 : 2) && (
         <div className="w-full mt-2 flex justify-end">
           <p
             onClick={() => setShouldSlice((prev) => !prev)}

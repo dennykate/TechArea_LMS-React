@@ -46,9 +46,9 @@ const PendingPost = ({ pendingClose }: PropsType) => {
                   Approve
                 </MyButton>
                 <div className="flex items-center gap-4 sm:flex-row flex-col">
-                  {post?.image ? (
+                  {post?.medias[0] ? (
                     <img
-                      src={post?.image}
+                      src={post?.medias[0]?.url}
                       alt="post thumnnail"
                       className="sm:min-w-[200px] w-full h-[150px] object-cover"
                     />

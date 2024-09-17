@@ -21,14 +21,14 @@ const UploadedImages: React.FC<UploadProps> = ({
   };
 
   return (
-    <div className="flex gap-4 justify-center items-center flex-wrap">
+    <div className="flex sm:gap-4 gap-2 justify-center items-center flex-wrap">
       {uploadedImage?.map((image, index) => (
         <div
           onMouseEnter={() => setHoverIndex(index)}
           onMouseLeave={() => setHoverIndex(null)}
           className={twMerge(
             "relative ",
-            uploadedImage?.length > 1 ? "w-[48%] h-[150px]" : "w-full h-[300px]"
+            uploadedImage?.length > 1 ? "w-[45%] h-[150px]" : "w-full h-[300px]"
           )}
           key={index}
         >
