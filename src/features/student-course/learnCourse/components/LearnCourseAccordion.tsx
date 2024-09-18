@@ -45,9 +45,9 @@ const LearnCourseAccordion: React.FC<PropsType> = ({
               )}
             </div>
 
-            <div className="flex items-center gap-2 capitalize">
+            {/* <div className="flex items-center gap-2 capitalize">
               <p>{data?.content_type}</p>
-            </div>
+            </div> */}
           </div>
         </Accordion.Control>
         <Accordion.Panel bg="white">
