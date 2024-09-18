@@ -96,3 +96,12 @@ th {
 .text-desc > ul {
   @apply !list-disc;
 }
+
+.scrollbar-hide iframe::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, WebKit */
+}
+
+.scrollbar-hide iframe {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}

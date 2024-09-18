@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import MediaRenderer from "@/components/images/MediaRenderer";
 import Heading from "@/components/typography/Heading";
 import { RingProgress } from "@mantine/core";
 import { Link } from "react-router-dom";
@@ -16,9 +17,8 @@ const QuizCard: React.FC<PropsType> = ({ data }) => {
        "
     >
       <div className="w-full sm:h-[150px] h-[130px] relative">
-        <img
+        <MediaRenderer
           src={data?.medias[0].url}
-          alt={data?.title}
           className="w-full h-full object-cover"
         />
 

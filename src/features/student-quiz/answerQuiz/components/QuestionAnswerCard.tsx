@@ -26,6 +26,14 @@ const QuestionAnswerCard: React.FC<PropsType> = ({ data, index, onAnswer }) => {
         />
       )}
 
+      {data?.video && (
+        <video
+          src={data?.video}
+          controls
+          className="w-[500px] h-[250px] object-cover mt-2"
+        />
+      )}
+
       <Heading tag="h6" className="mt-4">
         {data?.title}
       </Heading>

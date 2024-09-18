@@ -81,10 +81,13 @@ const AnswerQuiz = () => {
           </div>
 
           <AnswerQuizInformation data={data} />
-          <hr className="my-5"/>
+
+          <hr className="my-5" />
           {data?.medias?.length > 0 && (
             <div className="mt-5 flex flex-col gap-2 sm:text-sm text-xs font-[300] text-black/70">
-              <p className="text-lg font-medium text-black mb-3">Lessons</p>
+              <p className="text-lg font-medium text-black mb-3">
+                Support Attachments
+              </p>
               <MyCarousel slides={data?.medias} />
             </div>
           )}

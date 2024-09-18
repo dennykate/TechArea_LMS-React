@@ -28,7 +28,21 @@ const MediaRenderer: React.FC<PropsType> = ({ className, src }) => {
   switch (true) {
     case extension === "pdf":
       return (
-        <iframe src={src} className={twMerge("w-full h-full", className)} />
+        <div
+          className={twMerge(
+            "w-full h-full overflow-hidden scrollbar-hide border ", // Ensure scrollbar-hide class is used
+            className
+          )}
+        >
+          <iframe
+            src={src}
+            className="w-[calc(100%+15px)] scale-105 h-full !border-none !outline"
+            style={{
+              pointerEvents: "none", // Disable interactions (optional)
+              scrollBehavior: "auto",
+            }}
+          />
+        </div>
         // <PdfPreviewer pdfUrl={src}/>
       );
     case extension === "mp4" || extension === "webm" || extension === "ogg":

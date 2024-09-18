@@ -15,6 +15,7 @@ import {
 } from "@mantine/dropzone";
 import React, { useEffect, useState } from "react";
 import { AiFillFileUnknown } from "react-icons/ai";
+import { twMerge } from "tailwind-merge";
 
 export const imageTypes = [
   "image/jpeg",
@@ -25,6 +26,17 @@ export const imageTypes = [
   "image/svg+xml",
 ];
 
+export const videoTypes = [
+  "video/mp4",
+  "video/webm",
+  "video/ogg",
+  "video/avi",
+  "video/mov",
+  "video/flv",
+  "video/mkv",
+  "video/wmv",
+];
+
 interface PropsType extends Partial<DropzoneProps> {
   type?: "video" | "image" | "all";
   setSingleFile?: (x: File | undefined) => void;
@@ -32,6 +44,7 @@ interface PropsType extends Partial<DropzoneProps> {
   defaultImage?: string;
   label?: string;
   withAsterisk?: boolean;
+  fileContainerClassName?: string;
 }
 
 const FileUpload: React.FC<PropsType> = ({
@@ -42,6 +55,7 @@ const FileUpload: React.FC<PropsType> = ({
   multiple = false,
   label,
   withAsterisk,
+  fileContainerClassName,
   ...props
 }) => {
   const theme = useMantineTheme();
@@ -79,6 +93,9 @@ const FileUpload: React.FC<PropsType> = ({
         ]);
     }
   };
+
+  console.log("previewUrl => ", previewUrl);
+  console.log("files => ", files);
 
   return (
     <>
@@ -197,8 +214,13 @@ const FileUpload: React.FC<PropsType> = ({
         </div>
       )}
 
-      {(files as any)?.length > 1 && (
-        <div className=" p-2 relative mt-6 grid md:grid-cols-3 grid-cols-2  gap-1">
+      {(files as any)?.length > 0 && (
+        <div
+          className={twMerge(
+            "p-2 relative mt-6 grid md:grid-cols-3 grid-cols-2  gap-1",
+            fileContainerClassName
+          )}
+        >
           {files?.map((dt: File, index: number) => (
             <div
               key={index}
@@ -210,6 +232,27 @@ const FileUpload: React.FC<PropsType> = ({
                   alt="file"
                   className="w-full h-full object-cover"
                 />
+              ) : videoTypes.includes(dt.type) ? (
+                <video
+                  src={URL.createObjectURL(dt)}
+                  controls
+                  className="w-full h-full object-cover"
+                />
+              ) : dt?.type?.includes("pdf") ? (
+                <div
+                  className={twMerge(
+                    "w-full h-full overflow-hidden scrollbar-hide border "
+                  )}
+                >
+                  <iframe
+                    src={URL.createObjectURL(dt)}
+                    className="w-[calc(100%+15px)] scale-105 h-full !border-none !outline"
+                    style={{
+                      pointerEvents: "none", // Disable interactions (optional)
+                      scrollBehavior: "auto",
+                    }}
+                  />
+                </div>
               ) : (
                 <div className="w-full h-full flex justify-center items-center bg-gray-200">
                   <AiFillFileUnknown className="text-5xl" />

@@ -13,6 +13,7 @@ import React from "react";
 import useMutate from "@/hooks/useMutate";
 import alertActions from "@/utilities/alertActions";
 import VideoPlayer from "@/components/common/VideoPlayer";
+import MediaRenderer from "@/components/images/MediaRenderer";
 
 interface PropsType {
   data: any;
@@ -33,9 +34,9 @@ const CourseContentCard: React.FC<PropsType> = ({ data }) => {
       >
         {data?.content_type == "image" && data?.medias[0] && (
           <div className="lg:w-[300px] w-full h-[200px] rounded-sm overflow-hidden ">
-            <img
+            <MediaRenderer
               src={data?.medias[0]?.url}
-              alt="thumbnail"
+              // alt="thumbnail"
               className="
          w-full h-full object-cover"
             />

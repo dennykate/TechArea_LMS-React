@@ -13,6 +13,11 @@ interface PropsType {
   height?: number;
 }
 
+// const getFileExtension = (url: string): string => {
+//   const match = url.match(/\.[a-zA-Z0-9]+$/);
+//   return match ? match[0].toLowerCase() : "";
+// };
+
 const MyCarousel = ({
   slides,
   onDelete,
@@ -24,15 +29,12 @@ const MyCarousel = ({
     <Carousel
       withControls
       height={height}
+      slideSize="33.333333%"
+      slideGap="md"
       loop
       align="start"
+      slidesToScroll={3}
       controlSize={30}
-      slideGap="md"
-      slideSize="33.333333%" // Default for large screens
-      breakpoints={[
-        { maxWidth: 1024, slideSize: "50%" }, // 2 slides for large screens (<= 1024px)
-        { maxWidth: 768, slideSize: "100%" }, // 1 slide for medium and smaller screens (<= 768px)
-      ]}
       classNames={{ control: "bg-primary text-white opacity-100" }}
     >
       {slides?.map((slide: any, i: number) => {

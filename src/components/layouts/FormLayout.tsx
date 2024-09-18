@@ -64,7 +64,7 @@ const FormLayout = ({
               "w-full border border-opacity-30 shadow-md rounded-md md:p-8 sm:p-4 p-3 bg-white  !mt-6"
           )}
         >
-          {(!isModal && queryLoading) ? (
+          {!isModal && queryLoading ? (
             <div className="w-full h-[100px] flex justify-center items-center">
               <Loader />
             </div>

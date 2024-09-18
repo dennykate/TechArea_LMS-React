@@ -1,5 +1,6 @@
-import { Loader } from "@mantine/core";
 import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import { Loader } from "@mantine/core";
 import Heading from "../typography/Heading";
 
 interface PropsType {
@@ -30,10 +31,10 @@ const FullPageLoader: React.FC<PropsType> = ({
     return () => clearInterval(intervalId); // Clear interval on component unmount
   }, []);
 
-  return (
+  const loaderContent = (
     <div
       className="w-full h-screen flex justify-center items-center fixed z-[1000] top-0 
-    left-0 bg-white bg-opacity-70"
+      left-0 bg-white bg-opacity-70"
     >
       <div className="flex items-center gap-4">
         <Loader size={"lg"} />
@@ -42,6 +43,9 @@ const FullPageLoader: React.FC<PropsType> = ({
       </div>
     </div>
   );
+
+  // Render loader in the body using portal
+  return ReactDOM.createPortal(loaderContent, document.body);
 };
 
 export default FullPageLoader;

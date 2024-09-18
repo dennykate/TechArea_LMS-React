@@ -1,6 +1,7 @@
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import React from "react";
+import MediaRenderer from "./images/MediaRenderer";
 
 interface PropsType {
   imageURL: string;
@@ -18,9 +19,8 @@ const ModalImage: React.FC<PropsType> = ({ imageURL, children }) => {
 
       <Modal fullScreen opened={opened} onClose={close} centered>
         <div className="w-full h-[calc(100vh-120px)] flex justify-center items-center">
-          <img
+          <MediaRenderer
             src={imageURL}
-            alt="imageURL"
             className="sm:h-[80vh] w-auto object-cover"
           />
         </div>

@@ -123,6 +123,7 @@ const Submit = () => {
         <FileUpload
           type="all"
           multiple
+          fileContainerClassName={`md:!grid-cols-2`}
           setMultileFile={setFiles as any}
           setSingleFile={(file) => setFiles((prev: any) => [...prev, file])}
         />

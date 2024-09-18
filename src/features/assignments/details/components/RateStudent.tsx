@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import MyButton from "@/components/buttons/MyButton";
-import MediaViewer from "@/components/common/MediaViewer";
+import MyCarousel from "@/components/common/MyCarousel";
 import NumberInputComponent from "@/components/inputs/NumberInputComponent";
 import useMutate from "@/hooks/useMutate";
 import { useForm } from "@mantine/form";
@@ -53,7 +53,11 @@ const RateStudent: React.FC<PropsType> = ({
         </MyButton>
       </div>
 
-      <MediaViewer attachments={report?.attachments} />
+      <MyCarousel
+        slides={report?.attachments}
+        height={150}
+        className="h-[150px]"
+      />
     </form>
   );
 };
